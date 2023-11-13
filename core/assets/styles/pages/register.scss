@@ -1,0 +1,61 @@
+body.register {
+  // vars
+  --header-height: 0px;
+
+  // background
+  background: var(--color-primary);
+
+  // btn primary size
+  [class*="btn"] {
+    min-height: 4rem;
+    font-size: 1.6rem;
+  }
+
+  // popup
+  [data-popup] {
+    // inner
+    [data-popup-inner] {
+      padding: 3rem;
+      max-width: 80rem;
+
+      @include responsive('tablet-h') {
+        padding: 2rem;
+      }
+    }
+  }
+
+  // form
+  .register-form {
+    padding: 2rem;
+
+    // inner
+    &__inner {
+      max-width: 35rem;
+    }
+
+    // heading
+    &__heading {
+      margin-bottom: var(--spacing-24)
+    }
+
+    // content
+    &__content {
+
+      label {
+        display: none
+      }
+    }
+  }
+
+  // notification
+  .notification {
+    // icon
+    &__icon {
+      margin-bottom: 1rem;
+
+      svg {
+        width: 7.5rem;
+      }
+    }
+  }
+}

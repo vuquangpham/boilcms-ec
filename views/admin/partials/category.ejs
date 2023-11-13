@@ -1,0 +1,46 @@
+<%
+const isActiveItem = (category) => {
+    return category.type === categoryItem.type ? 'active' : '';
+};
+
+// custom type
+const accountType = categories.find(c => c.type === 'account');
+%>
+
+<div class="category__panel ps-fixed" data-toggle="sidebar">
+    <div class="category__panel-inner overflow-auto h100 d-flex fd-column jc-space-between">
+        <ul class="category__menu category__menu--top list-style-none">
+            <% categories.forEach(category => {
+                if(category.notShowInCategory) return; %>
+
+            <% const isActive = isActiveItem(category); %>
+
+            <li class="category__menu-item <%= isActive; %>">
+                <a href="<%= category.url; %>"><%= category.name; %></a>
+
+                <% if (category.children && category.children.length && isActive) { %>
+                    <ul class="category__menu sub-menu">
+                        <% category.children.forEach(child => { %>
+                            <% const isActiveSubPage = child.compare ? child.compare(data) : false; %>
+                            <li class="category__menu-item <%= isActiveSubPage ? 'active' : '' %>">
+                                <a href="<%= child.url %>"><%= child.name %></a>
+                            </li>
+                        <% }) %>
+                    </ul>
+                <% } %>
+            </li>
+            <% }); %>
+        </ul>
+
+        <!-- account menu -->
+        <ul class="category__menu category__menu--bottom list-style-none" style="padding: 3rem 0;">
+            <li class="category__menu-item <%= isActiveItem(accountType); %>">
+                <a href="<%= accountType.url; %>">Account</a>
+            </li>
+
+            <li class="category__menu-item">
+                <a href="/register?type=log-out">Log out</a>
+            </li>
+        </ul>
+    </div>
+</div>

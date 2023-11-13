@@ -1,0 +1,76 @@
+/* custom table */
+@include responsive('tablet-v', true) {
+  /* column */
+  [data-custom-table] [data-column-wrapper] {
+    display: flex;
+    align-items: center;
+  }
+
+  [data-custom-table] [data-column-wrapper] {
+    min-height: 5rem;
+  }
+  [data-custom-table] [data-column] {
+    padding: 1.5rem;
+    font-size: var(--fz-14);
+  }
+
+  /* each columns */
+  [data-custom-table] [data-column] {
+    width: 25%;
+  }
+
+  /* heading */
+  [data-custom-table] [data-column-wrapper="heading"] {
+    background-color: var(--color-secondary);
+    color: var(--color-white);
+  }
+
+  /* item */
+  [data-custom-table] [data-column-wrapper="item"] {
+    align-items: flex-start;
+    background-color: rgba(222, 226, 230, 0.58)
+  }
+  [data-custom-table] [data-column-wrapper="item"]:nth-child(odd) {
+    background-color: #f8f9fa;
+  }
+}
+
+@include responsive('tablet-v') {
+  /* heading */
+  [data-custom-table] [data-column-wrapper="heading"] {
+    display: none;
+  }
+
+  /* column */
+  [data-custom-table] [data-column-wrapper="item"] [data-column] {
+    font-size: var(--fz-14);
+    display: flex;
+    align-items: center;
+    gap: .6rem;
+  }
+  [data-custom-table] [data-column-wrapper="item"] [data-column]:not(:last-child),
+  [data-custom-table] [data-column-wrapper="item"] [data-column] [data-title]:not(:last-child) {
+    margin-bottom: 1rem;
+  }
+
+  /* title with data attribute */
+  [data-custom-table] [data-column-wrapper="item"] [data-column].not-show-title [data-title]:before,
+  [data-custom-table] [data-column-wrapper="item"] [data-column]:not(.not-show-title):before {
+    content: attr(data-column) ": ";
+    font-weight: 400;
+    color: var(--color-secondary);
+  }
+  [data-custom-table] [data-column-wrapper="item"] [data-column].not-show-title [data-title]:before {
+    content: attr(data-title) ": ";
+  }
+
+  /* item */
+  [data-custom-table] [data-column-wrapper="item"] {
+    padding: 1.5rem;
+    border-radius: 3px;
+    border: 1px solid var(--color-secondary);
+  }
+  [data-custom-table] [data-column-wrapper="item"]:not(:last-child) {
+    margin-bottom: 1.5rem;
+  }
+}

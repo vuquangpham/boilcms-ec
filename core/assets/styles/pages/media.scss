@@ -1,0 +1,70 @@
+/******************************
+* Media Pages
+*******************************/
+.media {
+
+  // min width 768px
+  @include responsive('tablet-v', true) {
+    flex-direction: row-reverse;
+
+    // form
+    &__form {
+      width: 30%;
+    }
+
+    // list
+    &__list {
+      width: 70%;
+      padding-right: 2.5rem;
+    }
+  }
+
+  // max-width 768px
+  @include responsive('tablet-v') {
+    &__form {
+      margin-bottom: 3rem;
+    }
+  }
+
+  // layout for the list
+  [data-media-list] {
+    gap: .8rem;
+
+    // item
+    [data-media-item] {
+      flex-basis: 130px;
+    }
+  }
+
+  // item
+  [data-media-item] {
+    border: 2px solid var(--color-gray);
+    aspect-ratio: 3/2;
+
+    padding: .4rem;
+    background: transparent;
+
+    // loading state
+    &.loading {
+      opacity: 0;
+    }
+
+    &:not(.loading) {
+      transition: all .3s ease;
+    }
+  }
+
+  // hover
+  button[data-media-item] {
+    // hover state
+    &:hover,
+    &:focus {
+      border-color: var(--color-secondary);
+    }
+  }
+
+  // popup
+  form[data-popup-inner] {
+    padding: 3rem;
+  }
+}

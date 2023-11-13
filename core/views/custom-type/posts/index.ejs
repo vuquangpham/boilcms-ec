@@ -1,0 +1,56 @@
+<div data-custom-title>
+    <span><%= title; %></span>
+</div>
+
+<% if (data.length === 0) { %>
+    <h2>No content</h2>
+<% } else { %>
+    <div class="posts-list" data-custom-table>
+        <div class="posts-list__inner">
+            <div class="posts-list__heading" data-column-wrapper="heading">
+                <div class="posts__list--title" data-column="Title">Title</div>
+                <div class="posts__list--author" data-column="Author">Author</div>
+                <div class="posts__list--state" data-column="State">Visibility</div>
+                <div class="posts__list--categories" data-column="Categories">Categories</div>
+                <div class="posts__list--date" data-column="Date">Last Update</div>
+            </div>
+
+            <% data.forEach(post => { %>
+
+                <%
+                    const viewURL = isSpecialType ? '/' + post.url : '/' + type + '/' + post.url;
+                %>
+
+                <div class="posts-list__item" data-column-wrapper="item">
+                    <div class="posts__item--title not-show-title" data-column="Title">
+                        <a href="?post_type=<%= contentType; %>&action=edit&id=<%= post.id; %>"
+                           class="posts__item--link"><%= post.title; %></a>
+                        <div class="posts__item--utils">
+                            <a href="?post_type=<%= contentType; %>&action=edit&id=<%= post._id; %>"
+                               class="posts__item--link">Edit</a>
+                            <a href="<%= viewURL; %>" target="_blank" class="posts__item--link">View</a>
+                            <a href="?post_type=<%= contentType; %>&method=post&action=delete&id=<%= post._id; %>"
+                               class="posts__item--link trash">Trash</a>
+                        </div>
+                    </div>
+
+                    <div class="posts__item--author <%= post.author ? 'post__item--author-active' : 'post__item--author-deleted' %>"
+                         data-column="Author"><%= post.author ? `${post.author.name}` : `${post.authorName}` %></div>
+                    <div class="posts__item--status" data-title="Visibility"
+                         data-column="State"><%= post.visibility === 'private' ? 'Private' : 'Published'; %></div>
+                    <div class="posts__item--categories" data-column="Categories">Categories</div>
+                    <div class="posts__item--date not-show-title" data-column="Date">
+                        <time data-title="Date"><%= post.publishFormatted %></time>
+                    </div>
+                    <div class="posts__item--utils">
+                        <a href="?post_type=<%= contentType; %>&action=edit&id=<%= post._id; %>"
+                           class="posts__item--link">Edit</a>
+                        <a href="<%= viewURL; %>" target="_blank" class="posts__item--link">View</a>
+                        <a href="?post_type=<%= contentType; %>&method=post&action=delete&id=<%= post._id; %>"
+                           class="posts__item--link trash">Trash</a>
+                    </div>
+                </div>
+            <% }); %>
+        </div>
+    </div>
+<% } %>

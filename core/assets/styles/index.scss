@@ -1,0 +1,31 @@
+// global
+@import '@global/style/index.scss';
+
+// utils
+@import "./utils/variables";
+
+// base
+@import "./base/base";
+@import "./base/form";
+@import "./base/fonts";
+
+// components
+@import './components/popup';
+@import './components/header';
+@import './components/category';
+@import './components/custom-table';
+@import "./components/media-popup";
+@import "./components/page-builder";
+
+// pages
+@import "./pages/default";
+@import "./pages/posts";
+@import "./pages/posts-detail";
+@import "./pages/media";
+@import "./pages/user";
+@import "./pages/register";
+
+// vendors
+@import './vendors/quill';
+@import './vendors/easy-select.min';
+@import './vendors/easy-select-custom';

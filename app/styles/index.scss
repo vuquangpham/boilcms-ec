@@ -1,0 +1,15 @@
+// global
+@import '@global/style/index';
+
+// utils
+@import "./utils/variables";
+
+// base
+@import "./base/base";
+@import "./base/typo";
+@import "./base/fonts";
+@import "./base/form";
+
+// components
+@import "./components/header";
+@import "./components/footer";

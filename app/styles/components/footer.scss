@@ -1,0 +1,47 @@
+.footer {
+  background: #000;
+  padding: 7rem 0 4rem;
+
+  // top
+  &__top {
+    margin-bottom: 4rem;
+  }
+
+  // heading
+  &__heading {
+    margin-bottom: 1.5rem;
+  }
+}
+
+/***************************
+* Responsive
+****************************/
+// 768px
+@include responsive('tablet-v') {
+  .footer {
+    // col
+    &__col {
+      width: 100%;
+
+      // ta-right
+      .ta-right {
+        text-align: left;
+      }
+
+      // bottom spacing
+      &:not(:last-child) {
+        margin-bottom: 3.5rem;
+      }
+    }
+  }
+}
+
+// mobile
+@include responsive('mobile') {
+  .footer {
+    // adjust font-size
+    font-size: 1.4rem;
+
+    padding: 5rem 0 3rem;
+  }
+}

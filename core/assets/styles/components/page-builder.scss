@@ -1,0 +1,314 @@
+/*******************************
+* Page Builder
+********************************/
+/* page builder */
+[data-pb] {
+  // page builder
+  [data-pb-components] {
+    margin-bottom: var(--spacing-30);
+  }
+
+  /* component */
+  [data-component] {
+    text-align: left;
+    font-size: var(--fz-14);
+
+    position: relative;
+  }
+
+  // button
+  [class*="btn_"] {
+    min-height: unset;
+    min-width: unset;
+  }
+}
+
+
+/*******************************
+* Page Builder > Content
+********************************/
+[data-pb-inner] [data-component] {
+  --alignment-spacing: 1.2rem;
+
+  min-height: 50px;
+  background-color: white;
+  padding: calc(var(--alignment-spacing) + .15rem) var(--alignment-spacing) var(--alignment-spacing);
+
+  // row component
+  &[data-component="row"] {
+    padding: 3rem 1.2rem 2.5rem;
+    border: 1px solid var(--color-secondary);
+    background: transparent;
+
+    // name
+    & > [data-component-name] {
+      background: var(--color-secondary);
+      color: white;
+      padding: .3rem;
+    }
+
+    // add more component
+    & > [data-component-add] {
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translate(-50%, 50%);
+    }
+  }
+
+  /* bottom spacing */
+  &:not(:last-child) {
+    margin-bottom: var(--spacing-24);
+  }
+
+  &[data-component="row"]:not(:last-child) {
+    margin-bottom: var(--spacing-24);
+  }
+
+  /* name */
+  [data-component-name] {
+    text-transform: capitalize;
+    font-weight: 700;
+    font-style: normal;
+    color: var(--color-secondary);
+    line-height: 1;
+
+    position: absolute;
+    top: 0;
+    left: var(--alignment-spacing);
+    transform: translateY(-50%);
+  }
+
+  /* content */
+  [data-component-content] {
+    font-size: var(--fz-14);
+    color: #868e96;
+    font-style: italic;
+  }
+
+  /* utils */
+  [data-component-utils] {
+    position: absolute;
+    top: 0;
+    right: var(--alignment-spacing);
+    transform: translateY(-50%);
+
+    background: white;
+
+    display: flex;
+    align-items: center;
+    gap: 4px;
+
+    /* group divide */
+    [data-group-divide] {
+
+      // err msg
+      [data-group-err-msg] {
+        display: none;
+
+        color: var(--color-error);
+      }
+
+      // has error
+      &.has-error {
+        // hidden the description
+        .description {
+          display: none;
+        }
+
+        // show err message
+        [data-group-err-msg] {
+          display: block;
+        }
+      }
+    }
+  }
+}
+
+/*******************************
+* Page Builder > Popup Detail
+********************************/
+[data-pb-component-popup] {
+  --gap: 1.5rem;
+
+  /* popup content */
+  [data-pb-component-popup-content] {
+    margin-bottom: 2rem
+  }
+
+  /* component content */
+  [data-component-content] {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    row-gap: var(--gap);
+
+    margin: 0 calc(-1 * var(--gap) * 0.5);
+
+    /* group inside content */
+    [data-group-children] {
+      margin: 0 calc(-1 * var(--gap) * 0.5);
+    }
+  }
+
+  /* component */
+  [data-type] {
+    width: 100%;
+    height: 100%;
+    padding: 0 calc(var(--gap) * 0.5);
+
+    /* input */
+    input {
+      width: 100%
+    }
+
+    /* media */
+    [data-selected-medias] {
+      --size: 80px;
+
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+
+      margin-bottom: 1rem;
+
+      /* media item */
+      [data-selected-media-item] {
+        height: var(--size);
+        border: 1px solid var(--color-primary);
+      }
+    }
+
+    /* add media */
+    [data-load-media] {
+      width: 3rem;
+      aspect-ratio: 1;
+
+      font-size: 1.8rem;
+    }
+  }
+
+  /* description */
+  .description {
+    font-style: italic;
+    font-size: 1.4rem;
+
+    padding-top: .5rem;
+    opacity: .6;
+
+    &.error {
+      color: var(--color-error);
+      opacity: 1;
+    }
+  }
+
+  /* options */
+  [data-option-wrapper] {
+    --gap: 1.2rem;
+
+    display: flex;
+    flex-wrap: wrap;
+    row-gap: var(--gap);
+
+    margin: 0 calc(-1 * var(--gap) * 0.5);
+
+    // param
+    [data-option-param] {
+      width: 100%;
+      padding: 0 calc(var(--gap) * 0.5);
+    }
+  }
+}
+
+/*************************************
+* Page Builder > Popup Components List
+*************************************/
+[data-pb-components-popup] [data-pb-components-popup-inner] {
+  display: grid;
+  grid-template-columns:repeat(5, 1fr);
+  grid-template-rows:max-content;
+  gap: 20px;
+}
+
+[data-pb-components-popup] [data-component] {
+  border: 1px solid transparent;
+  padding: 10px;
+  background: var(--bg-color);
+
+  display: flex;
+  flex-direction: column;
+
+  text-align: left;
+}
+
+/* hover */
+[data-pb-components-popup] [data-component]:hover,
+[data-pb-components-popup] [data-component]:focus {
+  border-color: var(--color-secondary);
+  background: var(--bg-color);
+}
+
+[data-pb-components-popup] [data-component-title] {
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--color-secondary);
+  margin-bottom: 5px;
+}
+
+[data-pb-components-popup] [data-component-description] {
+  font-size: 13px;
+  color: rgba(33, 37, 41, 0.75);
+  line-height: 1.4;
+}
+
+// avoid click on component util in wrapper
+[data-pb-components] > [data-component] > [data-component-utils] {
+  display: none;
+}
+
+/*******************
+* Group
+*********************/
+[data-group-children] > [data-group-item]:first-child [data-group-remove] {
+  display: none;
+}
+
+// item
+[data-group-item] {
+  --height: 3rem;
+
+  padding-top: calc(var(--height) + 1rem);
+  min-height: var(--height);
+
+  &:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0.75rem;
+    height: 1px;
+    width: calc(100% - 1.5rem);
+
+    background: var(--color-secondary);
+  }
+
+  // bottom spacing
+  &:not(:last-child) {
+    margin-bottom: 2rem;
+  }
+
+  // button
+  [data-group-button] {
+    height: var(--height);
+    aspect-ratio: 1;
+
+    // span
+    span {
+      transition: transform 0.3s ease;
+    }
+
+    // active button
+    &.active span {
+      transform: rotate(-180deg);
+    }
+  }
+}

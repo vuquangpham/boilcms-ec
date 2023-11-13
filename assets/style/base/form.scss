@@ -1,0 +1,339 @@
+/*******************************
+* Variables
+********************************/
+:root {
+  /* Field size */
+  --form-field-size: 11rem; /* height of textarea */
+  --form-field-height: 4rem;
+  --form-field-padding-h: 1.4rem;
+  --form-font-size: 1.4rem;
+  --form-font: inherit;
+
+  /* Field border */
+  --form-radius: 0px;
+  --form-border-width: 1px;
+  --form-border-color: var(--color-primary);
+  --form-border-color-hover: var(--color-secondary);
+  --form-outline: 1px solid var(--form-border-color-hover);
+
+  /* Field colors */
+  --form-bg: #fff;
+  --form-bg-hover: #fff;
+  --form-color: var(--text-color);
+  --form-color-hover: var(--text-color);
+  --form-color-error: var(--color-error, red);
+  --form-placeholder-color: var(--color-placeholder, #ccc);
+
+  /* Choice */
+  --form-choice-size: 20px;
+  --form-choice-color: #fff;
+  --form-choice-bg-active: var(--color-secondary);
+}
+
+.txt_color_white {
+  --form-placeholder-color: #fff;
+  --form-color-error: var(--form-color-error);
+  --form-border-color-hover: var(--color-secondary);
+}
+
+
+/******************************
+* Input
+*******************************/
+input:not([type="button"]) {
+  background: var(--form-bg);
+  color: var(--form-color);
+  font-size: var(--form-font-size);
+  font-family: var(--form-font);
+
+  width: 100%;
+  height: var(--form-field-height);
+  display: block;
+  padding: .5rem var(--form-field-padding-h);
+  margin: 0 !important;
+  -webkit-appearance: none !important;
+  -webkit-border-radius: var(--form-radius) !important;
+  border-radius: var(--form-radius) !important;
+  border: var(--form-border-width) solid var(--form-border-color);
+  transition: all .3s ease;
+
+  // placeholder
+  &::-webkit-input-placeholder {
+    font-family: inherit;
+    font-weight: inherit;
+    font-size: 1.4rem;
+    color: var(--placeholder-color);
+  }
+
+  &::-moz-placeholder {
+    font-family: inherit;
+    font-weight: inherit;
+    font-size: 1.4rem;
+    color: var(--placeholder-color);
+  }
+
+  &:-ms-input-placeholder {
+    font-family: inherit;
+    font-weight: inherit;
+    font-size: 1.4rem;
+    color: var(--placeholder-color);
+  }
+
+  &:-moz-placeholder {
+    font-family: inherit;
+    font-weight: inherit;
+    font-size: 1.4rem;
+    color: var(--placeholder-color);
+  }
+}
+
+
+/******************************
+* Text area
+*******************************/
+textarea {
+  height: var(--form-field-size);
+  padding: 1.5rem var(--form-field-padding-h);
+  resize: vertical;
+  transition: border-color .3s, background-color .3s, color .3s;
+}
+
+
+/******************************
+* Hover & focus
+*******************************/
+textarea:not([readonly]):hover,
+textarea:not([readonly]):focus,
+input:not([type="button"]):not([readonly]):hover,
+input:not([type="button"]):not([readonly]):focus {
+  --form-placeholder-color: rgba(25, 32, 84, 0.5);
+  --form-border-color: var(--form-border-color-hover);
+
+  background: var(--form-bg-hover);
+  color: var(--form-color-hover);
+}
+
+
+/*********************
+ * A11y
+**********************/
+input:not([readonly]):focus-visible,
+textarea:not([readonly]):focus-visible {
+  box-shadow: 0 0 0 1px var(--form-border-color-hover);
+  border-color: var(--form-border-color-hover);
+  transition: none;
+  outline: none;
+}
+
+
+/*********************
+ * Error
+**********************/
+input[aria-invalid="true"], input[aria-invalid="true"]:hover {
+  box-shadow: 0 0 0 2px var(--form-color-error);
+}
+
+
+/*********************
+ * Readonly
+**********************/
+input[readonly] {
+  --form-bg: rgba(0, 0, 0, .03);
+  --form-border-color: rgba(0, 0, 0, .03);
+}
+
+
+/*********************
+ * Files
+**********************/
+input[type="file"] {
+  font-size: 1.4rem;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+
+  // upload button
+  &::-webkit-file-upload-button {
+    background: #eee;
+    padding: .5rem;
+    border: none;
+    cursor: pointer;
+    font-family: var(--primary-font);
+  }
+}
+
+
+/*********************
+ * Checkbox & radio
+**********************/
+.-checkbox-radio {
+
+  input[type="checkbox"],
+  input[type="radio"] {
+    display: none;
+  }
+
+  label {
+    display: block !important;
+    padding-left: 3rem;
+
+    position: relative;
+    cursor: pointer;
+
+    // checkbox
+    &:before,
+    &:after {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: .1em;
+
+      transition: all .3s ease;
+    }
+
+    // box
+    &:before {
+      width: 2rem;
+      aspect-ratio: 1;
+
+      border: var(--form-border-width) solid var(--form-border-color);
+      background: var(--form-bg);
+    }
+
+    // checked icon
+    &:after {
+      content: "✓";
+      left: .45em;
+      top: .25em;
+
+      font-size: 1.2rem;
+
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    // hover
+    &:hover:before,
+    &:focus:before {
+      border-color: var(--form-border-color-hover);
+    }
+  }
+
+  // checked
+  input[type="checkbox"]:checked + label,
+  input[type="radio"]:checked + label {
+
+    // checkbox
+    &:before {
+      background: var(--form-choice-bg-active);
+      border-color: var(--form-border-color-hover);
+    }
+
+    // checked
+    &:after {
+      opacity: 1;
+      visibility: visible
+    }
+  }
+
+  // radio
+  input[type="radio"] + label {
+
+    // radio box
+    &:before {
+      border-radius: 50%;
+    }
+
+    // checked
+    &:after {
+      content: "";
+      width: .8rem;
+      aspect-ratio: 1;
+
+      background: #fff;
+      border-radius: 50%;
+
+      top: .65em;
+      left: .5em;
+    }
+  }
+}
+
+
+/*********************
+ * Select
+**********************/
+select {
+  padding: .5rem 1rem;
+  font-size: var(--fz-14);
+}
+
+
+/********************************
+* Form fields
+********************************/
+.form-fields {
+  --gap-v: 1rem;
+  --gap-h: 1.2rem;
+
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gap-h) var(--gap-v);
+
+  // label
+  label {
+    font-weight: 600;
+    font-size: var(--fz-14)
+  }
+
+  // field
+  .field {
+    --col: 1;
+    width: calc((100% - var(--gap-h) * (var(--col) - 1)) / var(--col));
+
+    display: flex;
+    align-items: center;
+    gap: .4rem;
+
+    // vertical layout
+    &.vertical-layout {
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: flex-start;
+
+      gap: .2rem;
+    }
+
+    // description
+    .description {
+      font-size: 1.3rem;
+      font-style: italic;
+
+      opacity: .6;
+      padding-top: .6rem;
+    }
+
+    // min width 769px
+    @include responsive('tablet-v', true) {
+      // half
+      &.half {
+        --col: 2;
+      }
+
+      // third
+      &.third {
+        --col: 3;
+      }
+    }
+  }
+
+  // footer
+  .footer {
+    display: flex;
+    align-items: center;
+    gap: .4rem;
+
+    width: 100%;
+    padding-top: 2rem;
+  }
+}

@@ -1,0 +1,17 @@
+:root {
+  // header
+  --header-height: 46px;
+
+  // category
+  --category-width: 200px;
+}
+
+/************************************
+* Responsive
+************************************/
+@include responsive('mobile') {
+  :root {
+    // category
+    --category-width: 100%;
+  }
+}

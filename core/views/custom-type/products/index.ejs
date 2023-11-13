@@ -1,0 +1,53 @@
+<div data-custom-title>
+    <span><%= title; %></span>
+</div>
+
+<% if (data.length === 0) { %>
+    <h2>No content</h2>
+<% } else { %>
+    <div class="products-list" data-custom-table>
+        <div class="products-list__inner">
+            <div class="products-list__heading" data-column-wrapper="heading">
+                <div class="products__list--name" data-column="Name">Name</div>
+                <div class="products__list--sku" data-column="SKU">SKU</div>
+                <div class="products__list--price" data-column="Price">Price</div>
+                <div class="products__list--categories" data-column="Categories">Categories</div>
+                <div class="products-list--status" data-column="Status">Status</div>
+                <div class="products__list--published-time" data-column="Published Time">Published Time</div>
+            </div>
+
+            <% data.forEach(product => { %>
+
+                <%
+                    const viewURL = isSpecialType ? '/' + product.url : '/' + type + '/' + product.url;
+                %>
+
+                <div class="products-list__item" data-column-wrapper="item">
+                    <div class="products__item--title not-show-name" data-column="Name">
+                        <a href="?post_type=<%= contentType; %>&action=edit&id=<%= product.id; %>"
+                           class="products__item--link"><%= product.name; %></a>
+                        <div class="products__item--utils">
+                            <a href="?post_type=<%= contentType; %>&action=edit&id=<%= product._id; %>"
+                               class="products__item--link">Edit</a>
+                            <a href="<%= viewURL; %>" target="_blank" class="products__item--link">View</a>
+                            <a href="?post_type=<%= contentType; %>&method=post&action=delete&id=<%= product._id; %>"
+                               class="products__item--link trash">Trash</a>
+                        </div>
+                    </div>
+
+                    <div class="products__item--sku"
+                         data-column="SKU"><%= product.inventory %></div>
+                    <div class="products__item--price"
+                         data-column="Price"><%= product.price %></div>
+                    <div class="products__item--categories" data-column="Categories">Categories</div>
+                    <div class="products__item--status" data-title="Visibility"
+                         data-column="State"><%= product.visibility === 'private' ? 'Private' : 'Published'; %></div>
+
+                    <div class="products__item--date not-show-title" data-column="Date">
+                        <time data-title="Date"><%= product.publishFormatted %></time>
+                    </div>
+                </div>
+            <% }); %>
+        </div>
+    </div>
+<% } %>

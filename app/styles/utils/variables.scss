@@ -1,0 +1,74 @@
+/****************************
+* Variables
+****************************/
+:root {
+  // header
+  --header-height: 80px;
+  --header-logo: 60px;
+
+  // vars
+  --bg-color: #fff;
+
+  // font
+  --primary-font: "Montserrat", sans-serif;
+
+  // container
+  --100vw: 100vw;
+  --container: 1180px;
+  --gap-container: 40px;
+  --gap-side: clamp(var(--gap-container), calc((var(--100vw) - var(--container)) * 0.5));
+
+  //// color vars
+  //--color-primary: #1d2327;
+  //--color-secondary: #2271b1;
+  //--color-white: #f0f0f1;
+  //--color-gray: rgba(210, 210, 210, 0);
+  //--color-error: #f03e3e;
+  //--color-success: #37b24d;
+  //--placeholder-color: #adb5bd;
+  //
+  //// text and bg
+  //--text-color: #212529;
+  //
+  //// permalink
+  //--permalink-color: var(--color-secondary);
+  //--permalink-color-hover: var(--color-primary);
+  //
+  //
+  //// vertical spacing
+  //--spacing-40: 4rem;
+  //--spacing-36: 3.6rem;
+  //--spacing-30: 3rem;
+  //--spacing-24: 2.4rem;
+  //--spacing-20: 2rem;
+  //--spacing-14: 1.4rem;
+  //--spacing-10: 1rem;
+  //
+  //// font sizes
+  //--fz-50: 5rem;
+  //--fz-40: 4rem;
+  //--fz-32: 3.2rem;
+  //--fz-20: 2rem;
+  //--fz-16: 1.6rem;
+  //--fz-14: 1.4rem;
+  //--fz-12: 1.2rem;
+  //
+
+  // heading size
+  --size-h1: var(--fz-40);
+  --size-h2: var(--fz-32);
+  --size-h3: var(--fz-20);
+  --size-h4: var(--fz-18);
+  --size-h5: var(--fz-16);
+  --size-h6: var(--fz-16);
+}
+
+/****************************
+* Responsive
+****************************/
+@include responsive('tablet-h') {
+  :root {
+    // container
+    --gap-container: 20px;
+  }
+}

@@ -1,0 +1,141 @@
+<%
+// boolean for checking edit or add new post
+const isEditPost = actionType === 'edit';
+
+// validate selected value on select
+const isSelectedValue = (name, value) => {
+    if (!isEditPost) return null;
+    return data[name] === value ? 'selected' : null;
+};
+
+// get value from data
+const getValueFromData = (name, property = '') => {
+    if (!isEditPost) return '';
+    return property ? data[name][property] : data[name];
+};
+%>
+
+<div data-custom-title>
+    <span>Add new product</span>
+</div>
+
+<div class="container" data-post-detail data-product-wrapper>
+    <form action="?post_type=product&method=post&action=<%= actionType %>"
+          method="post"
+          class="detail-product">
+        <h1><%= actionType %></h1>
+
+        <div class="products-detail fl-grid">
+            <div class="products-detail__col products-detail__col--left">
+                <div class="products-detail__information">
+
+                    <div class="products-detail__name">
+                        <label for="name" class="hidden">Add Name</label>
+                        <input type="text" placeholder="Name" id="name" name="name"
+                               class="w100" value="<%= getValueFromData('name') %>">
+                    </div>
+
+                </div>
+
+                <div class="products-detail__information">
+
+                    <div class="products-detail__title">
+                        <label for="description" class="hidden">Product Description</label>
+                        <textarea type="text" placeholder="Description" id="description" name="description"
+                                  class="w100"><%= getValueFromData('description') %></textarea>
+                    </div>
+                </div>
+
+                <div class="products-detail__dropdown fl-center-v">
+                    <label for="product-type">Product type</label>
+                    <select data-easy-select name="productType" id="product-type">
+                        <option value="simple">Simple Product
+                        </option>
+                        <option value="variable">Variable Product
+                        </option>
+                    </select>
+                </div>
+
+                <div class="products-detail__information">
+
+                    <div class="products-detail__price">
+                        <label for="price" class="hidden">Add title</label>
+                        <input type="text" placeholder="Price" id="price" name="price"
+                               class="w100" value="<%= getValueFromData('price') %>">
+                    </div>
+
+                    <div class="products-detail__sale-price">
+                        <label for="sale-price" class="hidden"></label>
+                        <input type="text" placeholder="Sale price" id="sale-price" name="salePrice"
+                               class="w100" value="<%= getValueFromData('salePrice') %>">
+                    </div>
+
+                    <div class="products-detail__inventory">
+                        <label for="inventory" class="hidden"></label>
+                        <input type="text" placeholder="Inventory" id="inventory" name="inventory"
+                               class="w100" value="<%= getValueFromData('inventory') %>">
+                    </div>
+
+                    <div>
+                        <button type="button" data-add-new-attribute>Add new</button>
+                    </div>
+
+                    <div data-product-attributes>
+                        <div data-attribute-number="0">
+                            <div data-taxonomy>
+                                <div>
+                                    <div data-attribute-name>New attribute</div>
+                                    <button type="button" data-delete-attribute>Remove</button>
+                                </div>
+
+                                <div>
+                                    <div class="products-detail__attribute-name" data-attribute-product-name>
+                                        <label for="attribute-name" class="hidden"></label>
+                                        <input type="text" placeholder="Attribute name" id="attribute-name"
+                                               name="attributeName[0]"
+                                               class="w100">
+                                    </div>
+
+                                    <div class="products-detail__attribute-value">
+                                        <label for="attribute-value" class="hidden"></label>
+                                        <textarea type="text"
+                                                  placeholder="Enter some descriptive text. Use “|” to separate different values."
+                                                  id="attribute-value" name="attributeValue[0]" required
+                                                  class="w100"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="products-detail__col products-detail__col--right">
+                <div class="products-detail__dropdown fl-center-v">
+                    <label for="visibility">Visibility</label>
+                    <select data-easy-select name="visibility" id="visibility">
+                        <option value="public">Public
+                        </option>
+                        <option value="private">Private
+                        </option>
+                    </select>
+                </div>
+
+                <div class="products-detail__dropdown fl-center-v">
+                    <label for="status">Status</label>
+                    <select data-easy-select data-user-register-state name="status" id="status">
+                        <option value="active">Active
+                        </option>
+                        <option value="suspend">Suspend
+                        </option>
+                    </select>
+                </div>
+
+                <button type="submit" class="btn_primary">Publish</button>
+            </div>
+        </div>
+
+    </form>
+</div>

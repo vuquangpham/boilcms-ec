@@ -1,0 +1,85 @@
+.users__item--action {
+  svg {
+    width: 2.5rem;
+    transition: transform .3s ease;
+
+    // responsive
+    @include responsive('mobile') {
+      width: 2.2rem;
+    }
+  }
+
+  button {
+    border: none;
+    background: transparent;
+  }
+
+  // edit button
+  [data-user-edit] {
+
+    &:hover svg,
+    &:focus svg {
+      fill: var(--color-primary);
+      transform: scale(1.05) rotate(10deg);
+    }
+  }
+
+  // remove
+  [data-user-remove] {
+
+    &:hover svg,
+    &:focus svg {
+      fill: var(--color-error);
+      transform: scale(1.05) rotate(10deg);
+    }
+  }
+}
+
+/* responsive */
+// 1024 - 768
+@include responsive('touches-device', 'tablet-v') {
+  /* list */
+  body .users-list {
+    --user-width: 100px;
+    --register-width: 180px;
+    --role-width: 100px;
+    --state-width: 100px;
+    --action-width: 90px;
+  }
+  .users-list__item [data-column]:not([data-column="title"]) {
+    font-size: 1.2rem;
+  }
+}
+
+// min width 768
+@include responsive('tablet-v', true) {
+  /* list */
+  .users-list {
+    --user-width: 160px;
+    --register-width: 220px;
+    --email-width: calc(100% - var(--user-width) - var(--register-width) - var(--role-width) - var(--state-width) - var(--action-width));
+    --role-width: 120px;
+    --state-width: 120px;
+    --action-width: 90px;
+  }
+
+  /* each columns */
+  .users-list [data-column="User"] {
+    width: var(--user-width);
+  }
+  .users-list [data-column="Register At"] {
+    width: var(--register-width);
+  }
+  .users-list [data-column="Email"] {
+    width: var(--email-width);
+  }
+  .users-list [data-column="Role"] {
+    width: var(--role-width);
+  }
+  .users-list [data-column="State"] {
+    width: var(--state-width);
+  }
+  .users-list [data-column="Action"] {
+    width: var(--action-width);
+  }
+}

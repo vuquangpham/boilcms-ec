@@ -1,0 +1,60 @@
+$breakpoints: (
+        'mobile-s': 480px,
+        'mobile': 480px,
+        'tablet-v': 768px,
+        'tablet-h': 1024px,
+        'touches-device': 1180px,
+) !default;
+
+/* Visibility Classes */
+.hidden-mobile, .hidden-tablet-v, .hidden-tablet-h, .hidden-touch-devices {
+  display: block;
+}
+
+.show-mobile, .show-tablet-v, .show-tablet-h, .show-touch-devices, .hidden {
+  display: none;
+}
+
+/* Touch devices */
+@media only screen and (max-width: map-get($breakpoints, 'touches-device')) {
+  /* Visibility Classes */
+  .hidden-touch-devices {
+    display: none;
+  }
+  .show-touch-devices {
+    display: block;
+  }
+}
+
+/* Tablet horizontal */
+@media only screen and (max-width: map-get($breakpoints, 'tablet-h')) {
+  /* Visibility Classes */
+  .hidden-tablet-h {
+    display: none;
+  }
+  .show-tablet-h {
+    display: block;
+  }
+}
+
+/* Tablet vertical */
+@media only screen and (max-width: map-get($breakpoints, 'tablet-v')) {
+  /* Visibility Classes */
+  .hidden-tablet-v {
+    display: none;
+  }
+  .show-tablet-v {
+    display: block;
+  }
+}
+
+/* Mobile */
+@media only screen and (max-width: map-get($breakpoints, 'mobile')) {
+  /* Visibility Classes */
+  .hidden-mobile {
+    display: none;
+  }
+  .show-mobile {
+    display: block;
+  }
+}

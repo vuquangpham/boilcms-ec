@@ -1,0 +1,200 @@
+<div data-custom-title>
+    <span><%= title; %></span>
+</div>
+
+<% if (data.length === 0) { %>
+    <h2>No content</h2>
+<% } %>
+
+<div style="margin-bottom:1rem">
+    <button class="btn_primary" data-toggle="user-register-popup">Add New</button>
+</div>
+
+<div class="users-list" data-custom-table data-user-wrapper>
+    <div class="users-list__inner" data-edit-user-wrapper>
+        <div class="users-list__heading" data-column-wrapper="heading">
+            <div class="users-list--user" data-column="User">User</div>
+            <div class="users-list--register" data-column="Register At">Register At</div>
+            <div class="users-list--email" data-column="Email">Email</div>
+            <div class="users-list--role" data-column="Role">Role</div>
+            <div class="users-list--state" data-column="State">State</div>
+            <div class="users-list--action" data-column="Action">Action</div>
+        </div>
+
+        <% data.forEach(user => { %>
+
+            <div class="users-list__item" data-column-wrapper="item" data-id="<%= user._id %>" data-user-item>
+
+                <div class="users__item--user" data-column="User" data-user-item-name>
+                    <%= user.name; %></div>
+
+                <div class="users__item--register" data-column="Register At">
+                    <time><%= user.registerAtFormatted %></time>
+                </div>
+
+                <div class="users__item--email wb-break-all"
+                     data-column="Email" data-user-item-email><%= user.email; %></div>
+
+                <div class="users__item--role tt-capitalize <%= user.role === 'admin' ? 'admin-role' : 'user-role' %>"
+                     data-column="Role" data-user-item-role><%= user.role; %></div>
+
+                <div class="users__item--state <%= user.state === 'active' ? 'active-state' : 'suspend-state' %>"
+                     data-column="State" data-user-item-state><span
+                            class="<%= user.state === 'active' ? 'badge badge--green' : 'badge badge--red' %>"><%= user.state; %></span>
+                </div>
+
+                <div class="users__item--action fl-center-v" style="gap:.8rem" data-column="Action">
+
+                    <button data-toggle="user-popup" data-user-edit>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M21.731 2.269a2.625 2.625 0 00-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 000-3.712zM19.513 8.199l-3.712-3.712-8.4 8.4a5.25 5.25 0 00-1.32 2.214l-.8 2.685a.75.75 0 00.933.933l2.685-.8a5.25 5.25 0 002.214-1.32l8.4-8.4z"/>
+                            <path d="M5.25 5.25a3 3 0 00-3 3v10.5a3 3 0 003 3h10.5a3 3 0 003-3V13.5a.75.75 0 00-1.5 0v5.25a1.5 1.5 0 01-1.5 1.5H5.25a1.5 1.5 0 01-1.5-1.5V8.25a1.5 1.5 0 011.5-1.5h5.25a.75.75 0 000-1.5H5.25z"/>
+                        </svg>
+
+                    </button>
+
+                    <a href="?post_type=<%= contentType; %>&method=post&action=delete&id=<%= user._id; %>"
+                       data-user-remove>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                            <path fill-rule="evenodd"
+                                  d="M16.5 4.478v.227a48.816 48.816 0 013.878.512.75.75 0 11-.256 1.478l-.209-.035-1.005 13.07a3 3 0 01-2.991 2.77H8.084a3 3 0 01-2.991-2.77L4.087 6.66l-.209.035a.75.75 0 01-.256-1.478A48.567 48.567 0 017.5 4.705v-.227c0-1.564 1.213-2.9 2.816-2.951a52.662 52.662 0 013.369 0c1.603.051 2.815 1.387 2.815 2.951zm-6.136-1.452a51.196 51.196 0 013.273 0C14.39 3.05 15 3.684 15 4.478v.113a49.488 49.488 0 00-6 0v-.113c0-.794.609-1.428 1.364-1.452zm-.355 5.945a.75.75 0 10-1.5.058l.347 9a.75.75 0 101.499-.058l-.346-9zm5.48.058a.75.75 0 10-1.498-.058l-.347 9a.75.75 0 001.5.058l.345-9z"
+                                  clip-rule="evenodd"/>
+                        </svg>
+
+                    </a>
+                </div>
+
+            </div>
+        <% }); %>
+
+        <div data-user-popup data-popup>
+            <div data-popup-overflow>
+                <div data-popup-overlay data-toggle="user-popup"></div>
+
+                <!-- pop up content-->
+                <form method="post" action="#" data-popup-inner data-user-form>
+
+                    <div data-custom-title>
+                        <span>Edit User</span>
+                    </div>
+
+                    <div class="form-fields">
+                        <div class="field half vertical-layout">
+                            <label for="username">Username</label>
+                            <input id="username" data-user-name name="name" placeholder="Username" required>
+                        </div>
+
+                        <div class="field half vertical-layout">
+                            <label for="email">Email</label>
+                            <input id="email" data-user-email name="email" placeholder="Email" required>
+                        </div>
+
+                        <div class="field third vertical-layout">
+                            <label>Register</label>
+                            <div data-user-register></div>
+                        </div>
+
+                        <div class="field third vertical-layout">
+                            <!-- role -->
+                            <label for="role">Role</label>
+                            <select data-select-role-value name="role" id="role">
+                                <option value="user">User
+                                </option>
+                                <option value="admin">Admin
+                                </option>
+                            </select>
+                        </div>
+
+                        <div class="field third vertical-layout">
+                            <label for="state">State</label>
+                            <select data-select-state-value name="state" id="state">
+                                <option value="active">Active
+                                </option>
+                                <option value="suspend">Suspend
+                                </option>
+                            </select>
+                        </div>
+
+                        <div class="footer">
+                            <button class="btn_primary" type="button" data-user-save-btn>Save</button>
+                            <button class="btn_primary error" type="button" data-user-delete-btn>Delete</button>
+                            <button class="btn_transparent" type="button" data-user-close-btn
+                                    data-toggle="user-popup">Cancel
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <div data-user-register-popup data-popup data-register-user-wrapper>
+        <div data-popup-overflow>
+            <div data-popup-overlay data-toggle="user-register-popup"></div>
+
+            <form method="post" action="?type=<%= type %>&method=post" data-popup-inner>
+
+                <div data-custom-title>
+                    <span>Add New User</span>
+                </div>
+
+                <div class="form-fields">
+                    <div class="field half">
+                        <label class="hidden" for="name">Username</label>
+                        <input id="name" type="text" name="name" placeholder="Username" required
+                               data-user-register-name>
+                    </div>
+
+                    <div class="field half">
+                        <label class="hidden" for="email">Email</label>
+                        <input id="email" type="email" name="email" placeholder="Email" data-user-register-email
+                               required>
+                    </div>
+
+                    <div class="field half">
+                        <label class="hidden" for="password">Password</label>
+                        <input id="password" type="password" name="password" placeholder="Password"
+                               data-user-register-password required>
+                    </div>
+
+                    <div class="field half">
+                        <label class="hidden" for="confirm-password">Confirm</label>
+                        <input id="confirm-password" type="password" name="confirmPassword"
+                               data-user-register-confirm-password placeholder="Confirm Password"
+                               required>
+                    </div>
+
+                    <div class="field half">
+                        <!-- role -->
+                        <label for="role">Role</label>
+                        <select data-easy-select data-user-register-role name="role" id="role">
+                            <option value="user">User
+                            </option>
+                            <option value="admin">Admin
+                            </option>
+                        </select>
+                    </div>
+
+                    <div class="field half">
+                        <!-- state -->
+                        <label for="state">State</label>
+                        <select data-easy-select data-user-register-state name="state" id="state">
+                            <option value="active">Active
+                            </option>
+                            <option value="suspend">Suspend
+                            </option>
+                        </select>
+                    </div>
+
+                    <!-- Submit -->
+                    <div class="footer">
+                        <button class="btn_primary" type="submit" data-add-new-user-btn>Add</button>
+                        <button class="btn_transparent" type="submit" data-toggle="user-register-popup">Cancel</button>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>

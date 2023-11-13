@@ -1,0 +1,87 @@
+<%
+// flag
+const hasNotification = !!notification;
+
+// has message
+const notificationMessage = hasNotification && notification.message;
+const notificationType = hasNotification && notification.type;
+%>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title><%= title; %> - <%= projectName; %></title>
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/themes/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/themes/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/themes/favicon-16x16.png">
+    <link rel="manifest" href="/themes/site.webmanifest">
+
+    <link rel="stylesheet" href="/themes/main-be.css">
+    <script src="/themes/main-be.js" defer></script>
+
+</head>
+<body class="register">
+
+<div class="register-form fl-center h-screen txt_color_white">
+    <div class="register-form__inner w100">
+
+        <div class="register-form__heading boil-content">
+            <h1 class="ta-center heading-2"><%= title; %></h1>
+        </div>
+
+        <div class="register-form__content">
+            <%- content; %>
+        </div>
+    </div>
+</div>
+
+<!-- popup -->
+<% if(hasNotification) { %>
+    <div data-popup>
+        <div data-popup-overflow>
+            <div data-popup-overlay data-toggle="notification"></div>
+
+            <!-- pop up content-->
+            <div data-popup-inner class="notification ta-center">
+
+                <%
+                    const colorText = notificationType === 'error' ? 'txt_color_error' : 'txt_color_success';
+                %>
+
+                <div class="notification__icon <%= colorText %>">
+                    <% if (notificationType === 'error') { %>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                             stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                  d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+
+                    <% } else { %>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                             stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                  d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                    <% } %>
+                </div>
+
+                <div class="notification__content <%= colorText %>"><%= notificationMessage; %></div>
+            </div>
+        </div>
+    </div>
+<% } %>
+
+<% if (hasNotification) { %>
+    <script>
+        setTimeout(() => {
+            document.querySelector('[data-toggle="notification"]').click();
+            console.log('click');
+        }, 50);
+    </script>
+<% } %>
+</body>
+</html>

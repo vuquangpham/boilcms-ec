@@ -1,0 +1,67 @@
+{
+  "name": "boilcms",
+  "version": "1.0.0",
+  "description": "A CMS that has been built by Node.js and Express",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "backend:build": "node server.js",
+    "backend:development": "nodemon --ignore public/ --ignore assets/ --ignore core/assets server.js",
+    "frontend:build": "cross-env DEV_MODE=false webpack --config ./configs/webpack.config.build.js",
+    "frontend:development": "cross-env DEV_MODE=true webpack serve --config ./configs/webpack.config.dev.js",
+    "start": "concurrently --kill-others \"npm run backend:development\" \"npm run frontend:development\"",
+    "build": "concurrently --kill-others \"npm run backend:build\" \"npm run frontend:build\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vuquangpham/boilcms.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/vuquangpham/boilcms/issues"
+  },
+  "homepage": "https://github.com/vuquangpham/boilcms#readme",
+  "dependencies": {
+    "@viivue/atomic-css": "^1.1.10",
+    "bcrypt": "^5.1.1",
+    "body-parser": "^1.20.2",
+    "cookie-parser": "^1.4.6",
+    "ejs": "^3.1.9",
+    "express": "^4.18.2",
+    "express-minify-html": "^0.12.0",
+    "isomorphic-dompurify": "^1.9.0",
+    "jsonwebtoken": "^9.0.2",
+    "mailgen": "^2.0.28",
+    "mongodb": "^6.0.0",
+    "mongoose": "^7.4.5",
+    "multer": "^1.4.5-lts.1",
+    "nodemailer": "^6.9.7",
+    "quill": "^1.3.6",
+    "sharp": "^0.32.6",
+    "validator": "^13.11.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.23.0",
+    "babel-loader": "^9.1.3",
+    "clean-webpack-plugin": "^4.0.0",
+    "concurrently": "^8.2.1",
+    "copy-webpack-plugin": "^11.0.0",
+    "cross-env": "^7.0.3",
+    "css-loader": "^6.8.1",
+    "dotenv": "^16.3.1",
+    "ip": "^1.1.8",
+    "mini-css-extract-plugin": "^2.7.6",
+    "nodemon": "^3.0.1",
+    "postcss-loader": "^7.3.3",
+    "raw-loader": "^4.0.2",
+    "sass": "^1.69.2",
+    "sass-loader": "^13.3.2",
+    "terser-webpack-plugin": "^5.3.9",
+    "webpack": "^5.88.2",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^4.15.1",
+    "webpack-merge": "^5.9.0"
+  }
+}

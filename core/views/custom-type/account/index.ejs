@@ -1,0 +1,86 @@
+<div data-account-wrapper>
+    <div data-custom-title>
+        <span>Account</span>
+    </div>
+
+    <form method="post" action="user?method=post&action=edit&id=<%= data._id; %>">
+
+        <div class="form-fields">
+
+            <div class="field half vertical-layout">
+                <label for="username">Username</label>
+                <input id="username" data-user-name name="name" value="<%= data.name; %>" placeholder="Username"
+                       required>
+            </div>
+
+            <div class="field half vertical-layout">
+                <label for="email">Email</label>
+                <input id="email" data-user-email name="email" value="<%= data.email; %>" placeholder="Email" required>
+            </div>
+
+            <div class="field half vertical-layout">
+                <!-- register at-->
+                <label>Register</label>
+                <time class="txt_14px"><%= data.registerAtFormatted %></time>
+            </div>
+
+            <div class="field half vertical-layout">
+                <label>Role</label>
+                <div class="tt-capitalize txt_14px"><%= data.role; %></div>
+            </div>
+
+            <div class="field half vertical-layout">
+                <label>Password</label>
+                <input class="btn_transparent w100" type="button" value="Change password" data-toggle="account-popup"
+                       data-change-password>
+            </div>
+
+        </div>
+
+        <div style="padding-top:2rem">
+            <button type="submit" class="btn_primary">Save</button>
+        </div>
+    </form>
+
+    <!-- change password pop-up -->
+    <div data-account-popup data-popup>
+        <div data-popup-overflow>
+            <div data-popup-overlay data-toggle="account-popup"></div>
+
+            <!-- pop up content-->
+            <form method="post" action="#" data-popup-inner data-account-form data-id="<%= data._id; %>">
+
+                <div class="form-fields">
+
+                    <div class="field vertical-layout">
+                        <label for="current-password">Current Password</label>
+                        <input type="password" id="current-password" name="current-password" data-current-password
+                               required placeholder="Current Password">
+                    </div>
+
+                    <div class="field vertical-layout">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" name="password" data-password required
+                               placeholder="Password">
+                    </div>
+
+                    <div class="field vertical-layout">
+                        <label for="confirm-password">Confirm Password</label>
+                        <input type="password" id="confirm-password" name="confirm-password" data-confirm-password
+                               required placeholder="Confirm Password">
+                    </div>
+
+                    <div data-error-message></div>
+
+                    <div class="footer">
+                        <button class="btn_primary" type="button" data-account-password-update-btn>Save</button>
+                        <button class="btn_transparent" type="button" data-account-close-btn
+                                data-toggle="account-popup">Cancel
+                        </button>
+                    </div>
+
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

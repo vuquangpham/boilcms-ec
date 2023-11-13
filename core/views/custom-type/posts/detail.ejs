@@ -1,0 +1,154 @@
+<%
+// boolean for checking edit or add new post
+const isEditPost = actionType === 'edit';
+
+// validate selected value on select
+const isSelectedValue = (name, value) => {
+    if(!isEditPost) return null;
+    return data[name] === value ? 'selected' : null;
+};
+
+// get value from data
+const getValueFromData = (name, property = '') => {
+    if(!isEditPost) return '';
+    return property ? data[name][property] : data[name];
+};
+
+// URL of the page in FE
+let viewURL = '';
+if(isEditPost){
+    viewURL = isSpecialType ? '/' + data.url : '/' + type + '/' + data.url;
+}
+%>
+
+<div data-custom-title>
+    <% const pageTitle = isEditPost ? 'Edit Post' : 'Add New Post' %>
+    <span><%= pageTitle; %></span>
+</div>
+
+<div class="container" data-post-detail>
+    <form action="?post_type=post&method=post&action=<%= actionType %><%= isEditPost ? '&id=' + data._id : '' %>"
+          method="post"
+          class="detail-post">
+
+        <div class="posts-detail fl-grid">
+            <div class="posts-detail__col posts-detail__col--left">
+                <div class="posts-detail__information">
+
+                    <div class="posts-detail__title">
+                        <label for="title" class="hidden">Add title</label>
+                        <input type="text" placeholder="Title" id="title" name="title" required
+                               class="w100" value="<%= getValueFromData('title') %>">
+                    </div>
+
+                    <% if (isEditPost) { %>
+                        <div class="fl-grid ai-center" style="gap:10px;">
+                            <div class="posts-detail__permalink">
+                                <label for="permalink" class="hidden">Custom URL:</label>
+                                <input type="text" placeholder="Custom URL" id="permalink" name="url"
+                                       value="<%= getValueFromData('url') %>">
+                            </div>
+
+                            <div>
+                                <a href="<%= viewURL ;%>" target="_blank" class="btn_primary txt_14px">View page</a>
+                            </div>
+                        </div>
+                    <% } %>
+                </div>
+
+                <div data-pb>
+
+                    <div data-pb-inner>
+
+                        <div data-pb-components>
+                            <!-- components -->
+                            <div data-component="row" data-component-wrapper>
+                                <div data-component-children data-component-content></div>
+                                <div data-component-add>
+                                    <button type="button" data-toggle="components" class="btn_primary">Add</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <label class="be-editor" for="content">Backend Editor</label>
+                        <textarea id="content" name="content" data-pb-json
+                                  style="width:100%"><%= getValueFromData('content', 'content'); %></textarea>
+                    </div>
+
+                    <div data-pb-components-popup data-popup>
+                        <div data-popup-overflow>
+                            <div data-popup-overlay data-toggle="components"></div>
+                            <div data-pb-components-popup-inner data-popup-inner>
+                                <% components.forEach(c => { %>
+                                    <button
+                                            data-component="<%= c.name; %>"
+                                            data-action="add"
+                                            data-toggle="components <%= c.name === 'row' ? '' : 'component-panel' %>"
+                                            type="button">
+                                        <div data-component-title><%= c.title; %></div>
+                                        <div data-component-description><%= c.description; %></div>
+                                    </button>
+                                <% }); %>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div data-pb-component-popup data-popup>
+                        <div data-popup-overflow>
+                            <div data-popup-overlay data-toggle="component-panel"></div>
+                            <div data-pb-component-popup-inner data-popup-inner="">
+                                <!-- component content -->
+                                <div data-pb-component-popup-content></div>
+
+                                <!-- component options -->
+                                <div data-pb-component-options></div>
+
+                                <!-- button group -->
+                                <div data-pb-component-button-group class="fl-center-v"
+                                     style="margin-top:auto; padding-top:2rem; gap:.4rem">
+                                    <button type="button" data-toggle="component-panel" class="btn_primary"
+                                            data-pb-component-popup-save>
+                                        Save
+                                    </button>
+                                    <button type="button" data-toggle="component-panel" class="btn_transparent"
+                                            data-pb-component-popup-cancel>
+                                        Cancel
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="posts-detail__col posts-detail__col--right">
+                <div class="posts-detail__dropdown fl-center-v">
+                    <label for="visibility">Visibility</label>
+                    <select data-easy-select name="visibility" id="visibility">
+                        <option <%= isSelectedValue('visibility', 'public'); %> value="public">Public
+                        </option>
+                        <option <%= isSelectedValue('visibility', 'private'); %> value="private">Private
+                        </option>
+                    </select>
+                </div>
+                <% if (typeof templates !== "undefined" && templates.length) { %>
+                    <div class="posts-detail__dropdown fl-center-v">
+                        <label for="template">Template</label>
+                        <select data-easy-select name="template" id="template">
+                            <%-
+                                templates.map(template => {
+                                    const isSelected = isSelectedValue('template', template.name);
+                                    return `
+<option value="${template.name}" ${isSelected || ''}>${template.prettyName}</option>`;
+                                }).join('');
+                            %>
+                        </select>
+                    </div>
+                <% } %>
+                <button type="submit" class="btn_primary">Publish</button>
+            </div>
+        </div>
+
+    </form>
+</div>

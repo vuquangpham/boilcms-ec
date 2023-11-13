@@ -1,0 +1,114 @@
+/* link */
+.posts__item--link {
+  text-decoration: none;
+}
+
+.posts__item--title > .posts__item--link {
+  font-weight: 600;
+}
+
+.posts__item--link.trash {
+  --permalink-color: var(--color-error);
+}
+
+/* utils */
+.posts__item--utils {
+  padding-top: 4px;
+  font-size: 13px;
+}
+
+.posts__item--utils .posts__item--link {
+  position: relative
+}
+
+.posts__item--utils .posts__item--link:not(:last-child) {
+  padding-right: 10px;
+  margin-right: 6px;
+  display: inline-block;
+}
+
+.posts__item--utils .posts__item--link:not(:last-child):after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translate(0, -50%);
+  width: 1px;
+  height: 80%;
+  background-color: var(--color-gray);
+}
+
+/* hover */
+@media (hover: hover) {
+
+  // min with 768px
+  @include responsive('tablet-v', true) {
+    /* utils */
+    .posts__item--utils {
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .posts-list__item:hover .posts__item--utils,
+    .posts-list__item:focus .posts__item--utils {
+      opacity: 1;
+    }
+  }
+}
+
+/* responsive */
+// 1024 - 768
+@include responsive('tablet-h', 'tablet-v') {
+  /* list */
+  body .posts-list {
+    --author-width: 130px;
+    --categories-width: 130px;
+    --date-width: 150px;
+  }
+  .posts-list__item [data-column]:not([data-column="title"]) {
+    font-size: 12px;
+  }
+}
+
+// min width 768
+@include responsive('tablet-v', true) {
+  /* list */
+  .posts-list {
+    --title-width: calc(100% - var(--author-width) - var(--categories-width) - var(--date-width));
+    --author-width: 160px;
+    --categories-width: 160px;
+    --date-width: 260px;
+  }
+
+  /* each columns */
+  .posts-list [data-column="Title"] {
+    width: var(--title-width);
+  }
+  .posts-list [data-column="Author"] {
+    width: var(--author-width);
+  }
+  .posts-list [data-column="Categories"] {
+    width: var(--categories-width);
+  }
+  .posts-list [data-column="Date"] {
+    width: var(--date-width);
+  }
+
+  /* utils */
+  .posts-list__item > .posts__item--utils {
+    display: none;
+  }
+}
+
+// max width 768
+@include responsive('tablet-v') {
+  /* utils */
+  [data-column] > .posts__item--utils {
+    display: none;
+  }
+
+  /* link */
+  .posts__item--title > .posts__item--link {
+    font-weight: 700;
+  }
+}

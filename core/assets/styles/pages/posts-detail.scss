@@ -1,0 +1,69 @@
+/************************
+* Post detail
+*************************/
+.posts-detail {
+  // layout
+  &__col {
+    width: 100%;
+  }
+
+  // title
+  &__title {
+    margin-bottom: 1.2rem;
+  }
+
+  // information
+  &__information {
+    margin-bottom: var(--spacing-24);
+  }
+
+  // label
+  label {
+    font-size: var(--fz-14);
+  }
+
+  // dropdown
+  &__dropdown {
+    gap: 4px;
+
+    // bottom spacing
+    &:not(:last-child) {
+      margin-bottom: var(--spacing-10);
+    }
+
+    // label
+    label {
+      font-weight: 700;
+    }
+  }
+}
+
+/****************************
+* Post detail - Responsive
+****************************/
+// min width 1025px
+@include responsive('tablet-h', true) {
+  .posts-detail {
+    // layout
+    &__col {
+      &--left {
+        width: 75%;
+        padding-right: 2rem;
+      }
+
+      &--right {
+        width: 25%;
+      }
+    }
+  }
+}
+
+// max-width 1024px
+@include responsive('tablet-h') {
+  .posts-detail {
+    // layout
+    &__col--left {
+      margin-bottom: 2rem;
+    }
+  }
+}

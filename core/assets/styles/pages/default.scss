@@ -1,0 +1,67 @@
+/******************************
+* Content
+*******************************/
+.main-content__inner {
+  padding: 2rem;
+}
+
+/* responsive */
+
+// min width 1025px
+@include responsive('tablet-h', true) {
+  .main-content {
+    padding-left: calc(var(--category-width));
+  }
+}
+
+// max width 1024px
+@include responsive('tablet-h') {
+  /* toggle button */
+  .admin__panel--left {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  /* menu */
+  .admin-panel__menu {
+    --bar-height: 2px;
+    width: 25px;
+    height: 25px;
+    position: relative;
+    background-color: transparent;
+    border: none;
+  }
+  .admin-panel__menu-bar {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: var(--bar-height);
+    background-color: var(--color-white);
+    transition-property: top, transform;
+    transition-duration: 0.3s;
+    transition-timing-function: ease;
+  }
+  .admin-panel__menu-bar:nth-child(2) {
+    top: 50%;
+    transform: translateY(-50%)
+  }
+  .admin-panel__menu-bar:last-child {
+    top: unset;
+    bottom: 0;
+  }
+
+  /* active */
+  html.sidebar-is-open .admin-panel__menu-bar:first-child,
+  html.sidebar-is-open .admin-panel__menu-bar:last-child {
+    top: 50%;
+    transform: translateY(-50%) rotate(45deg);
+  }
+  html.sidebar-is-open .admin-panel__menu-bar:last-child {
+    transform: translateY(-50%) rotate(-45deg);
+  }
+  html.sidebar-is-open .admin-panel__menu-bar:nth-child(2) {
+    transform: rotateY(90deg);
+  }
+}

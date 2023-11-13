@@ -1,0 +1,85 @@
+[data-popup] {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.1);
+  transition-property: opacity, visibility;
+  transition-duration: 0.3s;
+  transition-timing-function: ease;
+  backdrop-filter: blur(5px);
+  z-index: 20;
+}
+
+[data-popup-overlay] {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+[data-popup-overflow] {
+  --padding: 2rem;
+
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: calc(var(--header-height) + var(--padding)) var(--padding) var(--padding);
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  align-items: center;
+  overflow: auto;
+
+  // responsive
+  @include responsive('mobile') {
+    --padding: 1.5rem;
+  }
+}
+
+[data-popup-overflow]:before,
+[data-popup-overflow]:after {
+  content: "";
+}
+
+// popup content
+[data-popup-inner] {
+  display: flex;
+  flex-direction: column;
+
+  overflow: auto;
+  width: 100%;
+  max-width: 100rem;
+  min-height: 30rem;
+  position: relative;
+  z-index: 999;
+  background-color: #fff;
+  padding: 1.5rem;
+  box-shadow: 3px 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+// toggle popup
+html[class*="-is-open"] {
+  overflow: hidden;
+}
+
+html:not(.component-panel-is-open) [data-pb-component-popup][data-popup],
+html:not(.components-is-open) [data-pb-components-popup][data-popup],
+html:not(.user-register-popup-is-open) [data-user-wrapper] [data-user-register-popup][data-popup],
+html:not(.user-popup-is-open) [data-user-wrapper] [data-user-popup][data-popup],
+html:not(.media-popup-is-open) [data-media-wrapper] [data-popup],
+html:not(.account-popup-is-open) [data-account-wrapper] [data-account-popup][data-popup],
+html:not(.notification-is-open) body.register [data-popup] {
+  opacity: 0;
+  visibility: hidden
+}
+
+// custom toggle
+[data-custom-toggle-content]:not(.active) {
+  opacity: 0;
+  visibility: hidden;
+}

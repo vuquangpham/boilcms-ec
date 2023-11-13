@@ -1,0 +1,47 @@
+<form method="post" action="?type=<%= type %>&method=post">
+
+    <div class="form-fields">
+
+        <!-- username -->
+        <div class="field">
+            <label for="name">Username:</label>
+            <input id="name" type="text" name="name" placeholder="Name">
+        </div>
+
+        <!-- email -->
+        <div class="field">
+            <label for="email">Email:</label>
+            <input id="email" type="email" name="email" placeholder="Email" required>
+        </div>
+
+        <!-- password -->
+        <div class="field">
+            <label for="password">Password:</label>
+            <input id="password" type="password" name="password" placeholder="Password" required>
+        </div>
+
+        <!-- Confirm password -->
+        <div class="field">
+            <label for="confirm-password">Confirm:</label>
+            <input id="confirm-password" type="password" name="confirmPassword" placeholder="Confirm" required>
+        </div>
+
+        <!-- consent -->
+        <div class="field -checkbox-radio">
+            <input id="consent" type="checkbox" name="consent" required>
+            <label for="consent">I agree to the Privacy policy!</label>
+        </div>
+
+        <!-- Submit -->
+        <div class="field">
+            <button type="submit" class="btn_primary w100">Sign Up</button>
+        </div>
+
+        <!-- Sign in -->
+        <div class="field txt_14px ta-center">
+            <span>Already have a CMS account yet? <a href="/register">Sign in!</a></span>
+        </div>
+
+    </div>
+
+</form>

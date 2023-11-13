@@ -1,0 +1,14 @@
+// container
+.container {
+  max-width: calc(var(--container) + 2 * var(--gap-container));
+  padding-left: var(--gap-container);
+  padding-right: var(--gap-container);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Make the section full width */
+.container .container-full-width {
+  margin-left: calc(-1 * var(--gap-side));
+  margin-right: calc(-1 * var(--gap-side));
+}
