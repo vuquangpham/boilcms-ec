@@ -13,6 +13,12 @@ const getValueFromData = (name, property = '') => {
     if (!isEditPost) return '';
     return property ? data[name][property] : data[name];
 };
+
+// get key value from object data
+const getKeyValueOb = (obj, index, key = 'key') => {
+    if(!isEditPost) return '';
+    return key === 'key' ? Object.keys(obj)[index] : Object.values(obj)[index]
+}
 %>
 
 <div data-custom-title>
@@ -49,9 +55,9 @@ const getValueFromData = (name, property = '') => {
                 <div class="products-detail__dropdown fl-center-v">
                     <label for="product-type">Product type</label>
                     <select data-easy-select name="productType" id="product-type">
-                        <option value="simple">Simple Product
+                        <option <%= isSelectedValue('productType', 'simple'); %> value="simple">Simple Product
                         </option>
-                        <option value="variable">Variable Product
+                        <option <%= isSelectedValue('productType', 'variable'); %> value="variable">Variable Product
                         </option>
                     </select>
                 </div>
@@ -59,19 +65,19 @@ const getValueFromData = (name, property = '') => {
                 <div class="products-detail__information">
 
                     <div class="products-detail__price">
-                        <label for="price" class="hidden">Add title</label>
+                        <label for="price">Price</label>
                         <input type="text" placeholder="Price" id="price" name="price"
                                class="w100" value="<%= getValueFromData('price') %>">
                     </div>
 
                     <div class="products-detail__sale-price">
-                        <label for="sale-price" class="hidden"></label>
+                        <label for="sale-price">Sale Price</label>
                         <input type="text" placeholder="Sale price" id="sale-price" name="salePrice"
                                class="w100" value="<%= getValueFromData('salePrice') %>">
                     </div>
 
                     <div class="products-detail__inventory">
-                        <label for="inventory" class="hidden"></label>
+                        <label for="inventory">SKU</label>
                         <input type="text" placeholder="Inventory" id="inventory" name="inventory"
                                class="w100" value="<%= getValueFromData('inventory') %>">
                     </div>
@@ -79,6 +85,8 @@ const getValueFromData = (name, property = '') => {
                     <div>
                         <button type="button" data-add-new-attribute>Add new</button>
                     </div>
+
+
 
                     <div data-product-attributes>
                         <div data-attribute-number="0">
@@ -90,14 +98,14 @@ const getValueFromData = (name, property = '') => {
 
                                 <div>
                                     <div class="products-detail__attribute-name" data-attribute-product-name>
-                                        <label for="attribute-name" class="hidden"></label>
+                                        <label for="attribute-name">Name</label>
                                         <input type="text" placeholder="Attribute name" id="attribute-name"
                                                name="attributeName[0]"
-                                               class="w100">
+                                               class="w100" >
                                     </div>
 
                                     <div class="products-detail__attribute-value">
-                                        <label for="attribute-value" class="hidden"></label>
+                                        <label for="attribute-value">Values</label>
                                         <textarea type="text"
                                                   placeholder="Enter some descriptive text. Use “|” to separate different values."
                                                   id="attribute-value" name="attributeValue[0]" required
@@ -116,19 +124,9 @@ const getValueFromData = (name, property = '') => {
                 <div class="products-detail__dropdown fl-center-v">
                     <label for="visibility">Visibility</label>
                     <select data-easy-select name="visibility" id="visibility">
-                        <option value="public">Public
+                        <option <%= isSelectedValue('visibility', 'public'); %> value="public">Public
                         </option>
-                        <option value="private">Private
-                        </option>
-                    </select>
-                </div>
-
-                <div class="products-detail__dropdown fl-center-v">
-                    <label for="status">Status</label>
-                    <select data-easy-select data-user-register-state name="status" id="status">
-                        <option value="active">Active
-                        </option>
-                        <option value="suspend">Suspend
+                        <option <%= isSelectedValue('visibility', 'private'); %> value="private">Private
                         </option>
                     </select>
                 </div>

@@ -12,9 +12,6 @@ const Product = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'media'
     },
-    status: {
-        type: String
-    },
     visibility: {
         type: String
     },
@@ -23,6 +20,10 @@ const Product = new mongoose.Schema({
         default: () => Date.now()
     },
     publishFormatted: String,
+    productType: {
+        type: String,
+        default: 'simple'
+    },
     price: {
         type: Number
     },

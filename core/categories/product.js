@@ -17,8 +17,8 @@ class Product extends Category {
         // input
         const name = request.body.name;
         const description = request.body.description;
-        const status = request.body.status;
         const visibility = request.body.visibility;
+        const productType = request.body.productType
         const price = request.body.price;
         const salePrice = request.body.salePrice;
         const inventory = request.body.inventory
@@ -30,24 +30,25 @@ class Product extends Category {
 
         for (let i = 0; i < attributeName.length; i++) {
             attributes[attributeName[i]] = splitString(attributeValue[i], '|')
+
         }
 
         const returnObject = {
             name,
             description,
-            status,
             visibility,
+            productType,
             price,
             salePrice,
             inventory,
             attributes
         };
 
-        if (action === 'edit') returnObject.response = response;
+        if (action === 'edit') returnObject.response = response
+
 
         return returnObject;
-    };
-
+    }
 }
 
 module.exports = new Product({
