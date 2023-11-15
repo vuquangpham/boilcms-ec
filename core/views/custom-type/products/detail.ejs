@@ -38,24 +38,27 @@ const getKeyValueOb = (obj, index, key = 'key') => {
 
                     <div class="products-detail__name">
                         <label for="name" class="hidden">Add Name</label>
-                        <input type="text" placeholder="Name" id="name" name="name"
+                        <input type="text" placeholder="Name" id="name" name="name" required
                                class="w100" value="<%= getValueFromData('name') %>">
                     </div>
 
-                </div>
-
-                <div class="products-detail__information">
-
-                    <div class="products-detail__title">
+                    <div class="products-detail__description">
                         <label for="description" class="hidden">Product Description</label>
-                        <textarea type="text" placeholder="Description" id="description" name="description"
+                        <textarea type="text" placeholder="Description" id="description" name="description" required
                                   class="w100"><%= getValueFromData('description') %></textarea>
                     </div>
+
+                    <div class="products-detail__inventory">
+                        <label for="inventory">Inventory</label>
+                        <input type="text" placeholder="Inventory" id="inventory" name="inventory"
+                               class="w100" value="<%= getValueFromData('inventory') %>">
+                    </div>
+
                 </div>
 
                 <div class="products-detail__dropdown fl-center-v">
                     <label for="product-type">Product type</label>
-                    <select data-easy-select name="productType" id="product-type">
+                    <select data-easy-select name="productType" id="product-type" data-productType-value>
                         <option <%= isSelectedValue('productType', 'simple'); %> value="simple">Simple Product
                         </option>
                         <option <%= isSelectedValue('productType', 'variable'); %> value="variable">Variable Product
@@ -63,33 +66,32 @@ const getKeyValueOb = (obj, index, key = 'key') => {
                     </select>
                 </div>
 
-                <div class="products-detail__information">
+                <div>
+                    <div class="products-detail__information" data-product-details>
+                        <div class="products-detail__price">
+                            <label for="price">Price ($)</label>
+                            <input type="text" placeholder="Price" id="price" name="price"
+                                   class="w100" value="<%= getValueFromData('price') %>">
+                        </div>
 
-                    <div class="products-detail__price">
-                        <label for="price">Price</label>
-                        <input type="text" placeholder="Price" id="price" name="price"
-                               class="w100" value="<%= getValueFromData('price') %>">
+                        <div class="products-detail__sale-price">
+                            <label for="sale-price">Sale Price ($)</label>
+                            <input type="text" placeholder="Sale price" id="sale-price" name="salePrice"
+                                   class="w100" value="<%= getValueFromData('salePrice') %>">
+                        </div>
+
+                        <div class="products-detail__qty">
+                            <label for="qty">Qty</label>
+                            <input type="text" placeholder="Qty" id="qty" name="qty"
+                                   class="w100" value="<%= getValueFromData('qty') %>">
+                        </div>
                     </div>
 
-                    <div class="products-detail__sale-price">
-                        <label for="sale-price">Sale Price</label>
-                        <input type="text" placeholder="Sale price" id="sale-price" name="salePrice"
-                               class="w100" value="<%= getValueFromData('salePrice') %>">
-                    </div>
+                    <div data-product-attributes style="display: none">
+                        <div>
+                            <button type="button" data-add-new-attribute>Add new</button>
+                        </div>
 
-                    <div class="products-detail__inventory">
-                        <label for="inventory">SKU</label>
-                        <input type="text" placeholder="Inventory" id="inventory" name="inventory"
-                               class="w100" value="<%= getValueFromData('inventory') %>">
-                    </div>
-
-                    <div>
-                        <button type="button" data-add-new-attribute>Add new</button>
-                    </div>
-
-
-
-                    <div data-product-attributes>
                         <div data-attribute-number="0">
                             <div data-taxonomy>
                                 <div>
@@ -109,7 +111,7 @@ const getKeyValueOb = (obj, index, key = 'key') => {
                                         <label for="attribute-value">Values</label>
                                         <textarea type="text"
                                                   placeholder="Enter some descriptive text. Use “|” to separate different values."
-                                                  id="attribute-value" name="attributeValue[0]" required
+                                                  id="attribute-value" name="attributeValue[0]"
                                                   class="w100"></textarea>
                                     </div>
                                 </div>

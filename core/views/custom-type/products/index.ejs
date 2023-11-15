@@ -9,7 +9,7 @@
         <div class="products-list__inner">
             <div class="products-list__heading" data-column-wrapper="heading">
                 <div class="products__list--name" data-column="Name">Name</div>
-                <div class="products__list--sku" data-column="SKU">SKU</div>
+                <div class="products__list--inventory" data-column="Inventory">Inventory</div>
                 <div class="products__list--price" data-column="Price">Price</div>
                 <div class="products__list--categories" data-column="Categories">Categories</div>
                 <div class="products-list--status" data-column="Status">Status</div>
@@ -35,8 +35,8 @@
                         </div>
                     </div>
 
-                    <div class="products__item--sku"
-                         data-column="SKU"><%= product.inventory %></div>
+                    <div class="products__item--inventory"
+                         data-column="Inventory"><%= product.inventory %></div>
                     <div class="products__item--price"
                          data-column="Price"><%= product.price %></div>
                     <div class="products__item--categories" data-column="Categories">Categories</div>

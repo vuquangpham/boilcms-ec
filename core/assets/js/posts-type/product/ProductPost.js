@@ -5,11 +5,15 @@ export default class ProductPost {
         this.wrapper = wrapper
 
         this.elements = {
+
+            // DOM
             productAttributes: wrapper.querySelector('[data-product-attributes]'),
+            productDetails: wrapper.querySelector('[data-product-details]'),
             taxonomyProductAttributes: wrapper.querySelector('[data-taxonomy]'),
 
             // input
-            attributesName: wrapper.querySelector('[data-attribute-name]')
+            attributesName: wrapper.querySelector('[data-attribute-name]'),
+            productTypeValue: wrapper.querySelector('[data-productType-value]')
         }
 
         this.attributeIndex = 1;
@@ -57,6 +61,20 @@ export default class ProductPost {
     }
 
     /**
+     * Handle show attributes
+     * */
+    handleShowAttributesOptions() {
+        this.elements.productAttributes.style.display = 'none'
+        this.elements.productDetails.style.display = 'block';
+
+        // If the selected value of the productType is a variable, then display the option to show attributes.
+        if(this.elements.productTypeValue.options[this.elements.productTypeValue.selectedIndex].value === 'variable'){
+            this.elements.productAttributes.style.display = 'block';
+            this.elements.productDetails.style.display = 'none';
+        }
+    }
+
+    /**
      * Handle click product detail
      * */
     handleWrapperClick(e) {
@@ -73,6 +91,9 @@ export default class ProductPost {
         } else if (deleteAttributeBtnEl) {
             functionHandling = this.handleDeleteAttribute.bind(this);
             target = deleteAttributeBtnEl
+
+        } else {
+            functionHandling = this.handleShowAttributesOptions.bind(this);
         }
 
         functionHandling(target);
