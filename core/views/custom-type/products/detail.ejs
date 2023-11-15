@@ -26,12 +26,13 @@ const getKeyValueOb = (obj, index, key = 'key') => {
     <span>Add new product</span>
 </div>
 
-<div class="container" data-post-detail data-product-wrapper>
+<div class="container" data-product-detail data-product-wrapper>
     <form action="?post_type=product&method=post&action=<%= actionType %>"
           method="post"
           class="detail-product">
         <h1><%= actionType %></h1>
 
+        <!-- Product detail -->
         <div class="products-detail fl-grid">
             <div class="products-detail__col products-detail__col--left">
                 <div class="products-detail__information">
@@ -47,13 +48,6 @@ const getKeyValueOb = (obj, index, key = 'key') => {
                         <textarea type="text" placeholder="Description" id="description" name="description" required
                                   class="w100"><%= getValueFromData('description') %></textarea>
                     </div>
-
-                    <div class="products-detail__inventory">
-                        <label for="inventory">Inventory</label>
-                        <input type="text" placeholder="Inventory" id="inventory" name="inventory"
-                               class="w100" value="<%= getValueFromData('inventory') %>">
-                    </div>
-
                 </div>
 
                 <div class="products-detail__dropdown fl-center-v">
@@ -66,8 +60,19 @@ const getKeyValueOb = (obj, index, key = 'key') => {
                     </select>
                 </div>
 
+                <div class="products-detail__information">
+
+                    <div class="products-detail__inventory">
+                        <label for="inventory">Inventory</label>
+                        <input type="text" placeholder="Inventory" id="inventory" name="inventory"
+                               class="w100" value="<%= getValueFromData('inventory') %>">
+                    </div>
+                </div>
+
                 <div>
-                    <div class="products-detail__information" data-product-details>
+
+                    <!-- Simple product detail-->
+                    <div class="products-detail__information" data-simple-product>
                         <div class="products-detail__price">
                             <label for="price">Price ($)</label>
                             <input type="text" placeholder="Price" id="price" name="price"
@@ -80,18 +85,21 @@ const getKeyValueOb = (obj, index, key = 'key') => {
                                    class="w100" value="<%= getValueFromData('salePrice') %>">
                         </div>
 
-                        <div class="products-detail__qty">
-                            <label for="qty">Qty</label>
-                            <input type="text" placeholder="Qty" id="qty" name="qty"
-                                   class="w100" value="<%= getValueFromData('qty') %>">
-                        </div>
                     </div>
 
-                    <div data-product-attributes style="display: none">
+                    <!-- Variable product detail -->
+                    <div data-variable-product style="display: none">
                         <div>
                             <button type="button" data-add-new-attribute>Add new</button>
                         </div>
 
+<!--                        <div class="products-detail__qty">-->
+<!--                            <label for="qty">Qty</label>-->
+<!--                            <input type="text" placeholder="Qty" id="qty" name="qty"-->
+<!--                                   class="w100" value="<%= getValueFromData('qty') %>">-->
+<!--                        </div>-->
+
+                        <!-- Attribute detail for variable product -->
                         <div data-attribute-number="0">
                             <div data-taxonomy>
                                 <div>
@@ -99,7 +107,7 @@ const getKeyValueOb = (obj, index, key = 'key') => {
                                     <button type="button" data-delete-attribute>Remove</button>
                                 </div>
 
-                                <div>
+                                <div data-attribute-details>
                                     <div class="products-detail__attribute-name" data-attribute-product-name>
                                         <label for="attribute-name">Name</label>
                                         <input type="text" placeholder="Attribute name" id="attribute-name"
@@ -117,6 +125,9 @@ const getKeyValueOb = (obj, index, key = 'key') => {
                                 </div>
                             </div>
                         </div>
+
+                        <!-- Variations for variable product -->
+
                     </div>
 
                 </div>

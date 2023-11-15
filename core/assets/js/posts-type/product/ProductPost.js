@@ -7,8 +7,8 @@ export default class ProductPost {
         this.elements = {
 
             // DOM
-            productAttributes: wrapper.querySelector('[data-product-attributes]'),
-            productDetails: wrapper.querySelector('[data-product-details]'),
+            variableProduct: wrapper.querySelector('[data-variable-product]'),
+            simpleProduct: wrapper.querySelector('[data-simple-product]'),
             taxonomyProductAttributes: wrapper.querySelector('[data-taxonomy]'),
 
             // input
@@ -39,7 +39,7 @@ export default class ProductPost {
             }
         )
 
-        this.elements.productAttributes.appendChild(newAttribute)
+        this.elements.variableProduct.appendChild(newAttribute)
 
         // increase index
         this.attributeIndex++
@@ -48,7 +48,7 @@ export default class ProductPost {
     /**
      * Handle replace attribute name label
      * */
-    handleReplaceAttributeName(target) {
+    updateAttributeNameLabel(target) {
         // TODO when attribute input name set, then data-attribute-name is set
     }
 
@@ -61,17 +61,29 @@ export default class ProductPost {
     }
 
     /**
-     * Handle show attributes
+     * Handle toggle show single attributes
      * */
-    handleShowAttributesOptions() {
-        this.elements.productAttributes.style.display = 'none'
-        this.elements.productDetails.style.display = 'block';
+    handleToggleAttributeDetails(target) {
+
+        // get parent element
+        const singleAttributeEl = target.closest('[data-attribute-number]');
+
+        // get the attribute want to hide when click
+        const singleAttributeDetailsEl = singleAttributeEl.querySelector('[data-attribute-details]')
+
+        if(singleAttributeEl && singleAttributeDetailsEl) singleAttributeDetailsEl.classList.toggle('closed')
+    }
+
+    /**
+     * Switching between simple product input and variable product input
+     * */
+    switchProductTypeOptions() {
 
         // If the selected value of the productType is a variable, then display the option to show attributes.
-        if(this.elements.productTypeValue.options[this.elements.productTypeValue.selectedIndex].value === 'variable'){
-            this.elements.productAttributes.style.display = 'block';
-            this.elements.productDetails.style.display = 'none';
-        }
+        const isProductTypeVariable = this.elements.productTypeValue.options[this.elements.productTypeValue.selectedIndex].value === 'variable';
+
+        this.elements.variableProduct.style.display = isProductTypeVariable ? 'block' : 'none'
+        this.elements.simpleProduct.style.display = isProductTypeVariable ? 'none' : 'block'
     }
 
     /**
@@ -84,6 +96,7 @@ export default class ProductPost {
 
         const addNewAttributeBtnEl = e.target.closest('button[data-add-new-attribute]');
         const deleteAttributeBtnEl = e.target.closest('button[data-delete-attribute]');
+        const attributeNameEl = e.target.closest('[data-attribute-name]');
 
         if (addNewAttributeBtnEl) {
             functionHandling = this.handleAddNewAttribute.bind(this);
@@ -92,8 +105,12 @@ export default class ProductPost {
             functionHandling = this.handleDeleteAttribute.bind(this);
             target = deleteAttributeBtnEl
 
+        } else if(attributeNameEl){
+            functionHandling = this.handleToggleAttributeDetails.bind(this);
+            target = attributeNameEl
+
         } else {
-            functionHandling = this.handleShowAttributesOptions.bind(this);
+            functionHandling = this.switchProductTypeOptions.bind(this);
         }
 
         functionHandling(target);
