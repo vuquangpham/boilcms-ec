@@ -93,12 +93,6 @@ const getKeyValueOb = (obj, index, key = 'key') => {
                             <button type="button" data-add-new-attribute>Add new</button>
                         </div>
 
-<!--                        <div class="products-detail__qty">-->
-<!--                            <label for="qty">Qty</label>-->
-<!--                            <input type="text" placeholder="Qty" id="qty" name="qty"-->
-<!--                                   class="w100" value="<%= getValueFromData('qty') %>">-->
-<!--                        </div>-->
-
                         <!-- Attribute detail for variable product -->
                         <div data-attribute-number="0">
                             <div data-taxonomy>
@@ -125,8 +119,14 @@ const getKeyValueOb = (obj, index, key = 'key') => {
                                 </div>
                             </div>
                         </div>
+                    </div>
 
-                        <!-- Variations for variable product -->
+                    <!-- Variations for variable product -->
+                    <div data-variation-product style="display: none">
+
+                        <div>
+                            <button type="button" data-add-new-variation>Add manually</button>
+                        </div>
 
                     </div>
 
