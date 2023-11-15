@@ -30,7 +30,7 @@
                                class="posts__item--link">Edit</a>
                             <a href="<%= viewURL; %>" target="_blank" class="posts__item--link">View</a>
                             <a href="?post_type=<%= contentType; %>&method=post&action=delete&id=<%= post._id; %>"
-                               class="posts__item--link trash">Trash</a>
+                               class="posts__item--link trash" data-remove-post>Trash</a>
                         </div>
                     </div>
 
@@ -47,7 +47,7 @@
                            class="posts__item--link">Edit</a>
                         <a href="<%= viewURL; %>" target="_blank" class="posts__item--link">View</a>
                         <a href="?post_type=<%= contentType; %>&method=post&action=delete&id=<%= post._id; %>"
-                           class="posts__item--link trash">Trash</a>
+                           class="posts__item--link trash" data-remove-post>Trash</a>
                     </div>
                 </div>
             <% }); %>

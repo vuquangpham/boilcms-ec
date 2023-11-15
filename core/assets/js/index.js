@@ -4,6 +4,8 @@ import '../styles/index.scss';
 import '@global/vendors/theme/theme.min.js';
 import '@global/vendors/accordion/Accordion.min.js';
 import '@global/vendors/easy-select/easy-select.min.js';
+import '@global/vendors/agree/Agree.min.js';
+import '@global/vendors/agree/Agree.min.css';
 
 // posts-type
 import './posts-type/posts';
