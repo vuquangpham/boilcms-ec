@@ -10,7 +10,9 @@ document.querySelectorAll('[data-remove-post]').forEach(e => {
 
     Agree.create({
         target: e,
-        messageHTML: 'Do you want to delete this post?'
+        messageHTML: 'Do you want to delete this post?',
+        confirmButtonHTML: '<button class="btn_primary">Confirm</button>',
+        cancelButtonHTML: '<button class="btn_primary error">Cancel</button>'
     });
     console.log(e);
 });
