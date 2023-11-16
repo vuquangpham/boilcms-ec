@@ -15,7 +15,7 @@ class Category{
             notShowInCategory: false,
 
             // is custom template
-            isCustomTemplate: false,
+            isCustomHTML: false,
 
             // children
             children: [],
@@ -41,7 +41,7 @@ class Category{
         this.isSpecialType = validatedOptions.isSpecialType;
 
         // custom template => custom html in fe
-        this.isCustomTemplate = validatedOptions.isCustomTemplate;
+        this.isCustomHTML = validatedOptions.isCustomHTML;
 
         // roles
         this.acceptedRoles = validatedOptions.acceptedRoles;
