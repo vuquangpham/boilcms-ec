@@ -29,7 +29,13 @@ class Component{
     }
 
     getParam(params, paramName){
-        return params.find(p => p.key === paramName)?.value || '';
+        const param = params.find(p => p.key === paramName);
+
+        try{
+            return JSON.parse(param.value);
+        }catch(e){
+            return param.value;
+        }
     }
 
     getOptions(options, optionName){
