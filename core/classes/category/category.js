@@ -14,6 +14,9 @@ class Category{
             isSpecialType: false,
             notShowInCategory: false,
 
+            // is custom template
+            isCustomTemplate: false,
+
             // children
             children: [],
 
@@ -33,9 +36,14 @@ class Category{
         this.order = validatedOptions.order;
         this.children = validatedOptions.children;
 
+        // special type (url without posts type)
         this.notShowInCategory = validatedOptions.notShowInCategory;
         this.isSpecialType = validatedOptions.isSpecialType;
 
+        // custom template => custom html in fe
+        this.isCustomTemplate = validatedOptions.isCustomTemplate;
+
+        // roles
         this.acceptedRoles = validatedOptions.acceptedRoles;
     }
 
