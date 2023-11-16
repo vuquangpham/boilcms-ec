@@ -61,7 +61,7 @@ class ImageContent extends Component{
     <div class="image-content__col content">
         ${content.value}
     </div>
-    <div class="image-content__col image">
+    <div class="image-content__col image img-wrapper-cover skeleton-bg">
         <img src="${imageURL.original}" alt="${imageData.name}">
     </div>
 </div>`;
