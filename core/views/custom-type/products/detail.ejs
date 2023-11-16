@@ -109,7 +109,7 @@ const getKeyValueOb = (obj, index, key = 'key') => {
                                                class="w100" >
                                     </div>
 
-                                    <div class="products-detail__attribute-value">
+                                    <div class="products-detail__attribute-value" data-attribute-product-value>
                                         <label for="attribute-value">Values</label>
                                         <textarea type="text"
                                                   placeholder="Enter some descriptive text. Use “|” to separate different values."
@@ -119,6 +119,12 @@ const getKeyValueOb = (obj, index, key = 'key') => {
                                 </div>
                             </div>
                         </div>
+
+                    </div>
+
+                    <!-- Save attribute button -->
+                    <div>
+                        <button type="button" data-save-attribute>Save</button>
                     </div>
 
                     <!-- Variations for variable product -->
@@ -132,6 +138,11 @@ const getKeyValueOb = (obj, index, key = 'key') => {
 
                 </div>
 
+            </div>
+
+            <div>
+                <label for="content">JSON</label>
+                <textarea data-product-json id="content"></textarea>
             </div>
 
             <div class="products-detail__col products-detail__col--right">
