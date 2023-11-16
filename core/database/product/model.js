@@ -33,7 +33,21 @@ const Product = new mongoose.Schema({
     inventory: {
         type: Number
     },
-    attributes: {}
+    attributes: [{
+        name: String,
+        value: [String]
+    }
+    ],
+    variations: [{
+        price: Number,
+        salePrice: Number,
+        description: String,
+        qty: Number,
+        attribute: [{
+            name: String,
+            value: String
+        }]
+    }]
 })
 
 Product.pre('save', function (next) {

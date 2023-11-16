@@ -134,10 +134,6 @@ export default class ProductPost {
     /**
      * Add variation manually
      * */
-    handleAddVariation() {
-
-    }
-
     handleAddNewVariation() {
         // when attribute doesn't save can create new variation
         if(!this.elements.jsonElement.textContent) return
@@ -148,7 +144,7 @@ export default class ProductPost {
         for(let i = 0; i < productElement.attribute.length; i++){
             selectHTML +=
                 `    <label for="${productElement.attribute[i].name}">${productElement.attribute[i].name}</label>
-                     <select data-easy-select name="attributeName[0]" id="${productElement.attribute[i].name}">`
+                     <select data-easy-select name="attribute_${productElement.attribute[i].name.toLowerCase()}[0]" id="${productElement.attribute[i].name}">`
             productElement.attribute[i].value.forEach(value => {
                 selectHTML += `<option value="${value}">${value}</option>`
 
@@ -201,7 +197,7 @@ export default class ProductPost {
         newVariation.setAttribute('data-variation-number', this.variationIndex)
 
         // replace input, textarea name by the increasing index
-        newVariation.querySelectorAll('select, input, textarea').forEach(
+        newVariation.querySelectorAll('input, textarea, select').forEach(
             input => {
                 input.name = input.name.replace(/\[\d+]/, '[' + this.variationIndex + ']');
 
