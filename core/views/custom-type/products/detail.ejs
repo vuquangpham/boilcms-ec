@@ -16,10 +16,9 @@ const getValueFromData = (name, property = '') => {
 
 // get key value from object data
 const getKeyValueOb = (obj, index, key = 'key') => {
-    if(!isEditPost) return '';
+    if (!isEditPost) return '';
     return key === 'key' ? Object.keys(obj)[index] : Object.values(obj)[index]
 }
-
 %>
 
 <div data-custom-title>
@@ -33,24 +32,27 @@ const getKeyValueOb = (obj, index, key = 'key') => {
         <h1><%= actionType %></h1>
 
         <!-- Product detail -->
-        <div class="products-detail fl-grid">
-            <div class="products-detail__col products-detail__col--left">
-                <div class="products-detail__information">
-
-                    <div class="products-detail__name">
-                        <label for="name" class="hidden">Add Name</label>
-                        <input type="text" placeholder="Name" id="name" name="name" required
+        <div class="fl-grid">
+            <div>
+                <div>
+                    <!-- product name -->
+                    <div>
+                        <label for="name" class="hidden"></label>
+                        <input type="text" placeholder="Name" id="name" name="name" required data-product-name
                                class="w100" value="<%= getValueFromData('name') %>">
                     </div>
 
-                    <div class="products-detail__description">
+                    <!-- product description-->
+                    <div>
                         <label for="description" class="hidden">Product Description</label>
                         <textarea type="text" placeholder="Description" id="description" name="description" required
+                                  data-product-description
                                   class="w100"><%= getValueFromData('description') %></textarea>
                     </div>
                 </div>
 
-                <div class="products-detail__dropdown fl-center-v">
+                <!-- product type -->
+                <div class="fl-center-v">
                     <label for="product-type">Product type</label>
                     <select data-easy-select name="productType" id="product-type" data-productType-value>
                         <option <%= isSelectedValue('productType', 'simple'); %> value="simple">Simple Product
@@ -60,37 +62,48 @@ const getKeyValueOb = (obj, index, key = 'key') => {
                     </select>
                 </div>
 
-                <div class="products-detail__information">
-
-                    <div class="products-detail__inventory">
-                        <label for="inventory">Inventory</label>
-                        <input type="text" placeholder="Inventory" id="inventory" name="inventory"
-                               class="w100" value="<%= getValueFromData('inventory') %>">
-                    </div>
-                </div>
-
                 <div>
 
                     <!-- Simple product detail-->
-                    <div class="products-detail__information" data-simple-product>
-                        <div class="products-detail__price">
+                    <div data-simple-product>
+                        <!-- inventory -->
+                        <div>
+                            <label for="inventory">Inventory</label>
+                            <input type="text" placeholder="Inventory" id="inventory" name="inventory"
+                                   data-product-inventory
+                                   class="w100" value="<%= getValueFromData('inventory') %>">
+                        </div>
+
+                        <!-- price-->
+                        <div>
                             <label for="price">Price ($)</label>
-                            <input type="text" placeholder="Price" id="price" name="price"
+                            <input type="text" placeholder="Price" id="price" name="price" data-simple-product-price
                                    class="w100" value="<%= getValueFromData('price') %>">
                         </div>
 
-                        <div class="products-detail__sale-price">
+                        <!-- sale price-->
+
+                        <div>
                             <label for="sale-price">Sale Price ($)</label>
                             <input type="text" placeholder="Sale price" id="sale-price" name="salePrice"
+                                   data-simple-product-sale-price
                                    class="w100" value="<%= getValueFromData('salePrice') %>">
                         </div>
 
                     </div>
 
                     <!-- Variable product detail -->
-                    <div data-variable-product style="display: none">
+                    <div data-variable-product>
                         <div>
                             <button type="button" data-add-new-attribute>Add new</button>
+                        </div>
+
+                        <!-- inventory -->
+                        <div>
+                            <label for="inventory">Inventory</label>
+                            <input type="text" placeholder="Inventory" id="inventory" name="inventory"
+                                   data-product-inventory
+                                   class="w100" value="<%= getValueFromData('inventory') %>">
                         </div>
 
                         <!-- Attribute detail for variable product -->
@@ -102,14 +115,17 @@ const getKeyValueOb = (obj, index, key = 'key') => {
                                 </div>
 
                                 <div data-attribute-details>
-                                    <div class="products-detail__attribute-name" data-attribute-product-name>
+                                    <!-- attribute name -->
+                                    <div data-attribute-product-name>
                                         <label for="attribute-name">Name</label>
                                         <input type="text" placeholder="Attribute name" id="attribute-name"
+                                               data-variable-product-description
                                                name="attributeName[0]"
-                                               class="w100" >
+                                               class="w100">
                                     </div>
 
-                                    <div class="products-detail__attribute-value" data-attribute-product-value>
+                                    <!-- attribute value -->
+                                    <div data-attribute-product-value>
                                         <label for="attribute-value">Values</label>
                                         <textarea type="text"
                                                   placeholder="Enter some descriptive text. Use “|” to separate different values."
@@ -128,7 +144,7 @@ const getKeyValueOb = (obj, index, key = 'key') => {
                     </div>
 
                     <!-- Variations for variable product -->
-                    <div data-variation-product style="display: none">
+                    <div data-variation-product>
 
                         <div>
                             <button type="button" data-add-new-variation>Add manually</button>
@@ -145,10 +161,10 @@ const getKeyValueOb = (obj, index, key = 'key') => {
                 <textarea data-product-json id="content"></textarea>
             </div>
 
-            <div class="products-detail__col products-detail__col--right">
-                <div class="products-detail__dropdown fl-center-v">
+            <div>
+                <div class="fl-center-v">
                     <label for="visibility">Visibility</label>
-                    <select data-easy-select name="visibility" id="visibility">
+                    <select data-easy-select name="visibility" id="visibility" data-product-visibility>
                         <option <%= isSelectedValue('visibility', 'public'); %> value="public">Public
                         </option>
                         <option <%= isSelectedValue('visibility', 'private'); %> value="private">Private
