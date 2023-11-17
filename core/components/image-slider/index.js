@@ -45,8 +45,10 @@ class ImageSlider extends Component{
 
         return `
 <div class="image-slider">
-    <div class="image-slider__content">${content}</div>
-    <div class="image-slider__images">${imagesHTML}</div>
+    <div class="container-full-width">
+        <div class="image-slider__content"><div class="boil-content">${content}</div></div>
+        <div class="image-slider__images">${imagesHTML}</div>
+    </div>
 </div>`;
     }
 }
