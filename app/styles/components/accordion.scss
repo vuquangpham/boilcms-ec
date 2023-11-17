@@ -1,0 +1,36 @@
+/*****************************
+* Accordion
+******************************/
+.accordion {
+  // heading
+  &__heading {
+    margin-bottom: 4rem;
+  }
+
+  // item
+  &__item {
+    padding: 2rem 0;
+    border-top: 1px solid #ccc;
+
+    // bottom spacing
+    &:last-child {
+      border-bottom: 1px solid #ccc;
+    }
+
+    // heading
+    &-heading {
+      // active
+      & button:hover,
+      &.active button {
+        color: var(--color-primary);
+      }
+    }
+
+    // content
+    &-content {
+      &-inner {
+        padding-top: 1rem;
+      }
+    }
+  }
+}

@@ -1,6 +1,6 @@
 const ComponentController = require('../../classes/component/component-controller');
 const Component = require('../../classes/component/component');
-const Media = require("../../categories/media");
+const {stringToSlug} = require("../../utils/helper.utils");
 
 class Accordion extends Component{
     constructor(){
@@ -54,21 +54,23 @@ class Accordion extends Component{
 
         // group
         const group = this.getParam(params, 'group');
-        group.forEach(gParam => {
+        group.forEach((gParam) => {
             const heading = this.getParam(gParam, 'heading');
             const text = this.getParam(gParam, 'text');
+            const id = stringToSlug(heading) + '-' + Date.now().toString(16);
             groupHTML += `
-<div class="item">
-    <div class="heading">${heading}</div>
-    <div class="text">${text}</div>
-</div>
-            `;
+<div class="accordion__item">
+    <div class="accordion__item-heading boil-content t" data-trigger="${id}">
+        <button class="heading-3 w100 ta-left clear-button-style">${heading}</button>
+    </div>
+    <div class="accordion__item-content" data-receiver="${id}"><div class="accordion__item-content-inner boil-content">${text}</div></div>
+</div>`;
         });
 
         return `
-<div class="accordion ${bottomSpacing}">
-    <div class="heading">${content}</div>
-    <div class="group">${groupHTML}</div>
+<div class="accordion ${bottomSpacing}" data-accordion>
+    <div class="accordion__heading"><div class="boil-content ta-center">${content}</div></div>
+    <div class="accordion__items">${groupHTML}</div>
 </div>`;
     }
 }
