@@ -1,6 +1,5 @@
-
-export default class VariableProduct {
-    constructor(productWrapper, variableProductWrapper) {
+export default class VariableProduct{
+    constructor(productWrapper, variableProductWrapper){
         this.productWrapper = productWrapper;
         this.variableProductWrapper = variableProductWrapper;
 
@@ -27,7 +26,7 @@ export default class VariableProduct {
             // textarea json
             variableProductJSONElement: variableProductWrapper.querySelector('[data-variable-product-json]')
 
-        }
+        };
 
         this.attributeIndex = 1;
         this.variationIndex = 0;
@@ -38,12 +37,12 @@ export default class VariableProduct {
     /**
      * Add new attribute product
      * */
-    handleAddNewAttribute() {
+    handleAddNewAttribute(){
 
         // create child
         const newAttribute = document.createElement('div');
-        newAttribute.innerHTML = this.elements.taxonomyProductAttributes.outerHTML
-        newAttribute.setAttribute('data-attribute-number', this.attributeIndex)
+        newAttribute.innerHTML = this.elements.taxonomyProductAttributes.outerHTML;
+        newAttribute.setAttribute('data-attribute-number', this.attributeIndex);
 
         // replace input, textarea name by the increasing index
         newAttribute.querySelectorAll('input, textarea').forEach(
@@ -51,97 +50,109 @@ export default class VariableProduct {
                 input.name = input.name.replace(/\[\d+]/, '[' + this.attributeIndex + ']');
 
             }
-        )
+        );
 
-        this.elements.variableProduct.appendChild(newAttribute)
+        this.elements.variableProduct.querySelector('[data-attributes-wrapper]').appendChild(newAttribute);
 
         // increase index
-        this.attributeIndex++
+        this.attributeIndex++;
     }
 
     /**
      * Handle replace attribute name label
      * */
-    updateAttributeNameLabel(target) {
+    updateAttributeNameLabel(target){
         // TODO when attribute input name set, then data-attribute-name is set
     }
 
     /**
      * Delete attribute
      * */
-    handleDeleteAttribute(target) {
-        const taxonomyAttribute = target.closest('[data-attribute-number]')
-        taxonomyAttribute.remove()
+    handleDeleteAttribute(target){
+        const taxonomyAttribute = target.closest('[data-attribute-number]');
+        taxonomyAttribute.remove();
     }
 
     splitString = (currentString, character = ' ') => {
-        return currentString.split(character).map(value => value.trim())
-    }
+        return currentString.split(character).map(value => value.trim());
+    };
 
     /**
      * Save attribute
      * */
-    generateDOMToObject() {
-        let attribute = {}
+    generateDOMToObject(){
+        let attribute = {};
         let attributeName = [];
         let attributeValue = [];
         this.variableProductWrapper.querySelectorAll('[data-attribute-product-name] input').forEach(input => {
-            attributeName.push(input.value)
-        })
+            attributeName.push(input.value);
+        });
         this.variableProductWrapper.querySelectorAll('[data-attribute-product-value] textarea').forEach(textarea => {
             attributeValue.push(textarea.value);
-        })
+        });
 
         for(let i = 0; i < attributeName.length; i++){
-            attribute[attributeName[i]] = this.splitString(attributeValue[i], '|')
+            attribute[attributeName[i]] = this.splitString(attributeValue[i], '|');
         }
+
+        const attributes = [];
+        // save attributes
+        this.elements.variableProduct.querySelector('[data-attributes-wrapper]').querySelectorAll('[data-attribute-number]').forEach(e => {
+            const name = e.querySelector('[data-variable-product-description]').value;
+            const values = e.querySelector('[data-attribute-product-value] textarea').value;
+
+            attributes.push({
+                name,
+                values,
+            });
+        });
 
         const product = {
             name: this.elements.productName.value,
             description: this.elements.productDescription.value,
             inventory: this.elements.productVariableInventory.value,
-            attribute: [],
+            attributes,
             variation: []
         };
 
-        console.log('product', product)
+        console.log('product', product);
 
-        for (let key in attribute){
+        for(let key in attribute){
             product.attribute.push({
                 name: key,
                 value: attribute[key]
-            })
+            });
         }
 
-        return product
+        return product;
     }
 
     /**
      * Save
      * */
-    save() {
-        this.elements.variableProductJSONElement.innerHTML = JSON.stringify(this.generateDOMToObject())
+    save(){
+        this.elements.variableProductJSONElement.innerHTML = JSON.stringify(this.generateDOMToObject());
     }
 
     /**
      * Add variation manually
      * */
-    handleAddNewVariation() {
+    handleAddNewVariation(){
         // when attribute doesn't save can create new variation
-        if(!this.elements.variableProductJSONElement.innerHTML) return
+        if(!this.elements.variableProductJSONElement.innerHTML) return;
 
-        const productElement = JSON.parse(this.elements.variableProductJSONElement.innerHTML)
+        const productElement = JSON.parse(this.elements.variableProductJSONElement.innerHTML);
 
         let selectHTML = '';
         for(let i = 0; i < productElement.attribute.length; i++){
             selectHTML +=
                 `    <label for="${productElement.attribute[i].name}">${productElement.attribute[i].name}</label>
-                     <select data-easy-select name="attribute_${productElement.attribute[i].name.toLowerCase()}[0]" id="${productElement.attribute[i].name}">`
+                     <select data-easy-select name="attribute_${productElement.attribute[i].name.toLowerCase()}[0]" id="${productElement.attribute[i].name}">`;
             productElement.attribute[i].value.forEach(value => {
-                selectHTML += `<option value="${value}">${value}</option>`
+                selectHTML += `<option value="${value}">${value}</option>`;
 
-            })
-            selectHTML += `</select>`
+            });
+            selectHTML += `</select>`;
         }
 
         // create child
@@ -184,9 +195,9 @@ export default class VariableProduct {
                                     </div>
 
                                 </div>
-                            </div>`
+                            </div>`;
 
-        newVariation.setAttribute('data-variation-number', this.variationIndex)
+        newVariation.setAttribute('data-variation-number', this.variationIndex);
 
         // replace input, textarea name by the increasing index
         newVariation.querySelectorAll('input, textarea, select').forEach(
@@ -194,17 +205,17 @@ export default class VariableProduct {
                 input.name = input.name.replace(/\[\d+]/, '[' + this.variationIndex + ']');
 
             }
-        )
-        this.elements.variationProductDOM.appendChild(newVariation)
+        );
+        this.elements.variationProductDOM.appendChild(newVariation);
 
         // increase index
-        this.variationIndex++
+        this.variationIndex++;
     }
 
     /**
      * Delete variation
      * */
-    handleDeleteVariation(target) {
+    handleDeleteVariation(target){
         const variationEl = target.closest('[data-variation-number]');
         if(variationEl) variationEl.remove();
     }
@@ -212,9 +223,9 @@ export default class VariableProduct {
     /**
      * Handle click product detail
      * */
-    handleWrapperClick(e) {
+    handleWrapperClick(e){
         let functionHandling = () => {
-        }
+        };
         let target = null;
 
         // attribute
@@ -228,28 +239,28 @@ export default class VariableProduct {
 
 
         // add new attribute
-        if (addNewAttributeBtnEl) {
+        if(addNewAttributeBtnEl){
             functionHandling = this.handleAddNewAttribute.bind(this);
         }
 
         // delete attribute
-        else if (deleteAttributeBtnEl) {
+        else if(deleteAttributeBtnEl){
             functionHandling = this.handleDeleteAttribute.bind(this);
-            target = deleteAttributeBtnEl
+            target = deleteAttributeBtnEl;
         }
 
         // save attribute
-        else if(saveAttributeBtnEl) {
+        else if(saveAttributeBtnEl){
             functionHandling = this.generateDOMToObject.bind(this);
         }
 
         // add new variation
-        else if(addNewVariationBtnEl) {
+        else if(addNewVariationBtnEl){
             functionHandling = this.handleAddNewVariation.bind(this);
         }
 
         // delete variation
-        else if(deleteVariationBtnEl) {
+        else if(deleteVariationBtnEl){
             functionHandling = this.handleDeleteVariation.bind(this);
             target = deleteVariationBtnEl;
         }

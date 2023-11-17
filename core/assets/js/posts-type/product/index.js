@@ -20,9 +20,7 @@ class ProductPost {
 
     handlePublishProduct() {
         this.simpleProduct.save()
-        this.simpleProduct.generateDOMToObject();
         this.variableProduct.save();
-        this.variableProduct.generateDOMToObject();
     }
 
 

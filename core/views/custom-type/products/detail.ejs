@@ -4,19 +4,19 @@ const isEditPost = actionType === 'edit';
 
 // validate selected value on select
 const isSelectedValue = (name, value) => {
-    if (!isEditPost) return null;
+    if(!isEditPost) return null;
     return data[name] === value ? 'selected' : null;
 };
 
 // get value from data
 const getValueFromData = (name, property = '') => {
-    if (!isEditPost) return '';
+    if(!isEditPost) return '';
     return property ? data[name][property] : data[name];
 };
 
 // get key value from object data
 const getKeyValueOb = (obj, index, key = 'key') => {
-    if (!isEditPost) return '';
+    if(!isEditPost) return '';
     return key === 'key' ? Object.keys(obj)[index] : Object.values(obj)[index]
 }
 %>
@@ -101,9 +101,7 @@ const getKeyValueOb = (obj, index, key = 'key') => {
                     <!-- Variable product detail -->
                     <div data-variable-product-wrapper style="width: 50%;">
                         <div data-variable-product>
-                            <div>
-                                <button type="button" data-add-new-attribute>Add new</button>
-                            </div>
+                            <button type="button" data-add-new-attribute>Add new</button>
 
                             <!-- inventory -->
                             <div>
@@ -114,30 +112,32 @@ const getKeyValueOb = (obj, index, key = 'key') => {
                             </div>
 
                             <!-- Attribute detail for variable product -->
-                            <div data-attribute-number="0">
-                                <div data-taxonomy>
-                                    <div>
-                                        <div data-attribute-name>New attribute</div>
-                                        <button type="button" data-delete-attribute>Remove</button>
-                                    </div>
-
-                                    <div data-attribute-details>
-                                        <!-- attribute name -->
-                                        <div data-attribute-product-name>
-                                            <label for="attribute-name">Name</label>
-                                            <input type="text" placeholder="Attribute name" id="attribute-name"
-                                                   data-variable-product-description
-                                                   name="attributeName[0]"
-                                                   class="w100">
+                            <div data-attributes-wrapper>
+                                <div data-attribute-number="0">
+                                    <div data-taxonomy>
+                                        <div>
+                                            <div data-attribute-name>New attribute</div>
+                                            <button type="button" data-delete-attribute>Remove</button>
                                         </div>
 
-                                        <!-- attribute value -->
-                                        <div data-attribute-product-value>
-                                            <label for="attribute-value">Values</label>
-                                            <textarea type="text"
-                                                      placeholder="Enter some descriptive text. Use “|” to separate different values."
-                                                      id="attribute-value" name="attributeValue[0]"
-                                                      class="w100"></textarea>
+                                        <div data-attribute-details>
+                                            <!-- attribute name -->
+                                            <div data-attribute-product-name>
+                                                <label for="attribute-name">Name</label>
+                                                <input type="text" placeholder="Attribute name" id="attribute-name"
+                                                       data-variable-product-description
+                                                       name="attributeName[0]"
+                                                       class="w100">
+                                            </div>
+
+                                            <!-- attribute value -->
+                                            <div data-attribute-product-value>
+                                                <label for="attribute-value">Values</label>
+                                                <textarea type="text"
+                                                          placeholder="Enter some descriptive text. Use “|” to separate different values."
+                                                          id="attribute-value" name="attributeValue[0]"
+                                                          class="w100"></textarea>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -146,9 +146,7 @@ const getKeyValueOb = (obj, index, key = 'key') => {
                         </div>
 
                         <!-- Save attribute button -->
-                        <div>
-                            <button type="button" data-save-attribute>Save</button>
-                        </div>
+                        <button type="button" data-save-attribute>Save</button>
 
                         <!-- Variations for variable product -->
                         <div data-variation-product>
