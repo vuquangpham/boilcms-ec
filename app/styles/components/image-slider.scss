@@ -1,0 +1,19 @@
+/******************************
+* Image Slider
+*******************************/
+.image-slider {
+  // content
+  &__content {
+    margin-bottom: var(--spacing-40);
+  }
+
+  // image
+  &__image {
+    aspect-ratio: 2/3;
+    width: 200px;
+  }
+}
+
+/******************************
+* Responsive
+*******************************/

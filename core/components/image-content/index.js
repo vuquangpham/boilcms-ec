@@ -47,6 +47,7 @@ class ImageContent extends Component{
 
         // options
         const isRightPosition = this.getOptions(options, 'image-alignment');
+        const bottomSpacing = this.getOptions(options, 'spacing');
 
         // content
         const content = params.find(p => p.key === 'content');
@@ -57,7 +58,7 @@ class ImageContent extends Component{
         const imageURL = imageData.url;
 
         return `
-<div class="image-content ${isRightPosition ? 'image-position-right' : ''}">
+<div class="image-content ${bottomSpacing} ${isRightPosition ? 'image-position-right' : ''}">
    <div class="image-content__inner fl-grid ai-center">
 
         <div class="image-content__col image w100 img-wrapper-cover skeleton-bg">

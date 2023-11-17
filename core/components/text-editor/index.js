@@ -19,10 +19,14 @@ class TextEditor extends Component{
     }
 
     render(data){
+        // options
+        const bottomSpacing = this.getOptions(data.options, 'spacing');
+
+        // content
         const content = data.params[0].value;
 
         return `
-<div class="text-editor">
+<div class="text-editor ${bottomSpacing}">
     <div class="text-editor__content">${content}</div>
 </div>
 `;

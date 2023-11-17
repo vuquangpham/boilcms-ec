@@ -26,7 +26,10 @@ class Row extends Component{
     }
 
     render(data){
-        return `<div class="row" data-component-wrapper>#{DATA_CHILDREN}</div>`;
+        // options
+        const bottomSpacing = this.getOptions(data.options, 'spacing');
+
+        return `<div class="row ${bottomSpacing}" data-component-wrapper>#{DATA_CHILDREN}</div>`;
     }
 }
 

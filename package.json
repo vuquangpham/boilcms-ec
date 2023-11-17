@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "backend:build": "node server.js",
-    "backend:development": "nodemon --ignore public/ --ignore assets/ --ignore core/assets server.js",
+    "backend:development": "nodemon --ignore public/ --ignore assets/ --ignore app/ --ignore core/assets server.js",
     "frontend:build": "cross-env DEV_MODE=false webpack --config ./configs/webpack.config.build.js",
     "frontend:development": "cross-env DEV_MODE=true webpack serve --config ./configs/webpack.config.dev.js",
     "start": "concurrently --kill-others \"npm run backend:development\" \"npm run frontend:development\"",
