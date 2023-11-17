@@ -1,41 +1,38 @@
-import fetch from "../../../../../assets/js/fetch";
 
-export default class ProductPost {
-    constructor(wrapper) {
-        this.wrapper = wrapper
+export default class VariableProduct {
+    constructor(productWrapper, variableProductWrapper) {
+        this.productWrapper = productWrapper;
+        this.variableProductWrapper = variableProductWrapper;
 
         this.elements = {
 
             // DOM
-            variableProduct: wrapper.querySelector('[data-variable-product]'),
-            simpleProduct: wrapper.querySelector('[data-simple-product]'),
+            variableProduct: variableProductWrapper.querySelector('[data-variable-product]'),
 
             // variable
-            taxonomyProductAttributes: wrapper.querySelector('[data-taxonomy]'),
+            taxonomyProductAttributes: variableProductWrapper.querySelector('[data-taxonomy]'),
 
             // variation
-            variationProductDOM: wrapper.querySelector('[data-variation-product]'),
-            singleProductVariation: wrapper.querySelector('[data-single-variation]'),
+            variationProductDOM: variableProductWrapper.querySelector('[data-variation-product]'),
+            singleProductVariation: variableProductWrapper.querySelector('[data-single-variation]'),
 
             // input
-            attributesName: wrapper.querySelector('[data-attribute-name]'),
-            productTypeValue: wrapper.querySelector('[data-productType-value]'),
+            productName: productWrapper.querySelector('[data-product-name]'),
+            productDescription: productWrapper.querySelector('[data-product-description]'),
+            productVariableInventory: variableProductWrapper.querySelector('[data-variable-product-inventory]'),
+            attributesName: variableProductWrapper.querySelector('[data-attribute-name]'),
+            productTypeValue: variableProductWrapper.querySelector('[data-productType-value]'),
             // productName: wrapper.querySelector
 
-
             // textarea json
-            jsonElement: wrapper.querySelector('[data-product-json]')
+            variableProductJSONElement: variableProductWrapper.querySelector('[data-variable-product-json]')
 
         }
 
         this.attributeIndex = 1;
         this.variationIndex = 0;
 
-        // vars
-        const urlObject = new URL(location.href);
-        this.FETCH_URL = urlObject.origin + urlObject.pathname;
-
-        this.wrapper.addEventListener('click', this.handleWrapperClick.bind(this))
+        this.variableProductWrapper.addEventListener('click', this.handleWrapperClick.bind(this));
     }
 
     /**
@@ -70,20 +67,6 @@ export default class ProductPost {
     }
 
     /**
-     * Handle toggle show single attributes
-     * */
-    handleToggleAttributeDetails(target) {
-
-        // get parent element
-        const singleAttributeEl = target.closest('[data-attribute-number]');
-
-        // get the attribute want to hide when click
-        const singleAttributeDetailsEl = singleAttributeEl.querySelector('[data-attribute-details]')
-
-        if(singleAttributeEl && singleAttributeDetailsEl) singleAttributeDetailsEl.classList.toggle('closed')
-    }
-
-    /**
      * Delete attribute
      * */
     handleDeleteAttribute(target) {
@@ -98,14 +81,14 @@ export default class ProductPost {
     /**
      * Save attribute
      * */
-    handleSaveAttribute() {
+    generateDOMToObject() {
         let attribute = {}
         let attributeName = [];
         let attributeValue = [];
-        this.wrapper.querySelectorAll('[data-attribute-product-name] input').forEach(input => {
+        this.variableProductWrapper.querySelectorAll('[data-attribute-product-name] input').forEach(input => {
             attributeName.push(input.value)
         })
-        this.wrapper.querySelectorAll('[data-attribute-product-value] textarea').forEach(textarea => {
+        this.variableProductWrapper.querySelectorAll('[data-attribute-product-value] textarea').forEach(textarea => {
             attributeValue.push(textarea.value);
         })
 
@@ -114,9 +97,14 @@ export default class ProductPost {
         }
 
         const product = {
-
-            attribute: []
+            name: this.elements.productName.value,
+            description: this.elements.productDescription.value,
+            inventory: this.elements.productVariableInventory.value,
+            attribute: [],
+            variation: []
         };
+
+        console.log('product', product)
 
         for (let key in attribute){
             product.attribute.push({
@@ -125,14 +113,14 @@ export default class ProductPost {
             })
         }
 
-        console.log('product', product)
-        const data = JSON.stringify(product);
-        console.log('data', data)
-        this.elements.jsonElement.innerHTML = data
-        const dataParse = JSON.parse(data)
-        console.log('parse: ', dataParse)
+        return product
+    }
 
-        // thay textContent = innerHTML, vi innerHTML se lay het html khong can bo gia tri div gi het
+    /**
+     * Save
+     * */
+    save() {
+        this.elements.variableProductJSONElement.innerHTML = JSON.stringify(this.generateDOMToObject())
     }
 
     /**
@@ -140,9 +128,9 @@ export default class ProductPost {
      * */
     handleAddNewVariation() {
         // when attribute doesn't save can create new variation
-        if(!this.elements.jsonElement.innerHTML) return
+        if(!this.elements.variableProductJSONElement.innerHTML) return
 
-        const productElement = JSON.parse(this.elements.jsonElement.innerHTML)
+        const productElement = JSON.parse(this.elements.variableProductJSONElement.innerHTML)
 
         let selectHTML = '';
         for(let i = 0; i < productElement.attribute.length; i++){
@@ -170,7 +158,7 @@ export default class ProductPost {
                                 <div>${selectHTML}</div>
 
                                 <!-- variation detail -->
-                                <div data-variation-detail class="closed">
+                                <div data-variation-detail>
                                     <div class="products-detail__qty">
                                         <label for="qty">Qty</label>
                                         <input type="text" placeholder="Qty" id="qty" name="variable_qty[0]"
@@ -214,36 +202,11 @@ export default class ProductPost {
     }
 
     /**
-     * Handle toggle show single variation
-     * */
-    handleToggleVariationDetails(target) {
-        const singleVariationEl = target.closest('[data-single-variation]');
-
-        const singleVariationDetailEl = singleVariationEl.querySelector('[data-variation-detail]');
-
-        if(singleVariationDetailEl) singleVariationDetailEl.classList.toggle('closed');
-    }
-
-    /**
      * Delete variation
      * */
     handleDeleteVariation(target) {
         const variationEl = target.closest('[data-variation-number]');
         if(variationEl) variationEl.remove();
-    }
-
-    /**
-     * Switching between simple product input and variable product input
-     * */
-    switchProductTypeOptions() {
-
-        // If the selected value of the productType is a 'variable', then display the option to show attributes.
-        const isProductTypeVariable = this.elements.productTypeValue.options[this.elements.productTypeValue.selectedIndex].value === 'variable';
-
-        this.elements.simpleProduct.style.display = isProductTypeVariable ? 'none' : 'block';
-
-        this.elements.variableProduct.style.display = isProductTypeVariable ? 'block' : 'none';
-        this.elements.variationProductDOM.style.display = isProductTypeVariable ? 'block' : 'none';
     }
 
     /**
@@ -257,12 +220,10 @@ export default class ProductPost {
         // attribute
         const addNewAttributeBtnEl = e.target.closest('button[data-add-new-attribute]');
         const deleteAttributeBtnEl = e.target.closest('button[data-delete-attribute]');
-        const attributeNameEl = e.target.closest('[data-attribute-name]');
         const saveAttributeBtnEl = e.target.closest('[data-save-attribute]');
 
         // variation
         const addNewVariationBtnEl = e.target.closest('button[data-add-new-variation]');
-        const showVariationDetailEl = e.target.closest('[data-variation-name]');
         const deleteVariationBtnEl = e.target.closest('button[data-delete-variation]');
 
 
@@ -277,15 +238,9 @@ export default class ProductPost {
             target = deleteAttributeBtnEl
         }
 
-        // show detail attribute
-        else if(attributeNameEl) {
-            functionHandling = this.handleToggleAttributeDetails.bind(this);
-            target = attributeNameEl;
-        }
-
         // save attribute
         else if(saveAttributeBtnEl) {
-            functionHandling = this.handleSaveAttribute.bind(this);
+            functionHandling = this.generateDOMToObject.bind(this);
         }
 
         // add new variation
@@ -293,21 +248,10 @@ export default class ProductPost {
             functionHandling = this.handleAddNewVariation.bind(this);
         }
 
-        // show detail variation
-        else if(showVariationDetailEl) {
-            functionHandling = this.handleToggleVariationDetails.bind(this);
-            target = showVariationDetailEl
-        }
-
         // delete variation
         else if(deleteVariationBtnEl) {
             functionHandling = this.handleDeleteVariation.bind(this);
             target = deleteVariationBtnEl;
-        }
-
-        // switching simple product and variable product
-        else {
-            functionHandling = this.switchProductTypeOptions.bind(this);
         }
 
         functionHandling(target);

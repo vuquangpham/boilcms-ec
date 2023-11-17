@@ -62,15 +62,15 @@ const getKeyValueOb = (obj, index, key = 'key') => {
                     </select>
                 </div>
 
-                <div>
+                <div style="display: flex; gap: 8px">
 
                     <!-- Simple product detail-->
-                    <div data-simple-product>
+                    <div data-simple-product-wrapper style="width: 50%;">
                         <!-- inventory -->
                         <div>
                             <label for="inventory">Inventory</label>
                             <input type="text" placeholder="Inventory" id="inventory" name="inventory"
-                                   data-product-inventory
+                                   data-simple-product-inventory
                                    class="w100" value="<%= getValueFromData('inventory') %>">
                         </div>
 
@@ -90,75 +90,85 @@ const getKeyValueOb = (obj, index, key = 'key') => {
                                    class="w100" value="<%= getValueFromData('salePrice') %>">
                         </div>
 
+                        <!-- simple product json-->
+                        <div>
+                            <label for="content">JSON for simple</label>
+                            <textarea data-simple-product-json id="content"></textarea>
+                        </div>
+
                     </div>
 
                     <!-- Variable product detail -->
-                    <div data-variable-product>
-                        <div>
-                            <button type="button" data-add-new-attribute>Add new</button>
-                        </div>
+                    <div data-variable-product-wrapper style="width: 50%;">
+                        <div data-variable-product>
+                            <div>
+                                <button type="button" data-add-new-attribute>Add new</button>
+                            </div>
 
-                        <!-- inventory -->
-                        <div>
-                            <label for="inventory">Inventory</label>
-                            <input type="text" placeholder="Inventory" id="inventory" name="inventory"
-                                   data-product-inventory
-                                   class="w100" value="<%= getValueFromData('inventory') %>">
-                        </div>
+                            <!-- inventory -->
+                            <div>
+                                <label for="inventory">Inventory</label>
+                                <input type="text" placeholder="Inventory" id="inventory" name="inventory"
+                                       data-variable-product-inventory
+                                       class="w100" value="<%= getValueFromData('inventory') %>">
+                            </div>
 
-                        <!-- Attribute detail for variable product -->
-                        <div data-attribute-number="0">
-                            <div data-taxonomy>
-                                <div>
-                                    <div data-attribute-name>New attribute</div>
-                                    <button type="button" data-delete-attribute>Remove</button>
-                                </div>
-
-                                <div data-attribute-details>
-                                    <!-- attribute name -->
-                                    <div data-attribute-product-name>
-                                        <label for="attribute-name">Name</label>
-                                        <input type="text" placeholder="Attribute name" id="attribute-name"
-                                               data-variable-product-description
-                                               name="attributeName[0]"
-                                               class="w100">
+                            <!-- Attribute detail for variable product -->
+                            <div data-attribute-number="0">
+                                <div data-taxonomy>
+                                    <div>
+                                        <div data-attribute-name>New attribute</div>
+                                        <button type="button" data-delete-attribute>Remove</button>
                                     </div>
 
-                                    <!-- attribute value -->
-                                    <div data-attribute-product-value>
-                                        <label for="attribute-value">Values</label>
-                                        <textarea type="text"
-                                                  placeholder="Enter some descriptive text. Use “|” to separate different values."
-                                                  id="attribute-value" name="attributeValue[0]"
-                                                  class="w100"></textarea>
+                                    <div data-attribute-details>
+                                        <!-- attribute name -->
+                                        <div data-attribute-product-name>
+                                            <label for="attribute-name">Name</label>
+                                            <input type="text" placeholder="Attribute name" id="attribute-name"
+                                                   data-variable-product-description
+                                                   name="attributeName[0]"
+                                                   class="w100">
+                                        </div>
+
+                                        <!-- attribute value -->
+                                        <div data-attribute-product-value>
+                                            <label for="attribute-value">Values</label>
+                                            <textarea type="text"
+                                                      placeholder="Enter some descriptive text. Use “|” to separate different values."
+                                                      id="attribute-value" name="attributeValue[0]"
+                                                      class="w100"></textarea>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+
                         </div>
 
-                    </div>
-
-                    <!-- Save attribute button -->
-                    <div>
-                        <button type="button" data-save-attribute>Save</button>
-                    </div>
-
-                    <!-- Variations for variable product -->
-                    <div data-variation-product>
-
+                        <!-- Save attribute button -->
                         <div>
-                            <button type="button" data-add-new-variation>Add manually</button>
+                            <button type="button" data-save-attribute>Save</button>
+                        </div>
+
+                        <!-- Variations for variable product -->
+                        <div data-variation-product>
+
+                            <div>
+                                <button type="button" data-add-new-variation>Add manually</button>
+                            </div>
+
+                        </div>
+
+                        <!-- variable product json -->
+                        <div>
+                            <label for="content">JSON for variable</label>
+                            <textarea data-variable-product-json id="content"></textarea>
                         </div>
 
                     </div>
 
                 </div>
 
-            </div>
-
-            <div>
-                <label for="content">JSON</label>
-                <textarea data-product-json id="content"></textarea>
             </div>
 
             <div>
@@ -172,7 +182,7 @@ const getKeyValueOb = (obj, index, key = 'key') => {
                     </select>
                 </div>
 
-                <button type="submit" class="btn_primary">Publish</button>
+                <button type="submit" class="btn_primary" data-product-publish>Publish</button>
             </div>
         </div>
 
