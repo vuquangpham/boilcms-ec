@@ -30,6 +30,9 @@ class ImageSlider extends Component{
         const params = data.params;
         const options = data.options;
 
+        // options
+        const bottomSpacing = this.getOptions(options, 'spacing');
+
         // content
         const content = this.getParam(params, 'content');
 
@@ -44,7 +47,7 @@ class ImageSlider extends Component{
 </div>`).join('');
 
         return `
-<div class="image-slider">
+<div class="image-slider ${bottomSpacing}">
     <div class="container-full-width">
         <div class="image-slider__content"><div class="boil-content">${content}</div></div>
         <div class="image-slider__images">${imagesHTML}</div>

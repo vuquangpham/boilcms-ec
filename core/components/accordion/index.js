@@ -44,8 +44,10 @@ class Accordion extends Component{
 
     async render(data){
         const params = data.params;
-
         let groupHTML = '';
+
+        // options
+        const bottomSpacing = this.getOptions(data.options, 'spacing');
 
         // content
         const content = this.getParam(params, 'content');
@@ -64,7 +66,7 @@ class Accordion extends Component{
         });
 
         return `
-<div class="accordion">
+<div class="accordion ${bottomSpacing}">
     <div class="heading">${content}</div>
     <div class="group">${groupHTML}</div>
 </div>`;

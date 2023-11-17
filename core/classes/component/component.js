@@ -16,10 +16,11 @@ class Component{
                 name: 'Spacing',
                 paramName: 'spacing',
                 value: {
-                    'Default': '',
+                    'Default': 'margin-bottom-default',
                     'Small': 'margin-bottom-small',
                     'Medium': 'margin-bottom-medium',
-                    'Large': 'margin-bottom-default'
+                    'Large': 'margin-bottom-default',
+                    'None': '',
                 }
             },
         ];
@@ -39,6 +40,7 @@ class Component{
     }
 
     getOptions(options, optionName){
+        if(!options) return '';
         return options.find(o => o.key === optionName)?.value || '';
     }
 
