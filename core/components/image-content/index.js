@@ -58,11 +58,15 @@ class ImageContent extends Component{
 
         return `
 <div class="image-content ${isRightPosition ? 'image-position-right' : ''}">
-    <div class="image-content__col content">
-        ${content.value}
-    </div>
-    <div class="image-content__col image img-wrapper-cover skeleton-bg">
-        <img src="${imageURL.original}" alt="${imageData.name}">
+   <div class="image-content__inner fl-grid ai-center">
+
+        <div class="image-content__col image w100 img-wrapper-cover skeleton-bg">
+            <img src="${imageURL.original}" alt="${imageData.name}">
+        </div>
+    
+        <div class="image-content__col content w100">
+            <div class="boil-content">${content.value}</div>
+        </div>
     </div>
 </div>`;
     }
