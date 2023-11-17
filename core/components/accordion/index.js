@@ -69,7 +69,7 @@ class Accordion extends Component{
 
         return `
 <div class="accordion ${bottomSpacing}" data-accordion>
-    <div class="accordion__heading"><div class="boil-content ta-center">${content}</div></div>
+    ${content ? '<div class="accordion__heading"><div class="boil-content ta-center">' + content + '</div></div>' : ''}
     <div class="accordion__items">${groupHTML}</div>
 </div>`;
     }
