@@ -49,7 +49,9 @@ class ImageSlider extends Component{
         return `
 <div class="image-slider ${bottomSpacing}">
     <div class="container-full-width">
-        <div class="image-slider__content"><div class="boil-content">${content}</div></div>
+        <div class="container">
+            <div class="image-slider__content"><div class="boil-content">${content}</div></div>
+        </div>
         <div class="image-slider__images">${imagesHTML}</div>
     </div>
 </div>`;
