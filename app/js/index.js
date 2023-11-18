@@ -8,3 +8,4 @@ import '@global/vendors/accordion/Accordion.min.js';
 // components
 import './components/image-slider';
 import './components/accordion';
+import ScrollDirection from "./components/scroll-direction";
