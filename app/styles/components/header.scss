@@ -92,3 +92,77 @@ ul.menu {
     }
   }
 }
+
+
+/****************************
+* Mobile Menu
+****************************/
+.mobile-menu-wrapper {
+  top: var(--header-height);
+  height: calc(100vh - var(--header-height));
+
+  display: flex;
+  justify-content: flex-end;
+  overflow: hidden;
+
+  // overlay
+  .overlay {
+    background: rgba(0, 0, 0, 0.2);
+    transition: all .5s ease;
+  }
+
+  // mobile menu
+  .mobile-menu {
+    width: 100%;
+    max-width: 400px;
+    padding: 6rem 2rem;
+
+    height: 100%;
+    background: #fff;
+
+    transition: transform .5s ease;
+
+    // responsive
+    @include responsive('mobile') {
+      max-width: 100%;
+      padding: 3rem 2rem;
+    }
+  }
+
+  // menu
+  ul.menu {
+    flex-direction: column;
+    gap: 0;
+
+    // item
+    li {
+      padding: 1.4rem 0;
+      width: 100%;
+      border-top: 1px solid #ccc;
+
+      // link
+      a {
+        font-size: 2rem;
+      }
+
+    }
+  }
+}
+
+html.mobile-menu-is-open {
+  overflow: hidden
+}
+
+html:not(.mobile-menu-is-open) .mobile-menu-wrapper {
+
+  // overlay
+  .overlay {
+    opacity: 0;
+    visibility: hidden;
+  }
+
+  // mobile menu
+  .mobile-menu {
+    transform: translateX(100%);
+  }
+}
