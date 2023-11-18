@@ -62,8 +62,6 @@ router.get('*', (request, response, next) => {
              * Page with custom template
              * */
             if(categoryItem.templates && categoryItem.isCustomTemplate(result.template)){
-                console.log('custom template', result.template);
-
                 // account template and not has user logged in => redirect 404
                 if(result.template === 'account' && !response.locals.user)
                     return Promise.reject('404 page ne');
