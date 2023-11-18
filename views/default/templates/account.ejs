@@ -14,12 +14,42 @@
     <link rel="stylesheet" href="/themes/main-fe.css">
     <script src="/themes/main-fe.js" defer></script>
 </head>
-<body>
+<body class="account">
 
 <%- include('../partials/header.ejs'); %>
 
 <div class="container">
-    <h1>Account Template</h1>
+    <div data-tab class="fl-grid">
+        <div class="w30">
+            <div>
+                <button data-trigger="information">Thông tin tài khoản</button>
+            </div>
+
+            <div>
+                <button data-trigger="history">Lịch sử đơn hàng</button>
+            </div>
+
+            <div>
+                <button data-trigger="address">Địa chỉ</button>
+            </div>
+        </div>
+
+        <div class="w70">
+
+            <div data-receiver="information">
+                <div>Thôn tin tài khoản</div>
+            </div>
+
+            <div data-receiver="history">
+                <div>Đơn hàng</div>
+            </div>
+
+            <div data-receiver="address">
+                <div>Địa chỉ</div>
+            </div>
+
+        </div>
+    </div>
 </div>
 
 <%- include('../partials/footer.ejs'); %>
