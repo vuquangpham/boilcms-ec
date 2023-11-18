@@ -53,9 +53,7 @@
 @include responsive('tablet-v') {
   .image-content {
     &__inner {
-      flex-direction: column-reverse;
       gap: var(--spacing-20);
-
       text-align: center;
     }
   }
