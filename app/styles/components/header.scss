@@ -1,6 +1,12 @@
+/****************************
+* Header
+****************************/
 .header {
   height: var(--header-height);
   padding: 0 var(--gap-container);
+  background: var(--header-color);
+
+  transition: transform .5s ease;
 
   // logo
   &__logo {
@@ -50,7 +56,19 @@
   }
 }
 
-// menu
+// scroll middle
+html.scroll-middle.scroll-up .header,
+html.scroll-middle.scroll-bottom .header {
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+}
+
+html:not(.scroll-up):not(.scroll-bottom).scroll-middle .header {
+  transform: translateY(-100%);
+}
+
+/****************************
+* Menu
+****************************/
 ul.menu {
   display: flex;
   align-items: center;
