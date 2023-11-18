@@ -1,0 +1,7 @@
+/**
+ * Popup v0.0.1
+ * @author Vu Pham
+ * @homepage https://github.com/vuquangpham/popup.js
+ * @license MIT 2023
+ */
+[data-popup-wrapper]{--outer-padding: 2rem;--inner-padding: 2rem;--max-width: 100rem;position:fixed;top:0;left:0;right:0;bottom:0;background-color:rgba(0,0,0,.1);-webkit-transition-property:opacity,visibility;transition-property:opacity,visibility;-webkit-transition-duration:.3s;transition-duration:.3s;-webkit-transition-timing-function:ease;transition-timing-function:ease;-webkit-backdrop-filter:blur(5px);backdrop-filter:blur(5px);z-index:20}[data-popup-overlay]{position:fixed;top:0;left:0;right:0;bottom:0}[data-popup-overflow]{position:absolute;top:0;left:0;right:0;bottom:0;padding:var(--outer-padding);display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-pack:justify;-ms-flex-pack:justify;justify-content:space-between;-webkit-box-orient:vertical;-webkit-box-direction:normal;-ms-flex-direction:column;flex-direction:column;-webkit-box-align:center;-ms-flex-align:center;align-items:center;overflow:auto}[data-popup-overflow]:before,[data-popup-overflow]:after{content:""}[data-popup-inner]{display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;-ms-flex-direction:column;flex-direction:column;width:100%;max-width:var(--max-width);position:relative;z-index:999;background-color:#fff;padding:var(--inner-padding);-webkit-box-shadow:3px 4px 12px rgba(0,0,0,.05);box-shadow:3px 4px 12px rgba(0,0,0,.05)}

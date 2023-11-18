@@ -59,19 +59,23 @@ const menuItems = [
 
         <div class="header__col right fl-center-v">
 
-            <div class="header__login">
-                <button class="clear-button-style">Login</button>
-            </div>
+            <% if (!user) { %>
+                <!--                <div class="header__login" data-popup="login">-->
+                <!--                    <button class="clear-button-style">Login</button>-->
+                <!--                </div>-->
+            <% } else { %>
 
-            <div class="header__account">
-                <button class="clear-button-style">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                         stroke="currentColor" width="20">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                              d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z"/>
-                    </svg>
-                </button>
-            </div>
+
+                <div class="header__account">
+                    <button class="clear-button-style">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                             stroke="currentColor" width="20">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                  d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z"/>
+                        </svg>
+                    </button>
+                </div>
+            <% } %>
 
             <div class="header__cart">
                 <button class="clear-button-style">
@@ -113,5 +117,42 @@ const menuItems = [
             </ul>
         </div>
     </div>
+
+    <!--    <div data-popup-content="login">-->
+    <!--        <form method="post" action="?type=sign-in&method=post">-->
+
+    <!--            <div class="form-fields">-->
+
+    <!--                &lt;!&ndash; email &ndash;&gt;-->
+    <!--                <div class="field">-->
+    <!--                    <label for="email">Email:</label>-->
+    <!--                    <input id="email" type="email" name="email" placeholder="Email" required>-->
+    <!--                </div>-->
+
+    <!--                &lt;!&ndash; password &ndash;&gt;-->
+    <!--                <div class="field">-->
+    <!--                    <label for="password">Password:</label>-->
+    <!--                    <input id="password" type="password" name="password" placeholder="Password" required>-->
+    <!--                </div>-->
+
+    <!--                &lt;!&ndash; Forgot password &ndash;&gt;-->
+    <!--                <div class="field txt_14px">-->
+    <!--                    <a href="/register?type=forget-password">Forgot password?</a>-->
+    <!--                </div>-->
+
+    <!--                &lt;!&ndash; Button &ndash;&gt;-->
+    <!--                <div class="field">-->
+    <!--                    <button type="submit" class="btn_primary w100">Sign In</button>-->
+    <!--                </div>-->
+
+    <!--                &lt;!&ndash; Sign up &ndash;&gt;-->
+    <!--                <div class="field txt_14px ta-center">-->
+    <!--                    <span>Don't have a CMS account yet? <a href="/register?type=sign-up">Sign up!</a></span>-->
+    <!--                </div>-->
+
+    <!--            </div>-->
+
+    <!--        </form>-->
+    <!--    </div>-->
 
 </header>
