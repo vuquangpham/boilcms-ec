@@ -21,6 +21,7 @@ router.get('*', (request, response, next) => {
 router.get('*', (request, response, next) => {
     let {type, pageURL} = response.locals.params;
 
+    let subPageId = '';
     let categoryItem = null;
 
     // special page type (without "pages" in ex /pages/home)
@@ -29,6 +30,16 @@ router.get('*', (request, response, next) => {
         pageURL = type;
     }else{
         categoryItem = CategoryController.getCategoryItem(type);
+    }
+
+    // category item doesn't exist, maybe subpage in special category item
+    if(!categoryItem && pageURL && type){
+        // get category item
+        categoryItem = CategoryController.getSpecialCategoryItem();
+
+        // get the url with type
+        subPageId = pageURL;
+        pageURL = type;
     }
 
     // promise
@@ -63,8 +74,12 @@ router.get('*', (request, response, next) => {
              * */
             if(categoryItem.templates && categoryItem.isCustomTemplate(result.template)){
                 // account template and not has user logged in => redirect 404
-                if(result.template === 'account' && !response.locals.user)
-                    return Promise.reject('404 page ne');
+                if(result.template === 'account' && !response.locals.user) return Promise.reject('404 page ne');
+
+                // custom template that has subpage
+                if(subPageId){
+                    console.log(subPageId);
+                }
 
                 // render to frontend
                 return response.render('default/templates/' + result.template, {
