@@ -98,6 +98,7 @@ class UpdateComponentState{
         newItem.querySelectorAll('[data-param-value]').forEach(e => e.setAttribute('data-param-value', ''));
         newItem.querySelectorAll('.ql-editor').forEach(e => e.innerHTML = '');
         newItem.querySelectorAll('.ql-toolbar').forEach(e => e.remove());
+        newItem.querySelectorAll('[data-selected-medias]').forEach(e => e.innerHTML = '');
 
         // register type
         newItem.querySelectorAll('[data-type]').forEach(typeEl => {
