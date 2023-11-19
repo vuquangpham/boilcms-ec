@@ -53,16 +53,18 @@ export default class MediaPopup{
      * */
     handleSubmitForm(e){
         e.preventDefault();
+        const target = e.target;
 
         Media.handleUploadNewImage({
             nameInput: this.elements.popupForm.querySelector('[data-media-name]'),
             uploadInput: this.elements.popupForm.querySelector('[data-add-media]'),
             fetchURL: this.FETCH_URL,
             onAfterUpload: (result) => {
+                console.log('after submit', result);
                 const image = new Image(result, this.isSingleImage);
 
                 // re-assign dom element and clear the previous list
-                this.elements.mediaList = this.wrapper.querySelector('[data-media-list]');
+                this.elements.mediaList = target.closest('[data-type="image"]').querySelector('[data-media-list]');
                 this.elements.mediaList.appendChild(image.domElement);
             }
         });
