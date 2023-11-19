@@ -93,7 +93,7 @@ const getKeyValueOb = (obj, index, key = 'key') => {
                         <!-- simple product json-->
                         <div>
                             <label for="content">JSON for simple</label>
-                            <textarea data-simple-product-json id="content"></textarea>
+                            <textarea data-simple-product-json id="content" name="simpleJSON"></textarea>
                         </div>
 
                     </div>
@@ -113,7 +113,7 @@ const getKeyValueOb = (obj, index, key = 'key') => {
 
                             <!-- Attribute detail for variable product -->
                             <div data-attributes-wrapper>
-                                <div data-attribute-number="0">
+                                <div data-attribute>
                                     <div data-taxonomy>
                                         <div>
                                             <div data-attribute-name>New attribute</div>
@@ -125,7 +125,6 @@ const getKeyValueOb = (obj, index, key = 'key') => {
                                             <div data-attribute-product-name>
                                                 <label for="attribute-name">Name</label>
                                                 <input type="text" placeholder="Attribute name" id="attribute-name"
-                                                       data-variable-product-description
                                                        name="attributeName[0]"
                                                        class="w100">
                                             </div>
@@ -160,7 +159,7 @@ const getKeyValueOb = (obj, index, key = 'key') => {
                         <!-- variable product json -->
                         <div>
                             <label for="content">JSON for variable</label>
-                            <textarea data-variable-product-json id="content"></textarea>
+                            <textarea data-variable-product-json id="content" name="variableJSON"></textarea>
                         </div>
 
                     </div>

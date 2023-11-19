@@ -10,7 +10,6 @@ class ProductPost {
 
         this.elements = {
             publishProduct: wrapper.querySelector('[data-product-publish]'),
-            productTypeValue: wrapper.querySelector('[data-productType-value]'),
         }
 
         // this.wrapper.addEventListener('click', this.handleWrapperClick.bind(this))

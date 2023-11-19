@@ -2,16 +2,6 @@ const mongoose = require('mongoose')
 const {modifyDate} = require("../../utils/helper.utils");
 
 const Product = new mongoose.Schema({
-    name: {
-        type: String
-    },
-    description: {
-        type: String
-    },
-    media: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'media'
-    },
     visibility: {
         type: String
     },
@@ -24,30 +14,15 @@ const Product = new mongoose.Schema({
         type: String,
         default: 'simple'
     },
-    price: {
-        type: Number
+    simpleProductContent: {
+        type: String,
+        default: ''
     },
-    salePrice: {
-        type: Number
-    },
-    inventory: {
-        type: Number
-    },
-    attributes: [{
-        name: String,
-        value: [String]
+    variableProductContent: {
+        type: String,
+        default: ''
     }
-    ],
-    variations: [{
-        price: Number,
-        salePrice: Number,
-        description: String,
-        qty: Number,
-        attribute: [{
-            name: String,
-            value: String
-        }]
-    }]
+
 })
 
 Product.pre('save', function (next) {
