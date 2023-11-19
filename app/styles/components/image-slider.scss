@@ -11,7 +11,11 @@
 
   // content
   &__content {
+    max-width: 1000px;
+
     margin-bottom: var(--spacing-40);
+    margin-left: auto;
+    margin-right: auto;
   }
 
   // image
