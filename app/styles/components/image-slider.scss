@@ -2,6 +2,13 @@
 * Image Slider
 *******************************/
 .image-slider {
+  --item-lr-padding: 1rem;
+
+  // responsive
+  @include responsive('mobile') {
+    --item-lr-padding: .5rem;
+  }
+
   // content
   &__content {
     margin-bottom: var(--spacing-40);
@@ -9,8 +16,15 @@
 
   // image
   &__image {
-    aspect-ratio: 2/3;
-    width: 200px;
+    aspect-ratio: 6/4;
+    width: 500px;
+
+    padding: 0 var(--item-lr-padding);
+
+    // responsive
+    @include responsive('tablet-v') {
+      width: 280px;
+    }
   }
 }
 

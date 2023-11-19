@@ -42,8 +42,10 @@ class ImageSlider extends Component{
 
         const images = await Promise.all(promises);
         const imagesHTML = images.map(i => `
-<div class="image-slider__image img-wrapper-cover skeleton-bg">
-    <img src="${i.url.original}" alt="${i.name}" />
+<div class="image-slider__image">
+    <div class="img-wrapper-cover skeleton-bg">
+        <img src="${i.url.original}" alt="${i.name}" />
+    </div>
 </div>`).join('');
 
         return `

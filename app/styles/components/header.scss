@@ -154,6 +154,7 @@ html.mobile-menu-is-open {
 }
 
 html:not(.mobile-menu-is-open) .mobile-menu-wrapper {
+  pointer-events: none;
 
   // overlay
   .overlay {
