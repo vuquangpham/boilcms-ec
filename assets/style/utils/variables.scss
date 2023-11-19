@@ -49,3 +49,20 @@
   --size-h5: var(--fz-16);
   --size-h6: var(--fz-16);
 }
+
+/*******************************
+* Responsive
+********************************/
+@include responsive('tablet-v') {
+  :root {
+    // font sizes
+    --fz-50: 3.4rem;
+    --fz-40: 3rem;
+    --fz-32: 2.8rem;
+    --fz-20: 1.8rem;
+    --fz-18: 1.7rem;
+    --fz-16: 1.6rem;
+    --fz-14: 1.4rem;
+    --fz-12: 1.2rem;
+  }
+}

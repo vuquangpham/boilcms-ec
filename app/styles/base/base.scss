@@ -1,10 +1,15 @@
 // container
-.container {
+.container,
+.container-large {
   max-width: calc(var(--container) + 2 * var(--gap-container));
   padding-left: var(--gap-container);
   padding-right: var(--gap-container);
   margin-left: auto;
   margin-right: auto;
+}
+
+.container-large {
+  max-width: calc(1280px + 2 * var(--gap-container));
 }
 
 /* Make the section full width */

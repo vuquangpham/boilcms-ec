@@ -22,9 +22,9 @@
     --flkt-position:20px;
     --flkt-opacity:1;
     --flkt-bg:transparent;
-    --flkt-bg-hover:var(--vii-color-blue-300);
-    --flkt-color:var(--vii-color-blue-300);
-    --flkt-color-hover:var(--vii-color-on-primary);
+    --flkt-bg-hover:var(--color-primary);
+    --flkt-color:var(--color-white);
+    --flkt-color-hover:var(--color-white);
     --flkt-border-color:var(--flkt-color);
     --flkt-border-color-hover:var(--flkt-bg-hover);
 }
@@ -52,11 +52,11 @@
 /* button > icon */
 .flickity-prev-next-button svg {display:none;}
 .flickity-prev-next-button:before {
-    font-family:var(--vii-font-icomoon); font-size:var(--flkt-icon-size);
+    font-size:var(--flkt-icon-size);
     position:relative; color:inherit;
 }
-.flickity-prev-next-button.previous:before {content:"\e926";}
-.flickity-prev-next-button.next:before {content:"\e927";}
+.flickity-prev-next-button.previous:before {content:"<";}
+.flickity-prev-next-button.next:before {content:">";}
 
 /* button > hover */
 .flickity-prev-next-button:hover {
@@ -84,7 +84,7 @@
 /****************************
  * Position relative button
 ****************************/
-.flickity-button-relative {display:flex; gap:var(--vii-spacing-10);}
+.flickity-button-relative {display:flex; gap:1rem;}
 .flickity-button-relative .flickity-button {position:relative;}
 .flickity-button-relative .flickity-prev-next-button {transform:none; top:auto;}
 .flickity-button-relative .flickity-prev-next-button.previous {left:auto;}
@@ -106,12 +106,12 @@
  * Flickity Dots
 ****************************/
 body .flickity-page-dots {
-    position:relative; margin:0; bottom:auto; padding-top:var(--vii-spacing-30);
+    position:relative; margin:0; bottom:auto; padding-top:3rem;
     display:flex; align-items:center; justify-content:center; gap:12px;
 }
 body .flickity-page-dots li {padding:0;}
 body .flickity-page-dots .dot {
-    opacity:1; background-color:rgba(252, 252, 252, 0.7); transition:var(--vii-transition); margin:0;
+    opacity:1; background-color:rgba(252, 252, 252, 0.7); transition:all .3s ease; margin:0;
     width:20px; height:20px; background-clip:content-box; padding:6px; position:relative;
 }
 
@@ -144,10 +144,10 @@ body .flickity-page-dots .dot.is-selected:before {opacity:1;}
 ************************************/
 .txt_color_white .flickity-button,
 .flickity-button-white .flickity-button {
-    --flkt-bg:var(--vii-color-blue-300);
-    --flkt-bg-hover:var(--vii-color-white);
-    --flkt-color:var(--vii-color-white);
-    --flkt-color-hover:var(--vii-color-blue-300);
+    --flkt-bg:var(--color-secondary);
+    --flkt-bg-hover:#fff;
+    --flkt-color:#fff;
+    --flkt-color-hover:var(--color-secondary);
 }
 
 /***********************************

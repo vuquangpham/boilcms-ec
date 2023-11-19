@@ -1,0 +1,74 @@
+/****************************
+* Home Banner
+*****************************/
+.home-banner {
+  // item
+  &__item {
+    background: #000000;
+  }
+
+  // inner
+  &__item,
+  &__inner {
+    min-height: clamp(200px, 30vw, 600px);
+  }
+
+  // content
+  &__content {
+    padding: var(--gap-container);
+    text-align: center;
+  }
+
+  // image
+  &__image {
+    &-inner {
+      //aspect-ratio: 420/250;
+    }
+  }
+
+  // flickity button
+  .flickity-button {
+    bottom: 10px !important;
+    right: 10px !important;
+    top: unset !important;
+    left: unset !important;
+    transform: none !important;
+
+    &.previous {
+      transform: translateX(calc(-100% - 5px)) !important;
+    }
+  }
+
+  // responsive
+  @include responsive('tablet-v', true) {
+    // content
+    &__content {
+      width: 50%;
+    }
+
+    // image
+    &__image {
+      width: 50%;
+
+      // overlay
+      &:before {
+        background: linear-gradient(to top, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
+        height: 50%;
+        bottom: 0;
+        left: 0;
+        top: unset;
+      }
+    }
+  }
+  @include responsive('tablet-v') {
+    // item
+    &__item {
+      flex-direction: column-reverse
+    }
+
+    // content
+    &__content {
+      padding-bottom: 6rem;
+    }
+  }
+}
