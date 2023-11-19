@@ -72,3 +72,10 @@
     }
   }
 }
+
+/****************************
+ * Flickity > Avoid layout shift
+****************************/
+.home-banner__inner:not(.flickity-enabled) > *:not(:first-child) {
+  display: none;
+}

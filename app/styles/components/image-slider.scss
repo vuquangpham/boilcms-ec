@@ -32,6 +32,13 @@
   }
 }
 
+/****************************
+ * Flickity > Avoid layout shift
+****************************/
+.image-slider__images:not(.flickity-enabled) > *:not(:first-child) {
+  display: none;
+}
+
 /******************************
 * Responsive
 *******************************/

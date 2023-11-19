@@ -8,7 +8,7 @@ document.querySelectorAll('.image-slider').forEach(wrapper => {
         pageDots: false,
         prevNextButtons: false,
         groupCells: 1,
-        cellAlign: 'left',
-        wrapAround: false,
+        cellAlign: 'center',
+        wrapAround: true,
     });
 });
