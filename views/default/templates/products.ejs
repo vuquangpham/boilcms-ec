@@ -4,7 +4,7 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title><%= title ;%> - <%= projectName ;%></title>
+    <title><%= title; %> - <%= projectName; %></title>
 
     <link rel="apple-touch-icon" sizes="180x180" href="/themes/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/themes/favicon-32x32.png">
@@ -19,7 +19,72 @@
 <%- include('../partials/header.ejs'); %>
 
 <div class="container">
-    <h1>Products Template</h1>
+    <div class="site-title">
+        <h1>All Products</h1>
+    </div>
+
+    <div class="category">
+        <%
+        const categories = [
+            {
+                name: 'All',
+                url: '/products'
+            },
+            {
+                name: 'Headphones',
+                url: '/products'
+            },
+            {
+                name: 'Earphones',
+                url: '/products'
+            },
+            {
+                name: 'Airpods',
+                url: '/products'
+            }
+        ]
+
+        categories.forEach(category => { %>
+
+            <a class="category__item" href="<%= category.url %>"><%= category.name %></a>
+
+        <% }) %>
+    </div>
+
+    <div class="product-list">
+
+        <div class="product-item">
+
+            <div class="product-item__image">
+                <img src="/themes/default.png" alt="test">
+            </div>
+
+            <div class="product-item__variations">
+                <div class="produc-item__variation">
+                    <span>Red</span>
+                    <span>Green</span>
+                    <span>Blue</span>
+                </div>
+                <div class="produc-item__variation">
+                    <span>M</span>
+                    <span>L</span>
+                    <span>XS</span>
+                </div>
+            </div>
+
+            <div class="product-item__title">This is the title of the product</div>
+            <div class="product-item__description">Short description</div>
+            <div class="product-item__price">
+                <span class="sale-price">499.000</span>
+                <span class="price">599.000</span>
+                <span class="sale-amount">-10%</span>
+            </div>
+
+            <div class="product-item__addition">Mua 2 giam them 10%</div>
+
+        </div>
+
+    </div>
 </div>
 
 <%- include('../partials/footer.ejs'); %>
