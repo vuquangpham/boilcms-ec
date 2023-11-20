@@ -1,0 +1,35 @@
+body.products {
+
+  // site title
+  .site-title {
+    margin-bottom: 1.5rem;
+  }
+
+  // category
+  .category {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .5rem;
+
+    // item
+    &__item {
+      padding: .5rem 2rem;
+      display: inline-block;
+      background: #ddd;
+
+      text-align: center;
+      text-decoration: none;
+      font-size: 1.4rem;
+
+      min-height: 25px;
+      min-width: 60px;
+      border-radius: 30px;
+
+      // active
+      &.active {
+        background: var(--color-secondary);
+        color: #fff;
+      }
+    }
+  }
+}

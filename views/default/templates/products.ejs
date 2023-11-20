@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="/themes/main-fe.css">
     <script src="/themes/main-fe.js" defer></script>
 </head>
-<body>
+<body class="products">
 
 <%- include('../partials/header.ejs'); %>
 
@@ -28,7 +28,8 @@
         const categories = [
             {
                 name: 'All',
-                url: '/products'
+                url: '/products',
+                active: true
             },
             {
                 name: 'Headphones',
@@ -46,43 +47,46 @@
 
         categories.forEach(category => { %>
 
-            <a class="category__item" href="<%= category.url %>"><%= category.name %></a>
+            <a class="category__item <%= category.active ? 'active' : '' ;%>"
+               href="<%= category.url ;%>"><%= category.name ;%></a>
 
         <% }) %>
     </div>
 
-    <div class="product-list">
+    <div class="product-list flex-grid-template">
 
-        <div class="product-item">
+        <a href="#" class="product-item d-block td-none">
 
-            <div class="product-item__image">
-                <img src="/themes/default.png" alt="test">
-            </div>
-
-            <div class="product-item__variations">
-                <div class="produc-item__variation">
-                    <span>Red</span>
-                    <span>Green</span>
-                    <span>Blue</span>
+            <div class="product-item__inner fd-column d-flex">
+                <div class="product-item__image img-wrapper-cover skeleton-bg">
+                    <img src="/themes/default.png" alt="test">
                 </div>
-                <div class="produc-item__variation">
-                    <span>M</span>
-                    <span>L</span>
-                    <span>XS</span>
+
+                <div class="product-item__variations">
+                    <div class="produc-item__variation">
+                        <span>Red</span>
+                        <span>Green</span>
+                        <span>Blue</span>
+                    </div>
+                    <div class="produc-item__variation">
+                        <span>M</span>
+                        <span>L</span>
+                        <span>XS</span>
+                    </div>
                 </div>
+
+                <h2 class="product-item__title">This is the title of the product</h2>
+                <div class="product-item__description">Short description</div>
+                <div class="product-item__price">
+                    <span class="sale-price">499.000</span>
+                    <span class="price">599.000</span>
+                    <span class="sale-amount">-10%</span>
+                </div>
+
+                <div class="product-item__addition">Mua 2 giam them 10%</div>
             </div>
 
-            <div class="product-item__title">This is the title of the product</div>
-            <div class="product-item__description">Short description</div>
-            <div class="product-item__price">
-                <span class="sale-price">499.000</span>
-                <span class="price">599.000</span>
-                <span class="sale-amount">-10%</span>
-            </div>
-
-            <div class="product-item__addition">Mua 2 giam them 10%</div>
-
-        </div>
+        </a>
 
     </div>
 </div>
