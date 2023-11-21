@@ -34,6 +34,8 @@ export default class VariableProduct extends Product{
         // generate object
         this.object = this.generateDOMToObject();
 
+        this.generateObjectToDOM();
+
     }
 
     initTabAndAccordion(){
@@ -113,6 +115,24 @@ export default class VariableProduct extends Product{
         });
 
         return object;
+    }
+
+    generateObjectToDOM(){
+        // demo data
+        const obj = `{"inventory":0,"price":0,"salePrice":0,"attributes":[{"name":"color","values":[{"name":"red","prettyName":"Red","additions":{}},{"name":"green","prettyName":"Green","additions":{}},{"name":"blue","prettyName":"Blue","additions":{}}],"originalValue":"red|green   |blue"},{"name":"sizes","values":[{"name":"x","prettyName":"X","additions":{}},{"name":"m","prettyName":"M","additions":{}},{"name":"l","prettyName":"L","additions":{}}],"originalValue":"X|M|L"}],"variations":[{"inventory":2,"price":3,"salePrice":4,"attributes":[{"name":"color","values":[{"name":"red","prettyName":"Red","additions":{}},{"name":"green","prettyName":"Green","additions":{}},{"name":"blue","prettyName":"Blue","additions":{}}],"originalValue":"red|green   |blue"}],"selectedAttributes":[{"name":"color","value":"red"}]},{"inventory":3333,"price":333,"salePrice":33,"attributes":[{"name":"color","values":[{"name":"red","prettyName":"Red","additions":{}},{"name":"green","prettyName":"Green","additions":{}},{"name":"blue","prettyName":"Blue","additions":{}}],"originalValue":"red|green   |blue"},{"name":"sizes","values":[{"name":"x","prettyName":"X","additions":{}},{"name":"m","prettyName":"M","additions":{}},{"name":"l","prettyName":"L","additions":{}}],"originalValue":"X|M|L"}],"selectedAttributes":[{"name":"color","value":"green"},{"name":"sizes","value":"m"}]}]}`;
+        const object = JSON.parse(obj);
+
+        // load attributes
+        object.attributes.forEach(a => {
+            const el = Attributes.createDOM(a);
+            this.elements.attributes.appendChild(el);
+        });
+
+        // load variation
+        object.variations.forEach(v => {
+            const el = Variations.createDOM(v);
+            this.elements.variations.appendChild(el);
+        });
     }
 
     handleWrapperClick(e){

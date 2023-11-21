@@ -48,6 +48,7 @@ class Variations{
     }
 
     createDOM(data){
+        const selectedAttributes = data.selectedAttributes || [];
         const attributes = data.attributes;
 
         const images = data.images;
@@ -59,7 +60,12 @@ class Variations{
         let attributesHTML = '';
         attributes.forEach((a, i) => {
 
-            const optionsHTML = a.values.map(v => `<option value="${v.name}">${v.prettyName}</option>`).join('');
+            // generate html for options
+            const optionsHTML = a.values.map(v => {
+                // get selected value
+                const isSelected = data.selectedAttributes.find(s => s.name === a.name && s.value === v.name);
+                return `<option value="${v.name}" ${isSelected ? 'selected' : ''}>${v.prettyName}</option>`;
+            }).join('');
 
             attributesHTML += `
 <div class="field vertical-layout" data-variation-attribute="${a.name}">
