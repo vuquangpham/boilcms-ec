@@ -1,35 +1,32 @@
-export default class SimpleProduct {
-    constructor(productWrapper, simpleProductWrapper) {
-        this.productWrapper = productWrapper;
-        this.simpleProductWrapper = simpleProductWrapper;
+import Product from "./Product";
 
-        this.elements = {
-            // input
-            productName: productWrapper.querySelector('[data-product-name]'),
-            productDescription: productWrapper.querySelector('[data-product-description]'),
-            productSimpleInventory: simpleProductWrapper.querySelector('[data-simple-product-inventory]'),
-            productSimplePrice: simpleProductWrapper.querySelector('[data-simple-product-price]'),
-            productSimpleSalePrice: simpleProductWrapper.querySelector('[data-simple-product-sale-price]'),
-
-            // json textarea
-            simpleProductJSONElement: simpleProductWrapper.querySelector('[data-simple-product-json]')
-        }
+export default class SimpleProduct extends Product{
+    constructor(parentWrapper, wrapper){
+        super(parentWrapper, wrapper);
     }
-
-    generateDOMToObject() {
-        const returnObject = {
-            name: this.elements.productName.value,
-            description: this.elements.productDescription.value,
-            inventory: this.elements.productSimpleInventory.value,
-            price: this.elements.productSimplePrice.value,
-            salePrice: this.elements.productSimpleSalePrice.value,
-        }
-
-        return returnObject
-    }
-
-    save(){
-        this.elements.simpleProductJSONElement.innerHTML = JSON.stringify(this.generateDOMToObject());
-    }
-
 }
+
+/*
+*        <!-- inventory -->
+                        <div>
+                            <label for="inventory">Inventory</label>
+                            <input type="text" placeholder="Inventory" id="inventory" name="inventory"
+                                   data-simple-product-inventory
+                                   class="w100" value="<%= getValueFromData('inventory') %>">
+                        </div>
+
+                        <!-- price-->
+                        <div>
+                            <label for="price">Price ($)</label>
+                            <input type="text" placeholder="Price" id="price" name="price" data-simple-product-price
+                                   class="w100" value="<%= getValueFromData('price') %>">
+                        </div>
+
+                        <!-- sale price-->
+                        <div>
+                            <label for="sale-price">Sale Price ($)</label>
+                            <input type="text" placeholder="Sale price" id="sale-price" name="salePrice"
+                                   data-simple-product-sale-price
+                                   class="w100" value="<%= getValueFromData('salePrice') %>">
+                        </div>
+* */

@@ -33,128 +33,61 @@ const getKeyValueOb = (obj, index, key = 'key') => {
 
         <!-- Product detail -->
         <div class="fl-grid">
-            <div>
-                <div>
-                    <!-- product name -->
+
+            <!-- left-content -->
+            <div class="w70" style="padding-right:20px">
+
+                <!-- product common data -->
+                <div class="margin-bottom-default">
+
+                    <!-- name -->
                     <div>
-                        <label for="name" class="hidden"></label>
+                        <label for="name" class="hidden">Name</label>
                         <input type="text" placeholder="Name" id="name" name="name" required data-product-name
                                class="w100" value="<%= getValueFromData('name') %>">
                     </div>
 
-                    <!-- product description-->
+                    <!-- description-->
                     <div>
-                        <label for="description" class="hidden">Product Description</label>
+                        <label for="description" class="hidden">Description</label>
                         <textarea type="text" placeholder="Description" id="description" name="description" required
                                   data-product-description
                                   class="w100"><%= getValueFromData('description') %></textarea>
                     </div>
+
+                    <!-- product type -->
+                    <div class="fl-center-v">
+                        <label for="types">Product type</label>
+                        <select data-easy-select name="types" id="types" data-product-types>
+                            <option <%= isSelectedValue('type', 'simple'); %> value="simple">Simple Product
+                            </option>
+                            <option <%= isSelectedValue('type', 'variable'); %> value="variable">Variable Product
+                            </option>
+                        </select>
+                    </div>
+
                 </div>
 
-                <!-- product type -->
-                <div class="fl-center-v">
-                    <label for="product-type">Product type</label>
-                    <select data-easy-select name="productType" id="product-type" data-productType-value>
-                        <option <%= isSelectedValue('productType', 'simple'); %> value="simple">Simple Product
-                        </option>
-                        <option <%= isSelectedValue('productType', 'variable'); %> value="variable">Variable Product
-                        </option>
-                    </select>
-                </div>
+                <div class="fl-grid">
 
-                <div style="display: flex; gap: 8px">
+                    <!-- Simple Product -->
+                    <div data-simple-product class="w50">
 
-                    <!-- Simple product detail-->
-                    <div data-simple-product-wrapper style="width: 50%;">
-                        <!-- inventory -->
+                        <h3>Simple Product</h3>
+
+                        <!-- json-->
                         <div>
-                            <label for="inventory">Inventory</label>
-                            <input type="text" placeholder="Inventory" id="inventory" name="inventory"
-                                   data-simple-product-inventory
-                                   class="w100" value="<%= getValueFromData('inventory') %>">
-                        </div>
-
-                        <!-- price-->
-                        <div>
-                            <label for="price">Price ($)</label>
-                            <input type="text" placeholder="Price" id="price" name="price" data-simple-product-price
-                                   class="w100" value="<%= getValueFromData('price') %>">
-                        </div>
-
-                        <!-- sale price-->
-
-                        <div>
-                            <label for="sale-price">Sale Price ($)</label>
-                            <input type="text" placeholder="Sale price" id="sale-price" name="salePrice"
-                                   data-simple-product-sale-price
-                                   class="w100" value="<%= getValueFromData('salePrice') %>">
-                        </div>
-
-                        <!-- simple product json-->
-                        <div>
-                            <label for="content">JSON for simple</label>
-                            <textarea data-simple-product-json id="content" name="simpleJSON"></textarea>
+                            <label for="simple-product-json">JSON for simple</label>
+                            <textarea data-simple-product-json id="simple-product-json"
+                                      name="simpleProductJSON"></textarea>
                         </div>
 
                     </div>
 
-                    <!-- Variable product detail -->
-                    <div data-variable-product-wrapper style="width: 50%;">
-                        <div data-variable-product>
-                            <button type="button" data-add-new-attribute>Add new</button>
+                    <!-- Variable Product -->
+                    <div data-variable-product class="w50">
 
-                            <!-- inventory -->
-                            <div>
-                                <label for="inventory">Inventory</label>
-                                <input type="text" placeholder="Inventory" id="inventory" name="inventory"
-                                       data-variable-product-inventory
-                                       class="w100" value="<%= getValueFromData('inventory') %>">
-                            </div>
-
-                            <!-- Attribute detail for variable product -->
-                            <div data-attributes-wrapper>
-                                <div data-attribute>
-                                    <div data-taxonomy>
-                                        <div>
-                                            <div data-attribute-name>New attribute</div>
-                                            <button type="button" data-delete-attribute>Remove</button>
-                                        </div>
-
-                                        <div data-attribute-details>
-                                            <!-- attribute name -->
-                                            <div data-attribute-product-name>
-                                                <label for="attribute-name">Name</label>
-                                                <input type="text" placeholder="Attribute name" id="attribute-name"
-                                                       name="attributeName[0]"
-                                                       class="w100">
-                                            </div>
-
-                                            <!-- attribute value -->
-                                            <div data-attribute-product-value>
-                                                <label for="attribute-value">Values</label>
-                                                <textarea type="text"
-                                                          placeholder="Enter some descriptive text. Use “|” to separate different values."
-                                                          id="attribute-value" name="attributeValue[0]"
-                                                          class="w100"></textarea>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-
-                        <!-- Save attribute button -->
-                        <button type="button" data-save-attribute>Save</button>
-
-                        <!-- Variations for variable product -->
-                        <div data-variation-product>
-
-                            <div>
-                                <button type="button" data-add-new-variation>Add manually</button>
-                            </div>
-
-                        </div>
+                        <h3>Variable Product</h3>
 
                         <!-- variable product json -->
                         <div>
@@ -165,10 +98,10 @@ const getKeyValueOb = (obj, index, key = 'key') => {
                     </div>
 
                 </div>
-
             </div>
 
-            <div>
+            <!-- right content -->
+            <div class="w30">
                 <div class="fl-center-v">
                     <label for="visibility">Visibility</label>
                     <select data-easy-select name="visibility" id="visibility" data-product-visibility>

@@ -10,26 +10,7 @@ class Product extends Category {
      * Validate input product
      * */
     validateInputData(inputData, action = 'add') {
-        const request = inputData.request;
-        const response = inputData.response;
-
-        // input
-        const visibility = request.body.visibility;
-        const productType = request.body.productType;
-        const simpleProductContent = request.body.simpleJSON;
-        const variableProductContent = request.body.variableJSON;
-
-
-        const returnObject = {
-            visibility,
-            productType,
-            simpleProductContent,
-            variableProductContent
-        };
-
-        if (action === 'edit') returnObject.response = response
-
-        return returnObject;
+        return {};
     }
 }
 

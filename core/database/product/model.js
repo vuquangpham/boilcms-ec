@@ -10,7 +10,7 @@ const Product = new mongoose.Schema({
         default: () => Date.now()
     },
     publishFormatted: String,
-    productType: {
+    type: {
         type: String,
         default: 'simple'
     },
