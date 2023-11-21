@@ -15,13 +15,13 @@ class Product extends Category {
 }
 
 module.exports = new Product({
-    name: 'Product',
-    url: '/product',
-    type: 'product',
+    name: 'Products',
+    url: '/products',
+    type: 'products',
     contentType: Types.types.PRODUCTS,
     children: [
         {
-            name: 'Add products',
+            name: 'Add product',
             url: '?action=add'
         }
     ]
