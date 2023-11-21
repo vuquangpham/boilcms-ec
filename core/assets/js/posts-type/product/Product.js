@@ -13,7 +13,11 @@ export default class Product{
     }
 
     save(){
-        this.generateDOMToObject();
+        // re-assign object
+        this.object = this.generateDOMToObject();
+
+        // save to the dom
+        this.jsonElement.innerHTML = JSON.stringify(this.object);
         console.log('save method');
     }
 }

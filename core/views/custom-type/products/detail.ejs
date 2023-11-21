@@ -180,65 +180,24 @@ const getValueFromData = (name, property = '') => {
 
                                     <div>
 
-                                        <div data-product-variation-button class="margin-bottom-small">
-                                            <button class="btn_primary" type="button" data-product-variation-add-btn>Add
-                                                manually
-                                            </button>
+                                        <div data-product-variation-add class="margin-bottom-small">
+
+                                            <div class="form-fields">
+                                                <div class="field vertical-layout">
+                                                    <button class="btn_primary" type="button"
+                                                            data-product-variation-add-btn>Add
+                                                        manually
+                                                    </button>
+                                                    <div class="description error">The attributes don't have any
+                                                        values.
+                                                    </div>
+                                                </div>
+                                            </div>
+
                                         </div>
 
                                         <div data-product-variations>
-                                            <div data-product-varition-item>
-                                                <div data-trigger-wrapper class="d-flex jc-space-between">
 
-                                                    <div>
-                                                        <span>Name: color</span>
-                                                    </div>
-
-                                                    <div class="d-flex">
-                                                        <button class="btn_primary" data-variation-trigger="item"
-                                                                type="button">
-                                                            Expand
-                                                        </button>
-                                                        <button class="btn_primary error" type="button">Remove</button>
-                                                    </div>
-                                                </div>
-
-                                                <div data-variation-receiver="item">
-                                                    <div>
-                                                        <!-- loop qua attribute -->
-                                                        <select name="" id="">
-                                                            <option value="">red</option>
-                                                            <option value="">green</option>
-                                                        </select>
-                                                    </div>
-
-                                                    <div class="form-fields">
-
-                                                        <div class="field half">
-                                                            <button>Image</button>
-                                                        </div>
-
-                                                        <div class="field half vertical-layout">
-                                                            <label for="sku">SKU</label>
-                                                            <input type="text" placeholder="SKU" name="skud">
-                                                        </div>
-
-                                                        <div class="field half vertical-layout">
-                                                            <label for="">Price</label>
-                                                            <input type="text" placeholder="Price" name="price">
-                                                        </div>
-
-                                                        <div class="field half vertical-layout">
-                                                            <label for="">Sale Price</label>
-                                                            <input type="text" placeholder="Sale Price"
-                                                                   name="sale-price">
-                                                        </div>
-
-                                                    </div>
-                                                </div>
-
-
-                                            </div>
                                         </div>
 
                                     </div>

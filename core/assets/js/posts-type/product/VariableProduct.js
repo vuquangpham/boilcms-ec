@@ -1,5 +1,6 @@
 import Product from "./Product";
 import Attributes from "./Attributes";
+import Variations from "./Variations";
 
 export default class VariableProduct extends Product{
     constructor(parentWrapper, wrapper){
@@ -17,19 +18,35 @@ export default class VariableProduct extends Product{
         this.jsonElement = this.wrapper.querySelector('[data-variable-product-json]');
 
         // init
+        this.init();
+
+        window.abc = this;
+    }
+
+    init(){
+
+        // init tab
         this.initTabAndAccordion();
 
         // event listeners
         this.wrapper.addEventListener('click', this.handleWrapperClick.bind(this));
 
-        window.abc = this;
+        // generate object
+        this.object = this.generateDOMToObject();
+
     }
 
     initTabAndAccordion(){
         // tabs
         Accordion.create({
             target: this.wrapper.querySelector('[data-tab]'),
-            type: 'fade'
+            type: 'fade',
+            onAfterClosed: (self) => {
+                // remove invalid class (when validate the value)
+                self.target.querySelectorAll('.field.invalid').forEach(e => {
+                    e.classList.remove('invalid');
+                });
+            }
         });
     }
 
@@ -55,7 +72,46 @@ export default class VariableProduct extends Product{
             object.attributes.push(value);
         });
 
-        console.log(object);
+        // variations
+        this.elements.variations.querySelectorAll('[data-product-variation-item]').forEach(wrapper => {
+            const variation = {
+                inventory: 0,
+                price: 0,
+                salePrice: 0,
+
+                attributes: [],
+                selectedAttributes: []
+            };
+
+            // attributes
+            const attributesEl = wrapper.querySelector('[data-variation-attributes]');
+            variation.attributes = JSON.parse(attributesEl.getAttribute('data-variation-attributes'));
+
+            // selected attributes
+            const selectedAttributesEl = wrapper.querySelectorAll('[data-variation-attribute]');
+            selectedAttributesEl.forEach(e => {
+                const name = e.getAttribute('data-variation-attribute');
+                const value = e.querySelector('select').value;
+
+                // append to the variation
+                variation.selectedAttributes.push({
+                    name, value
+                });
+            });
+
+            // inventory
+            variation.inventory = parseFloat(wrapper.querySelector('[data-variation-inventory]').valueAsNumber);
+
+            // price
+            variation.price = parseFloat(wrapper.querySelector('[data-variation-price]').valueAsNumber);
+
+            // salePrice
+            variation.salePrice = parseFloat(wrapper.querySelector('[data-variation-sale-price]').valueAsNumber);
+
+            // save to object
+            object.variations.push(variation);
+        });
+
         return object;
     }
 
@@ -88,7 +144,24 @@ export default class VariableProduct extends Product{
 
         // add variation
         else if(target.closest('[data-product-variation-add-btn]')){
-            console.log('add variation');
+            const wrapper = target.closest('[data-product-variation-add]');
+            const wrapperToAppend = this.elements.variations;
+            const attributes = this.object.attributes;
+
+            // create new variation
+            Variations.createNewVariation(attributes, wrapper, wrapperToAppend);
+        }
+
+        // save variation
+        else if(target.closest('[data-variation-save-btn]')){
+            const wrapper = target.closest('[data-product-variation-item]');
+
+            // validate
+            const isValidated = Variations.validateVariation([], wrapper, false);
+            if(!isValidated) return;
+
+            // save
+            this.save();
         }
     }
 }
