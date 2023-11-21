@@ -37,14 +37,14 @@ const getValueFromData = (name, property = '') => {
                     <!-- name -->
                     <div>
                         <label for="name" class="hidden">Name</label>
-                        <input type="text" placeholder="Name" id="name" name="name" required data-product-name
+                        <input type="text" placeholder="Name" id="name" name="name" data-product-name
                                class="w100" value="<%= getValueFromData('name') %>">
                     </div>
 
                     <!-- description-->
                     <div>
                         <label for="description" class="hidden">Description</label>
-                        <textarea type="text" placeholder="Description" id="description" name="description" required
+                        <textarea type="text" placeholder="Description" id="description" name="description"
                                   data-product-description
                                   class="w100"><%= getValueFromData('description') %></textarea>
                     </div>
@@ -110,41 +110,47 @@ const getValueFromData = (name, property = '') => {
                             <div data-tab-receivers class="w70">
 
                                 <div data-receiver="general">
-                                    <div class="form-fields">
 
-                                        <div class="field vertical-layout">
-                                            <label for="inventory">Inventory</label>
-                                            <input type="text" id="inventory" placeholder="Inventory">
+                                    <div data-product-general>
+                                        <div class="form-fields">
+
+                                            <div class="field vertical-layout">
+                                                <label for="inventory">Inventory</label>
+                                                <input type="text" id="inventory" placeholder="Inventory">
+                                            </div>
+
+                                            <div class="field vertical-layout">
+                                                <label for="price">Price</label>
+                                                <input type="text" id="price" placeholder="Price">
+                                            </div>
+
+                                            <div class="field vertical-layout">
+                                                <label for="sale-price">Sale Price</label>
+                                                <input type="text" id="sale-price" placeholder="Sale Price">
+                                            </div>
+
                                         </div>
-
-                                        <div class="field vertical-layout">
-                                            <label for="price">Price</label>
-                                            <input type="text" id="price" placeholder="Price">
-                                        </div>
-
-                                        <div class="field vertical-layout">
-                                            <label for="sale-price">Sale Price</label>
-                                            <input type="text" id="sale-price" placeholder="Sale Price">
-                                        </div>
-
                                     </div>
+
                                 </div>
 
                                 <div data-receiver="attributes">
 
-                                    <div data-product-attribute-add class="margin-bottom-small">
+                                    <div class="margin-bottom-small">
                                         <div data-custom-title>
                                             <span>Add new attribute</span>
                                         </div>
 
-                                        <div class="form-fields">
-                                            <div class="field half">
+                                        <div class="form-fields" data-product-attribute-add>
+                                            <div class="field half vertical-layout">
                                                 <label for="name" class="hidden">Name</label>
-                                                <input type="text" placeholder="Name" id="name">
+                                                <input type="text" placeholder="Name" id="name" name="name">
+                                                <div class="description error">Please add the name here!</div>
                                             </div>
-                                            <div class="field half">
+                                            <div class="field half vertical-layout">
                                                 <label for="values" class="hidden">Values</label>
-                                                <input type="text" placeholder="Values" id="values">
+                                                <input type="text" placeholder="Values" id="values" name="values">
+                                                <div class="description error">Please add the values here!</div>
                                             </div>
                                             <div class="field jc-end">
                                                 <button class="btn_primary" type="button"
@@ -160,44 +166,7 @@ const getValueFromData = (name, property = '') => {
                                             <span>Available Attributes</span>
                                         </div>
 
-
-                                        <div data-product-attributes>
-                                            <div data-product-attribute-item data-accordion>
-                                                <div data-trigger-wrapper class="d-flex jc-space-between">
-
-                                                    <div>
-                                                        <span>Name: color</span>
-                                                    </div>
-
-                                                    <div class="d-flex">
-                                                        <button class="btn_primary" data-acc-trigger="item"
-                                                                type="button">
-                                                            Expand
-                                                        </button>
-                                                        <button class="btn_primary error" type="button">Remove</button>
-                                                    </div>
-                                                </div>
-
-                                                <div data-acc-receiver="item">
-                                                    <div class="form-fields">
-                                                        <div class="field half">
-                                                            <label for="name" class="hidden">Name</label>
-                                                            <input type="text" placeholder="Name" id="name">
-                                                        </div>
-                                                        <div class="field half">
-                                                            <label for="values" class="hidden">Values</label>
-                                                            <input type="text" placeholder="Values" id="values">
-                                                        </div>
-                                                        <div class="field jc-end">
-                                                            <button class="btn_primary" type="button"
-                                                                    data-product-attribute-save-btn>Save
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                            </div>
-                                        </div>
+                                        <div data-product-attributes></div>
 
                                     </div>
 
@@ -205,7 +174,7 @@ const getValueFromData = (name, property = '') => {
 
                                 <div data-receiver="variations">
 
-                                    <div data-product-variations>
+                                    <div>
 
                                         <div data-product-variation-button class="margin-bottom-small">
                                             <button class="btn_primary" type="button" data-product-variation-add-btn>Add

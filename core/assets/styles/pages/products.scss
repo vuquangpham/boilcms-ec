@@ -3,6 +3,18 @@
 *************************/
 [data-variable-product] {
 
+  // form fields
+  .form-fields {
+    .description {
+      display: none;
+    }
+
+    // has invalid class
+    .invalid > .description {
+      display: block;
+    }
+  }
+
   // tabs
   [data-tab] {
     --border-color: #ccc;

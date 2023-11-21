@@ -311,6 +311,12 @@ select {
 
       opacity: .6;
       padding-top: .6rem;
+
+      // red color
+      &.error {
+        color: var(--color-error);
+        opacity: 1;
+      }
     }
 
     // min width 769px
