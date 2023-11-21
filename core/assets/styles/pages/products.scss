@@ -1,0 +1,74 @@
+/************************
+* Variable Products
+*************************/
+[data-variable-product] {
+
+  // tabs
+  [data-tab] {
+    --border-color: #ccc;
+    --border: 1px solid var(--border-color);
+    border: var(--border);
+
+    // triggers
+    [data-tab-triggers] {
+      position: relative;
+
+      // fake left line
+      &:after {
+        content: "";
+        position: absolute;
+
+        top: 0;
+        right: 0;
+
+        width: 1px;
+        height: 100%;
+        background: var(--border-color);
+      }
+
+      // trigger
+      [data-trigger] {
+        min-height: 3rem;
+        padding: .5rem;
+        width: 100%;
+
+        // active
+        &.active {
+          background: var(--color-secondary);
+          color: #fff;
+        }
+      }
+
+      // trigger wrapper
+      [data-trigger-wrapper] {
+        &:not(:last-child) {
+          border-bottom: var(--border);
+        }
+      }
+    }
+
+    // receivers
+    [data-tab-receivers] {
+
+      [data-receiver] {
+        padding: 2rem;
+      }
+
+    }
+
+  }
+
+  // attributes
+  [data-product-attributes] {
+
+    // item
+    [data-product-attribute-item] {
+      &:not(:last-child) {
+        margin-bottom: 1rem;
+      }
+    }
+  }
+
+  // variations
+
+}

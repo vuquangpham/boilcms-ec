@@ -6,8 +6,8 @@ class ProductPost{
         this.wrapper = wrapper;
 
         // create the product variation
-        this.simpleProduct = new SimpleProduct(wrapper, wrapper.querySelector('[data-simple-product-wrapper]'));
-        this.variableProduct = new VariableProduct(wrapper, wrapper.querySelector('[data-variable-product-wrapper]'));
+        this.simpleProduct = new SimpleProduct(wrapper, wrapper.querySelector('[data-simple-product]'));
+        this.variableProduct = new VariableProduct(wrapper, wrapper.querySelector('[data-variable-product]'));
     }
 }
 

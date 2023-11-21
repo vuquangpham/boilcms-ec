@@ -79,9 +79,202 @@ const getValueFromData = (name, property = '') => {
                     </div>
 
                     <!-- Variable Product -->
-                    <div data-variable-product class="w50">
+                    <div data-variable-product class="w100">
 
                         <h3>Variable Product</h3>
+
+                        <div data-tab class="fl-grid">
+
+                            <div data-tab-triggers class="w30">
+
+                                <div data-trigger-wrapper>
+                                    <button class="clear-button-style" data-trigger="general" type="button">
+                                        General
+                                    </button>
+                                </div>
+
+                                <div data-trigger-wrapper>
+                                    <button class="clear-button-style" data-trigger="attributes" type="button">
+                                        Attributes
+                                    </button>
+                                </div>
+
+                                <div data-trigger-wrapper>
+                                    <button class="clear-button-style" data-trigger="variations" type="button">
+                                        Variations
+                                    </button>
+                                </div>
+
+                            </div>
+
+                            <div data-tab-receivers class="w70">
+
+                                <div data-receiver="general">
+                                    <div class="form-fields">
+
+                                        <div class="field vertical-layout">
+                                            <label for="inventory">Inventory</label>
+                                            <input type="text" id="inventory" placeholder="Inventory">
+                                        </div>
+
+                                        <div class="field vertical-layout">
+                                            <label for="price">Price</label>
+                                            <input type="text" id="price" placeholder="Price">
+                                        </div>
+
+                                        <div class="field vertical-layout">
+                                            <label for="sale-price">Sale Price</label>
+                                            <input type="text" id="sale-price" placeholder="Sale Price">
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div data-receiver="attributes">
+
+                                    <div data-product-attribute-add class="margin-bottom-small">
+                                        <div data-custom-title>
+                                            <span>Add new attribute</span>
+                                        </div>
+
+                                        <div class="form-fields">
+                                            <div class="field half">
+                                                <label for="name" class="hidden">Name</label>
+                                                <input type="text" placeholder="Name" id="name">
+                                            </div>
+                                            <div class="field half">
+                                                <label for="values" class="hidden">Values</label>
+                                                <input type="text" placeholder="Values" id="values">
+                                            </div>
+                                            <div class="field jc-end">
+                                                <button class="btn_primary" type="button"
+                                                        data-product-attribute-add-btn>Add new
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div data-product-attributes-list>
+
+                                        <div data-custom-title>
+                                            <span>Available Attributes</span>
+                                        </div>
+
+
+                                        <div data-product-attributes>
+                                            <div data-product-attribute-item data-accordion>
+                                                <div data-trigger-wrapper class="d-flex jc-space-between">
+
+                                                    <div>
+                                                        <span>Name: color</span>
+                                                    </div>
+
+                                                    <div class="d-flex">
+                                                        <button class="btn_primary" data-acc-trigger="item"
+                                                                type="button">
+                                                            Expand
+                                                        </button>
+                                                        <button class="btn_primary error" type="button">Remove</button>
+                                                    </div>
+                                                </div>
+
+                                                <div data-acc-receiver="item">
+                                                    <div class="form-fields">
+                                                        <div class="field half">
+                                                            <label for="name" class="hidden">Name</label>
+                                                            <input type="text" placeholder="Name" id="name">
+                                                        </div>
+                                                        <div class="field half">
+                                                            <label for="values" class="hidden">Values</label>
+                                                            <input type="text" placeholder="Values" id="values">
+                                                        </div>
+                                                        <div class="field jc-end">
+                                                            <button class="btn_primary" type="button"
+                                                                    data-product-attribute-save-btn>Save
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                                <div data-receiver="variations">
+
+                                    <div data-product-variations>
+
+                                        <div data-product-variation-button class="margin-bottom-small">
+                                            <button class="btn_primary" type="button" data-product-variation-add-btn>Add
+                                                manually
+                                            </button>
+                                        </div>
+
+                                        <div data-product-variations>
+                                            <div data-product-varition-item>
+                                                <div data-trigger-wrapper class="d-flex jc-space-between">
+
+                                                    <div>
+                                                        <span>Name: color</span>
+                                                    </div>
+
+                                                    <div class="d-flex">
+                                                        <button class="btn_primary" data-variation-trigger="item"
+                                                                type="button">
+                                                            Expand
+                                                        </button>
+                                                        <button class="btn_primary error" type="button">Remove</button>
+                                                    </div>
+                                                </div>
+
+                                                <div data-variation-receiver="item">
+                                                    <div>
+                                                        <!-- loop qua attribute -->
+                                                        <select name="" id="">
+                                                            <option value="">red</option>
+                                                            <option value="">green</option>
+                                                        </select>
+                                                    </div>
+
+                                                    <div class="form-fields">
+
+                                                        <div class="field half">
+                                                            <button>Image</button>
+                                                        </div>
+
+                                                        <div class="field half vertical-layout">
+                                                            <label for="sku">SKU</label>
+                                                            <input type="text" placeholder="SKU" name="skud">
+                                                        </div>
+
+                                                        <div class="field half vertical-layout">
+                                                            <label for="">Price</label>
+                                                            <input type="text" placeholder="Price" name="price">
+                                                        </div>
+
+                                                        <div class="field half vertical-layout">
+                                                            <label for="">Sale Price</label>
+                                                            <input type="text" placeholder="Sale Price"
+                                                                   name="sale-price">
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
 
                         <!-- variable product json -->
                         <div>
