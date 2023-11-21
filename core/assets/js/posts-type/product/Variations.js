@@ -101,19 +101,19 @@ class Variations{
 
             <div class="field half vertical-layout">
                 <label for="sku">SKU</label>
-                <input type="text" placeholder="SKU" name="skud" data-variation-inventory value="${inventory ?? ''}">
+                <input type="number" placeholder="SKU" name="skud" data-variation-inventory value="${inventory ?? ''}">
                 <div class="description error">Please input the inventory</div>
             </div>
 
             <div class="field half vertical-layout">
                 <label for="">Price</label>
-                <input type="text" placeholder="Price" name="price" data-variation-price value="${price ?? ''}">
+                <input type="number" placeholder="Price" name="price" data-variation-price value="${price ?? ''}">
                 <div class="description error">Please input the price</div>
             </div>
 
             <div class="field half vertical-layout">
                 <label for="">Sale Price</label>
-                <input type="text" placeholder="Sale Price"
+                <input type="number" placeholder="Sale Price"
                        name="sale-price" data-variation-sale-price value="${salePrice ?? ''}">
                 <div class="description" style="display:block;">You can leave it empty!</div>
             </div>
