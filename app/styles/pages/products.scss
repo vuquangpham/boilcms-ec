@@ -1,7 +1,9 @@
 body.products {
+  background: var(--color-gray);
 
   // site title
   .site-title {
+    padding-top: 2rem;
     margin-bottom: 1.5rem;
   }
 
@@ -30,6 +32,98 @@ body.products {
         background: var(--color-secondary);
         color: #fff;
       }
+    }
+  }
+
+  // product
+  .product-item {
+    background: #fff;
+
+    // image
+    &__image {
+      aspect-ratio: 28/35;
+    }
+
+    // bottom
+    &__bottom {
+      padding: 1.2rem;
+    }
+
+    // variations
+    &__variations {
+      display: flex;
+      flex-direction: column;
+      gap: .5rem;
+
+      margin-bottom: 1rem;
+    }
+
+    // variation
+    &__variation {
+      gap: .2rem;
+
+      // span
+      span {
+        border: 1px solid #ccc;
+        padding: .2rem .7rem;
+
+        min-width: 30px;
+        display: inline-block;
+        border-radius: 25px;
+
+        font-size: 1.2rem;
+        text-align: center;
+      }
+    }
+
+    // title
+    &__title {
+      font-size: 1.8rem;
+    }
+
+    // description
+    &__description {
+      color: rgba(0, 0, 0, 0.4);
+      font-size: 1.4rem;
+      font-style: italic;
+    }
+
+    // price
+    &__price {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .8rem;
+
+      padding-top: .5rem;
+
+      // sale price
+      .price {
+        font-weight: 600;
+
+        // with stroke
+        &--with-stroke {
+          text-decoration: line-through;
+
+          font-weight: 400;
+          font-style: italic;
+          color: #adb5bd;
+        }
+      }
+
+      // sale amount
+      .sale-amount {
+        font-weight: 600;
+        color: red;
+      }
+    }
+
+    // addition
+    &__addition {
+      color: var(--color-secondary);
+      font-style: italic;
+      font-size: 1.5rem;
+
+      padding-top: .4rem;
     }
   }
 }

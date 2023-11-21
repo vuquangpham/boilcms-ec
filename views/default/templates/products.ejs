@@ -23,7 +23,7 @@
         <h1>All Products</h1>
     </div>
 
-    <div class="category">
+    <div class="category margin-bottom-default">
         <%
         const categories = [
             {
@@ -47,43 +47,45 @@
 
         categories.forEach(category => { %>
 
-            <a class="category__item <%= category.active ? 'active' : '' ;%>"
-               href="<%= category.url ;%>"><%= category.name ;%></a>
+            <a class="category__item <%= category.active ? 'active' : ''; %>"
+               href="<%= category.url; %>"><%= category.name; %></a>
 
         <% }) %>
     </div>
 
-    <div class="product-list flex-grid-template">
+    <div class="product-list flex-grid-template margin-bottom-default">
 
         <a href="#" class="product-item d-block td-none">
 
             <div class="product-item__inner fd-column d-flex">
                 <div class="product-item__image img-wrapper-cover skeleton-bg">
-                    <img src="/themes/default.png" alt="test">
+                    <!--                    <img src="/themes/default.png" alt="test">-->
                 </div>
 
-                <div class="product-item__variations">
-                    <div class="produc-item__variation">
-                        <span>Red</span>
-                        <span>Green</span>
-                        <span>Blue</span>
+                <div class="product-item__bottom">
+                    <div class="product-item__variations">
+                        <div class="product-item__variation fl-grid ai-center">
+                            <span>Red</span>
+                            <span>Green</span>
+                            <span>Blue</span>
+                        </div>
+                        <div class="product-item__variation">
+                            <span>M</span>
+                            <span>L</span>
+                            <span>XS</span>
+                        </div>
                     </div>
-                    <div class="produc-item__variation">
-                        <span>M</span>
-                        <span>L</span>
-                        <span>XS</span>
+
+                    <h2 class="product-item__title">This is the title of the product</h2>
+                    <div class="product-item__description">Short description</div>
+                    <div class="product-item__price">
+                        <span class="price">499.000</span>
+                        <span class="price price--with-stroke">599.000</span>
+                        <span class="sale-amount">-10%</span>
                     </div>
-                </div>
 
-                <h2 class="product-item__title">This is the title of the product</h2>
-                <div class="product-item__description">Short description</div>
-                <div class="product-item__price">
-                    <span class="sale-price">499.000</span>
-                    <span class="price">599.000</span>
-                    <span class="sale-amount">-10%</span>
+                    <div class="product-item__addition">Mua 2 giam them 10%</div>
                 </div>
-
-                <div class="product-item__addition">Mua 2 giam them 10%</div>
             </div>
 
         </a>
