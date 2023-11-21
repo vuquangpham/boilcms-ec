@@ -13,6 +13,7 @@ export default class Product{
     }
 
     save(){
-
+        this.generateDOMToObject();
+        console.log('save method');
     }
 }

@@ -2,6 +2,29 @@ class Attributes{
     constructor(){
     }
 
+    validateAttribute(wrapper){
+        const nameInput = wrapper.querySelector('input[data-attribute-name]');
+        const valuesInput = wrapper.querySelector('input[data-attribute-values]');
+
+        // name
+        if(!nameInput.value.trim()){
+            nameInput.closest('.field').classList.add('invalid');
+            return false;
+        }else{
+            nameInput.closest('.field').classList.remove('invalid');
+        }
+
+        // values
+        if(!valuesInput.value.trim()){
+            valuesInput.closest('.field').classList.add('invalid');
+            return false;
+        }else{
+            valuesInput.closest('.field').classList.remove('invalid');
+        }
+
+        return true;
+    }
+
     parseValuesData(value){
         return value.split('|').map(v => {
             const value = v.toLowerCase().trim();
@@ -17,7 +40,7 @@ class Attributes{
     createDOM(data){
         const div = document.createElement('div');
         div.innerHTML = `
-<div data-product-attribute-item data-accordion>
+<div data-product-attribute-item='${JSON.stringify(data)}' data-accordion>
     <div data-trigger-wrapper class="d-flex jc-space-between">
 
         <div>
@@ -32,13 +55,15 @@ class Attributes{
 
     <div data-attr-receiver="item">
         <div class="form-fields">
-            <div class="field half">
+            <div class="field half vertical-layout">
                 <label for="name" class="hidden">Name</label>
-                <input type="text" placeholder="Name" id="name" value="${data.name}">
+                <input data-attribute-name type="text" placeholder="Name" id="name" value="${data.name}">
+                <div class="description error">Please add the name here!</div>
             </div>
-            <div class="field half">
+            <div class="field half vertical-layout">
                 <label for="values" class="hidden">Values</label>
-                <input type="text" placeholder="Values" id="values" value="${data.originalValue}">
+                <input data-attribute-values type="text" placeholder="Values" id="values" value="${data.originalValue}">
+                <div class="description error">Please add the values here!</div>
             </div>
             <div class="field jc-end">
                 <button class="btn_primary" type="button"
@@ -64,24 +89,11 @@ class Attributes{
     }
 
     createNewAttribute(wrapper, wrapperToAppend){
+        const isValidated = this.validateAttribute(wrapper);
+        if(!isValidated) return;
+
         const nameInput = wrapper.querySelector('input[name="name"]');
         const valuesInput = wrapper.querySelector('input[name="values"]');
-
-        // name
-        if(!nameInput.value.trim()){
-            nameInput.closest('.field').classList.add('invalid');
-            return;
-        }else{
-            nameInput.closest('.field').classList.remove('invalid');
-        }
-
-        // values
-        if(!valuesInput.value.trim()){
-            valuesInput.closest('.field').classList.add('invalid');
-            return;
-        }else{
-            valuesInput.closest('.field').classList.remove('invalid');
-        }
 
         // get the validated data
         const validatedData = {
@@ -96,6 +108,9 @@ class Attributes{
         // append to the dom
         wrapperToAppend.appendChild(attributeElement);
 
+        // clear the dom
+        nameInput.value = '';
+        valuesInput.value = '';
     }
 }
 

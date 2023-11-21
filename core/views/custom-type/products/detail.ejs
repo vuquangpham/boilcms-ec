@@ -116,17 +116,19 @@ const getValueFromData = (name, property = '') => {
 
                                             <div class="field vertical-layout">
                                                 <label for="inventory">Inventory</label>
-                                                <input type="text" id="inventory" placeholder="Inventory">
+                                                <input type="text" id="inventory" placeholder="Inventory"
+                                                       data-product-inventory>
                                             </div>
 
                                             <div class="field vertical-layout">
                                                 <label for="price">Price</label>
-                                                <input type="text" id="price" placeholder="Price">
+                                                <input type="text" id="price" placeholder="Price" data-product-price>
                                             </div>
 
                                             <div class="field vertical-layout">
                                                 <label for="sale-price">Sale Price</label>
-                                                <input type="text" id="sale-price" placeholder="Sale Price">
+                                                <input type="text" id="sale-price" placeholder="Sale Price"
+                                                       data-product-sale-price>
                                             </div>
 
                                         </div>
@@ -144,12 +146,14 @@ const getValueFromData = (name, property = '') => {
                                         <div class="form-fields" data-product-attribute-add>
                                             <div class="field half vertical-layout">
                                                 <label for="name" class="hidden">Name</label>
-                                                <input type="text" placeholder="Name" id="name" name="name">
+                                                <input type="text" placeholder="Name" id="name" name="name"
+                                                       data-attribute-name>
                                                 <div class="description error">Please add the name here!</div>
                                             </div>
                                             <div class="field half vertical-layout">
                                                 <label for="values" class="hidden">Values</label>
-                                                <input type="text" placeholder="Values" id="values" name="values">
+                                                <input type="text" placeholder="Values" id="values" name="values"
+                                                       data-attribute-values>
                                                 <div class="description error">Please add the values here!</div>
                                             </div>
                                             <div class="field jc-end">
