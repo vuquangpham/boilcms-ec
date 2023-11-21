@@ -15,8 +15,8 @@ a {
   text-decoration: underline;
 }
 
-a:hover,
-a:focus {
+.boil-content a:hover,
+.boil-content a:focus {
   color: var(--permalink-color-hover);
 }
 

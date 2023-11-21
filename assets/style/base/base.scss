@@ -21,6 +21,7 @@ body {
 /* Txt color white */
 .txt_color_white {
   --color-text: var(--color-white);
+  --color-heading: var(--color-white);
   --permalink-color: var(--color-white);
   --permalink-color-hover: var(--color-secondary);
   color: var(--color-white);
