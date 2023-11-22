@@ -16,6 +16,7 @@
             <div class="users-list--user" data-column="User">User</div>
             <div class="users-list--register" data-column="Register At">Register At</div>
             <div class="users-list--email" data-column="Email">Email</div>
+            <div class="users-list--email-validate" data-column="Validate">Email validated</div>
             <div class="users-list--role" data-column="Role">Role</div>
             <div class="users-list--state" data-column="State">State</div>
             <div class="users-list--action" data-column="Action">Action</div>
@@ -32,8 +33,13 @@
                     <time><%= user.registerAtFormatted %></time>
                 </div>
 
-                <div class="users__item--email wb-break-all"
+                <div class="users__item--email "
                      data-column="Email" data-user-item-email><%= user.email; %></div>
+
+                <div class="users__item--email-validate wb-break-all"
+                     data-column="Validate"><span
+                            class="<%= user.isEmailValidate === true ? 'badge badge--green' : 'badge badge--yellow' %>"><%= user.isEmailValidate; %></span>
+                </div>
 
                 <div class="users__item--role tt-capitalize <%= user.role === 'admin' ? 'admin-role' : 'user-role' %>"
                      data-column="Role" data-user-item-role><%= user.role; %></div>
