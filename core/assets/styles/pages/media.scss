@@ -55,8 +55,24 @@
   }
 }
 
-// popup
+/********************************
+* Popup > Media
+********************************/
+
+// form > avoid CLS
+form[data-media-form] {
+  display: none;
+}
+
+// wrapper
 [data-popup-wrapper] {
+
+  // form
+  form[data-media-form] {
+    display: block;
+  }
+
+  // media item
   [data-media-item] {
     aspect-ratio: 3/2;
 
