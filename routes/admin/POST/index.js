@@ -58,7 +58,7 @@ const handlePostMethod = (request, response, next) => {
                 case 'add' :{
 
                     // media type
-                    if(categoryItem.contentType === Type.types.MEDIA){
+                    if(categoryItem.contentType === Type.types.MEDIA || categoryItem.contentType === Type.types.USER){
                         URL = categoryItem.url;
                         break;
                     }
@@ -86,6 +86,7 @@ const handlePostMethod = (request, response, next) => {
                     URL = request.params.type;
                 }
             }
+            console.log('actiion', action.name, URL);
             response.redirect(URL);
         })
         .catch(err => {
