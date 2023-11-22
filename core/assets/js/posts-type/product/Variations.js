@@ -63,7 +63,7 @@ class Variations{
             // generate html for options
             const optionsHTML = a.values.map(v => {
                 // get selected value
-                const isSelected = data.selectedAttributes.find(s => s.name === a.name && s.value === v.name);
+                const isSelected = selectedAttributes.find(s => s.name === a.name && s.value === v.name);
                 return `<option value="${v.name}" ${isSelected ? 'selected' : ''}>${v.prettyName}</option>`;
             }).join('');
 
