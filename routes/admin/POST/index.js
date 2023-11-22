@@ -43,7 +43,6 @@ const handlePostMethod = (request, response, next) => {
             break;
         }
     }
-
     const [promise, extraData] = funcForHandlingAction(request, response);
 
     promise
@@ -86,7 +85,6 @@ const handlePostMethod = (request, response, next) => {
                     URL = request.params.type;
                 }
             }
-            console.log('actiion', action.name, URL);
             response.redirect(URL);
         })
         .catch(err => {
