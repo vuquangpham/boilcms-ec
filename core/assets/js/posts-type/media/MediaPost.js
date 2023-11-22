@@ -30,7 +30,32 @@ export default class MediaPost{
         // show popup
         this.popup = Popup.create({
             target: document.createElement('div'),
-            popupContent: document.querySelector('[data-popup-content="media-page"]')
+            popupContent: document.querySelector('[data-popup-content="media-page"]'),
+
+            onPopupContentClick: (self) => {
+                const eventTarget = self.event.target;
+                let functionHandling = () => {
+                };
+                let target = null;
+
+                const deleteBtnEl = eventTarget.closest('[data-media-delete-btn]');
+                const saveMediaBtnEl = eventTarget.closest('[data-media-save-btn]');
+
+                // save media
+                if(saveMediaBtnEl){
+                    functionHandling = this.handleSaveMedia.bind(this);
+                    target = saveMediaBtnEl;
+                }
+
+                // delete media
+                else if(deleteBtnEl){
+                    functionHandling = this.handleDeleteMedia.bind(this);
+                    target = deleteBtnEl;
+                }
+
+                // call the function
+                functionHandling(target);
+            }
         });
 
         // handle replace media
@@ -106,6 +131,9 @@ export default class MediaPost{
                 // get deleted media item and remove the dom
                 const deletedMediaItem = this.wrapper.querySelector(`button[data-media-item][data-id="${id}"]`);
                 if(deletedMediaItem) deletedMediaItem.remove();
+
+                // close the popup
+                this.popup.close();
             })
             .catch(err => console.error(err));
     };
@@ -141,6 +169,9 @@ export default class MediaPost{
                 // update the new media
                 mediaItemEl.src = result.url.small;
                 mediaItemEl.alt = result.name;
+
+                // close the popup
+                this.popup.close();
             })
             .catch(err => console.error(err));
     }
@@ -166,25 +197,11 @@ export default class MediaPost{
         let target = null;
 
         const singleMediaItemEL = e.target.closest('button[data-media-item]');
-        const deleteBtnEl = e.target.closest('[data-media-delete-btn]');
-        const saveMediaBtnEl = e.target.closest('[data-media-save-btn]');
 
         // show single media item
         if(singleMediaItemEL){
             functionHandling = this.showSingleMediaItem.bind(this);
             target = singleMediaItemEL;
-        }
-
-        // save media
-        else if(saveMediaBtnEl){
-            functionHandling = this.handleSaveMedia.bind(this);
-            target = saveMediaBtnEl;
-        }
-
-        // delete media
-        else if(deleteBtnEl){
-            functionHandling = this.handleDeleteMedia.bind(this);
-            target = deleteBtnEl;
         }
 
         // call the function
