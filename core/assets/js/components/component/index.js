@@ -53,7 +53,7 @@ export default class Component{
         // inner HTML
         utilsDiv.innerHTML = `
 
-        <button type="button" data-toggle="component-panel" data-component-edit class="btn_primary">Edit</button>
+        <button type="button" data-popup="component-detail-popup" data-component-edit class="btn_primary">Edit</button>
         <button type="button" data-component-delete class="btn_primary error">Delete</button>
         `;
 
@@ -66,7 +66,7 @@ export default class Component{
 
         // inner HTML
         addComponentDiv.innerHTML = `
-        <button type="button" data-toggle="components" class="btn_primary">Add More</button>
+        <button type="button" data-popup="components-list-popup" class="btn_primary">Add More</button>
         `;
 
         return addComponentDiv;

@@ -235,7 +235,7 @@
 /*************************************
 * Page Builder > Popup Components List
 *************************************/
-[data-pb-components-popup] [data-pb-components-popup-inner] {
+[data-pb-components-popup] {
   display: grid;
   grid-template-columns:repeat(5, 1fr);
   grid-template-rows:max-content;

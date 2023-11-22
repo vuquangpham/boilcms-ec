@@ -22,7 +22,7 @@ if(isEditPost){
 %>
 
 <div data-custom-title>
-    <% const pageTitle = isEditPost ? 'Edit Post' : 'Add New Post' %>
+    <% const pageTitle = isEditPost ? 'Edit Post' : 'Add New Post'; %>
     <span><%= pageTitle; %></span>
 </div>
 
@@ -50,7 +50,7 @@ if(isEditPost){
                             </div>
 
                             <div>
-                                <a href="<%= viewURL ;%>" target="_blank" class="btn_primary txt_14px">View page</a>
+                                <a href="<%= viewURL; %>" target="_blank" class="btn_primary txt_14px">View page</a>
                             </div>
                         </div>
                     <% } %>
@@ -65,7 +65,8 @@ if(isEditPost){
                             <div data-component="row" data-component-wrapper>
                                 <div data-component-children data-component-content></div>
                                 <div data-component-add>
-                                    <button type="button" data-toggle="components" class="btn_primary">Add</button>
+                                    <button type="button" data-popup="components-list-popup" class="btn_primary">Add
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -75,48 +76,41 @@ if(isEditPost){
                                   style="width:100%"><%= getValueFromData('content', 'content'); %></textarea>
                     </div>
 
-                    <div data-pb-components-popup data-popup>
-                        <div data-popup-overflow>
-                            <div data-popup-overlay data-toggle="components"></div>
-                            <div data-pb-components-popup-inner data-popup-inner>
-                                <% components.forEach(c => { %>
-                                    <button
-                                            data-component="<%= c.name; %>"
-                                            data-action="add"
-                                            data-toggle="components <%= c.name === 'row' ? '' : 'component-panel' %>"
-                                            type="button">
-                                        <div data-component-title><%= c.title; %></div>
-                                        <div data-component-description><%= c.description; %></div>
-                                    </button>
-                                <% }); %>
-                            </div>
-                        </div>
+
+                    <div data-pb-components-popup data-popup-content="components-list-popup">
+                        <% components.forEach(c => { %>
+                            <button
+                                    data-component="<%= c.name; %>"
+                                    data-action="add"
+                                    <%- c.name !== "row" ? `data-popup="component-detail-popup"` : 'data-popup-toggle' %>
+                                    type="button">
+                                <div data-component-title><%= c.title; %></div>
+                                <div data-component-description><%= c.description; %></div>
+                            </button>
+                        <% }); %>
                     </div>
 
-                    <div data-pb-component-popup data-popup>
-                        <div data-popup-overflow>
-                            <div data-popup-overlay data-toggle="component-panel"></div>
-                            <div data-pb-component-popup-inner data-popup-inner="">
-                                <!-- component content -->
-                                <div data-pb-component-popup-content></div>
 
-                                <!-- component options -->
-                                <div data-pb-component-options></div>
+                    <div data-pb-component-popup data-popup-content="component-detail-popup">
+                        <!-- component content -->
+                        <div data-pb-component-popup-content></div>
 
-                                <!-- button group -->
-                                <div data-pb-component-button-group class="fl-center-v"
-                                     style="margin-top:auto; padding-top:2rem; gap:.4rem">
-                                    <button type="button" data-toggle="component-panel" class="btn_primary"
-                                            data-pb-component-popup-save>
-                                        Save
-                                    </button>
-                                    <button type="button" data-toggle="component-panel" class="btn_transparent"
-                                            data-pb-component-popup-cancel>
-                                        Cancel
-                                    </button>
-                                </div>
-                            </div>
+                        <!-- component options -->
+                        <div data-pb-component-options></div>
+
+                        <!-- button group -->
+                        <div data-pb-component-button-group class="fl-center-v"
+                             style="margin-top:auto; padding-top:2rem; gap:.4rem">
+                            <button type="button" data-toggle="component-panel" class="btn_primary"
+                                    data-pb-component-popup-save>
+                                Save
+                            </button>
+                            <button type="button" data-toggle="component-panel" class="btn_transparent"
+                                    data-pb-component-popup-cancel>
+                                Cancel
+                            </button>
                         </div>
+
                     </div>
 
                 </div>
