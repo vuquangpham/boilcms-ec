@@ -11,7 +11,6 @@ export default class MediaPost{
 
             // popup
             popupForm: wrapper.querySelector('[data-media-form]'),
-            closePopupForm: wrapper.querySelector('[data-media-close-btn]'),
 
             // input field
             mediaNameInput: wrapper.querySelector('[data-media-name]'),
@@ -27,6 +26,12 @@ export default class MediaPost{
 
         // handle click action
         this.wrapper.addEventListener('click', this.handleWrapperClick.bind(this));
+
+        // show popup
+        this.popup = Popup.create({
+            target: document.createElement('div'),
+            popupContent: document.querySelector('[data-popup-content="media-page"]')
+        });
 
         // handle replace media
         this.elements.replaceMediaInput.addEventListener('change', this.handleReplaceInputChange.bind(this));
@@ -53,6 +58,9 @@ export default class MediaPost{
      * Show single media item
      * */
     showSingleMediaItem(target){
+        // open popup
+        this.popup.open();
+
         const id = target.dataset.id;
 
         // add loading class (for toggling the old image)
@@ -98,9 +106,6 @@ export default class MediaPost{
                 // get deleted media item and remove the dom
                 const deletedMediaItem = this.wrapper.querySelector(`button[data-media-item][data-id="${id}"]`);
                 if(deletedMediaItem) deletedMediaItem.remove();
-
-                // close the popup
-                this.elements.closePopupForm.click();
             })
             .catch(err => console.error(err));
     };
@@ -136,9 +141,6 @@ export default class MediaPost{
                 // update the new media
                 mediaItemEl.src = result.url.small;
                 mediaItemEl.alt = result.name;
-
-                // close the popup
-                this.elements.closePopupForm.click();
             })
             .catch(err => console.error(err));
     }

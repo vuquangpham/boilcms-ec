@@ -43,15 +43,6 @@
 
     padding: .4rem;
     background: transparent;
-
-    // loading state
-    &.loading {
-      opacity: 0;
-    }
-
-    &:not(.loading) {
-      transition: all .3s ease;
-    }
   }
 
   // hover
@@ -62,9 +53,20 @@
       border-color: var(--color-secondary);
     }
   }
+}
 
-  // popup
-  form[data-popup-inner] {
-    padding: 3rem;
+// popup
+[data-popup-wrapper] {
+  [data-media-item] {
+    aspect-ratio: 3/2;
+
+    // loading state
+    &.loading {
+      opacity: 0;
+    }
+
+    &:not(.loading) {
+      transition: all .3s ease;
+    }
   }
 }
