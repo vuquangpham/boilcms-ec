@@ -41,10 +41,10 @@
   /* list */
   body .users-list {
     --user-width: 100px;
-    --register-width: 180px;
-    --role-width: 100px;
-    --state-width: 100px;
-    --action-width: 90px;
+    --register-width: 150px;
+    --role-width: 60px;
+    --state-width: 60px;
+    --action-width: 75px;
     --email-validated-width: 90px;
   }
   .users-list__item [data-column]:not([data-column="title"]) {
@@ -56,13 +56,13 @@
 @include responsive('tablet-v', true) {
   /* list */
   .users-list {
-    --user-width: 160px;
-    --register-width: 220px;
+    --user-width: 120px;
+    --register-width: 200px;
     --email-width: calc(100% - var(--user-width) - var(--register-width) - var(--email-validated-width) - var(--role-width) - var(--state-width) - var(--action-width));
-    --email-validated-width: 150px;
-    --role-width: 120px;
-    --state-width: 120px;
-    --action-width: 90px;
+    --email-validated-width: 100px;
+    --role-width: 100px;
+    --state-width: 100px;
+    --action-width: 85px;
   }
 
   /* each columns */
