@@ -45,6 +45,7 @@
     --role-width: 100px;
     --state-width: 100px;
     --action-width: 90px;
+    --email-validated-width: 90px;
   }
   .users-list__item [data-column]:not([data-column="title"]) {
     font-size: 1.2rem;
@@ -57,7 +58,8 @@
   .users-list {
     --user-width: 160px;
     --register-width: 220px;
-    --email-width: calc(100% - var(--user-width) - var(--register-width) - var(--role-width) - var(--state-width) - var(--action-width));
+    --email-width: calc(100% - var(--user-width) - var(--register-width) - var(--email-validated-width) - var(--role-width) - var(--state-width) - var(--action-width));
+    --email-validated-width: 150px;
     --role-width: 120px;
     --state-width: 120px;
     --action-width: 90px;
@@ -72,6 +74,9 @@
   }
   .users-list [data-column="Email"] {
     width: var(--email-width);
+  }
+  .users-list [data-column="Email Validated"] {
+    width: var(--email-validated-width);
   }
   .users-list [data-column="Role"] {
     width: var(--role-width);
