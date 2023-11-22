@@ -67,65 +67,60 @@
             </div>
         <% }); %>
 
-        <div data-user-popup data-popup>
-            <div data-popup-overflow>
-                <div data-popup-overlay data-toggle="user-popup"></div>
+        <!-- pop up content-->
+        <form method="post" action="#" data-user-form data-popup-content="edit-user-page">
 
-                <!-- pop up content-->
-                <form method="post" action="#" data-popup-inner data-user-form>
-
-                    <div data-custom-title>
-                        <span>Edit User</span>
-                    </div>
-
-                    <div class="form-fields">
-                        <div class="field half vertical-layout">
-                            <label for="username">Username</label>
-                            <input id="username" data-user-name name="name" placeholder="Username" required>
-                        </div>
-
-                        <div class="field half vertical-layout">
-                            <label for="email">Email</label>
-                            <input id="email" data-user-email name="email" placeholder="Email" required>
-                        </div>
-
-                        <div class="field third vertical-layout">
-                            <label>Register</label>
-                            <div data-user-register></div>
-                        </div>
-
-                        <div class="field third vertical-layout">
-                            <!-- role -->
-                            <label for="role">Role</label>
-                            <select data-select-role-value name="role" id="role">
-                                <option value="user">User
-                                </option>
-                                <option value="admin">Admin
-                                </option>
-                            </select>
-                        </div>
-
-                        <div class="field third vertical-layout">
-                            <label for="state">State</label>
-                            <select data-select-state-value name="state" id="state">
-                                <option value="active">Active
-                                </option>
-                                <option value="suspend">Suspend
-                                </option>
-                            </select>
-                        </div>
-
-                        <div class="footer">
-                            <button class="btn_primary" type="button" data-user-save-btn>Save</button>
-                            <button class="btn_primary error" type="button" data-user-delete-btn>Delete</button>
-                            <button class="btn_transparent" type="button" data-user-close-btn
-                                    data-toggle="user-popup">Cancel
-                            </button>
-                        </div>
-                    </div>
-                </form>
+            <div data-custom-title>
+                <span>Edit User</span>
             </div>
-        </div>
+
+            <div class="form-fields">
+                <div class="field half vertical-layout">
+                    <label for="username">Username</label>
+                    <input id="username" data-user-name name="name" placeholder="Username" required>
+                </div>
+
+                <div class="field half vertical-layout">
+                    <label for="email">Email</label>
+                    <input id="email" data-user-email name="email" placeholder="Email" required>
+                </div>
+
+                <div class="field third vertical-layout">
+                    <label>Register</label>
+                    <div data-user-register></div>
+                </div>
+
+                <div class="field third vertical-layout">
+                    <!-- role -->
+                    <label for="role">Role</label>
+                    <select data-select-role-value name="role" id="role">
+                        <option value="user">User
+                        </option>
+                        <option value="admin">Admin
+                        </option>
+                    </select>
+                </div>
+
+                <div class="field third vertical-layout">
+                    <label for="state">State</label>
+                    <select data-select-state-value name="state" id="state">
+                        <option value="active">Active
+                        </option>
+                        <option value="suspend">Suspend
+                        </option>
+                    </select>
+                </div>
+
+                <div class="footer">
+                    <button class="btn_primary" type="button" data-user-save-btn>Save</button>
+                    <button class="btn_primary error" type="button" data-user-delete-btn>Delete</button>
+                    <button class="btn_transparent" type="button" data-user-close-btn
+                            data-popup-toggle>Cancel
+                    </button>
+                </div>
+            </div>
+        </form>
+
     </div>
 
 

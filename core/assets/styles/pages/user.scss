@@ -19,7 +19,7 @@
 
     &:hover svg,
     &:focus svg {
-      fill: var(--color-primary);
+      fill: var(--color-secondary);
       transform: scale(1.05) rotate(10deg);
     }
   }
