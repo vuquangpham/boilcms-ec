@@ -6,11 +6,12 @@
     <h2>No content</h2>
 <% } %>
 
-<div style="margin-bottom:1rem">
-    <button class="btn_primary" data-toggle="user-register-popup">Add New</button>
-</div>
-
 <div class="users-list" data-custom-table data-user-wrapper>
+
+    <div class="margin-bottom-small">
+        <button class="btn_primary" data-popup="add-user-page" data-user-add-new>Add New</button>
+    </div>
+
     <div class="users-list__inner" data-edit-user-wrapper>
         <div class="users-list__heading" data-column-wrapper="heading">
             <div class="users-list--user" data-column="User">User</div>
@@ -51,7 +52,7 @@
 
                 <div class="users__item--action fl-center-v" style="gap:.8rem" data-column="Action">
 
-                    <button data-toggle="user-popup" data-user-edit>
+                    <button data-user-edit>
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
                             <path d="M21.731 2.269a2.625 2.625 0 00-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 000-3.712zM19.513 8.199l-3.712-3.712-8.4 8.4a5.25 5.25 0 00-1.32 2.214l-.8 2.685a.75.75 0 00.933.933l2.685-.8a5.25 5.25 0 002.214-1.32l8.4-8.4z"/>
                             <path d="M5.25 5.25a3 3 0 00-3 3v10.5a3 3 0 003 3h10.5a3 3 0 003-3V13.5a.75.75 0 00-1.5 0v5.25a1.5 1.5 0 01-1.5 1.5H5.25a1.5 1.5 0 01-1.5-1.5V8.25a1.5 1.5 0 011.5-1.5h5.25a.75.75 0 000-1.5H5.25z"/>
@@ -130,72 +131,68 @@
     </div>
 
 
-    <div data-user-register-popup data-popup data-register-user-wrapper>
-        <div data-popup-overflow>
-            <div data-popup-overlay data-toggle="user-register-popup"></div>
+    <form method="post" action="?posts_type=<%= contentType; %>&method=post&action=add"
+          data-popup-content="add-user-page">
 
-            <form method="post" action="?posts_type=<%= contentType; %>&method=post&action=add" data-popup-inner>
-
-                <div data-custom-title>
-                    <span>Add New User</span>
-                </div>
-
-                <div class="form-fields">
-                    <div class="field half">
-                        <label class="hidden" for="name">Username</label>
-                        <input id="name" type="text" name="name" placeholder="Username" required
-                               data-user-register-name>
-                    </div>
-
-                    <div class="field half">
-                        <label class="hidden" for="email">Email</label>
-                        <input id="email" type="email" name="email" placeholder="Email" data-user-register-email
-                               required>
-                    </div>
-
-                    <div class="field half">
-                        <label class="hidden" for="password">Password</label>
-                        <input id="password" type="password" name="password" placeholder="Password"
-                               data-user-register-password required>
-                    </div>
-
-                    <div class="field half">
-                        <label class="hidden" for="confirm-password">Confirm</label>
-                        <input id="confirm-password" type="password" name="confirmPassword"
-                               data-user-register-confirm-password placeholder="Confirm Password"
-                               required>
-                    </div>
-
-                    <div class="field half">
-                        <!-- role -->
-                        <label for="role">Role</label>
-                        <select data-easy-select data-user-register-role name="role" id="role">
-                            <option value="user">User
-                            </option>
-                            <option value="admin">Admin
-                            </option>
-                        </select>
-                    </div>
-
-                    <div class="field half">
-                        <!-- state -->
-                        <label for="state">State</label>
-                        <select data-easy-select data-user-register-state name="state" id="state">
-                            <option value="active">Active
-                            </option>
-                            <option value="suspend">Suspend
-                            </option>
-                        </select>
-                    </div>
-
-                    <!-- Submit -->
-                    <div class="footer">
-                        <button class="btn_primary" type="submit" data-add-new-user-btn>Add</button>
-                        <button class="btn_transparent" type="submit" data-toggle="user-register-popup">Cancel</button>
-                    </div>
-                </div>
-
-            </form>
+        <div data-custom-title>
+            <span>Add New User</span>
         </div>
-    </div>
+
+        <div class="form-fields">
+            <div class="field half">
+                <label class="hidden" for="name">Username</label>
+                <input id="name" type="text" name="name" placeholder="Username" required
+                       data-user-register-name>
+            </div>
+
+            <div class="field half">
+                <label class="hidden" for="email">Email</label>
+                <input id="email" type="email" name="email" placeholder="Email" data-user-register-email
+                       required>
+            </div>
+
+            <div class="field half">
+                <label class="hidden" for="password">Password</label>
+                <input id="password" type="password" name="password" placeholder="Password"
+                       data-user-register-password required>
+            </div>
+
+            <div class="field half">
+                <label class="hidden" for="confirm-password">Confirm</label>
+                <input id="confirm-password" type="password" name="confirmPassword"
+                       data-user-register-confirm-password placeholder="Confirm Password"
+                       required>
+            </div>
+
+            <div class="field half">
+                <!-- role -->
+                <label for="role">Role</label>
+                <select data-easy-select data-user-register-role name="role" id="role">
+                    <option value="user">User
+                    </option>
+                    <option value="admin">Admin
+                    </option>
+                </select>
+            </div>
+
+            <div class="field half">
+                <!-- state -->
+                <label for="state">State</label>
+                <select data-easy-select data-user-register-state name="state" id="state">
+                    <option value="active">Active
+                    </option>
+                    <option value="suspend">Suspend
+                    </option>
+                </select>
+            </div>
+
+            <!-- Submit -->
+            <div class="footer">
+                <button class="btn_primary" type="submit">Add</button>
+                <button class="btn_transparent" type="submit" data-popup-toggle>Cancel</button>
+            </div>
+        </div>
+
+    </form>
+
 </div>
