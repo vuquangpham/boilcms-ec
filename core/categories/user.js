@@ -1,7 +1,7 @@
 const Type = require("../classes/utils/type");
 const Category = require("../classes/category/category");
 const {generateSHA256Token, sendAuthTokenAndCookies} = require("../utils/token.utils");
-const {sendForgotPasswordEmail, validatedEmail} = require("../utils/email.utils");
+const {sendForgotPasswordEmail, validateEmail} = require("../utils/email.utils");
 const {getProtocolAndDomain} = require("../utils/helper.utils");
 const {REGISTER_URL, RESET_PASSWORD_URL} = require("../utils/config.utils");
 
@@ -53,7 +53,7 @@ class User extends Category {
         return new Promise((resolve, reject) => {
             instance.save()
                 .then(async result => {
-                    await validatedEmail(instance, result, request)
+                    await validateEmail(instance, result, request)
 
                     resolve(result);
                 })

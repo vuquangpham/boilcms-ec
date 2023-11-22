@@ -91,7 +91,7 @@ const sendForgotPasswordEmail = (information) => {
  * @param information {Object}
  * @return {Promise}
  * */
-const sendValidateEmail = (information) => {
+const sendEmailValidation = (information) => {
     const userName = information.user.name;
     const confirmationEmailURL = information.confirmationEmailURL;
     const email = {
@@ -120,18 +120,18 @@ const sendValidateEmail = (information) => {
 
 /**
  * Validated email for user
- * @param instance {object}
+ * @param user {object}
  * @param result {object}
  * @param request
  * */
-const validatedEmail = async (instance, result, request) => {
+const validateEmail = async (user, result, request) => {
     // generate the random reset token and save reset token to data
-    const verifyEmailToken = instance.createVerifyEmailToken();
-    await instance.save({validateBeforeSave: false});
+    const verifyEmailToken = user.createVerifyEmailToken();
+    await user.save({validateBeforeSave: false});
 
     // send email
     const confirmationEmailURL = getProtocolAndDomain(request) + `${REGISTER_URL}?type=${VERIFY_EMAIL_URL}&token=${verifyEmailToken}&method=post`;
-    sendValidateEmail({
+    sendEmailValidation({
         user: result,
         confirmationEmailURL
     })
@@ -145,4 +145,4 @@ const validatedEmail = async (instance, result, request) => {
         });
 }
 
-module.exports = {sendEmail, sendForgotPasswordEmail, sendValidateEmail, validatedEmail};
+module.exports = {sendEmail, sendForgotPasswordEmail, sendEmailValidation, validateEmail};
