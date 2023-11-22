@@ -9,7 +9,7 @@ const handleAddAction = (request, response) => {
     const inputData = {request, response};
     const data = categoryItem.validateInputData(inputData);
 
-    const promise = categoryItem.add(data);
+    const promise = categoryItem.add(data, request);
     const extraData = {};
 
     return [promise, extraData];

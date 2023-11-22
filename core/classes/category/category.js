@@ -102,7 +102,7 @@ class Category{
     /**
      * Add new data to category
      * */
-    add(data){
+    add(data, request){
         const instance = new this.databaseModel(data);
 
         return new Promise((resolve, reject) => {
