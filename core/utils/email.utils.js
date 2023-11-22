@@ -1,7 +1,7 @@
 const nodemailer = require('nodemailer');
 const Mailgen = require('mailgen');
 const {getProtocolAndDomain} = require('./helper.utils');
-const {REGISTER_URL} = require("./config.utils");
+const {REGISTER_URL, VERIFY_EMAIL_URL} = require("./config.utils");
 
 // Configure mailgen by setting a theme and your product info
 const mailGenerator = new Mailgen({
@@ -118,4 +118,31 @@ const sendValidateEmail = (information) => {
     });
 };
 
-module.exports = {sendEmail, sendForgotPasswordEmail, sendValidateEmail};
+/**
+ * Validated email for user
+ * @param instance {object}
+ * @param result {object}
+ * @param request
+ * */
+const validatedEmail = async (instance, result, request) => {
+    // generate the random reset token and save reset token to data
+    const verifyEmailToken = instance.createVerifyEmailToken();
+    await instance.save({validateBeforeSave: false});
+
+    // send email
+    const confirmationEmailURL = getProtocolAndDomain(request) + `${REGISTER_URL}?type=${VERIFY_EMAIL_URL}&token=${verifyEmailToken}&method=post`;
+    sendValidateEmail({
+        user: result,
+        confirmationEmailURL
+    })
+        .then(info => {
+            // todo: handle after sending email
+            console.log(info);
+        })
+        .catch(err => {
+            // todo: handle error
+            console.log(err);
+        });
+}
+
+module.exports = {sendEmail, sendForgotPasswordEmail, sendValidateEmail, validatedEmail};

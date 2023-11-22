@@ -1,19 +1,19 @@
 const Type = require("../classes/utils/type");
 const Category = require("../classes/category/category");
 const {generateSHA256Token, sendAuthTokenAndCookies} = require("../utils/token.utils");
-const {sendForgotPasswordEmail, sendEmail, sendValidateEmail} = require("../utils/email.utils");
+const {sendForgotPasswordEmail, validatedEmail} = require("../utils/email.utils");
 const {getProtocolAndDomain} = require("../utils/helper.utils");
-const {REGISTER_URL, RESET_PASSWORD_URL, VERIFY_EMAIL_URL} = require("../utils/config.utils");
+const {REGISTER_URL, RESET_PASSWORD_URL} = require("../utils/config.utils");
 
-class User extends Category{
-    constructor(config){
+class User extends Category {
+    constructor(config) {
         super(config);
     }
 
     /**
      * Validate input user
      * */
-    validateInputData(inputData, action = 'add'){
+    validateInputData(inputData, action = 'add') {
         const request = inputData.request;
         const response = inputData.response;
 
@@ -36,7 +36,7 @@ class User extends Category{
             state
         };
 
-        if(action === 'edit') returnObject.response = response;
+        if (action === 'edit') returnObject.response = response;
 
         return returnObject;
     }
@@ -47,31 +47,13 @@ class User extends Category{
      * @param request
      * @return {promise}
      * */
-    add(data, request){
+    add(data, request) {
         const instance = new this.databaseModel(data);
 
         return new Promise((resolve, reject) => {
             instance.save()
                 .then(async result => {
-
-                    // generate the random reset token and save reset token to data
-                    const verifyEmailToken = instance.createVerifyEmailToken();
-                    await instance.save({validateBeforeSave: false});
-
-                    // send email
-                    const confirmationEmailURL = getProtocolAndDomain(request) + `${REGISTER_URL}?type=${VERIFY_EMAIL_URL}&token=${verifyEmailToken}&method=post`;
-                    sendValidateEmail({
-                        user: result,
-                        confirmationEmailURL
-                    })
-                        .then(info => {
-                            // todo: handle after sending email
-                            console.log(info);
-                        })
-                        .catch(err => {
-                            // todo: handle error
-                            console.log(err);
-                        });
+                    await validatedEmail(instance, result, request)
 
                     resolve(result);
                 })
@@ -86,7 +68,7 @@ class User extends Category{
      * @param id {string}
      * @return {Promise}
      * */
-    find(id){
+    find(id) {
         return new Promise((resolve, reject) => {
             this.databaseModel.findOne({_id: id}).select('+password')
                 .then(data => {
@@ -102,23 +84,23 @@ class User extends Category{
      * Sign in user
      * @return {promise}
      * */
-    signIn(request){
+    signIn(request) {
         const {email, password} = request.body;
-        return new Promise(async(resolve, reject) => {
-            try{
+        return new Promise(async (resolve, reject) => {
+            try {
                 const user = await this.databaseModel.findOne({email}).select('+password');
 
                 // user doesn't exist
-                if(!user) throw new Error(`Account hasn't been existed yet. You can create the new one with that information!`);
+                if (!user) throw new Error(`Account hasn't been existed yet. You can create the new one with that information!`);
 
                 // comparing the password characters
                 const comparePassword = await user.comparePassword(password, user.password);
-                if(!comparePassword) throw new Error(`The password is not correct. Please try again!`);
+                if (!comparePassword) throw new Error(`The password is not correct. Please try again!`);
 
                 // found the user
                 resolve(user);
 
-            }catch(error){
+            } catch (error) {
                 reject(error);
             }
         });
@@ -127,15 +109,15 @@ class User extends Category{
     /**
      * Forget password
      * */
-    forgetPassword(request){
+    forgetPassword(request) {
         const {email} = request.body;
 
-        return new Promise(async(resolve, reject) => {
-            try{
+        return new Promise(async (resolve, reject) => {
+            try {
                 const user = await this.databaseModel.findOne({email});
 
                 // email doesn't exist
-                if(!user) throw new Error('Email not found');
+                if (!user) throw new Error('Email not found');
 
                 // generate the random reset token and save reset token to data
                 const resetToken = user.createPasswordResetToken();
@@ -154,7 +136,7 @@ class User extends Category{
 
                 resolve(resetToken);
 
-            }catch(error){
+            } catch (error) {
                 reject(error);
 
             }
@@ -164,9 +146,9 @@ class User extends Category{
     /**
      * Reset password
      * */
-    resetPassword(request, token = ''){
-        return new Promise(async(resolve, reject) => {
-            try{
+    resetPassword(request, token = '') {
+        return new Promise(async (resolve, reject) => {
+            try {
 
                 // hash token from query
                 const hashedToken = generateSHA256Token(token);
@@ -178,10 +160,10 @@ class User extends Category{
                 });
 
                 // user doesn't exist or reset token has expired
-                if(!user) throw new Error(`The reset token has expired. Please check it again!`);
+                if (!user) throw new Error(`The reset token has expired. Please check it again!`);
 
                 // check password
-                if(request.body.password !== request.body.confirmPassword) throw new Error(`Password don't match`);
+                if (request.body.password !== request.body.confirmPassword) throw new Error(`Password don't match`);
 
                 // get new password and confirm password
                 user.password = request.body.password;
@@ -192,7 +174,7 @@ class User extends Category{
                 await user.save();
 
                 resolve();
-            }catch(error){
+            } catch (error) {
                 reject(error);
             }
         });
@@ -201,11 +183,11 @@ class User extends Category{
     /**
      * Update user data
      * */
-    update(id, data){
-        return new Promise(async(resolve, reject) => {
-            try{
+    update(id, data) {
+        return new Promise(async (resolve, reject) => {
+            try {
                 // update password
-                if(data.password !== undefined){
+                if (data.password !== undefined) {
                     await this.updatePassword(id, data);
                     return resolve(this.getDataById({_id: id}));
                 }
@@ -222,7 +204,7 @@ class User extends Category{
                     .then(_ => resolve(this.getDataById({_id: id})))
                     .catch(err => reject(err));
 
-            }catch(err){
+            } catch (err) {
                 reject(err);
             }
         });
@@ -231,21 +213,21 @@ class User extends Category{
     /**
      * Update password
      * */
-    updatePassword(id, data){
+    updatePassword(id, data) {
 
         const response = data.response;
 
-        return new Promise(async(resolve, reject) => {
-            try{
+        return new Promise(async (resolve, reject) => {
+            try {
                 // find user
                 const user = await this.databaseModel.findById(id).select('+password');
 
                 // compare password in database with password from input
                 const comparePassword = await user.comparePassword(data.currentPassword, user.password);
-                if(!comparePassword) throw (new Error('The password is not correct'));
+                if (!comparePassword) throw (new Error('The password is not correct'));
 
                 // check password
-                if(data.password !== data.confirmPassword) throw new Error(`Password don't match`);
+                if (data.password !== data.confirmPassword) throw new Error(`Password don't match`);
 
                 // save new password
                 user.password = data.password;
@@ -257,7 +239,7 @@ class User extends Category{
                 sendAuthTokenAndCookies(user, response);
 
                 resolve();
-            }catch(error){
+            } catch (error) {
                 reject(error);
             }
         });
@@ -266,10 +248,10 @@ class User extends Category{
     /**
      * Validate email
      * */
-    verifyEmail(token = ''){
-        return new Promise(async(resolve, reject) => {
+    verifyEmail(token = '') {
+        return new Promise(async (resolve, reject) => {
 
-            try{
+            try {
                 // hash token from query
                 const hashedToken = generateSHA256Token(token);
 
@@ -280,7 +262,7 @@ class User extends Category{
                 });
 
                 // token doesn't exist or reset token has expired
-                if(!user) throw new Error(`The validate email token has expired. Please check it again!`);
+                if (!user) throw new Error(`The validate email token has expired. Please check it again!`);
 
                 // update user
                 user.verifyEmailToken = undefined;
@@ -290,7 +272,7 @@ class User extends Category{
                 await user.save({validateBeforeSave: false});
 
                 resolve();
-            }catch(error){
+            } catch (error) {
                 reject(error);
             }
         });
