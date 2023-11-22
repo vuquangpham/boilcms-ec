@@ -1,16 +1,16 @@
-[data-popup] {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.1);
-  transition-property: opacity, visibility;
-  transition-duration: 0.3s;
-  transition-timing-function: ease;
-  backdrop-filter: blur(5px);
-  z-index: 20;
-}
+//[data-popup] {
+//  position: fixed;
+//  top: 0;
+//  left: 0;
+//  right: 0;
+//  bottom: 0;
+//  background-color: rgba(0, 0, 0, 0.1);
+//  transition-property: opacity, visibility;
+//  transition-duration: 0.3s;
+//  transition-timing-function: ease;
+//  backdrop-filter: blur(5px);
+//  z-index: 20;
+//}
 
 [data-popup-overlay] {
   position: fixed;

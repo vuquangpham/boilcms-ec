@@ -76,6 +76,7 @@ class Variations{
         });
 
         const div = document.createElement('div');
+        const uid = Theme.uid();
         div.innerHTML = `
 <div data-product-variation-item data-accordion>
 
@@ -101,8 +102,56 @@ class Variations{
         <div class="form-fields">
 
             <div class="field half vertical-layout" data-variation-image="${images ?? JSON.stringify([])}">
-                <button>Image</button>
+                <label for="images">Images</label>
+                <input type="button" class="btn_primary" value="Select Images" data-variation-image-add data-popup="${uid}">
                 <div class="description error">Please input the images</div>
+                
+                <div data-popup-content="${uid}">
+                   <div class="media-popup fl-grid">
+
+                        <!-- media list -->
+                        <div class="media-popup__col media-popup__col--left">
+                            <div data-custom-title>
+                                <span>Media List</span>
+                            </div>
+    
+                            <div data-media-list class="fl-grid"></div>
+    
+                            <button type="button" class="btn_primary" data-save-media data-custom-toggle="<%= id %>">Save
+                            </button>
+                        </div>
+
+                        <!-- upload new media -->
+                        <div class="media-popup__col media-popup__col--right">
+                            <form data-media-form action="?post_type=media&method=post&action=add"
+                                  enctype="multipart/form-data">
+    
+                                <div data-custom-title>
+                                    <span>Upload Media</span>
+                                </div>
+    
+                                <div class="form-fields">
+                                    <div class="field vertical-layout">
+                                        <label for="name">Name:</label>
+                                        <input id="name" type="text" name="name" placeholder="Name" data-media-name>
+                                        <div class="description">Optional, we can get the name of the media.</div>
+                                    </div>
+    
+                                    <div class="field vertical-layout">
+                                        <label for="image">Upload Image:</label>
+                                        <input type="file" name="image" accept="image/*" id="image" required data-add-media>
+                                    </div>
+    
+                                    <div class="footer">
+                                        <button class="btn_transparent" type="submit" data-add-media-button>Add New</button>
+                                    </div>
+                                </div>
+    
+    
+                            </form>
+                        </div>
+                </div>
+                </div>
             </div>
 
             <div class="field half vertical-layout">
@@ -140,6 +189,12 @@ class Variations{
             receiverAttr: 'data-variation-receiver',
             triggerSelector: '[data-variation-trigger]',
             receiverSelector: '[data-variation-receiver]',
+        });
+
+        // create the popup
+        Popup.create({
+            target: div.querySelector('[data-popup]'),
+            popupContent: div.querySelector('[data-popup-content]')
         });
 
         return div.firstElementChild;
