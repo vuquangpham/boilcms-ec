@@ -323,8 +323,6 @@ export default class ModifyComponent{
 
         // load options
         this.loadOptions(result.component);
-
-        // EasySelect.init();
     }
 
     handleComponentClick(target){

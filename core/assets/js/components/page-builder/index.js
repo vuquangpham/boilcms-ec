@@ -28,6 +28,9 @@ export default class PageBuilder{
                 // open popup
                 this.componentDetailPopup.open();
 
+                // trigger click event
+                this.handleWrapperClick(self.event);
+
                 // close the components list popup
                 self.instance.close();
             }

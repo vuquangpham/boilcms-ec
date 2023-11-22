@@ -165,7 +165,6 @@ class MediaPopup{
 
         // do the cb
         validatedOptions.onAfterSaved({...validatedOptions, mediasObject});
-        console.log('do the cb');
     }
 }
 
