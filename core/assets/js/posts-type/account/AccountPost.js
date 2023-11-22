@@ -1,8 +1,8 @@
 import fetch from "@global/js/fetch";
 
-export default class AccountPost {
-    constructor(wrapper) {
-        this.wrapper = wrapper
+export default class AccountPost{
+    constructor(wrapper){
+        this.wrapper = wrapper;
 
         this.elements = {
 
@@ -16,28 +16,39 @@ export default class AccountPost {
 
             // error message
             errorMessagePopup: wrapper.querySelector('[data-error-message]')
-        }
+        };
 
         // vars
         const urlObject = new URL(location.href);
         this.FETCH_URL = urlObject.origin + '/boiler-admin/user';
 
-        // handle click action
-        this.wrapper.addEventListener('click', this.handleWrapperClick.bind(this))
+        // create popup
+        Popup.create({
+            target: this.wrapper.querySelector('[data-popup="change-password-popup"]'),
+
+            onBeforeOpen: (_) => {
+                //  clear input when show account popup
+                this.elements.currentPasswordInput.value = '';
+                this.elements.passwordInput.value = '';
+                this.elements.confirmPasswordInput.value = '';
+
+                // clear message
+                this.elements.errorMessagePopup.innerHTML = '';
+                this.elements.errorMessagePopup.classList.add('hidden');
+            },
+
+            onPopupContentClick: (self) => {
+                const eventTarget = self.event.target;
+
+                const target = eventTarget.closest('button[data-account-password-update-btn]');
+                if(!target) return;
+
+                this.handleUpdatePasswordAccount(target);
+            }
+        });
     }
 
-    handleShowAccountPopup() {
-
-        //  clear input when show account popup
-        this.elements.currentPasswordInput.value = '';
-        this.elements.passwordInput.value = '';
-        this.elements.confirmPasswordInput.value = '';
-
-        // clear message
-        this.elements.errorMessagePopup.innerHTML = ''
-    }
-
-    handleUpdatePasswordAccount(target) {
+    handleUpdatePasswordAccount(target){
 
         const formEl = target.closest('[data-account-form]');
         const id = formEl.getAttribute('data-id');
@@ -56,37 +67,18 @@ export default class AccountPost {
             method: 'post',
             body: formData
         })
+            .then(res => res.json())
             .then(result => {
+                if(result.errorMessage){
+                    this.elements.errorMessagePopup.innerHTML = result.errorMessage;
+                    this.elements.errorMessagePopup.classList.remove('hidden');
+                    return;
+                }
 
-                // only false return json, if true it not return json
-                if (result.ok !== true) {
-                    return result.json()
-                        .then(res => {
-                            this.elements.errorMessagePopup.innerHTML = res.errorMessage
-                        })
-                } else this.elements.errorMessagePopup.innerHTML = 'Password updated';
-
+                this.elements.errorMessagePopup.innerHTML = 'The password has been updated';
             })
-            .catch(err => console.error(err));
-    }
-
-    handleWrapperClick(e) {
-        let functionHandling = () => {
-        };
-        let target = null;
-
-        const updatePasswordBtnEl = e.target.closest('button[data-account-password-update-btn]')
-        const showPopupChangePasswordBtnEl = e.target.closest('button[data-change-password]')
-
-        if (updatePasswordBtnEl) {
-            functionHandling = this.handleUpdatePasswordAccount.bind(this)
-            target = updatePasswordBtnEl
-
-        } else if (showPopupChangePasswordBtnEl) {
-            functionHandling = this.handleShowAccountPopup.bind(this)
-        }
-
-        // call the function
-        functionHandling(target)
+            .catch(err => {
+                console.log(err);
+            });
     }
 }

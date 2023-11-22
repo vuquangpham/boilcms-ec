@@ -31,56 +31,52 @@
 
             <div class="field half vertical-layout">
                 <label>Password</label>
-                <input class="btn_transparent w100" type="button" value="Change password" data-toggle="account-popup"
+                <input class="btn_transparent w100" type="button" value="Change password"
+                       data-popup="change-password-popup"
                        data-change-password>
             </div>
 
-        </div>
+            <div class="footer">
+                <button type="submit" class="btn_primary">Save</button>
+            </div>
 
-        <div style="padding-top:2rem">
-            <button type="submit" class="btn_primary">Save</button>
         </div>
     </form>
 
-    <!-- change password pop-up -->
-    <div data-account-popup data-popup>
-        <div data-popup-overflow>
-            <div data-popup-overlay data-toggle="account-popup"></div>
+    <!-- pop up content-->
+    <form method="post" action="#" data-popup-content="change-password-popup" data-account-form
+          data-id="<%= data._id; %>">
 
-            <!-- pop up content-->
-            <form method="post" action="#" data-popup-inner data-account-form data-id="<%= data._id; %>">
+        <div class="form-fields">
 
-                <div class="form-fields">
+            <div class="field vertical-layout">
+                <label for="current-password">Current Password</label>
+                <input type="password" id="current-password" name="current-password" data-current-password
+                       required placeholder="Current Password">
+            </div>
 
-                    <div class="field vertical-layout">
-                        <label for="current-password">Current Password</label>
-                        <input type="password" id="current-password" name="current-password" data-current-password
-                               required placeholder="Current Password">
-                    </div>
+            <div class="field vertical-layout">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" data-password required
+                       placeholder="Password">
+            </div>
 
-                    <div class="field vertical-layout">
-                        <label for="password">Password</label>
-                        <input type="password" id="password" name="password" data-password required
-                               placeholder="Password">
-                    </div>
+            <div class="field vertical-layout">
+                <label for="confirm-password">Confirm Password</label>
+                <input type="password" id="confirm-password" name="confirm-password" data-confirm-password
+                       required placeholder="Confirm Password">
+            </div>
 
-                    <div class="field vertical-layout">
-                        <label for="confirm-password">Confirm Password</label>
-                        <input type="password" id="confirm-password" name="confirm-password" data-confirm-password
-                               required placeholder="Confirm Password">
-                    </div>
+            <div data-error-message class="fs-italic txt_14px txt_color_error hidden"></div>
 
-                    <div data-error-message></div>
+            <div class="footer">
+                <button class="btn_primary" type="button" data-account-password-update-btn>Save</button>
+                <button class="btn_transparent" type="button" data-account-close-btn
+                        data-popup-toggle>Cancel
+                </button>
+            </div>
 
-                    <div class="footer">
-                        <button class="btn_primary" type="button" data-account-password-update-btn>Save</button>
-                        <button class="btn_transparent" type="button" data-account-close-btn
-                                data-toggle="account-popup">Cancel
-                        </button>
-                    </div>
-
-                </div>
-            </form>
         </div>
-    </div>
+    </form>
+
 </div>
