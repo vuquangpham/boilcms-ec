@@ -25,7 +25,9 @@ class POSTS extends Category{
                         .catch(_ => {
                             data.allCategories = [];
                         })
-                        .finally(_ => resolve(data));
+                        .finally(_ => {
+                            resolve(data);
+                        });
 
                 })
                 .catch(err => {
