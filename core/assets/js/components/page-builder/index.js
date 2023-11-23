@@ -66,11 +66,11 @@ export default class PageBuilder{
         }
 
         // media popup
-        const mediaPopup = this.mediaPopup.isMediaPopup(e);
-        if(mediaPopup !== null){
-            functionForHandling = mediaPopup.functionForHandling;
-            target = mediaPopup.target;
-        }
+        // const mediaPopup = this.mediaPopup.isMediaPopup(e);
+        // if(mediaPopup !== null){
+        //     functionForHandling = mediaPopup.functionForHandling;
+        //     target = mediaPopup.target;
+        // }
 
         // invoked the function
         functionForHandling(target);

@@ -4,11 +4,14 @@ import UpdateComponentState from "./UpdateComponentState";
 
 // WYSIWYG editor
 import 'quill/dist/quill.snow.css';
+import MediaPopup from "./MediaPopup";
 
 export default class ModifyComponent{
     constructor(wrapper){
         this.wrapper = wrapper;
         this.isEdit = false;
+
+        this.mediaPopup = new MediaPopup(wrapper);
 
         // editors for wysiwyg editor
         this.editors = [];
@@ -315,8 +318,27 @@ export default class ModifyComponent{
         // init component script
         if(this.componentTypes.find(t => t === 'text'))
             UpdateComponentState.initWYSIWYGEditor(this.componentDetailPanel.querySelectorAll('#editor-container'), this);
+
         if(this.componentTypes.find(t => t === 'text-field'))
             UpdateComponentState.initTextField(this.componentDetailPanel.querySelectorAll('[data-type="text-field"]'));
+
+        if(this.componentTypes.find(t => t === 'image'))
+            UpdateComponentState.initImagePopup(
+                this.componentDetailPanel.querySelectorAll('[data-type="image"]'),
+                (self, e) => {
+                    this.mediaPopup.loadAllMedias(
+                        e,
+                        self.popupContent
+                    );
+                },
+                (self) => {
+                    const event = self.event;
+                    const mediaPopup = this.mediaPopup.isMediaPopup(event);
+
+                    if(!mediaPopup) return;
+                    mediaPopup.functionForHandling(mediaPopup.target);
+                }
+            );
 
         // toggle attribute
         Theme.toggleAttributeAction(this.componentDetailPanel.querySelectorAll('[data-toggle]'));

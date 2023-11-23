@@ -166,6 +166,23 @@ class UpdateComponentState{
     }
 
     /**
+     * Init Image Popup
+     * */
+    initImagePopup(elements, onBeforeOpen, onPopupContentClick){
+        elements.forEach(e => {
+            Popup.create({
+                target: e.querySelector('[data-popup]'),
+                popupContent: e.querySelector('[data-popup-content]'),
+
+                onBeforeOpen: (self) => {
+                    onBeforeOpen(self, e);
+                },
+                onPopupContentClick: onPopupContentClick
+            });
+        });
+    }
+
+    /**
      * Update previous value for Component (when click on the edit button)
      * @param context {Object}
      * @return void

@@ -20,19 +20,19 @@ export default class MediaPopup{
         this.FETCH_URL = baseUrl + '/' + adminPath + '/media';
     }
 
-    loadAllMedias(target){
+    loadAllMedias(target, wrapper){
 
         // selected media
-        const mediaValueOnParam = target.closest('[data-param]').querySelector('[data-param-value]').getAttribute('data-param-value');
+        const mediaValueOnParam = target.querySelector('[data-param-value]').getAttribute('data-param-value');
         const selectedMedias = mediaValueOnParam ? JSON.parse(mediaValueOnParam) : [];
 
         // check type of image element (single or multiple)
-        const typeOfImage = target.closest('[data-type="image"]').getAttribute('data-options');
+        const typeOfImage = target.getAttribute('data-options');
         this.isSingleImage = typeOfImage === 'single-image';
 
         Media.loadAllMedias({
             previousImagesId: selectedMedias,
-            wrapper: target.closest('[data-param]').querySelector('[data-media-list]'),
+            wrapper: wrapper.querySelector('[data-media-list]'),
             type: this.isSingleImage ? "radio" : "checkbox",
             fetchURL: this.FETCH_URL,
 
@@ -60,11 +60,10 @@ export default class MediaPopup{
             uploadInput: this.elements.popupForm.querySelector('[data-add-media]'),
             fetchURL: this.FETCH_URL,
             onAfterUpload: (result) => {
-                console.log('after submit', result);
                 const image = new Image(result, this.isSingleImage);
 
                 // re-assign dom element and clear the previous list
-                this.elements.mediaList = target.closest('[data-type="image"]').querySelector('[data-media-list]');
+                this.elements.mediaList = target.closest('[data-pb-media-popup]').querySelector('[data-media-list]');
                 this.elements.mediaList.appendChild(image.domElement);
             }
         });
@@ -72,10 +71,12 @@ export default class MediaPopup{
 
 
     handleAfterSelectedMedias(target){
-        const wrapper = target.closest('[data-type]');
+        const mediaFormWrapper = target.closest('[data-pb-media-popup]');
+        const id = mediaFormWrapper.getAttribute('data-popup-content');
+        const wrapper = document.querySelector(`[data-type="image"][data-id="${id}"]`);
 
         Media.handleSavedMedia({
-            wrapper,
+            wrapper: mediaFormWrapper,
             onAfterSaved: (result) => {
                 // medias url
                 const selectedMediasUrl = result.mediasObject.map(o => o.url);
@@ -87,15 +88,11 @@ export default class MediaPopup{
                 const selectedMediasId = result.mediasObject.map(o => o.id);
 
                 // save to the attribute
-                target.closest('[data-param]')
+                wrapper
                     .querySelector('[data-param-value]')
                     .setAttribute('data-param-value', JSON.stringify(selectedMediasId));
             }
         });
-    }
-
-    toggleCustomPopup(popupContent){
-        popupContent.classList.toggle('active');
     }
 
     isMediaPopup(e){
@@ -106,15 +103,6 @@ export default class MediaPopup{
         const loadMediaButton = e.target.closest('[data-load-media]');
         const mediaForm = e.target.closest('[data-media-form]');
         const saveMediaButton = e.target.closest('[data-save-media]');
-
-        // popup
-        const toggleButton = e.target.closest('[data-custom-toggle]');
-
-        if(toggleButton){
-            const id = toggleButton.getAttribute('data-custom-toggle');
-            const popupContent = document.querySelector(`[data-custom-toggle-content="${id}"]`);
-            this.toggleCustomPopup(popupContent);
-        }
 
         if(loadMediaButton){
             functionForHandling = this.loadAllMedias.bind(this);
