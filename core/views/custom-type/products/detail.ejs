@@ -52,8 +52,8 @@ const getValueFromData = (name, property = '') => {
                         </div>
 
                         <div class="field vertical-layout">
-                            <label for="types">Product type</label>
-                            <select data-product-types-select name="types" id="types" data-product-types>
+                            <label for="type">Product type</label>
+                            <select data-product-types-select name="type" id="type" data-product-types>
                                 <option <%= isSelectedValue('type', 'simple'); %> value="simple">Simple Product
                                 </option>
                                 <option <%= isSelectedValue('type', 'variable'); %> value="variable">Variable Product
@@ -105,7 +105,8 @@ const getValueFromData = (name, property = '') => {
                         <div>
                             <label for="simple-product-json" class="hidden">JSON for simple</label>
                             <textarea data-simple-product-json id="simple-product-json"
-                                      name="simpleProductJSON" class="w100" placeholder="JSON" readonly></textarea>
+                                      name="simpleProductJSON" class="w100" placeholder="JSON"
+                                      readonly><%= getValueFromData('simpleProductJSON') %></textarea>
                         </div>
 
                     </div>
@@ -177,8 +178,7 @@ const getValueFromData = (name, property = '') => {
                                         <div class="form-fields" data-product-attribute-add>
                                             <div class="field half vertical-layout">
                                                 <label for="name" class="hidden">Name</label>
-                                                <input type="text" placeholder="Name" id="name" name="name"
-                                                       data-attribute-name>
+                                                <input type="text" placeholder="Name" id="name" data-attribute-name>
                                                 <div class="description error">Please add the name here!</div>
                                             </div>
                                             <div class="field half vertical-layout">
@@ -241,8 +241,9 @@ const getValueFromData = (name, property = '') => {
                         <!-- variable product json -->
                         <div>
                             <label for="content" class="hidden">JSON for variable</label>
-                            <textarea data-variable-product-json id="content" name="variableJSON" class="w100"
-                                      placeholder="JSON" readonly></textarea>
+                            <textarea data-variable-product-json id="content" name="variableProductJSON" class="w100"
+                                      placeholder="JSON"
+                                      readonly><%= getValueFromData('variableProductJSON') %></textarea>
                         </div>
 
                     </div>
@@ -303,7 +304,7 @@ const getValueFromData = (name, property = '') => {
                     <div class="form-fields">
                         <div class="field vertical-layout">
                             <label for="name">Name:</label>
-                            <input id="name" type="text" name="name" placeholder="Name"
+                            <input id="name" type="text" placeholder="Name"
                                    data-media-name>
                             <div class="description">Optional, we can get the name of the
                                 media.
