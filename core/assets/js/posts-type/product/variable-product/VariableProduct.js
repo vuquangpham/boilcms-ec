@@ -211,5 +211,16 @@ export default class VariableProduct extends Product{
             // save
             this.save();
         }
+
+        // remove variation
+        else if(target.closest('[data-product-variation-item-remove-btn]')){
+            const wrapper = target.closest('[data-product-variation-item]');
+
+            // remove the dom
+            wrapper.remove();
+
+            // call the save method
+            this.save();
+        }
     }
 }

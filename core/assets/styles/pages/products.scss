@@ -119,8 +119,51 @@
 
     // item
     [data-product-attribute-item] {
+
+      padding: 1.2rem;
+      background: #fff;
+
+      // receiver wrapper
+      [data-attr-receiver] .form-fields {
+        padding-top: 1rem;
+      }
+
+      // bottom spacing
       &:not(:last-child) {
         margin-bottom: 1rem;
+      }
+    }
+
+    // button
+    [data-product-attribute-buttons] {
+      gap: .4rem;
+
+      button {
+        min-width: 40px;
+      }
+    }
+  }
+
+  // variations
+  [data-product-variations] {
+
+    // item
+    [data-product-variation-item] {
+      padding: 1.2rem;
+      background: #fff;
+
+      // bottom spacing
+      &:not(:last-child) {
+        margin-bottom: 1rem;
+      }
+    }
+
+    // button
+    [data-variable-product-buttons] {
+      gap: .4rem;
+
+      button {
+        min-width: 40px;
       }
     }
   }
