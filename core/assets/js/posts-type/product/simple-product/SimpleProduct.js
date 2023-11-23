@@ -1,4 +1,4 @@
-import Product from "./Product";
+import Product from "../Product";
 
 export default class SimpleProduct extends Product{
     constructor(parentWrapper, wrapper){

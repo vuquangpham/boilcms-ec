@@ -1,4 +1,4 @@
-import Product from "./Product";
+import Product from "../Product";
 import Attributes from "./Attributes";
 import Variations from "./Variations";
 
@@ -81,9 +81,15 @@ export default class VariableProduct extends Product{
                 price: 0,
                 salePrice: 0,
 
+                imagesId: [],
+
                 attributes: [],
                 selectedAttributes: []
             };
+
+            // images id
+            const variationImagesIdEl = wrapper.querySelector('[data-variation-image]');
+            variation.imagesId = JSON.parse(variationImagesIdEl.getAttribute('data-variation-image'));
 
             // attributes
             const attributesEl = wrapper.querySelector('[data-variation-attributes]');
@@ -119,7 +125,7 @@ export default class VariableProduct extends Product{
 
     generateObjectToDOM(){
         // demo data
-        const obj = `{"inventory":0,"price":0,"salePrice":0,"attributes":[{"name":"color","values":[{"name":"red","prettyName":"Red","additions":{}},{"name":"green","prettyName":"Green","additions":{}},{"name":"blue","prettyName":"Blue","additions":{}}],"originalValue":"red|green   |blue"},{"name":"sizes","values":[{"name":"x","prettyName":"X","additions":{}},{"name":"m","prettyName":"M","additions":{}},{"name":"l","prettyName":"L","additions":{}}],"originalValue":"X|M|L"}],"variations":[{"inventory":2,"price":3,"salePrice":4,"attributes":[{"name":"color","values":[{"name":"red","prettyName":"Red","additions":{}},{"name":"green","prettyName":"Green","additions":{}},{"name":"blue","prettyName":"Blue","additions":{}}],"originalValue":"red|green   |blue"}],"selectedAttributes":[{"name":"color","value":"red"}]},{"inventory":3333,"price":333,"salePrice":33,"attributes":[{"name":"color","values":[{"name":"red","prettyName":"Red","additions":{}},{"name":"green","prettyName":"Green","additions":{}},{"name":"blue","prettyName":"Blue","additions":{}}],"originalValue":"red|green   |blue"},{"name":"sizes","values":[{"name":"x","prettyName":"X","additions":{}},{"name":"m","prettyName":"M","additions":{}},{"name":"l","prettyName":"L","additions":{}}],"originalValue":"X|M|L"}],"selectedAttributes":[{"name":"color","value":"green"},{"name":"sizes","value":"m"}]}]}`;
+        const obj = `{"inventory":0,"price":0,"salePrice":0,"attributes":[{"name":"color","values":[{"name":"red","prettyName":"Red","additions":{}},{"name":"green","prettyName":"Green","additions":{}},{"name":"blue","prettyName":"Blue","additions":{}}],"originalValue":"red|green   |blue"},{"name":"sizes","values":[{"name":"x","prettyName":"X","additions":{}},{"name":"m","prettyName":"M","additions":{}},{"name":"l","prettyName":"L","additions":{}}],"originalValue":"X|M|L"}],"variations":[{"inventory":2,"price":3,"salePrice":4,"imagesId":["655c408af25630ec3e7d0777","655c4119f25630ec3e7d07b1","655f21c6265538ee265fbead","655f2279f27e92892334e636","655f22a2f27e92892334e640"],"attributes":[{"name":"color","values":[{"name":"red","prettyName":"Red","additions":{}},{"name":"green","prettyName":"Green","additions":{}},{"name":"blue","prettyName":"Blue","additions":{}}],"originalValue":"red|green   |blue"}],"selectedAttributes":[{"name":"color","value":"red"}]},{"inventory":3333,"price":333,"salePrice":33,"imagesId":["6555b70a2f537fb407c55c64","6555b7142f537fb407c55c69","6559e391f8df08df8dd9fb3a","655c408af25630ec3e7d0777"],"attributes":[{"name":"color","values":[{"name":"red","prettyName":"Red","additions":{}},{"name":"green","prettyName":"Green","additions":{}},{"name":"blue","prettyName":"Blue","additions":{}}],"originalValue":"red|green   |blue"},{"name":"sizes","values":[{"name":"x","prettyName":"X","additions":{}},{"name":"m","prettyName":"M","additions":{}},{"name":"l","prettyName":"L","additions":{}}],"originalValue":"X|M|L"}],"selectedAttributes":[{"name":"color","value":"green"},{"name":"sizes","value":"m"}]}]}`;
         const object = JSON.parse(obj);
 
         // load attributes

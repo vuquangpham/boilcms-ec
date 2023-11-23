@@ -1,5 +1,5 @@
-import SimpleProduct from "./SimpleProduct";
-import VariableProduct from "./VariableProduct";
+import SimpleProduct from "./simple-product/SimpleProduct";
+import VariableProduct from "./variable-product/VariableProduct";
 
 class ProductPost{
     constructor(wrapper){

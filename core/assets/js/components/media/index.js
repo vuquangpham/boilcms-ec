@@ -83,7 +83,7 @@ class MediaPopup{
      * Load preview medias
      * */
     loadPreviewMedias(wrapper, urls){
-        const selectedMediaEl = wrapper.querySelector('[data-selected-medias]');
+        const selectedMediaEl = wrapper.querySelector('[data-selected-medias]') || wrapper;
         selectedMediaEl.innerHTML = urls.map(url => {
             return `
 <div data-selected-media-item class="img-wrapper-cover ar-1">

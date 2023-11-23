@@ -1,5 +1,13 @@
+import MediaPopup from "../media/MediaPopup";
+import Media from '../../../components/media';
+
 class Variations{
     constructor(){
+        // fetch URL
+        const urlObject = new URL(location.href);
+        const baseUrl = urlObject.origin;
+        const adminPath = urlObject.pathname.split('/')[1];
+        this.FETCH_URL = baseUrl + '/' + adminPath + '/media';
     }
 
     validateVariation(attributes, wrapper, isInit = true){
@@ -51,7 +59,7 @@ class Variations{
         const selectedAttributes = data.selectedAttributes || [];
         const attributes = data.attributes;
 
-        const images = data.images;
+        const images = data.imagesId;
         const inventory = data.inventory;
         const price = data.price;
         const salePrice = data.salePrice;
@@ -101,12 +109,13 @@ class Variations{
 
         <div class="form-fields">
 
-            <div class="field half vertical-layout" data-variation-image="${images ?? JSON.stringify([])}">
+            <div class="field half vertical-layout" data-variation-image='${JSON.stringify(images)}'>
                 <label for="images">Images</label>
+                <div data-preview-media></div>
                 <input type="button" class="btn_primary" value="Select Images" data-variation-image-add data-popup="${uid}">
                 <div class="description error">Please input the images</div>
                 
-                <div data-popup-content="${uid}">
+                <div data-pb-media-popup data-popup-content="${uid}">
                    <div class="media-popup fl-grid">
 
                         <!-- media list -->
@@ -117,7 +126,7 @@ class Variations{
     
                             <div data-media-list class="fl-grid"></div>
     
-                            <button type="button" class="btn_primary" data-save-media data-custom-toggle="<%= id %>">Save
+                            <button type="button" class="btn_primary" data-save-media data-popup-toggle>Save
                             </button>
                         </div>
 
@@ -147,10 +156,9 @@ class Variations{
                                     </div>
                                 </div>
     
-    
                             </form>
                         </div>
-                </div>
+                    </div>
                 </div>
             </div>
 
@@ -182,6 +190,18 @@ class Variations{
 </div>
         `;
 
+        // load preview media if exists
+        const promises = [];
+        const previewMediaEl = div.querySelector('[data-preview-media]');
+        images.forEach(imageId => {
+            promises.push(Media.loadMediaById(this.FETCH_URL, imageId));
+        });
+        Promise.all(promises)
+            .then(imagesObj => {
+                const mediaUrls = imagesObj.map(i => i.data.url.small);
+                Media.loadPreviewMedias(previewMediaEl, mediaUrls);
+            });
+
         // create the accordion
         Accordion.create({
             target: div.querySelector('[data-accordion]'),
@@ -194,7 +214,31 @@ class Variations{
         // create the popup
         Popup.create({
             target: div.querySelector('[data-popup]'),
-            popupContent: div.querySelector('[data-popup-content]')
+            popupContent: div.querySelector('[data-popup-content]'),
+
+            // register handle submit form for popup
+            onAfterInit: (self) => {
+                const popupContent = self.popupContent;
+                const form = popupContent.querySelector('form[data-media-form]');
+
+                // register event listener
+                self.listeners.add(form, 'submit', MediaPopup.handleSubmitForm.bind(MediaPopup));
+            },
+
+            // load media before open popup
+            onBeforeOpen: (self) => {
+                MediaPopup.loadAllMedias(self.popupContent);
+            },
+
+            // popup content click
+            onPopupContentClick: (self) => {
+                const event = self.event;
+
+                const saveMediaButton = event.target.closest('[data-save-media]');
+                if(!saveMediaButton) return;
+
+                MediaPopup.handleAfterSelectedMedias(saveMediaButton);
+            }
         });
 
         return div.firstElementChild;
