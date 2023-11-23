@@ -119,13 +119,15 @@ export default class SimpleProduct extends Product{
 
     save(){
         // validate here
-        if(!this.validate()) return;
+        if(!this.validate()) return false;
 
         // re-assign object
         this.object = this.generateDOMToObject();
 
         // save to the dom
         this.jsonElement.innerHTML = JSON.stringify(this.object);
+
+        return true;
     }
 
     init(){

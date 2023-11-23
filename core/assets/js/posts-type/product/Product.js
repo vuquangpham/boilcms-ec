@@ -21,5 +21,7 @@ export default class Product{
 
         // save to the dom
         this.jsonElement.innerHTML = JSON.stringify(this.object);
+
+        return true;
     }
 }

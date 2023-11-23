@@ -40,8 +40,13 @@ class ProductPost{
     }
 
     handleSubmit(e){
-        e.preventDefault();
-        console.log('submit');
+        const isSimpleSaveValid = this.simpleProduct.save();
+        const isVariableSaveValid = this.variableProduct.save();
+
+        // validate
+        if(!isSimpleSaveValid || !isVariableSaveValid){
+            e.preventDefault();
+        }
     }
 }
 
