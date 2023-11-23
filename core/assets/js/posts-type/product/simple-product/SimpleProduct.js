@@ -99,6 +99,7 @@ export default class SimpleProduct extends Product{
         // init popup
         this.popup = Popup.create({
             target: this.wrapper.querySelector(`[data-popup="variation-images"]`),
+            popupContent: this.wrapper.querySelector(`[data-popup-content="variation-images"]`),
 
             // register handle submit form for popup
             onAfterInit: (self) => {
