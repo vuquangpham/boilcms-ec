@@ -25,6 +25,9 @@ const Post = new mongoose.Schema({
     template: {
         type: String
     },
+    categories: {
+        type: String
+    },
 
     content: {
         type: mongoose.Schema.Types.ObjectId,

@@ -53,6 +53,9 @@ class POSTS extends Category{
         const visibility = request.body.visibility.trim();
         const template = request.body.template;
 
+        // category
+        const categories = request.body.categories
+
         // author
         let author = response.locals.user._id;
         let authorName = response.locals.user.name
@@ -83,7 +86,8 @@ class POSTS extends Category{
             url,
             visibility,
             content,
-            template
+            template,
+            categories
         };
 
         if(action === 'add') {
