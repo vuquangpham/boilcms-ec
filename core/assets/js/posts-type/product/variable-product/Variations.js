@@ -26,13 +26,13 @@ class Variations{
         const image = wrapper.querySelector('[data-variation-images]');
         const imagesData = JSON.parse(image.getAttribute('data-variation-images'));
 
-        // // validate image
-        // if(imagesData.length === 0){
-        //     image.closest('.field').classList.add('invalid');
-        //     return false;
-        // }else{
-        //     image.closest('.field').classList.remove('invalid');
-        // }
+        // validate image
+        if(imagesData.length === 0){
+            image.closest('.field').classList.add('invalid');
+            return false;
+        }else{
+            image.closest('.field').classList.remove('invalid');
+        }
 
         // validate the inventory
         const inventory = wrapper.querySelector('[data-variation-inventory]');

@@ -1,5 +1,6 @@
 import Product from "../Product";
 import MediaPopup from "../media/MediaPopup";
+import Media from "../../../components/media";
 
 export default class SimpleProduct extends Product{
     constructor(parentWrapper, wrapper){
@@ -17,8 +18,47 @@ export default class SimpleProduct extends Product{
         this.object = {};
         this.jsonElement = this.wrapper.querySelector('[data-simple-product-json]');
 
+        // fetch URL
+        const urlObject = new URL(location.href);
+        const baseUrl = urlObject.origin;
+        const adminPath = urlObject.pathname.split('/')[1];
+        this.FETCH_URL = baseUrl + '/' + adminPath + '/media';
+
         // init
         this.init();
+    }
+
+    generateObjectToDOM(){
+        const jsonString = this.jsonElement.innerHTML;
+        if(!jsonString) return;
+
+        const object = JSON.parse(jsonString);
+
+        // inventory
+        this.elements.inventory.value = object.inventory;
+
+        // price
+        this.elements.price.value = object.price;
+
+        // salePrice
+        this.elements.salePrice.value = object.salePrice;
+
+        // images
+        this.elements.images.setAttribute('data-variation-images', JSON.stringify(object.imagesId));
+
+        // load preview medias
+        const promises = [];
+        object.imagesId.forEach(imageId => {
+            promises.push(Media.loadMediaById(this.FETCH_URL, imageId));
+        });
+
+        Promise.all(promises)
+            .then(result => {
+                const mediaUrls = result.map(i => i.data.url.small);
+                Media.loadPreviewMedias(this.elements.images.querySelector('[data-preview-media]'), mediaUrls);
+            });
+
+        return object;
     }
 
     generateDOMToObject(){
@@ -89,6 +129,9 @@ export default class SimpleProduct extends Product{
     }
 
     init(){
+
+        // generate object to DOM
+        this.object = this.generateObjectToDOM();
 
         // register event listener
         Object.values(this.elements).forEach(el => {
