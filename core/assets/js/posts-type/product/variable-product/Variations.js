@@ -57,9 +57,9 @@ class Variations{
 
     createDOM(data){
         const selectedAttributes = data.selectedAttributes || [];
-        const attributes = data.attributes;
+        const attributes = data.attributes || [];
 
-        const images = data.imagesId;
+        const images = data.imagesId || [];
         const inventory = data.inventory;
         const price = data.price;
         const salePrice = data.salePrice;
@@ -209,6 +209,24 @@ class Variations{
             receiverAttr: 'data-variation-receiver',
             triggerSelector: '[data-variation-trigger]',
             receiverSelector: '[data-variation-receiver]',
+
+            // onBefore
+            onBeforeClosed: (_) => {
+                const instance = Accordion.get('variable-product-tab');
+
+                setTimeout(() => {
+                    instance.resize();
+                }, 300);
+            },
+
+            // onBefore
+            onBeforeOpened: (_) => {
+                const instance = Accordion.get('variable-product-tab');
+
+                setTimeout(() => {
+                    instance.resize();
+                }, 300);
+            }
         });
 
         // create the popup

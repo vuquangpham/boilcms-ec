@@ -32,15 +32,13 @@ export default class VariableProduct extends Product{
         this.wrapper.addEventListener('click', this.handleWrapperClick.bind(this));
 
         // generate object
-        this.object = this.generateDOMToObject();
-
-        this.generateObjectToDOM();
-
+        this.object = this.generateObjectToDOM();
     }
 
     initTabAndAccordion(){
         // tabs
-        Accordion.create({
+        this.tab = Accordion.create({
+            id: 'variable-product-tab',
             target: this.wrapper.querySelector('[data-tab]'),
             type: 'fade',
             onAfterClosed: (self) => {
@@ -50,6 +48,12 @@ export default class VariableProduct extends Product{
                 });
             }
         });
+    }
+
+    resizeTab(){
+        setTimeout(() => {
+            this.tab.resize();
+        }, 300);
     }
 
     generateDOMToObject(){
@@ -139,6 +143,8 @@ export default class VariableProduct extends Product{
             const el = Variations.createDOM(v);
             this.elements.variations.appendChild(el);
         });
+
+        return object;
     }
 
     handleWrapperClick(e){
@@ -154,6 +160,9 @@ export default class VariableProduct extends Product{
 
             // save
             this.save();
+
+            // resize the tab
+            this.resizeTab();
         }
 
         // save attribute
@@ -176,6 +185,9 @@ export default class VariableProduct extends Product{
 
             // create new variation
             Variations.createNewVariation(attributes, wrapper, wrapperToAppend);
+
+            // resize the tab
+            this.resizeTab();
         }
 
         // save variation
