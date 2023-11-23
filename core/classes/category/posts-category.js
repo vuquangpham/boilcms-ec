@@ -1,7 +1,7 @@
 const Category = require('./category');
 const {stringToSlug} = require("../../utils/helper.utils");
 const PageBuilder = require("../../database/page-builder/model");
-const Categories = require("../../database/categories/model")
+const Categories = require("../../database/categories/model");
 
 class POSTS extends Category{
     constructor(config){
@@ -14,10 +14,20 @@ class POSTS extends Category{
      * */
     getDataById(id){
         return new Promise((resolve, reject) => {
-            this.databaseModel.findById(id).populate('content')
+            this.databaseModel.findById(id).populate('content').populate('categories')
                 .then(data => {
-                    console.log('data here: ', data)
-                    resolve(data);
+
+                    // get all categories
+                    Categories.find({type: 'pages'})
+                        .then(result => resolve({
+                            ...data,
+                            allCategories: result
+                        }))
+                        .catch(_ => resolve({
+                            ...data,
+                            allCategories: []
+                        }));
+
                 })
                 .catch(err => {
                     reject(err);
@@ -33,13 +43,6 @@ class POSTS extends Category{
         return new Promise((resolve, reject) => {
             this.databaseModel.find().populate('author').populate('categories')
                 .then(data => {
-                    let categoriesArray = []
-                    for(let i = 0; i < data.length; i++) {
-                        console.log(data[i].categories)
-                        categoriesArray.push(data[i].categories)
-                    }
-                    console.log('categoriesArray: ', categoriesArray)
-                    // console.log('data: ', data)
                     resolve(data);
                 })
                 .catch(err => {
@@ -64,7 +67,7 @@ class POSTS extends Category{
 
         // author
         let author = response.locals.user._id;
-        let authorName = response.locals.user.name
+        let authorName = response.locals.user.name;
 
         // content of page builder
         let content = '';
@@ -106,9 +109,9 @@ class POSTS extends Category{
             categories
         };
 
-        if(action === 'add') {
-            returnObj.author = author
-            returnObj.authorName = authorName
+        if(action === 'add'){
+            returnObj.author = author;
+            returnObj.authorName = authorName;
         }
         return returnObj;
     }
