@@ -145,6 +145,16 @@ if(isEditPost){
                     <input type="text" id="category" name="category" placeholder="Category" required
                            value="<%= getValueFromData('categories', 'prettyName') %>">
                 </div>
+                <% if(data.allCategories) { %>
+                    <div class="posts-detail__dropdown fl-center-v">
+                        <label for="category-dropdown">Categories</label>
+                        <select data-easy-select name="category" id="category-dropdown">
+                            <% data.allCategories.forEach(category => {  %>
+                            <option><%=category.prettyName%></option>
+                            <% }) %>
+                        </select>
+                    </div>
+                <% }%>
                 <button type="submit" class="btn_primary">Publish</button>
             </div>
         </div>
