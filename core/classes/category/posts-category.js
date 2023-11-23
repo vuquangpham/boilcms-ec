@@ -19,14 +19,13 @@ class POSTS extends Category{
 
                     // get all categories
                     Categories.find({type: 'pages'})
-                        .then(result => resolve({
-                            ...data,
-                            allCategories: result
-                        }))
-                        .catch(_ => resolve({
-                            ...data,
-                            allCategories: []
-                        }));
+                        .then(result => {
+                            data.allCategories = result;
+                        })
+                        .catch(_ => {
+                            data.allCategories = [];
+                        })
+                        .finally(_ => resolve(data));
 
                 })
                 .catch(err => {
