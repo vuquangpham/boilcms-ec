@@ -92,8 +92,8 @@ export default class VariableProduct extends Product{
             };
 
             // images id
-            const variationImagesIdEl = wrapper.querySelector('[data-variation-image]');
-            variation.imagesId = JSON.parse(variationImagesIdEl.getAttribute('data-variation-image'));
+            const variationImagesIdEl = wrapper.querySelector('[data-variation-images]');
+            variation.imagesId = JSON.parse(variationImagesIdEl.getAttribute('data-variation-images'));
 
             // attributes
             const attributesEl = wrapper.querySelector('[data-variation-attributes]');

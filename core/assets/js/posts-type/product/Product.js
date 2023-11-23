@@ -2,6 +2,9 @@ export default class Product{
     constructor(parentWrapper, wrapper){
         this.parentWrapper = parentWrapper;
         this.wrapper = wrapper;
+
+        // json
+        this.jsonElement = null;
     }
 
     generateObjectToDOM(){
@@ -18,6 +21,5 @@ export default class Product{
 
         // save to the dom
         this.jsonElement.innerHTML = JSON.stringify(this.object);
-        console.log('save method');
     }
 }

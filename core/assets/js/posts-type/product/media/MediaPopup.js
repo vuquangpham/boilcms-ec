@@ -13,10 +13,10 @@ class MediaPopup{
     loadAllMedias(popupContent){
         const id = popupContent.getAttribute('data-popup-wrapper');
         const selectImageButton = document.querySelector(`[data-popup="${id}"]`);
-        const variationImageControlEl = selectImageButton.closest('[data-variation-image]');
+        const variationImageControlEl = selectImageButton.closest('[data-variation-images]');
 
         // get selected medias
-        const selectedMedias = JSON.parse(variationImageControlEl.getAttribute('data-variation-image'));
+        const selectedMedias = JSON.parse(variationImageControlEl.getAttribute('data-variation-images'));
 
         // load medias
         Media.loadAllMedias({
@@ -64,8 +64,8 @@ class MediaPopup{
         const id = mediaPopupEl.getAttribute('data-popup-content');
 
         const imageButtonEl = document.querySelector(`[data-popup="${id}"]`);
-        const wrapper = imageButtonEl.closest('[data-variation-image]');
-        const previewMediaWrapper = wrapper.closest('[data-variation-image]').querySelector('[data-preview-media]');
+        const wrapper = imageButtonEl.closest('[data-variation-images]');
+        const previewMediaWrapper = wrapper.closest('[data-variation-images]').querySelector('[data-preview-media]');
 
         Media.handleSavedMedia({
             wrapper: mediaPopupEl,
@@ -80,7 +80,7 @@ class MediaPopup{
                 const selectedMediasId = result.mediasObject.map(o => o.id);
 
                 // save to the attribute
-                wrapper.setAttribute('data-variation-image', JSON.stringify(selectedMediasId));
+                wrapper.setAttribute('data-variation-images', JSON.stringify(selectedMediasId));
             }
         });
     }

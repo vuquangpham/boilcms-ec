@@ -73,19 +73,82 @@ const getValueFromData = (name, property = '') => {
 
                             <div class="field vertical-layout">
                                 <label for="inventory">Inventory</label>
-                                <input type="text" id="inventory" placeholder="Inventory"
-                                       data-product-inventory>
+                                <input type="number" min="0" id="inventory" placeholder="Inventory"
+                                       data-product-inventory required>
+                                <div class="description error">Please input the inventory</div>
                             </div>
 
                             <div class="field vertical-layout">
                                 <label for="price">Price</label>
-                                <input type="text" id="price" placeholder="Price" data-product-price>
+                                <input type="number" min="0" id="price" placeholder="Price" data-product-price required>
+                                <div class="description error">Please input the price</div>
                             </div>
 
                             <div class="field vertical-layout">
                                 <label for="sale-price">Sale Price</label>
-                                <input type="text" id="sale-price" placeholder="Sale Price"
-                                       data-product-sale-price>
+                                <input type="number" min="0" id="sale-price" placeholder="Sale Price"
+                                       data-product-sale-price required>
+                            </div>
+
+                            <div class="field vertical-layout" data-variation-images="[]">
+                                <label for="images">Images</label>
+                                <div data-preview-media class="fl-grid"></div>
+                                <input type="button" class="btn_primary" value="Select Images" data-variation-image-add
+                                       data-popup="variation-images">
+                                <div class="description error">Please input the images</div>
+
+                                <div data-pb-media-popup data-popup-content="variation-images">
+                                    <div class="media-popup fl-grid">
+
+                                        <!-- media list -->
+                                        <div class="media-popup__col media-popup__col--left">
+                                            <div data-custom-title>
+                                                <span>Media List</span>
+                                            </div>
+
+                                            <div data-media-list class="fl-grid"></div>
+
+                                            <button type="button" class="btn_primary" data-save-media data-popup-toggle>
+                                                Save
+                                            </button>
+                                        </div>
+
+                                        <!-- upload new media -->
+                                        <div class="media-popup__col media-popup__col--right">
+                                            <form data-media-form action="?post_type=media&method=post&action=add"
+                                                  enctype="multipart/form-data">
+
+                                                <div data-custom-title>
+                                                    <span>Upload Media</span>
+                                                </div>
+
+                                                <div class="form-fields">
+                                                    <div class="field vertical-layout">
+                                                        <label for="name">Name:</label>
+                                                        <input id="name" type="text" name="name" placeholder="Name"
+                                                               data-media-name>
+                                                        <div class="description">Optional, we can get the name of the
+                                                            media.
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="field vertical-layout">
+                                                        <label for="image">Upload Image:</label>
+                                                        <input type="file" name="image" accept="image/*" id="image"
+                                                               required data-add-media>
+                                                    </div>
+
+                                                    <div class="footer">
+                                                        <button class="btn_transparent" type="submit"
+                                                                data-add-media-button>Add New
+                                                        </button>
+                                                    </div>
+                                                </div>
+
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
 
                         </div>

@@ -23,8 +23,8 @@ class Variations{
         }
 
         // validate for save action
-        const image = wrapper.querySelector('[data-variation-image]');
-        const imagesData = JSON.parse(image.getAttribute('data-variation-image'));
+        const image = wrapper.querySelector('[data-variation-images]');
+        const imagesData = JSON.parse(image.getAttribute('data-variation-images'));
 
         // // validate image
         // if(imagesData.length === 0){
@@ -106,7 +106,7 @@ class Variations{
 
         <div class="form-fields">
 
-            <div class="field vertical-layout" data-variation-image='${JSON.stringify(images)}'>
+            <div class="field vertical-layout" data-variation-images='${JSON.stringify(images)}'>
                 <label for="images">Images</label>
                 <div data-preview-media class="fl-grid"></div>
                 <input type="button" class="btn_primary" value="Select Images" data-variation-image-add data-popup="${uid}">

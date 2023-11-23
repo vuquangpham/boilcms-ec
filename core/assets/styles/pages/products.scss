@@ -30,13 +30,17 @@
     }
   }
 
-}
+  // preview media
+  [data-preview-media] {
+    gap: .5rem;
 
-/************************
-* Variable Products
-*************************/
-[data-variable-product] {
+    // media item
+    [data-selected-media-item] {
+      width: 60px;
+    }
+  }
 
+  // form validation
   // form fields
   .form-fields {
     .description {
@@ -48,6 +52,12 @@
       display: block;
     }
   }
+}
+
+/************************
+* Variable Products
+*************************/
+[data-variable-product] {
 
   // tabs
   [data-tab] {
@@ -115,19 +125,8 @@
     }
   }
 
-  // variations
-  [data-preview-media] {
-    gap: .5rem;
-
-    // media item
-    [data-selected-media-item] {
-      width: 60px;
-    }
-  }
-
   // tabs
   [data-tab-receivers] {
     transition: height .1s ease;
   }
-
 }
