@@ -4,10 +4,10 @@
  * @param {Object} response
  * @return {Array}
  * */
-const handleAddAction = (request, response) => {
+const handleAddAction = async(request, response) => {
     const categoryItem = response.locals.categoryItem;
     const inputData = {request, response};
-    const data = categoryItem.validateInputData(inputData);
+    const data = await categoryItem.validateInputData(inputData);
 
     const promise = categoryItem.add(data, request);
     const extraData = {};

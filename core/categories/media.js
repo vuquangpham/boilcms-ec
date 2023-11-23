@@ -66,28 +66,32 @@ class Media extends Category{
             };
         }
 
-        // crop image
-        cropImage({
-            imageSource: path.join(request.file.path),
-            imageDestination: path.join(process.cwd(), request.file.destination),
-            scale: 'small',
-            imageOutputName: request.file.metadata.fileName,
-            imageFileExtension: request.file.metadata.fileExt
-        })
-            .catch(error => {
-                console.log(error);
-            });
-
-        // TODO: Missing case when function cropImage have error but still return the object below, fix it later
-        return {
-            name: request.body.name || request.file.filename,
-            type: request.file.mimetype,
-            url: {
-                original: '/' + request.file.metadata.destinationDirectory + '/' + getFilenameBasedOnSize(request.file.metadata.fileName, '', request.file.metadata.fileExt),
-                small: '/' + request.file.metadata.destinationDirectory + '/' + getFilenameBasedOnSize(request.file.metadata.fileName, 'small', request.file.metadata.fileExt)
-            },
-            directory: request.file.metadata.destinationDirectory
-        };
+        return new Promise((resolve, reject) => {
+            // crop image
+            cropImage({
+                imageSource: path.join(request.file.path),
+                imageDestination: path.join(process.cwd(), request.file.destination),
+                scale: 'small',
+                imageOutputName: request.file.metadata.fileName,
+                imageFileExtension: request.file.metadata.fileExt
+            })
+                .then(_ => {
+                    // TODO: Missing case when function cropImage have error but still return the object below, fix it later
+                    resolve({
+                        name: request.body.name || request.file.filename,
+                        type: request.file.mimetype,
+                        url: {
+                            original: '/' + request.file.metadata.destinationDirectory + '/' + getFilenameBasedOnSize(request.file.metadata.fileName, '', request.file.metadata.fileExt),
+                            small: '/' + request.file.metadata.destinationDirectory + '/' + getFilenameBasedOnSize(request.file.metadata.fileName, 'small', request.file.metadata.fileExt)
+                        },
+                        directory: request.file.metadata.destinationDirectory
+                    });
+                })
+                .catch(error => {
+                    console.log(error);
+                    reject(error);
+                });
+        });
     }
 
     /**

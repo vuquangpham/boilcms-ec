@@ -13,7 +13,7 @@ const handleDeleteAction = require('./delete');
  * @param {NextFunction} next
  * @return {void}
  * */
-const handlePostMethod = (request, response, next) => {
+const handlePostMethod = async(request, response, next) => {
     const categoryItem = response.locals.categoryItem;
     const action = response.locals.action;
     const hasJSON = response.locals.getJSON;
@@ -43,7 +43,7 @@ const handlePostMethod = (request, response, next) => {
             break;
         }
     }
-    const [promise, extraData] = funcForHandlingAction(request, response);
+    const [promise, extraData] = await funcForHandlingAction(request, response);
 
     promise
         .then(result => {
