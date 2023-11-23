@@ -20,7 +20,7 @@ const getValueFromData = (name, property = '') => {
 </div>
 
 <div class="container" data-product-detail data-product-wrapper>
-    <form action="?post_type=product&method=post&action=<%= actionType %>"
+    <form action="?post_type=product&method=post&action=<%= actionType %><%= isEditPost ? '&id=' + data._id : '' %>"
           method="post"
           class="detail-product">
 
