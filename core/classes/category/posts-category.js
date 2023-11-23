@@ -1,6 +1,7 @@
 const Category = require('./category');
 const {stringToSlug} = require("../../utils/helper.utils");
 const PageBuilder = require("../../database/page-builder/model");
+const Categories = require("../../database/categories/model")
 
 class POSTS extends Category{
     constructor(config){
@@ -15,6 +16,7 @@ class POSTS extends Category{
         return new Promise((resolve, reject) => {
             this.databaseModel.findById(id).populate('content')
                 .then(data => {
+                    console.log('data here: ', data)
                     resolve(data);
                 })
                 .catch(err => {
@@ -29,8 +31,15 @@ class POSTS extends Category{
      * */
     getAllData(){
         return new Promise((resolve, reject) => {
-            this.databaseModel.find().populate('author')
+            this.databaseModel.find().populate('author').populate('categories')
                 .then(data => {
+                    let categoriesArray = []
+                    for(let i = 0; i < data.length; i++) {
+                        console.log(data[i].categories)
+                        categoriesArray.push(data[i].categories)
+                    }
+                    console.log('categoriesArray: ', categoriesArray)
+                    // console.log('data: ', data)
                     resolve(data);
                 })
                 .catch(err => {
@@ -53,9 +62,6 @@ class POSTS extends Category{
         const visibility = request.body.visibility.trim();
         const template = request.body.template;
 
-        // category
-        const categories = request.body.categories
-
         // author
         let author = response.locals.user._id;
         let authorName = response.locals.user.name
@@ -63,14 +69,24 @@ class POSTS extends Category{
         // content of page builder
         let content = '';
 
+        // categories of page/post
+        let categories = '';
+
         switch(action){
             case 'add':{
                 content = new PageBuilder({
                     content: request.body.content.trim()
                 });
 
+                categories = new Categories({
+                    type: response.locals.categoryItem.type,
+                    prettyName: request.body.category.trim()
+                });
+
+
                 // save to database
                 content.save();
+                categories.save();
                 break;
             }
             case 'edit':{

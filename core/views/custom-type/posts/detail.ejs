@@ -141,8 +141,8 @@ if(isEditPost){
                     </div>
                 <% } %>
                 <div class="fl-center-v">
-                    <label for="categories">Categories</label>
-                    <input type="text" id="categories" name="categories" placeholder="Categories" required value="<%= getValueFromData('categories')%>">
+                    <label for="category">Categories</label>
+                    <input type="text" id="category" name="category" placeholder="Category" required value="<%= getValueFromData('categories', 'prettyName')%>">
                 </div>
                 <button type="submit" class="btn_primary">Publish</button>
             </div>

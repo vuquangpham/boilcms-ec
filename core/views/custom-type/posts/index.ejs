@@ -38,7 +38,7 @@
                          data-column="Author"><%= post.author ? `${post.author.name}` : `${post.authorName}` %></div>
                     <div class="posts__item--status" data-title="Visibility"
                          data-column="State"><%= post.visibility === 'private' ? 'Private' : 'Published'; %></div>
-                    <div class="posts__item--categories" data-column="Categories"><%= post.categories ? post.categories : 'Uncategorized'%></div>
+                    <div class="posts__item--categories" data-column="Categories"><%= post.categories ? post.categories.prettyName : 'Uncategorized'%></div>
                     <div class="posts__item--date not-show-title" data-column="Date">
                         <time data-title="Date"><%= post.publishFormatted %></time>
                     </div>
