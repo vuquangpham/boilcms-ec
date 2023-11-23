@@ -16,19 +16,7 @@ class POSTS extends Category{
         return new Promise((resolve, reject) => {
             this.databaseModel.findById(id).populate('content').populate('categories')
                 .then(data => {
-
-                    // get all categories
-                    Categories.find({type: 'pages'})
-                        .then(result => {
-                            data.allCategories = result;
-                        })
-                        .catch(_ => {
-                            data.allCategories = [];
-                        })
-                        .finally(_ => {
-                            resolve(data);
-                        });
-
+                    resolve(data);
                 })
                 .catch(err => {
                     reject(err);

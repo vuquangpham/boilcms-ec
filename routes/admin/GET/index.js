@@ -12,7 +12,7 @@ const handleCustomTypeAction = require('./custom-type');
  * @param {NextFunction} next
  * @return {void | *}
  * */
-const handleGetMethod = (request, response, next) => {
+const handleGetMethod = async(request, response, next) => {
     const categoryItem = response.locals.categoryItem;
     const action = response.locals.action;
     const hasJSON = response.locals.getJSON;
@@ -44,7 +44,7 @@ const handleGetMethod = (request, response, next) => {
             }
         }
 
-    const [promise, extraData] = funcForHandlingAction(request, response);
+    const [promise, extraData] = await funcForHandlingAction(request, response);
 
     // render data
     promise
