@@ -16,14 +16,13 @@ const getValueFromData = (name, property = '') => {
 %>
 
 <div data-custom-title>
-    <span>Add new product</span>
+    <span><%= isEditPost ? "Edit Product" : "Add New Product" %></span>
 </div>
 
 <div class="container" data-product-detail data-product-wrapper>
     <form action="?post_type=product&method=post&action=<%= actionType %>"
           method="post"
           class="detail-product">
-        <h1><%= actionType %></h1>
 
         <!-- Product detail -->
         <div class="product-detail fl-grid">
@@ -39,7 +38,7 @@ const getValueFromData = (name, property = '') => {
                         <!-- name -->
                         <div class="field vertical-layout">
                             <label for="name">Name</label>
-                            <input type="text" placeholder="Name" id="name" name="name" data-product-name
+                            <input type="text" placeholder="Name" id="name" name="name" data-product-name required
                                    value="<%= getValueFromData('name') %>">
                         </div>
 
@@ -47,7 +46,7 @@ const getValueFromData = (name, property = '') => {
                         <div class="field vertical-layout">
                             <label for="description">Description</label>
                             <textarea type="text" placeholder="Description" id="description" name="description"
-                                      data-product-description
+                                      data-product-description required
                                       class="w100"><%= getValueFromData('description') %></textarea>
                         </div>
 
