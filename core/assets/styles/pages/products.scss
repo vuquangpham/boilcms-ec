@@ -1,4 +1,38 @@
 /************************
+* Products Detail Layout
+*************************/
+.product-detail {
+
+  // min width 768px
+  @include responsive('tablet-v', true) {
+    // left
+    &__left {
+      width: 75%;
+      padding-right: 2rem;
+    }
+
+    // right
+    &__right {
+      width: 25%;
+
+      // easy select
+      .easy-select {
+        width: 100%;
+      }
+    }
+  }
+
+  // max with 657px
+  @include responsive('tablet-v') {
+    // left
+    &__left {
+      margin-bottom: 2rem;
+    }
+  }
+
+}
+
+/************************
 * Variable Products
 *************************/
 [data-variable-product] {
@@ -82,5 +116,18 @@
   }
 
   // variations
+  [data-preview-media] {
+    gap: .5rem;
+
+    // media item
+    [data-selected-media-item] {
+      width: 60px;
+    }
+  }
+
+  // tabs
+  [data-tab-receivers] {
+    transition: height .1s ease;
+  }
 
 }

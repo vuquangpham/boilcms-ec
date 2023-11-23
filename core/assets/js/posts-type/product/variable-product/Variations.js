@@ -91,14 +91,11 @@ class Variations{
     <div data-trigger-wrapper class="d-flex jc-space-between">
 
         <div>
-            <span>Name: color</span>
+            <span class="txt_14px">Variation</span>
         </div>
 
         <div class="d-flex">
-            <button class="btn_primary" data-variation-trigger="item"
-                    type="button">
-                Expand
-            </button>
+            <button class="btn_primary" data-variation-trigger="item" type="button">Expand</button>
             <button class="btn_primary error" type="button">Remove</button>
         </div>
     </div>
@@ -109,9 +106,9 @@ class Variations{
 
         <div class="form-fields">
 
-            <div class="field half vertical-layout" data-variation-image='${JSON.stringify(images)}'>
+            <div class="field vertical-layout" data-variation-image='${JSON.stringify(images)}'>
                 <label for="images">Images</label>
-                <div data-preview-media></div>
+                <div data-preview-media class="fl-grid"></div>
                 <input type="button" class="btn_primary" value="Select Images" data-variation-image-add data-popup="${uid}">
                 <div class="description error">Please input the images</div>
                 
@@ -162,7 +159,7 @@ class Variations{
                 </div>
             </div>
 
-            <div class="field half vertical-layout">
+            <div class="field vertical-layout">
                 <label for="sku">SKU</label>
                 <input type="number" placeholder="SKU" name="skud" data-variation-inventory value="${inventory ?? ''}">
                 <div class="description error">Please input the inventory</div>

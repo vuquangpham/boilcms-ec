@@ -26,64 +26,83 @@ const getValueFromData = (name, property = '') => {
         <h1><%= actionType %></h1>
 
         <!-- Product detail -->
-        <div class="fl-grid">
+        <div class="product-detail fl-grid">
 
             <!-- left-content -->
-            <div class="w70" style="padding-right:20px">
+            <div class="product-detail__left w100">
 
                 <!-- product common data -->
-                <div class="margin-bottom-default">
+                <div class="margin-bottom-small">
 
-                    <!-- name -->
-                    <div>
-                        <label for="name" class="hidden">Name</label>
-                        <input type="text" placeholder="Name" id="name" name="name" data-product-name
-                               class="w100" value="<%= getValueFromData('name') %>">
+                    <div class="form-fields">
+
+                        <!-- name -->
+                        <div class="field vertical-layout">
+                            <label for="name">Name</label>
+                            <input type="text" placeholder="Name" id="name" name="name" data-product-name
+                                   value="<%= getValueFromData('name') %>">
+                        </div>
+
+                        <!-- description -->
+                        <div class="field vertical-layout">
+                            <label for="description">Description</label>
+                            <textarea type="text" placeholder="Description" id="description" name="description"
+                                      data-product-description
+                                      class="w100"><%= getValueFromData('description') %></textarea>
+                        </div>
+
+                        <div class="field vertical-layout">
+                            <label for="types">Product type</label>
+                            <select data-product-types-select name="types" id="types" data-product-types>
+                                <option <%= isSelectedValue('type', 'simple'); %> value="simple">Simple Product
+                                </option>
+                                <option <%= isSelectedValue('type', 'variable'); %> value="variable">Variable Product
+                                </option>
+                            </select>
+                        </div>
+
                     </div>
-
-                    <!-- description-->
-                    <div>
-                        <label for="description" class="hidden">Description</label>
-                        <textarea type="text" placeholder="Description" id="description" name="description"
-                                  data-product-description
-                                  class="w100"><%= getValueFromData('description') %></textarea>
-                    </div>
-
-                    <!-- product type -->
-                    <div class="fl-center-v">
-                        <label for="types">Product type</label>
-                        <select data-easy-select name="types" id="types" data-product-types>
-                            <option <%= isSelectedValue('type', 'simple'); %> value="simple">Simple Product
-                            </option>
-                            <option <%= isSelectedValue('type', 'variable'); %> value="variable">Variable Product
-                            </option>
-                        </select>
-                    </div>
-
                 </div>
 
-                <div class="fl-grid">
+                <div>
 
                     <!-- Simple Product -->
-                    <div data-simple-product class="w50">
+                    <div data-simple-product>
 
-                        <h3>Simple Product</h3>
+                        <div class="form-fields margin-bottom-small">
+
+                            <div class="field vertical-layout">
+                                <label for="inventory">Inventory</label>
+                                <input type="text" id="inventory" placeholder="Inventory"
+                                       data-product-inventory>
+                            </div>
+
+                            <div class="field vertical-layout">
+                                <label for="price">Price</label>
+                                <input type="text" id="price" placeholder="Price" data-product-price>
+                            </div>
+
+                            <div class="field vertical-layout">
+                                <label for="sale-price">Sale Price</label>
+                                <input type="text" id="sale-price" placeholder="Sale Price"
+                                       data-product-sale-price>
+                            </div>
+
+                        </div>
 
                         <!-- json-->
                         <div>
-                            <label for="simple-product-json">JSON for simple</label>
+                            <label for="simple-product-json" class="hidden">JSON for simple</label>
                             <textarea data-simple-product-json id="simple-product-json"
-                                      name="simpleProductJSON"></textarea>
+                                      name="simpleProductJSON" class="w100" placeholder="JSON" readonly></textarea>
                         </div>
 
                     </div>
 
                     <!-- Variable Product -->
-                    <div data-variable-product class="w100">
+                    <div data-variable-product>
 
-                        <h3>Variable Product</h3>
-
-                        <div data-tab class="fl-grid">
+                        <div data-tab class="fl-grid margin-bottom-small">
 
                             <div data-tab-triggers class="w30">
 
@@ -117,18 +136,19 @@ const getValueFromData = (name, property = '') => {
                                             <div class="field vertical-layout">
                                                 <label for="inventory">Inventory</label>
                                                 <input type="text" id="inventory" placeholder="Inventory"
-                                                       data-product-inventory>
+                                                       data-product-inventory readonly>
                                             </div>
 
                                             <div class="field vertical-layout">
                                                 <label for="price">Price</label>
-                                                <input type="text" id="price" placeholder="Price" data-product-price>
+                                                <input type="text" id="price" placeholder="Price" data-product-price
+                                                       readonly>
                                             </div>
 
                                             <div class="field vertical-layout">
                                                 <label for="sale-price">Sale Price</label>
                                                 <input type="text" id="sale-price" placeholder="Sale Price"
-                                                       data-product-sale-price>
+                                                       data-product-sale-price readonly>
                                             </div>
 
                                         </div>
@@ -197,7 +217,6 @@ const getValueFromData = (name, property = '') => {
                                         </div>
 
                                         <div data-product-variations>
-
                                         </div>
 
                                     </div>
@@ -210,8 +229,9 @@ const getValueFromData = (name, property = '') => {
 
                         <!-- variable product json -->
                         <div>
-                            <label for="content">JSON for variable</label>
-                            <textarea data-variable-product-json id="content" name="variableJSON"></textarea>
+                            <label for="content" class="hidden">JSON for variable</label>
+                            <textarea data-variable-product-json id="content" name="variableJSON" class="w100"
+                                      placeholder="JSON" readonly></textarea>
                         </div>
 
                     </div>
@@ -220,18 +240,24 @@ const getValueFromData = (name, property = '') => {
             </div>
 
             <!-- right content -->
-            <div class="w30">
-                <div class="fl-center-v">
-                    <label for="visibility">Visibility</label>
-                    <select data-easy-select name="visibility" id="visibility" data-product-visibility>
-                        <option <%= isSelectedValue('visibility', 'public'); %> value="public">Public
-                        </option>
-                        <option <%= isSelectedValue('visibility', 'private'); %> value="private">Private
-                        </option>
-                    </select>
+            <div class="product-detail__right w100">
+
+                <div class="form-fields">
+                    <div class="field vertical-layout">
+                        <label for="visibility">Visibility</label>
+                        <select data-easy-select name="visibility" id="visibility" data-product-visibility>
+                            <option <%= isSelectedValue('visibility', 'public'); %> value="public">Public
+                            </option>
+                            <option <%= isSelectedValue('visibility', 'private'); %> value="private">Private
+                            </option>
+                        </select>
+                    </div>
+
+                    <div class="field">
+                        <button type="submit" class="btn_primary" data-product-publish>Publish</button>
+                    </div>
                 </div>
 
-                <button type="submit" class="btn_primary" data-product-publish>Publish</button>
             </div>
         </div>
 
