@@ -176,6 +176,17 @@ export default class VariableProduct extends Product{
             this.save();
         }
 
+        // remove attribute
+        else if(target.closest('[data-attribute-item-remove-btn]')){
+            const wrapper = target.closest('[data-product-attribute-item]');
+
+            // remove the dom
+            wrapper.remove();
+
+            // call the save method
+            this.save();
+        }
+
         // add variation
         else if(target.closest('[data-product-variation-add-btn]')){
             const wrapper = target.closest('[data-product-variation-add]');
