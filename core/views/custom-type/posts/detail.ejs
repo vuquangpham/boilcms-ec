@@ -142,7 +142,7 @@ if(isEditPost){
                 <% } %>
                 <div class="fl-center-v">
                     <label for="categories">Categories</label>
-                    <input type="text" id="categories" name="categories" placeholder="Categories" required>
+                    <input type="text" id="categories" name="categories" placeholder="Categories" required value="<%= getValueFromData('categories')%>">
                 </div>
                 <button type="submit" class="btn_primary">Publish</button>
             </div>
