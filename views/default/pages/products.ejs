@@ -95,8 +95,9 @@
                         <div class="product-detail__attributes">
                             <div class="form-fields">
                                 <% data.attributes.forEach((attribute) => { %>
-                                    <div class="field">
-                                        <label for="<%= attribute.name %>"><%= attribute.name %></label>
+                                    <div class="field third vertical-layout">
+                                        <label for="<%= attribute.name ;%>"
+                                               class="tt-capitalize"><%= attribute.name ;%></label>
                                         <select name="<%= attribute.name %>" id="<%= attribute.name %>">
                                             <% attribute.values.forEach(v => { %>
                                                 <% const isSelected = product.selectedAttributes.find(s => s.name === attribute.name && s.value === v.name); %>
