@@ -1,0 +1,35 @@
+@import "easy-select.min.scss";
+
+/*****************************************
+* Easy Select Custom
+*****************************************/
+body .easy-select {
+  --es-height: 36px;
+  --es-bg: #fff;
+  //--es-bg-hover:;
+  //--es-text:;
+  //--es-text-hover:;
+  //--es-border:1px solid ;
+  //--es-border-hover:1px solid ;
+  --es-radius: 5px;
+  --es-dropdown-height: 280px;
+  --es-option-min-width: 100%;
+  //--es-scrollbar-thumb:;
+}
+
+// option
+body .es-option {
+  font-size: 1.4rem;
+  padding: 5px 12px;
+}
+
+// current option
+body .es-current .es-option {
+  padding-right: 30px;
+  min-width: 100px;
+}
+
+// arrow icon
+body .es-current .es-option:after {
+  right: 10px;
+}

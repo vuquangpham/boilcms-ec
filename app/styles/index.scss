@@ -4,6 +4,11 @@
 // utils
 @import "./utils/variables";
 
+// vendors
+@import "./vendors/easy-select.min";
+@import "./vendors/easy-select-custom";
+//@import "./vendors/quill";
+
 // base
 @import "./base/base";
 @import "./base/typo";

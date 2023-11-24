@@ -1,0 +1,16 @@
+.ql-container.ql-snow {
+  min-height: 160px;
+}
+
+// missing list icon in Quill
+.ql-snow.ql-toolbar button.ql-list {
+  &:before {
+    content: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGZpbGw9Im5vbmUiIHZpZXdCb3g9IjAgMCAyNCAyNCIgc3Ryb2tlLXdpZHRoPSIxLjUiIHN0cm9rZT0iY3VycmVudENvbG9yIiBjbGFzcz0idy02IGgtNiI+CiAgICA8cGF0aCBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGQ9Ik04LjI1IDYuNzVoMTJNOC4yNSAxMmgxMm0tMTIgNS4yNWgxMk0zLjc1IDYuNzVoLjAwN3YuMDA4SDMuNzVWNi43NXptLjM3NSAwYS4zNzUuMzc1IDAgMTEtLjc1IDAgLjM3NS4zNzUgMCAwMS43NSAwek0zLjc1IDEyaC4wMDd2LjAwOEgzLjc1VjEyem0uMzc1IDBhLjM3NS4zNzUgMCAxMS0uNzUgMCAuMzc1LjM3NSAwIDAxLjc1IDB6bS0uMzc1IDUuMjVoLjAwN3YuMDA4SDMuNzV2LS4wMDh6bS4zNzUgMGEuMzc1LjM3NSAwIDExLS43NSAwIC4zNzUuMzc1IDAgMDEuNzUgMHoiIC8+Cjwvc3ZnPgo=);
+  }
+}
+
+// position of permalink
+.ql-snow .ql-tooltip {
+  top: 0 !important;
+  left: 0 !important;
+}
