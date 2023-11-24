@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const {modifyDate} = require("../../utils/helper.utils");
+const {modifyDate, stringToSlug} = require("../../utils/helper.utils");
 
 const Product = new mongoose.Schema({
 
@@ -9,6 +9,11 @@ const Product = new mongoose.Schema({
     description: {
         type: String
     },
+    url: {
+        type: String,
+        default: ''
+    },
+
     categoryImage: {
         type: String
     },
@@ -45,6 +50,7 @@ const Product = new mongoose.Schema({
 
 Product.pre('save', function(next){
     this.publishFormatted = modifyDate(this.publish);
+    this.url = stringToSlug(this.name);
     next();
 });
 

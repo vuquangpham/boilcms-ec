@@ -3,7 +3,7 @@
 const isEditPost = actionType === 'edit';
 
 // view URL
-const viewURL = isEditPost ? data.url : '';
+const viewURL = isEditPost ? contentType + '/' + data.url : '';
 
 // validate selected value on select
 const isSelectedValue = (name, value) => {
@@ -46,7 +46,7 @@ const getValueFromData = (name, property = '') => {
                             </div>
 
                             <div class="field half" style="align-items:flex-end;">
-                                <a href="<%= viewURL; %>" target="_blank" class="btn_primary txt_14px">View page</a>
+                                <a href="/<%= viewURL; %>" target="_blank" class="btn_primary txt_14px">View page</a>
                             </div>
                         <% } %>
 
