@@ -267,7 +267,8 @@ const getValueFromData = (name, property = '') => {
                     <div class="field vertical-layout" data-variation-images="[]">
                         <label for="images">Product Category Image</label>
                         <div data-preview-media class="fl-grid"></div>
-                        <input type="text" readonly value="" data-product-category-image name="product-category-image"
+                        <input type="text" readonly value="<%= getValueFromData('categoryImage') ;%>"
+                               data-product-category-image name="product-category-image"
                                style="display:none;">
                         <input type="button" class="btn_transparent ar-1" style="min-width:unset" value="+"
                                data-category-image

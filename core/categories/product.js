@@ -15,6 +15,9 @@ class Product extends Category{
         // vars
         const name = request.body.name;
         const description = request.body.description;
+        const categoryImage = request.body['product-category-image'];
+
+        // product types
         const type = request.body.type;
         const simpleProductJSON = request.body.simpleProductJSON;
         const variableProductJSON = request.body.variableProductJSON;
@@ -22,6 +25,7 @@ class Product extends Category{
         return {
             name,
             description,
+            categoryImage,
             type,
             simpleProductJSON,
             variableProductJSON

@@ -9,6 +9,9 @@ const Product = new mongoose.Schema({
     description: {
         type: String
     },
+    categoryImage: {
+        type: String
+    },
 
     // visibility
     visibility: {

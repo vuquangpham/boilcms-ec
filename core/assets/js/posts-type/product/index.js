@@ -15,6 +15,7 @@ class ProductPost{
         this.simpleProduct = new SimpleProduct(wrapper, wrapper.querySelector('[data-simple-product]'));
         this.variableProduct = new VariableProduct(wrapper, wrapper.querySelector('[data-variable-product]'));
 
+        // init
         this.init();
     }
 
