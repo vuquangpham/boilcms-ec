@@ -43,7 +43,7 @@ class POSTS extends Category{
     /**
      * Validate input data to get the correct data
      * */
-    validateInputData(inputData, action = 'add'){
+    async validateInputData(inputData, action = 'add') {
         const request = inputData.request;
         const response = inputData.response;
 
@@ -64,29 +64,35 @@ class POSTS extends Category{
         // categories of page/post
         let categories = '';
         let postType = response.locals.categoryItem.type;
+        let oldCategories = '';
+        oldCategories = request.body.oldCategories
 
-        switch(action){
-            case 'add':{
+        // save category, phase 1 if select have value, phase 2 if none
+        if(oldCategories) {
+            categories = await Categories.findOne({prettyName: oldCategories, type: postType})
+        } else {
+            categories = new Categories({
+                type: postType,
+                prettyName: request.body.categories.trim()
+            });
+
+            await categories.save();
+        }
+
+        switch (action) {
+            case 'add': {
                 content = new PageBuilder({
                     content: request.body.content.trim()
                 });
 
-                categories = new Categories({
-                    type: postType,
-                    prettyName: request.body.categories.trim()
-                });
-
-
                 // save to database
                 content.save();
-                categories.save();
+
                 break;
             }
-            case 'edit':{
+            case 'edit': {
                 content = request.body.content;
                 url = request.body.url;
-
-                categories = request.body.categories.trim()
 
                 break;
             }
@@ -98,11 +104,10 @@ class POSTS extends Category{
             visibility,
             content,
             template,
-            categories,
-            postType
+            categories
         };
 
-        if(action === 'add'){
+        if (action === 'add') {
             returnObj.author = author;
             returnObj.authorName = authorName;
         }
@@ -121,12 +126,8 @@ class POSTS extends Category{
                     const content = post.content;
                     content.content = data.content;
 
-                    // add new category
-                    const categories = new Categories({
-                        type: data.postType,
-                        prettyName: data.categories
-                    })
-                    post.categories = categories
+                    // update category
+                    post.categories = data.categories
 
                     // update the post
                     post.title = data.title;
@@ -135,7 +136,7 @@ class POSTS extends Category{
                     post.template = data.template;
 
                     // resolve
-                    Promise.all([content.save(),categories.save(), post.save()])
+                    Promise.all([content.save(), post.save()])
                         .then(result => resolve(result))
                         .catch(err => reject(err));
                 })
