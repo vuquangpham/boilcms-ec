@@ -15,7 +15,12 @@ class POSTS extends Category {
     getDataById(id) {
         return new Promise((resolve, reject) => {
             this.databaseModel.findById(id).populate('content').populate('categories')
-                .then(data => {
+                .then(async data => {
+                    // if categories have been deleted, then category replace by default category
+                    if (data.categories === null) {
+                        data.categories = await Categories.findOne({prettyName: 'Uncategorized'})
+                    }
+
                     resolve(data);
                 })
                 .catch(err => {

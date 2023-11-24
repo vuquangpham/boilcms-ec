@@ -6,9 +6,9 @@ const isEditPost = actionType === 'edit';
 const viewURL = isEditPost ? contentType + '/' + data.url : '';
 
 // validate selected value on select
-const isSelectedValue = (name, value) => {
+const isSelectedValue = (name, value, subName) => {
     if(!isEditPost) return null;
-    return data[name] === value ? 'selected' : null;
+    return data[name] === value || data[name][subName] === value ? 'selected' : null;
 };
 
 // get value from data
@@ -290,6 +290,25 @@ const getValueFromData = (name, property = '') => {
                                data-popup="category-image">
                         <div class="description error">Please input the images</div>
                     </div>
+
+                    <div class="fl-center-v">
+                        <label for="categories">Categories</label>
+                        <input type="text" id="categories" name="categories" placeholder="Categories" value="<%= getValueFromData('categories', 'prettyName')%>">
+                    </div>
+
+                    <% if(allCategories.length > 0) { %>
+                        <div class="posts-detail__dropdown fl-center-v">
+                            <label for="category-dropdown">Categories</label>
+                            <select data-easy-select name="availableCategories" id="category-dropdown">
+                                <option value="" selected hidden="">Choose here</option>
+                                <% allCategories.forEach(category => { %>
+                                    <option <%= isSelectedValue('categories', category.prettyName , 'prettyName')%>><%=category.prettyName%></option>
+                                <% }) %>
+                            </select>
+                        </div>
+                    <% }%>
+
+
 
                     <div class="field">
                         <button type="submit" class="btn_primary" data-product-publish>Publish</button>

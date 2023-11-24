@@ -29,6 +29,12 @@ const handleAddAction = async(request, response) => {
         extraData.allCategories = await Categories.find({type: 'pages'});
     }
 
+    // products
+    if(categoryItem.type === 'products'){
+        // load the categories
+        extraData.allCategories = await Categories.find({type: 'products'})
+    }
+
     return [promise, extraData];
 };
 

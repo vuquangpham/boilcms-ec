@@ -12,7 +12,7 @@
                 <div class="products__list--inventory" data-column="Inventory">Inventory</div>
                 <div class="products__list--price" data-column="Price">Price</div>
                 <div class="products__list--categories" data-column="Categories">Categories</div>
-                <div class="products-list--status" data-column="Status">Status</div>
+                <div class="products-list--visibility" data-column="Visibility">Visibility</div>
                 <div class="products__list--published-time" data-column="Published Time">Published Time</div>
             </div>
 
@@ -39,9 +39,9 @@
                          data-column="Inventory"><%= product.inventory %></div>
                     <div class="products__item--price"
                          data-column="Price"><%= product.price %></div>
-                    <div class="products__item--categories" data-column="Categories">Categories</div>
-                    <div class="products__item--status" data-title="Visibility"
-                         data-column="State"><%= product.visibility === 'private' ? 'Private' : 'Published'; %></div>
+                    <div class="products__item--categories" data-column="Categories"><%= product.categories ? product.categories.prettyName : 'Uncategorized'%></div>
+                    <div class="products__item--visibility" data-title="Visibility"
+                         data-column="Visibility"><%= product.visibility === 'private' ? 'Private' : 'Published'; %></div>
 
                     <div class="products__item--date not-show-title" data-column="Date">
                         <time data-title="Date"><%= product.publishFormatted %></time>

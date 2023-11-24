@@ -17,6 +17,10 @@ const Product = new mongoose.Schema({
     categoryImage: {
         type: String
     },
+    categories: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Categories'
+    },
 
     // visibility
     visibility: {
