@@ -93,6 +93,7 @@ input:not([type="button"]) {
 *******************************/
 textarea {
   height: var(--form-field-size);
+  background: var(--form-bg);
   padding: 1.5rem var(--form-field-padding-h);
   resize: vertical;
   font-family: var(--form-font);
@@ -167,6 +168,7 @@ input[aria-invalid="true"], input[aria-invalid="true"]:hover {
 /*********************
  * Readonly
 **********************/
+textarea[readonly],
 input[readonly] {
   --form-bg: rgba(0, 0, 0, .03);
   --form-border-color: rgba(0, 0, 0, .03);
