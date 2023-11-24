@@ -142,11 +142,11 @@ if(isEditPost){
                 <% } %>
                 <div class="fl-center-v">
                     <label for="category">Categories</label>
-                    <input type="text" id="category" name="category" placeholder="Category" required
-                           value="<%= getValueFromData('categories', 'prettyName') %>">
+                    <input type="text" id="category" name="categories" placeholder="Category" required
+                           >
                 </div>
 
-                <% if(allCategories) { %>
+                <% if(allCategories.length > 0) { %>
                     <div class="posts-detail__dropdown fl-center-v">
                         <label for="category-dropdown">Categories</label>
                         <select data-easy-select name="category" id="category-dropdown">

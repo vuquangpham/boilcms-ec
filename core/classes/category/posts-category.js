@@ -63,6 +63,7 @@ class POSTS extends Category{
 
         // categories of page/post
         let categories = '';
+        let postType = response.locals.categoryItem.type;
 
         switch(action){
             case 'add':{
@@ -71,8 +72,8 @@ class POSTS extends Category{
                 });
 
                 categories = new Categories({
-                    type: response.locals.categoryItem.type,
-                    prettyName: request.body.category.trim()
+                    type: postType,
+                    prettyName: request.body.categories.trim()
                 });
 
 
@@ -85,6 +86,8 @@ class POSTS extends Category{
                 content = request.body.content;
                 url = request.body.url;
 
+                categories = request.body.categories.trim()
+
                 break;
             }
         }
@@ -95,13 +98,15 @@ class POSTS extends Category{
             visibility,
             content,
             template,
-            categories
+            categories,
+            postType
         };
 
         if(action === 'add'){
             returnObj.author = author;
             returnObj.authorName = authorName;
         }
+
         return returnObj;
     }
 
@@ -110,11 +115,18 @@ class POSTS extends Category{
      * */
     update(id, data){
         return new Promise((resolve, reject) => {
-            this.databaseModel.findById(id).populate('content')
+            this.databaseModel.findById(id).populate('content').populate('categories')
                 .then(post => {
                     // update the page builder content
                     const content = post.content;
                     content.content = data.content;
+
+                    // add new category
+                    const categories = new Categories({
+                        type: data.postType,
+                        prettyName: data.categories
+                    })
+                    post.categories = categories
 
                     // update the post
                     post.title = data.title;
@@ -123,7 +135,7 @@ class POSTS extends Category{
                     post.template = data.template;
 
                     // resolve
-                    Promise.all([content.save(), post.save()])
+                    Promise.all([content.save(),categories.save(), post.save()])
                         .then(result => resolve(result))
                         .catch(err => reject(err));
                 })

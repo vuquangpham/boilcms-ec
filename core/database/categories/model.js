@@ -4,6 +4,7 @@ const {stringToSlug} = require("../../utils/helper.utils");
 const Categories = new mongoose.Schema({
     type: {
         type: String,
+        default: ''
     },
     name: {
         type: String,
