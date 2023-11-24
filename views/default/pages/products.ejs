@@ -91,6 +91,23 @@
                     </div>
 
                     <!-- variations -->
+                    <% if (product.selectedAttributes) { %>
+                        <div class="product-detail__attributes">
+                            <div class="form-fields">
+                                <% data.attributes.forEach((attribute) => { %>
+                                    <div class="field">
+                                        <label for="<%= attribute.name %>"><%= attribute.name %></label>
+                                        <select name="<%= attribute.name %>" id="<%= attribute.name %>">
+                                            <% attribute.values.forEach(v => { %>
+                                                <% const isSelected = product.selectedAttributes.find(s => s.name === attribute.name && s.value === v.name); %>
+                                                <option value="<%= v.name %>" <%= isSelected ? 'selected' : '' %>><%= v.prettyName %></option>
+                                            <% }) %>
+                                        </select>
+                                    </div>
+                                <% }) %>
+                            </div>
+                        </div>
+                    <% } %>
 
                     <!-- add-to-cart -->
                     <div class="product-detail__add-to-cart">
