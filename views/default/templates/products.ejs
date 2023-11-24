@@ -93,7 +93,7 @@
                             <div class="product-item__price">
 
                                 <% if (product.salePrice) { %>
-                                    <span class="price"><%= product.salePrice ;%> $</span>
+                                    <span class="price"><%= product.salePrice; %>$</span>
                                     <span class="price price--with-stroke"><%= product.price ;%>$</span>
                                     <span class="sale-amount">-<%= parseInt(100 - (product.salePrice * 100) / product.price) ;%>%</span>
                                 <% }  else { %>
