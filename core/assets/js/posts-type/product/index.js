@@ -1,6 +1,7 @@
 import SimpleProduct from "./simple-product/SimpleProduct";
 import VariableProduct from "./variable-product/VariableProduct";
 import MediaPopup from "./media/MediaPopup";
+import Media from "../../components/media";
 
 class ProductPost{
     constructor(wrapper){
@@ -14,6 +15,12 @@ class ProductPost{
         // create the product variation
         this.simpleProduct = new SimpleProduct(wrapper, wrapper.querySelector('[data-simple-product]'));
         this.variableProduct = new VariableProduct(wrapper, wrapper.querySelector('[data-variable-product]'));
+
+        // fetch URL
+        const urlObject = new URL(location.href);
+        const baseUrl = urlObject.origin;
+        const adminPath = urlObject.pathname.split('/')[1];
+        this.FETCH_URL = baseUrl + '/' + adminPath + '/media';
 
         // init
         this.init();
@@ -37,6 +44,28 @@ class ProductPost{
 
         // handle submit
         this.wrapper.querySelector('form').addEventListener('submit', this.handleSubmit.bind(this));
+
+        // load category image if exists
+        this.loadProductCategoryImage();
+    }
+
+    loadProductCategoryImage(){
+        const imageId = this.elements.productCategoryImageInput.value;
+        if(!imageId) return;
+
+        // preview media wrapper
+        const categoryImageWrapper = this.wrapper.querySelector('[data-product-category-image-wrapper]');
+        const previewMediaEl = categoryImageWrapper.querySelector('[data-preview-media]');
+
+        // load media
+        Media.loadMediaById(this.FETCH_URL, imageId)
+            .then(result => {
+                // load to preview media
+                Media.loadPreviewMedias(previewMediaEl, [result.data.url.small]);
+            });
+
+        // assign to the variation
+        categoryImageWrapper.setAttribute('data-variation-images', JSON.stringify([imageId]));
     }
 
     initProductCategoryImage(){
