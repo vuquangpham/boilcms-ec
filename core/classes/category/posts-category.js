@@ -67,10 +67,23 @@ class POSTS extends Category{
         let oldCategories = '';
         oldCategories = request.body.oldCategories
 
-        // save category, phase 1 if select have value, phase 2 if none
+        let defaultCategory = {prettyName: 'Uncategorized', type: postType}
+
+        // save category
+        // if category have select value
         if(oldCategories) {
             categories = await Categories.findOne({prettyName: oldCategories, type: postType})
-        } else {
+        }
+        // if select and input don't have any value
+        else if (!oldCategories && !request.body.categories){
+            categories = await Categories.findOne(defaultCategory);
+            if(!categories) {
+                categories = new Categories(defaultCategory)
+            }
+            await categories.save();
+        }
+        // if category have input value
+        else {
             categories = new Categories({
                 type: postType,
                 prettyName: request.body.categories.trim()

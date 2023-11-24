@@ -3,9 +3,9 @@
 const isEditPost = actionType === 'edit';
 
 // validate selected value on select
-const isSelectedValue = (name, value) => {
+const isSelectedValue = (name, value, subName) => {
     if(!isEditPost) return null;
-    return data[name] === value ? 'selected' : null;
+    return data[name] === value || data[name][subName] === value ? 'selected' : null;
 };
 
 // get value from data
@@ -142,8 +142,7 @@ if(isEditPost){
                 <% } %>
                 <div class="fl-center-v">
                     <label for="categories">Categories</label>
-                    <input type="text" id="categories" name="categories" placeholder="Categories" required
-                           >
+                    <input type="text" id="categories" name="categories" placeholder="Categories" value="<%= getValueFromData('categories', 'prettyName')%>" >
                 </div>
 
                 <% if(allCategories.length > 0) { %>
@@ -152,7 +151,7 @@ if(isEditPost){
                         <select data-easy-select name="oldCategories" id="category-dropdown">
                             <option value="" selected hidden="">Choose here</option>
                             <% allCategories.forEach(category => { %>
-                            <option><%=category.prettyName%></option>
+                            <option <%= isSelectedValue('categories', category.prettyName , 'prettyName')%>><%=category.prettyName%></option>
                             <% }) %>
                         </select>
                     </div>
