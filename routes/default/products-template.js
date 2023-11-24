@@ -11,6 +11,7 @@ const getAllData = () => {
                 const result = data.map(async result => {
                     const name = result.name;
                     const description = result.description;
+                    const url = result.url;
                     const categoryImage = await Media.getDataById(result.categoryImage);
 
                     // type
@@ -21,6 +22,7 @@ const getAllData = () => {
                     const returnObject = {
                         name,
                         description,
+                        url,
                         categoryImage,
                         nameSlug: stringToSlug(name)
                     };

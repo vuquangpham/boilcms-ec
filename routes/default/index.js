@@ -1,9 +1,13 @@
-const {getParamsOnRequest} = require("../../core/utils/helper.utils");
 const router = require('express').Router();
-
 const CategoryController = require('../../core/classes/category/category-controller');
+
+// classes
 const Content = require('../../core/classes/utils/content');
+const Type = require('../../core/classes/utils/type');
+
+// utils
 const {restrictTo} = require("../../core/utils/middleware.utils");
+const {getParamsOnRequest} = require("../../core/utils/helper.utils");
 
 // purify the DOM
 const DOMPurify = require('isomorphic-dompurify');
@@ -46,7 +50,11 @@ router.get('*', (request, response, next) => {
         ? Promise.reject(new Error('Can not find a category item!'))
 
         // get the content
-        : categoryItem.databaseModel.findOne(filterCondition).populate('content');
+        : categoryItem.databaseModel.findOne(filterCondition);
+
+    // add populate method
+    const hasPageBuilderContent = categoryItem && promise && categoryItem.contentType === Type.types.POSTS;
+    if(hasPageBuilderContent) promise.populate('content');
 
     // solve promise
     promise
@@ -68,27 +76,14 @@ router.get('*', (request, response, next) => {
             const title = pageURL ? pageURL[0].toUpperCase() + pageURL.slice(1) : 'Home';
 
             /**
-             * Page with custom template
+             * Page with custom template in default category (Home, About, (Products/Account - Custom template))
              * */
             if(categoryItem.templates && categoryItem.isCustomTemplate(result.template)){
                 // account template and not has user logged in => redirect 404
                 if(result.template === 'account' && !response.locals.user) return Promise.reject('404 page ne');
 
                 // products template
-                if(result.template === 'products'){
-
-                    console.log(subPageId);
-                    // produce detail
-                    if(subPageId){
-                        console.log(subPageId);
-                    }
-
-                    // product overview
-                    else{
-                        result.products = await ProductsTemplate.getAllData();
-                    }
-
-                }
+                if(result.template === 'products') result.products = await ProductsTemplate.getAllData();
 
                 // render to frontend
                 return response.render('default/templates/' + result.template, {
@@ -98,17 +93,29 @@ router.get('*', (request, response, next) => {
             }
 
             /**
-             * Page with default template
+             * Page with page-builder content
              * */
-            const pageBuilderContent = result.content.content ? JSON.parse(result.content.content) : '';
-            const html = await Content.getRenderHTML(pageBuilderContent);
+            if(hasPageBuilderContent){
+                const pageBuilderContent = result.content.content ? JSON.parse(result.content.content) : '';
+                const html = await Content.getRenderHTML(pageBuilderContent);
 
+                // render to frontend
+                return response.render('default', {
+                    data: result,
+                    content: DOMPurify.sanitize(html),
+                    title,
+                });
+            }
+
+            /**
+             * Page without page builder => custom html
+             * */
             // render to frontend
-            response.render('default', {
+            response.render('default/pages/' + categoryItem.type, {
                 data: result,
-                content: DOMPurify.sanitize(html),
                 title,
             });
+
         })
         .catch(err => {
             next(err);
