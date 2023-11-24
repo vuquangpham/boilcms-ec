@@ -26,10 +26,11 @@
         <span class="current"><%= data.name %></span>
     </div>
 
-    <div class="product-detail" data-product-id="<%= data.id %>">
+    <div class="product-detail margin-bottom-default" data-product-id="<%= data.id ;%>">
 
         <% data.products.forEach(product => { %>
-            <div class="product-detail__inner fl-grid ai-start">
+            <div class="product-detail__inner fl-grid ai-start"
+                 data-selected-attribute="<%= JSON.stringify(product.selectedAttributes ?? []) ;%>">
 
                 <div class="product-detail__left">
 
@@ -96,8 +97,8 @@
                             <div class="form-fields">
                                 <% data.attributes.forEach((attribute) => { %>
                                     <div class="field third vertical-layout">
-                                        <label for="<%= attribute.name ;%>"
-                                               class="tt-capitalize"><%= attribute.name ;%></label>
+                                        <label for="<%= attribute.name; %>"
+                                               class="tt-capitalize"><%= attribute.name; %></label>
                                         <select name="<%= attribute.name %>" id="<%= attribute.name %>">
                                             <% attribute.values.forEach(v => { %>
                                                 <% const isSelected = product.selectedAttributes.find(s => s.name === attribute.name && s.value === v.name); %>
