@@ -1,6 +1,7 @@
 const Category = require("../../core/classes/category/category");
 const Types = require("../../core/classes/utils/type");
 const Categories = require("../database/categories/model");
+const {handleCategoryInput} = require("../utils/helper.utils");
 
 class Product extends Category{
     constructor(config){
@@ -29,7 +30,7 @@ class Product extends Category{
 
         // categories of page/post
         let categories = '';
-        categories = await this.handleCategoryInput(request, response, categories)
+        categories = await handleCategoryInput(request, response, categories, Categories)
 
         return {
             name,
@@ -42,44 +43,6 @@ class Product extends Category{
             simpleProductJSON,
             variableProductJSON
         };
-    }
-    async handleCategoryInput(request, response, categories) {
-
-        // get postType
-        let postType = response.locals.categoryItem.type;
-
-        // get categories from select
-        let availableCategories = request.body.availableCategories
-
-        // defined uncategorized object
-        let uncategorized = {prettyName: 'Uncategorized', type: postType}
-
-        // save category
-        // if category have select value
-        if (availableCategories) {
-            categories = await Categories.findOne({prettyName: availableCategories, type: postType})
-        }
-
-        // if select and input don't have any value
-        else if (!availableCategories && !request.body.categories) {
-            categories = await Categories.findOne(uncategorized);
-            if (!categories) {
-                categories = new Categories(uncategorized)
-            }
-            await categories.save();
-        }
-
-        // if category have input value
-        else {
-            categories = new Categories({
-                type: postType,
-                prettyName: request.body.categories.trim()
-            });
-
-            await categories.save();
-        }
-
-        return categories
     }
 
     /**

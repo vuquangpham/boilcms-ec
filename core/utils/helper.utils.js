@@ -109,6 +109,54 @@ const splitString = (currentString, character = ' ') => {
     return currentString.split(character).map(value => value.trim())
 }
 
+/**
+ * Validate and process the category input from the request
+ * Base on input, it can either create a new category or find an existing one
+ * @param request
+ * @param response
+ * @param categories {string} The existing categories
+ * @param Categories {Object} A schema model for categories
+ * @return categories {object}
+ * */
+ const handleCategoryInput = async (request, response, categories, Categories) => {
+
+    // get postType
+    let postType = response.locals.categoryItem.type;
+
+    // get categories from select
+    let availableCategories = request.body.availableCategories
+
+    // defined uncategorized object
+    let uncategorized = {prettyName: 'Uncategorized', type: postType}
+
+    // save category
+    // if category have select value
+    if (availableCategories) {
+        categories = await Categories.findOne({prettyName: availableCategories, type: postType})
+    }
+
+    // if select and input don't have any value
+    else if (!availableCategories && !request.body.categories) {
+        categories = await Categories.findOne(uncategorized);
+        if (!categories) {
+            categories = new Categories(uncategorized)
+        }
+        await categories.save();
+    }
+
+    // if category have input value
+    else {
+        categories = new Categories({
+            type: postType,
+            prettyName: request.body.categories.trim()
+        });
+
+        await categories.save();
+    }
+
+    return categories
+}
+
 
 module.exports = {
     stringToSlug,
@@ -124,4 +172,6 @@ module.exports = {
     splitString,
 
     modifyDate,
+
+    handleCategoryInput
 };
