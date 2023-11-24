@@ -95,7 +95,37 @@ textarea {
   height: var(--form-field-size);
   padding: 1.5rem var(--form-field-padding-h);
   resize: vertical;
+  font-family: var(--form-font);
   transition: border-color .3s, background-color .3s, color .3s;
+
+  // placeholder
+  &::-webkit-input-placeholder {
+    font-family: inherit;
+    font-weight: inherit;
+    font-size: 1.4rem;
+    color: var(--placeholder-color);
+  }
+
+  &::-moz-placeholder {
+    font-family: inherit;
+    font-weight: inherit;
+    font-size: 1.4rem;
+    color: var(--placeholder-color);
+  }
+
+  &:-ms-input-placeholder {
+    font-family: inherit;
+    font-weight: inherit;
+    font-size: 1.4rem;
+    color: var(--placeholder-color);
+  }
+
+  &:-moz-placeholder {
+    font-family: inherit;
+    font-weight: inherit;
+    font-size: 1.4rem;
+    color: var(--placeholder-color);
+  }
 }
 
 
