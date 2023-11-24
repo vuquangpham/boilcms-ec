@@ -163,8 +163,13 @@ class MediaPopup{
             };
         });
 
+        // return object
+        const returnObject = {...validatedOptions, mediasObject};
+
         // do the cb
-        validatedOptions.onAfterSaved({...validatedOptions, mediasObject});
+        validatedOptions.onAfterSaved(returnObject);
+
+        return returnObject;
     }
 }
 

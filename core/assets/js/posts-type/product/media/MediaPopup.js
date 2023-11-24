@@ -10,7 +10,7 @@ class MediaPopup{
         this.FETCH_URL = baseUrl + '/' + adminPath + '/media';
     }
 
-    loadAllMedias(popupContent){
+    loadAllMedias(popupContent, type = "checkbox"){
         const id = popupContent.getAttribute('data-popup-wrapper');
         const selectImageButton = document.querySelector(`[data-popup="${id}"]`);
         const variationImageControlEl = selectImageButton.closest('[data-variation-images]');
@@ -22,7 +22,7 @@ class MediaPopup{
         Media.loadAllMedias({
             previousImagesId: selectedMedias,
             wrapper: popupContent.querySelector('[data-media-list]'),
-            type: 'checkbox',
+            type: type,
             fetchURL: this.FETCH_URL,
 
             onAfterLoaded: (result) => {
@@ -67,7 +67,7 @@ class MediaPopup{
         const wrapper = imageButtonEl.closest('[data-variation-images]');
         const previewMediaWrapper = wrapper.closest('[data-variation-images]').querySelector('[data-preview-media]');
 
-        Media.handleSavedMedia({
+        return Media.handleSavedMedia({
             wrapper: mediaPopupEl,
             onAfterSaved: (result) => {
                 // medias url
