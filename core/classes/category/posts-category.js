@@ -3,8 +3,8 @@ const {stringToSlug} = require("../../utils/helper.utils");
 const PageBuilder = require("../../database/page-builder/model");
 const Categories = require("../../database/categories/model");
 
-class POSTS extends Category{
-    constructor(config){
+class POSTS extends Category {
+    constructor(config) {
         super(config);
     }
 
@@ -12,7 +12,7 @@ class POSTS extends Category{
      * Get specific data based on id
      * @return {Promise}
      * */
-    getDataById(id){
+    getDataById(id) {
         return new Promise((resolve, reject) => {
             this.databaseModel.findById(id).populate('content').populate('categories')
                 .then(data => {
@@ -28,7 +28,7 @@ class POSTS extends Category{
      * Get all data from category
      * @return {Promise}
      * */
-    getAllData(){
+    getAllData() {
         return new Promise((resolve, reject) => {
             this.databaseModel.find().populate('author').populate('categories')
                 .then(data => {
@@ -63,34 +63,7 @@ class POSTS extends Category{
 
         // categories of page/post
         let categories = '';
-        let postType = response.locals.categoryItem.type;
-        let oldCategories = '';
-        oldCategories = request.body.oldCategories
-
-        let defaultCategory = {prettyName: 'Uncategorized', type: postType}
-
-        // save category
-        // if category have select value
-        if(oldCategories) {
-            categories = await Categories.findOne({prettyName: oldCategories, type: postType})
-        }
-        // if select and input don't have any value
-        else if (!oldCategories && !request.body.categories){
-            categories = await Categories.findOne(defaultCategory);
-            if(!categories) {
-                categories = new Categories(defaultCategory)
-            }
-            await categories.save();
-        }
-        // if category have input value
-        else {
-            categories = new Categories({
-                type: postType,
-                prettyName: request.body.categories.trim()
-            });
-
-            await categories.save();
-        }
+        categories = await this.handleCategoryInput(request, response, categories)
 
         switch (action) {
             case 'add': {
@@ -129,9 +102,53 @@ class POSTS extends Category{
     }
 
     /**
+     * Validate and process the category input from the request
+     * Base on input, it can either create a new category or find an existing one
+     * @return categories {object}
+     * */
+    async handleCategoryInput(request, response, categories) {
+
+        // get postType
+        let postType = response.locals.categoryItem.type;
+
+        // get categories from select
+        let oldCategories = request.body.oldCategories
+
+        // defined uncategorized object
+        let uncategorized = {prettyName: 'Uncategorized', type: postType}
+
+        // save category
+        // if category have select value
+        if (oldCategories) {
+            categories = await Categories.findOne({prettyName: oldCategories, type: postType})
+        }
+
+        // if select and input don't have any value
+        else if (!oldCategories && !request.body.categories) {
+            categories = await Categories.findOne(uncategorized);
+            if (!categories) {
+                categories = new Categories(uncategorized)
+            }
+            await categories.save();
+        }
+
+        // if category have input value
+        else {
+            categories = new Categories({
+                type: postType,
+                prettyName: request.body.categories.trim()
+            });
+
+            await categories.save();
+        }
+
+        return categories
+    }
+
+    /**
      * Update data to category
      * */
-    update(id, data){
+    update(id, data) {
         return new Promise((resolve, reject) => {
             this.databaseModel.findById(id).populate('content').populate('categories')
                 .then(post => {
@@ -160,7 +177,7 @@ class POSTS extends Category{
     /**
      * Delete post
      * */
-    delete(id){
+    delete(id) {
         return new Promise((resolve, reject) => {
             this.databaseModel.findById(id).populate('content')
                 .then(post => {
