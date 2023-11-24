@@ -9,6 +9,7 @@ import '@global/vendors/popup/Popup.min.js';
 import '@global/vendors/popup/Popup.min.css';
 
 // pages
+import './pages/products';
 import './pages/account';
 
 // components

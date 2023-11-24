@@ -82,6 +82,93 @@ const getAllData = () => {
     });
 };
 
+const getProductDetail = async(product) => {
+
+    // category image
+    const categoryImage = await Media.getDataById(product.categoryImage);
+
+    // type
+    const type = product.type;
+    const productObject = type === 'simple' ? JSON.parse(product.simpleProductJSON) : JSON.parse(product.variableProductJSON);
+
+    // return object
+    const returnObject = {
+        id: product._id,
+        name: product.name,
+        description: product.description,
+        url: product.url,
+        categoryImage,
+    };
+
+    // get price
+    switch(type){
+        case "simple":{
+            const returnObj = {};
+
+            // vars
+            const inventory = productObject.inventory;
+            const price = productObject.price;
+            const salePrice = productObject.salePrice;
+
+            const imagesId = productObject.imagesId;
+            const imagesPromises = imagesId.map(id => Media.getDataById(id));
+            const images = await Promise.all(imagesPromises);
+
+            // save to the return object
+            returnObj.inventory = inventory;
+            returnObj.price = price;
+            returnObj.salePrice = salePrice;
+            returnObj.images = images;
+
+            // assign to return object
+            returnObject.products = [returnObj];
+            break;
+        }
+
+        case "variable":{
+            const attributes = productObject.attributes;
+            const variations = productObject.variations;
+
+            // loop through the variations
+            const productPromises = variations.map(async variation => {
+                const returnObj = {};
+
+                // vars
+                const inventory = variation.inventory;
+                const price = variation.price;
+                const salePrice = variation.salePrice;
+
+                const imagesId = variation.imagesId;
+                const imagesPromises = imagesId.map(id => Media.getDataById(id));
+                const images = await Promise.all(imagesPromises);
+
+                // save to the return object
+                returnObj.inventory = inventory;
+                returnObj.price = price;
+                returnObj.salePrice = salePrice;
+
+                returnObj.selectedAttributes = variation.selectedAttributes;
+                returnObj.images = images;
+
+                return returnObj;
+            });
+
+            // assign to return object
+            returnObject.products = await Promise.all(productPromises);
+            returnObject.attributes = attributes;
+
+            break;
+        }
+
+        default:{
+        }
+    }
+    console.log('return object', returnObject);
+
+    return returnObject;
+};
+
 module.exports = {
-    getAllData
+    getAllData,
+    getProductDetail
 };

@@ -110,6 +110,12 @@ router.get('*', (request, response, next) => {
             /**
              * Page without page builder => custom html
              * */
+
+            // check product type
+            if(categoryItem.contentType === Type.types.PRODUCTS) result = await ProductsTemplate.getProductDetail(result);
+
+            console.log('result', result);
+
             // render to frontend
             response.render('default/pages/' + categoryItem.type, {
                 data: result,
