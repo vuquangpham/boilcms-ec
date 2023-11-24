@@ -27,7 +27,7 @@ if(isEditPost){
 </div>
 
 <div class="container" data-post-detail>
-    <form action="?post_type=post&method=post&action=<%= actionType %><%= isEditPost ? '&id=' + data._id : '' %>"
+    <form action="?post_type=<%= contentType; %>&method=post&action=<%= actionType %><%= isEditPost ? '&id=' + data._id : '' %>"
           method="post"
           class="detail-post">
 

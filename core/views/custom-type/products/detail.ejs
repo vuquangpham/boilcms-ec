@@ -2,6 +2,9 @@
 // boolean for checking edit or add new post
 const isEditPost = actionType === 'edit';
 
+// view URL
+const viewURL = isEditPost ? data.url : '';
+
 // validate selected value on select
 const isSelectedValue = (name, value) => {
     if(!isEditPost) return null;
@@ -20,7 +23,7 @@ const getValueFromData = (name, property = '') => {
 </div>
 
 <div class="container" data-product-detail data-product-wrapper>
-    <form action="?post_type=product&method=post&action=<%= actionType; %><%= isEditPost ? '&id=' + data._id : ''; %>"
+    <form action="?post_type=<%= contentType; %>&method=post&action=<%= actionType; %><%= isEditPost ? '&id=' + data._id : ''; %>"
           method="post"
           class="detail-product">
 
@@ -34,6 +37,18 @@ const getValueFromData = (name, property = '') => {
                 <div class="margin-bottom-small">
 
                     <div class="form-fields">
+
+                        <% if (isEditPost) { %>
+                            <div class="field half vertical-layout">
+                                <label for="permalink">Custom URL:</label>
+                                <input type="text" placeholder="Custom URL" id="permalink" name="url"
+                                       value="<%= getValueFromData('url') %>">
+                            </div>
+
+                            <div class="field half" style="align-items:flex-end;">
+                                <a href="<%= viewURL; %>" target="_blank" class="btn_primary txt_14px">View page</a>
+                            </div>
+                        <% } %>
 
                         <!-- name -->
                         <div class="field vertical-layout">
@@ -267,7 +282,7 @@ const getValueFromData = (name, property = '') => {
                     <div class="field vertical-layout" data-product-category-image-wrapper data-variation-images="[]">
                         <label for="images">Product Category Image</label>
                         <div data-preview-media class="fl-grid"></div>
-                        <input type="text" readonly value="<%= getValueFromData('categoryImage') ;%>"
+                        <input type="text" readonly value="<%= getValueFromData('categoryImage'); %>"
                                data-product-category-image name="product-category-image"
                                style="display:none;">
                         <input type="button" class="btn_transparent ar-1" style="min-width:unset" value="+"
