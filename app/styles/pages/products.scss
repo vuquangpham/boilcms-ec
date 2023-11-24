@@ -35,6 +35,23 @@ body.products {
     }
   }
 
+  // product list
+  .product-list {
+    --grid-col: 3;
+    --grid-gap-x: 2rem;
+    --grid-gap-y: 2rem;
+
+    // responsive
+    @include responsive('tablet-v') {
+      --grid-col: 2;
+      --grid-gap-x: 1rem;
+      --grid-gap-y: 1rem;
+    }
+    @include responsive('mobile') {
+      --grid-col: 1
+    }
+  }
+
   // product
   .product-item {
     background: #fff;
@@ -86,6 +103,11 @@ body.products {
     // title
     &__title {
       font-size: 1.8rem;
+
+      // responsive
+      @include responsive('tablet-v') {
+        font-size: 1.6rem;
+      }
     }
 
     // description
