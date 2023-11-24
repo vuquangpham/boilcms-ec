@@ -202,6 +202,11 @@
     margin-bottom: 2rem;
   }
 
+  // enabled state
+  &:not(.init-enabled) .product-detail__inner:not(:first-child) {
+    display: none;
+  }
+
 }
 
 /********************************
@@ -209,12 +214,21 @@
 *********************************/
 // min width 768px
 @include responsive('tablet-h', true) {
+  // scroll-up
+  html.scroll-up:not(.scroll-top) .product-detail__left {
+    top: calc(var(--header-height) + 2rem);
+  }
+
   .product-detail {
 
     // left
     &__left {
       width: 65%;
       padding-right: var(--gap-container);
+
+      transition: top .3s ease;
+      position: sticky;
+      top: 2rem;
     }
 
     // right
