@@ -52,43 +52,65 @@
 
         <% }) %>
     </div>
+    <% console.log(data); %>
 
     <div class="product-list flex-grid-template margin-bottom-default">
+        <% if (data.products.length === 0) { %>
+            <h1>No products</h1>
+        <% } else { %>
 
-        <a href="#" class="product-item d-block td-none">
+            <% data.products.forEach(product => { %>
 
-            <div class="product-item__inner fd-column d-flex">
-                <div class="product-item__image img-wrapper-cover skeleton-bg">
-                    <!--                    <img src="/themes/default.png" alt="test">-->
-                </div>
+                <a href="<%= data.url ;%>/<%= product.nameSlug ;%>" class="product-item d-block td-none">
 
-                <div class="product-item__bottom">
-                    <div class="product-item__variations">
-                        <div class="product-item__variation fl-grid ai-center">
-                            <span>Red</span>
-                            <span>Green</span>
-                            <span>Blue</span>
+                    <div class="product-item__inner fd-column d-flex">
+                        <div class="product-item__image img-wrapper-cover skeleton-bg">
+                            <img src="<%= product.categoryImage.url.original ;%>"
+                                 alt="<%= product.categoryImage.name ;%>">
                         </div>
-                        <div class="product-item__variation">
-                            <span>M</span>
-                            <span>L</span>
-                            <span>XS</span>
+
+                        <div class="product-item__bottom">
+
+                            <% if (product.attributes) { %>
+                                <div class="product-item__variations">
+
+                                    <% product.attributes.forEach(attribute => { %>
+                                        <div class="product-item__variation fl-grid ai-center">
+                                            <% attribute.values.forEach(v => { %>
+                                                <% const isCurrentVariation = product.selectedAttributes.find(s => s.name === attribute.name && s.value === v.name); %>
+
+                                                <span class="<%= isCurrentVariation ? 'active' : '' ;%>"><%= v.prettyName ;%></span>
+
+                                            <% }); %>
+                                        </div>
+                                    <% }); %>
+
+                                </div>
+                            <% } %>
+
+                            <h2 class="product-item__title"><%= product.name ;%></h2>
+                            <div class="product-item__description"><%= product.description ;%></div>
+                            <div class="product-item__price">
+
+                                <% if (product.salePrice) { %>
+                                    <span class="price"><%= product.salePrice ;%> $</span>
+                                    <span class="price price--with-stroke"><%= product.price ;%>$</span>
+                                    <span class="sale-amount">-<%= parseInt(100 - (product.salePrice * 100) / product.price) ;%>%</span>
+                                <% }  else { %>
+                                    <span class="price"><%= product.price ;%>$</span>
+                                <% } %>
+                            </div>
+
+                            <% if (product.addition) { %>
+                                <div class="product-item__addition"><%= product.addition ;%></div>
+                            <% } %>
                         </div>
                     </div>
 
-                    <h2 class="product-item__title">This is the title of the product</h2>
-                    <div class="product-item__description">Short description</div>
-                    <div class="product-item__price">
-                        <span class="price">499.000</span>
-                        <span class="price price--with-stroke">599.000</span>
-                        <span class="sale-amount">-10%</span>
-                    </div>
+                </a>
 
-                    <div class="product-item__addition">Mua 2 giam them 10%</div>
-                </div>
-            </div>
-
-        </a>
+            <% }) %>
+        <% } %>
 
     </div>
 </div>

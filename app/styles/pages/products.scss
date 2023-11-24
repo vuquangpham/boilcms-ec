@@ -73,6 +73,13 @@ body.products {
 
         font-size: 1.2rem;
         text-align: center;
+
+        // active
+        &.active {
+          background: var(--color-secondary);
+          border-color: var(--color-secondary);
+          color: #fff;
+        }
       }
     }
 

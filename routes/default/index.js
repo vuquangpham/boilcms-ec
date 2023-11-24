@@ -8,6 +8,9 @@ const {restrictTo} = require("../../core/utils/middleware.utils");
 // purify the DOM
 const DOMPurify = require('isomorphic-dompurify');
 
+// custom template
+const ProductsTemplate = require('./products-template');
+
 router.get('*', (request, response, next) => {
     const [type, pageURL] = getParamsOnRequest(request, ['', '']);
 
@@ -32,15 +35,10 @@ router.get('*', (request, response, next) => {
         categoryItem = CategoryController.getCategoryItem(type);
     }
 
-    // category item doesn't exist, maybe subpage in special category item
-    if(!categoryItem && pageURL && type){
-        // get category item
-        categoryItem = CategoryController.getSpecialCategoryItem();
-
-        // get the url with type
-        subPageId = pageURL;
-        pageURL = type;
-    }
+    // filter condition
+    let filterCondition = {
+        url: pageURL
+    };
 
     // promise
     const promise = !categoryItem
@@ -48,7 +46,7 @@ router.get('*', (request, response, next) => {
         ? Promise.reject(new Error('Can not find a category item!'))
 
         // get the content
-        : categoryItem.databaseModel.findOne({url: pageURL}).populate('content');
+        : categoryItem.databaseModel.findOne(filterCondition).populate('content');
 
     // solve promise
     promise
@@ -76,9 +74,20 @@ router.get('*', (request, response, next) => {
                 // account template and not has user logged in => redirect 404
                 if(result.template === 'account' && !response.locals.user) return Promise.reject('404 page ne');
 
-                // custom template that has subpage
-                if(subPageId){
+                // products template
+                if(result.template === 'products'){
+
                     console.log(subPageId);
+                    // produce detail
+                    if(subPageId){
+                        console.log(subPageId);
+                    }
+
+                    // product overview
+                    else{
+                        result.products = await ProductsTemplate.getAllData();
+                    }
+
                 }
 
                 // render to frontend
