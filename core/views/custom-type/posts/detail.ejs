@@ -148,7 +148,7 @@ if(isEditPost){
                 <% if(allCategories.length > 0) { %>
                     <div class="posts-detail__dropdown fl-center-v">
                         <label for="category-dropdown">Categories</label>
-                        <select data-easy-select name="oldCategories" id="category-dropdown">
+                        <select data-easy-select name="availableCategories" id="category-dropdown">
                             <option value="" selected hidden="">Choose here</option>
                             <% allCategories.forEach(category => { %>
                             <option <%= isSelectedValue('categories', category.prettyName , 'prettyName')%>><%=category.prettyName%></option>

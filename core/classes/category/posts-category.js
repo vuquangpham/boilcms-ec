@@ -112,19 +112,19 @@ class POSTS extends Category {
         let postType = response.locals.categoryItem.type;
 
         // get categories from select
-        let oldCategories = request.body.oldCategories
+        let availableCategories = request.body.availableCategories
 
         // defined uncategorized object
         let uncategorized = {prettyName: 'Uncategorized', type: postType}
 
         // save category
         // if category have select value
-        if (oldCategories) {
-            categories = await Categories.findOne({prettyName: oldCategories, type: postType})
+        if (availableCategories) {
+            categories = await Categories.findOne({prettyName: availableCategories, type: postType})
         }
 
         // if select and input don't have any value
-        else if (!oldCategories && !request.body.categories) {
+        else if (!availableCategories && !request.body.categories) {
             categories = await Categories.findOne(uncategorized);
             if (!categories) {
                 categories = new Categories(uncategorized)
