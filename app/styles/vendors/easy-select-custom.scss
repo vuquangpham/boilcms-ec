@@ -6,9 +6,9 @@
 body .easy-select {
   --es-height: 36px;
   --es-bg: #fff;
-  //--es-bg-hover:;
+  --es-bg-hover: var(--color-secondary);
   //--es-text:;
-  //--es-text-hover:;
+  --es-text-hover: #fff;
   //--es-border:1px solid ;
   //--es-border-hover:1px solid ;
   --es-radius: 5px;
@@ -32,4 +32,10 @@ body .es-current .es-option {
 // arrow icon
 body .es-current .es-option:after {
   right: 10px;
+}
+
+body .es-option.es-disabled {
+  opacity: 0.2;
+  background: var(--es-bg) !important;
+  color: var(--es-text) !important;
 }

@@ -26,162 +26,164 @@
         <span class="current"><%= data.name %></span>
     </div>
 
-    <div class="product-detail margin-bottom-default" data-product-id="<%= data.id; %>">
+    <div class="product-detail margin-bottom-default" data-product-id="<%= data.id; %>"
+         data-available-variations="<%= JSON.stringify(data.availableVariations || []) %>">
 
         <% data.products.forEach(product => { %>
-            <div class="product-detail__inner fl-grid ai-start"
+            <div class="product-detail__inner"
                  data-selected-attributes="<%= JSON.stringify(product.selectedAttributes ?? []); %>">
 
-                <div class="product-detail__left">
+                <div class="fl-grid ai-start">
 
-                    <div class="product-detail__gallery ab-full-a">
-                        <div class="product-detail__images">
+                    <div class="product-detail__left">
 
-                            <!-- product images -->
-                            <% product.images.forEach(image => { %>
+                        <div class="product-detail__gallery ab-full-a">
+                            <div class="product-detail__images">
 
-                                <div class="product-detail__image img-wrapper-cover">
-                                    <img src="<%= image.url.original %>" alt="<%= image.name %>">
-                                </div>
-
-                            <% }) %>
-
-                        </div>
-
-                        <% if (product.images.length > 1) { %>
-                            <div class="product-detail__images-nav">
-                                <!-- nav -->
+                                <!-- product images -->
                                 <% product.images.forEach(image => { %>
 
-                                    <div class="product-detail__image-nav">
-                                        <div class="ar-1 img-wrapper-cover">
-                                            <img src="<%= image.url.small %>" alt="<%= image.name %>">
+                                    <div class="product-detail__image img-wrapper-cover">
+                                        <img src="<%= image.url.original %>" alt="<%= image.name %>">
+                                    </div>
+
+                                <% }) %>
+
+                            </div>
+
+                            <% if (product.images.length > 1) { %>
+                                <div class="product-detail__images-nav">
+                                    <!-- nav -->
+                                    <% product.images.forEach(image => { %>
+
+                                        <div class="product-detail__image-nav">
+                                            <div class="ar-1 img-wrapper-cover">
+                                                <img src="<%= image.url.small %>" alt="<%= image.name %>">
+                                            </div>
                                         </div>
-                                    </div>
 
-                                <% }) %>
+                                    <% }) %>
+                                </div>
+                            <% } %>
+                        </div>
+
+                    </div>
+
+                    <div class="product-detail__right">
+
+                        <!-- title -->
+                        <div class="product-detail__title boil-content">
+                            <h1 class="heading-2"><%= data.name %></h1>
+                        </div>
+
+                        <!-- description -->
+                        <div class="product-detail__description">
+                            <p><%= data.description %></p>
+                        </div>
+
+                        <!-- price -->
+                        <div class="product-detail__price">
+
+                            <% if (product.salePrice) { %>
+                                <span class="price"><%= product.salePrice; %>$</span>
+                                <span class="price price--with-stroke"><%= product.price; %>$</span>
+                                <span class="sale-amount">-<%= parseInt(100 - (product.salePrice * 100) / product.price); %>%</span>
+                            <% }  else { %>
+                                <span class="price"><%= product.price; %>$</span>
+                            <% } %>
+
+                        </div>
+
+                        <!-- variations -->
+                        <% if (product.selectedAttributes) { %>
+                            <div class="product-detail__attributes">
+                                <div class="form-fields">
+                                    <% data.attributes.forEach((attribute) => { %>
+                                        <div class="field third vertical-layout">
+                                            <label for="<%= attribute.name; %>"
+                                                   class="tt-capitalize"><%= attribute.name; %></label>
+                                            <select data-product-attribute-select name="<%= attribute.name %>"
+                                                    id="<%= attribute.name %>">
+                                                <% attribute.values.forEach(v => { %>
+
+                                                    <%
+                                                        // is selected attribute
+                                                        const isSelected = product.selectedAttributes.find(s => s.name === attribute.name && s.value === v.name);
+                                                    %>
+
+                                                    <option value="<%= v.name %>" <%= isSelected ? 'selected data-active-option' : '' %>><%= v.prettyName %></option>
+
+                                                <% }) %>
+                                            </select>
+                                        </div>
+                                    <% }) %>
+                                </div>
                             </div>
                         <% } %>
-                    </div>
 
+                        <!-- add-to-cart -->
+                        <div class="product-detail__add-to-cart">
+
+                            <div class="product-detail__add-to-cart-inner d-flex">
+                                <div class="product-detail__quantity">
+                                    <button class="clear-button-style" type="button" disabled>-</button>
+                                    <label>
+                                        <input type="number" min="0" max="<%= product.inventory %>" value="0">
+                                    </label>
+                                    <button class="clear-button-style" type="button">+</button>
+                                </div>
+
+                                <div class="product-detail__add-to-cart-btn">
+                                    <button class="btn_primary h100 w100">Add to cart</button>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <!-- services -->
+                        <div class="product-detail__services flex-grid-template">
+                            <%
+                                const services = [
+                                    {
+                                        svg: '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" width="25"><path stroke-linecap="round" stroke-linejoin="round" d="M21 16.811c0 .864-.933 1.405-1.683.977l-7.108-4.062a1.125 1.125 0 010-1.953l7.108-4.062A1.125 1.125 0 0121 8.688v8.123zM11.25 16.811c0 .864-.933 1.405-1.683.977l-7.108-4.062a1.125 1.125 0 010-1.953L9.567 7.71a1.125 1.125 0 011.683.977v8.123z"/></svg>',
+                                        text: 'Easily exchange and return with phone number'
+                                    },
+                                    {
+                                        svg: '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" width="25"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 00-3.213-9.193 2.056 2.056 0 00-1.58-.86H14.25M16.5 18.75h-2.25m0-11.177v-.958c0-.568-.422-1.048-.987-1.106a48.554 48.554 0 00-10.026 0 1.106 1.106 0 00-.987 1.106v7.635m12-6.677v6.677m0 4.5v-4.5m0 0h-12"/></svg>',
+                                        text: 'Free ship with order more than 100$'
+                                    },
+                                    {
+                                        svg: '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" width="25"><path stroke-linecap="round" stroke-linejoin="round" d="M9 15L3 9m0 0l6-6M3 9h12a6 6 0 010 12h-3"/></svg>',
+                                        text: '60 days exchange and return with any reasons'
+                                    },
+                                    {
+                                        svg: '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" width="25"> <path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-1.605.42-3.113 1.157-4.418" /> </svg>',
+                                        text: 'Fast deliver service'
+                                    }
+                                ]
+                            %>
+
+                            <% services.forEach(s => { %>
+                                <div class="product-detail__services-item ta-center">
+                                    <div class="product-detail__services-icon"><%- s.svg %></div>
+                                    <div class="product-detail__services-text txt_14px"><%= s.text %></div>
+                                </div>
+                            <% }) %>
+                        </div>
+
+                        <!-- special additions -->
+                        <div class="product-detail__addition">
+                            <div class="fw-bold mar" style="margin-bottom:.5rem">Special Characters:</div>
+                            <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores consequatur
+                                deserunt
+                                distinctio facere neque quae quas quisquam quo temporibus? Aperiam atque dolore hic
+                                magni
+                                non officiis pariatur possimus sunt vero!
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
-
-                <div class="product-detail__right">
-
-                    <!-- title -->
-                    <div class="product-detail__title boil-content">
-                        <h1 class="heading-2"><%= data.name %></h1>
-                    </div>
-
-                    <!-- description -->
-                    <div class="product-detail__description">
-                        <p><%= data.description %></p>
-                    </div>
-
-                    <!-- price -->
-                    <div class="product-detail__price">
-
-                        <% if (product.salePrice) { %>
-                            <span class="price"><%= product.salePrice; %>$</span>
-                            <span class="price price--with-stroke"><%= product.price; %>$</span>
-                            <span class="sale-amount">-<%= parseInt(100 - (product.salePrice * 100) / product.price); %>%</span>
-                        <% }  else { %>
-                            <span class="price"><%= product.price; %>$</span>
-                        <% } %>
-
-                    </div>
-
-                    <!-- variations -->
-                    <% if (product.selectedAttributes) { %>
-                        <div class="product-detail__attributes">
-                            <div class="form-fields">
-                                <% data.attributes.forEach((attribute) => { %>
-                                    <div class="field third vertical-layout">
-                                        <label for="<%= attribute.name; %>"
-                                               class="tt-capitalize"><%= attribute.name; %></label>
-                                        <select data-product-attribute-select name="<%= attribute.name %>"
-                                                id="<%= attribute.name %>">
-                                            <% attribute.values.forEach(v => { %>
-
-                                                <%
-                                                    // is selected attribute
-                                                    const isSelected = product.selectedAttributes.find(s => s.name === attribute.name && s.value === v.name);
-
-                                                    // is disabled attribute
-                                                    const isDisabled = product.isSe
-                                                %>
-
-                                                <option value="<%= v.name %>" <%= isSelected ? 'selected' : '' %>><%= v.prettyName %></option>
-
-                                            <% }) %>
-                                        </select>
-                                    </div>
-                                <% }) %>
-                            </div>
-                        </div>
-                    <% } %>
-
-                    <!-- add-to-cart -->
-                    <div class="product-detail__add-to-cart">
-
-                        <div class="product-detail__add-to-cart-inner d-flex">
-                            <div class="product-detail__quantity">
-                                <button class="clear-button-style" type="button" disabled>-</button>
-                                <label>
-                                    <input type="number" min="0" max="<%= product.inventory %>" value="0">
-                                </label>
-                                <button class="clear-button-style" type="button">+</button>
-                            </div>
-
-                            <div class="product-detail__add-to-cart-btn">
-                                <button class="btn_primary h100 w100">Add to cart</button>
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <!-- services -->
-                    <div class="product-detail__services flex-grid-template">
-                        <%
-                            const services = [
-                                {
-                                    svg: '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" width="25"><path stroke-linecap="round" stroke-linejoin="round" d="M21 16.811c0 .864-.933 1.405-1.683.977l-7.108-4.062a1.125 1.125 0 010-1.953l7.108-4.062A1.125 1.125 0 0121 8.688v8.123zM11.25 16.811c0 .864-.933 1.405-1.683.977l-7.108-4.062a1.125 1.125 0 010-1.953L9.567 7.71a1.125 1.125 0 011.683.977v8.123z"/></svg>',
-                                    text: 'Easily exchange and return with phone number'
-                                },
-                                {
-                                    svg: '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" width="25"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 00-3.213-9.193 2.056 2.056 0 00-1.58-.86H14.25M16.5 18.75h-2.25m0-11.177v-.958c0-.568-.422-1.048-.987-1.106a48.554 48.554 0 00-10.026 0 1.106 1.106 0 00-.987 1.106v7.635m12-6.677v6.677m0 4.5v-4.5m0 0h-12"/></svg>',
-                                    text: 'Free ship with order more than 100$'
-                                },
-                                {
-                                    svg: '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" width="25"><path stroke-linecap="round" stroke-linejoin="round" d="M9 15L3 9m0 0l6-6M3 9h12a6 6 0 010 12h-3"/></svg>',
-                                    text: '60 days exchange and return with any reasons'
-                                },
-                                {
-                                    svg: '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" width="25"> <path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-1.605.42-3.113 1.157-4.418" /> </svg>',
-                                    text: 'Fast deliver service'
-                                }
-                            ]
-                        %>
-
-                        <% services.forEach(s => { %>
-                            <div class="product-detail__services-item ta-center">
-                                <div class="product-detail__services-icon"><%- s.svg %></div>
-                                <div class="product-detail__services-text txt_14px"><%= s.text %></div>
-                            </div>
-                        <% }) %>
-                    </div>
-
-                    <!-- special additions -->
-                    <div class="product-detail__addition">
-                        <div class="fw-bold mar" style="margin-bottom:.5rem">Special Characters:</div>
-                        <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores consequatur deserunt
-                            distinctio facere neque quae quas quisquam quo temporibus? Aperiam atque dolore hic magni
-                            non officiis pariatur possimus sunt vero!
-                        </div>
-                    </div>
-
-                </div>
-
 
             </div>
         <% }) %>

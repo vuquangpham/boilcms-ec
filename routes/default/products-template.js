@@ -126,8 +126,11 @@ const getProductDetail = async(product) => {
         }
 
         case "variable":{
+            // vars
             const attributes = productObject.attributes;
             const variations = productObject.variations;
+
+            returnObject.availableVariations = [];
 
             // loop through the variations
             const productPromises = variations.map(async variation => {
@@ -150,6 +153,8 @@ const getProductDetail = async(product) => {
                 returnObj.selectedAttributes = variation.selectedAttributes;
                 returnObj.images = images;
 
+                returnObject.availableVariations.push(variation.selectedAttributes);
+
                 return returnObj;
             });
 
@@ -163,8 +168,6 @@ const getProductDetail = async(product) => {
         default:{
         }
     }
-    console.log('return object', returnObject);
-
     return returnObject;
 };
 
