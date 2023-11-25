@@ -130,10 +130,17 @@ class Products{
                 deps.push(filteredValue);
 
                 // find index
-                const index = this.products.findIndex(product => product.value.find(pValue => deps.every(depValue => pValue.name === depValue.name && pValue.value === depValue.value)));
+                const index = this.products.findIndex(product => {
+                    // get products values based on dependency
+                    const productValues = product.value.filter(v => deps.find(depValue => depValue.value === v.value));
+
+                    // false if product values with no values or the length is smaller than the dependency
+                    return !(productValues.length === 0 || productValues.length < deps.length);
+
+                });
 
                 // not have result
-                if(index === -1) break;
+                if(index === -1) continue;
 
                 // save the index
                 result = index;
