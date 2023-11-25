@@ -121,8 +121,8 @@ class ProductPost{
     }
 
     handleSubmit(e){
-        const isSimpleSaveValid = this.simpleProduct.save();
-        const isVariableSaveValid = this.variableProduct.save();
+        // const isSimpleSaveValid = this.simpleProduct.save();
+        // const isVariableSaveValid = this.variableProduct.save();
         const hasSelectCategoryImage = this.elements.productCategoryImageInput.value;
 
         // validate category image
@@ -138,10 +138,10 @@ class ProductPost{
             categoryImageWrapper.classList.remove('invalid');
         }
 
-        // validate
-        if(!isSimpleSaveValid || !isVariableSaveValid){
-            e.preventDefault();
-        }
+        // // validate
+        // if(!isSimpleSaveValid || !isVariableSaveValid){
+        //     e.preventDefault();
+        // }
     }
 }
 
