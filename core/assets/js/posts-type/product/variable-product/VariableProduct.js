@@ -139,7 +139,6 @@ export default class VariableProduct extends Product{
 
         // load variation
         object.variations.forEach(v => {
-            console.log(v);
             const el = Variations.createDOM(v);
             this.elements.variations.appendChild(el);
         });
@@ -183,6 +182,10 @@ export default class VariableProduct extends Product{
 
         // save attribute
         else if(target.closest('[data-product-attribute-save-btn]')){
+            // show
+            this.createLoading();
+
+            // vars
             const wrapper = target.closest('[data-product-attribute-item]');
 
             // validate
@@ -191,6 +194,9 @@ export default class VariableProduct extends Product{
 
             // call the save method
             this.save();
+
+            // remove
+            this.removeLoading();
         }
 
         // remove attribute
@@ -219,6 +225,10 @@ export default class VariableProduct extends Product{
 
         // save variation
         else if(target.closest('[data-variation-save-btn]')){
+            // show loading
+            this.createLoading();
+
+            // vars
             const wrapper = target.closest('[data-product-variation-item]');
 
             // validate
@@ -227,6 +237,9 @@ export default class VariableProduct extends Product{
 
             // save
             this.save();
+
+            // remove loading
+            this.removeLoading();
         }
 
         // remove variation
@@ -239,5 +252,19 @@ export default class VariableProduct extends Product{
             // call the save method
             this.save();
         }
+    }
+
+    createLoading(){
+        this.loading = document.createElement('div');
+        this.loading.classList.add('loading');
+        document.body.appendChild(this.loading);
+    }
+
+    removeLoading(){
+        if(!this.loading) return;
+
+        setTimeout(() => {
+            this.loading.remove();
+        }, 200);
     }
 }
