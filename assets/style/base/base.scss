@@ -104,7 +104,7 @@ button.clear-button-style {
   right: 0;
   bottom: 0;
   z-index: 2;
-  background-color: rgba(255, 255, 255, 0.7);
+  background-color: rgba(255, 255, 255, 0.9);
 }
 
 .loading:after {
@@ -132,7 +132,10 @@ button.clear-button-style {
 }
 
 // add to the body
-body.loading {
-  overflow: hidden;
-  height: 100vh
+body > .loading {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
 }

@@ -105,6 +105,9 @@ class Products{
             return;
         }
 
+        // add loading
+        this.createLoading();
+
         const currentProduct = this.products.find(p => p.active === true);
         const values = currentProduct.select.map(selectObj => ({
             name: selectObj.name,
@@ -161,6 +164,11 @@ class Products{
         // flag
         this.notTriggerOnChange = value !== select.value;
         instance.select(value);
+
+        // loading state
+        setTimeout(() => {
+            this.removeLoading();
+        }, 500);
     }
 
     initSliderAndES(){
@@ -253,6 +261,16 @@ class Products{
 
             instance.refresh();
         });
+    }
+
+    createLoading(){
+        this.loading = document.createElement('div');
+        this.loading.classList.add('loading');
+        document.body.appendChild(this.loading);
+    }
+
+    removeLoading(){
+        if(this.loading) this.loading.remove();
     }
 }
 
