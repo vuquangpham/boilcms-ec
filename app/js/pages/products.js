@@ -181,7 +181,7 @@ class Products{
                 // options
                 contain: true,
                 pageDots: false,
-                prevNextButtons: true,
+                prevNextButtons: mainSlider.children.length > 1,
                 groupCells: '100%',
                 wrapAround: true,
                 fade: true
