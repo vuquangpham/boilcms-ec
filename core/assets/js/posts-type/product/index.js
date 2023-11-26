@@ -9,7 +9,7 @@ class ProductPost{
 
         // elements
         this.elements = {
-            productCategoryImageInput: this.wrapper.querySelector('[data-product-category-image]')
+            productCategoryImageInput: this.wrapper.querySelector('[data-product-category-image]'),
         };
 
         // create the product variation
@@ -32,6 +32,7 @@ class ProductPost{
 
         // init easy select
         EasySelect.init(this.wrapper.querySelector('[data-product-types-select]'), {
+            id: 'product-type-select',
             onInit: data => {
                 const value = data.instance.value;
                 this.changeProductTypes(value);
@@ -41,6 +42,7 @@ class ProductPost{
                 this.changeProductTypes(value);
             }
         });
+        this.productTypeES = EasySelect.get('product-type-select');
 
         // handle submit
         this.wrapper.querySelector('form').addEventListener('submit', this.handleSubmit.bind(this));
@@ -121,8 +123,9 @@ class ProductPost{
     }
 
     handleSubmit(e){
-        // const isSimpleSaveValid = this.simpleProduct.save();
-        // const isVariableSaveValid = this.variableProduct.save();
+        const productType = this.productTypeES.value;
+        const isSimpleSaveValid = this.simpleProduct.save();
+        const isVariableSaveValid = this.variableProduct.save();
         const hasSelectCategoryImage = this.elements.productCategoryImageInput.value;
 
         // validate category image
@@ -138,10 +141,11 @@ class ProductPost{
             categoryImageWrapper.classList.remove('invalid');
         }
 
-        // // validate
-        // if(!isSimpleSaveValid || !isVariableSaveValid){
-        //     e.preventDefault();
-        // }
+        // validate
+        if((productType === 'simple' && !isSimpleSaveValid) || (productType === 'variable' && !isVariableSaveValid)){
+            e.preventDefault();
+            return;
+        }
     }
 }
 
