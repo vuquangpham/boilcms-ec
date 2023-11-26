@@ -139,6 +139,7 @@ export default class VariableProduct extends Product{
 
         // load variation
         object.variations.forEach(v => {
+            console.log(v);
             const el = Variations.createDOM(v);
             this.elements.variations.appendChild(el);
         });
@@ -155,10 +156,26 @@ export default class VariableProduct extends Product{
             const wrapperToAppend = this.elements.attributes;
 
             // create the new attribute
-            Attributes.createNewAttribute(wrapper, wrapperToAppend);
+            const attribute = Attributes.createNewAttribute(wrapper, wrapperToAppend);
+
+            // clear the variation
+            this.elements.variations.innerHTML = '';
+
+            // add new attribute to variations
+            this.object.variations.forEach(v => {
+                v.attributes.push(attribute);
+                v.selectedAttributes.push({
+                    name: attribute.name,
+                    value: attribute.values[0].name
+                });
+
+                const el = Variations.createDOM(v);
+                this.elements.variations.appendChild(el);
+            });
 
             // save
             this.save();
+
 
             // resize the tab
             this.resizeTab();

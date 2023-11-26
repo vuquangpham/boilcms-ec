@@ -118,6 +118,8 @@ class Attributes{
         // clear the dom
         nameInput.value = '';
         valuesInput.value = '';
+
+        return validatedData;
     }
 }
 
