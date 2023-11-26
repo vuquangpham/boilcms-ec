@@ -125,12 +125,15 @@
                         <div class="product-detail__add-to-cart">
 
                             <div class="product-detail__add-to-cart-inner d-flex">
-                                <div class="product-detail__quantity">
-                                    <button class="clear-button-style" type="button" disabled>-</button>
+                                <div class="product-detail__quantity quantity">
+                                    <button class="clear-button-style quantity-button decrease" type="button" disabled>
+                                        -
+                                    </button>
                                     <label>
-                                        <input type="number" min="0" max="<%= product.inventory %>" value="0">
+                                        <input type="number" min="1" max="<%= product.inventory %>" value="1" step="1"
+                                               data-prev-val="1">
                                     </label>
-                                    <button class="clear-button-style" type="button">+</button>
+                                    <button class="clear-button-style quantity-button increase" type="button">+</button>
                                 </div>
 
                                 <div class="product-detail__add-to-cart-btn">

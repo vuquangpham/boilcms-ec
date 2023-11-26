@@ -1,4 +1,5 @@
 import '../vendors/flickity';
+import '../components/product-quantity';
 
 class Products{
     constructor(wrapper){
