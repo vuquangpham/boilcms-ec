@@ -1,4 +1,5 @@
 const ProductsCategory = require('../../core/categories/product');
+const Categories = require('../../core/database/categories/model');
 const Media = require('../../core/categories/media');
 const {stringToSlug} = require("../../core/utils/helper.utils");
 
@@ -83,7 +84,6 @@ const getAllData = () => {
 };
 
 const getProductDetail = async(product) => {
-
     // category image
     const categoryImage = await Media.getDataById(product.categoryImage);
 
@@ -164,10 +164,22 @@ const getProductDetail = async(product) => {
 
             break;
         }
-
-        default:{
-        }
     }
+
+    try{
+        // related products
+        returnObject.relatedProducts = ProductsCategory.databaseModel.find({
+            categories: product.categories,
+            _id: {
+                $not: {
+                    $eq: ''
+                }
+            }
+        });
+    }catch(e){
+        returnObject.relatedProducts = [];
+    }
+
     return returnObject;
 };
 
