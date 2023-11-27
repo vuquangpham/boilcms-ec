@@ -118,6 +118,7 @@ router.get('*', (request, response, next) => {
             response.render('default/pages/' + categoryItem.type, {
                 data: result,
                 title,
+                categoryItem,
             });
 
         })

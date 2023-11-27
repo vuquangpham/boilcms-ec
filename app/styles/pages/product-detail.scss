@@ -206,7 +206,22 @@
   &:not(.init-enabled) .product-detail__inner:not(:first-child) {
     display: none;
   }
+}
 
+.related-products {
+  // product
+  &__products {
+    --item-lr-padding: .5rem;
+    --item-width: 33.33%;
+
+    margin: 0 calc(-1 * var(--item-lr-padding));
+
+    // item
+    a.product-item {
+      width: var(--item-width);
+      padding: var(--item-lr-padding);
+    }
+  }
 }
 
 /********************************

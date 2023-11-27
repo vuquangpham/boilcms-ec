@@ -11,6 +11,7 @@ import '@global/vendors/popup/Popup.min.css';
 
 // pages
 import './pages/products';
+import './pages/product-detail';
 import './pages/account';
 
 // components

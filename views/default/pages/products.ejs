@@ -193,6 +193,68 @@
 
     </div>
 
+    <% if (data.relatedProducts) { %>
+        <div class="related-products margin-bottom-default">
+            <div class="related-products__heading boil-content margin-bottom-medium">
+                <h2>Related Products</h2>
+            </div>
+
+            <div class="related-products__products">
+                <% data.relatedProducts.forEach(product => { %>
+
+                    <a href="/<%= categoryItem.type + '/' + product.url; %>" class="product-item d-block td-none">
+
+                        <div class="product-item__inner fd-column d-flex">
+                            <div class="product-item__image img-wrapper-cover skeleton-bg">
+                                <img src="<%= product.categoryImage.url.original; %>"
+                                     alt="<%= product.categoryImage.name; %>">
+                            </div>
+
+                            <div class="product-item__bottom">
+
+                                <% if (product.attributes) { %>
+                                    <div class="product-item__variations">
+
+                                        <% product.attributes.forEach(attribute => { %>
+                                            <div class="product-item__variation fl-grid ai-center">
+                                                <% attribute.values.forEach(v => { %>
+                                                    <% const isCurrentVariation = product.selectedAttributes.find(s => s.name === attribute.name && s.value === v.name); %>
+
+                                                    <span class="<%= isCurrentVariation ? 'active' : ''; %>"><%= v.prettyName; %></span>
+
+                                                <% }); %>
+                                            </div>
+                                        <% }); %>
+
+                                    </div>
+                                <% } %>
+
+                                <h2 class="product-item__title"><%= product.name; %></h2>
+                                <div class="product-item__description"><%= product.description; %></div>
+                                <div class="product-item__price">
+
+                                    <% if (product.salePrice) { %>
+                                        <span class="price"><%= product.salePrice; %>$</span>
+                                        <span class="price price--with-stroke"><%= product.price; %>$</span>
+                                        <span class="sale-amount">-<%= parseInt(100 - (product.salePrice * 100) / product.price); %>%</span>
+                                    <% }  else { %>
+                                        <span class="price"><%= product.price; %>$</span>
+                                    <% } %>
+                                </div>
+
+                                <% if (product.addition) { %>
+                                    <div class="product-item__addition"><%= product.addition; %></div>
+                                <% } %>
+                            </div>
+                        </div>
+
+                    </a>
+
+                <% }) %>
+            </div>
+        </div>
+    <% } %>
+
 </div>
 
 <%- include('../partials/footer.ejs'); %>

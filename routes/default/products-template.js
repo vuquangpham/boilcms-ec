@@ -162,15 +162,17 @@ const getProductDetail = async(product) => {
 
     try{
         // related products
-        returnObject.relatedProducts = ProductsCategory.databaseModel.find({
+        const rawRelatedProducts = await ProductsCategory.databaseModel.find({
             categories: product.categories,
             _id: {
                 $not: {
-                    $eq: ''
+                    $eq: product._id
                 }
             }
         });
+        returnObject.relatedProducts = await Promise.all(rawRelatedProducts.map(getPreviewProduct));
     }catch(e){
+        console.log(e);
         returnObject.relatedProducts = [];
     }
 
