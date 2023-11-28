@@ -13,7 +13,8 @@ class ComponentController extends Controller{
         this.paramTypes = {
             TEXT: 'text',
             IMAGE: 'image',
-            TEXT_FIELD: 'text-field'
+            TEXT_FIELD: 'text-field',
+            FORM: 'form'
         };
     }
 
