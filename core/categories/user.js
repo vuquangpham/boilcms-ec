@@ -239,9 +239,12 @@ class User extends Category{
 
                         // get the product variation
                         const product = await ProductCategory.getDataById(productId);
-                        const jsonText = productType === 'simple' ? product.simpleProductJSON : product.variableProductJSON;
+                        const isSimpleProduct = productType === 'simple';
+
+                        // get object
+                        const jsonText = isSimpleProduct ? product.simpleProductJSON : product.variableProductJSON;
                         const productObject = JSON.parse(jsonText);
-                        const productVariation = productObject.variations[variationIndex];
+                        const productVariation = isSimpleProduct ? productObject : productObject.variations[variationIndex];
 
                         // not has variation, maybe deleted => remove the order
                         if(!productVariation){
