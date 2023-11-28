@@ -61,6 +61,7 @@ class Variations{
 
         const images = data.imagesId || [];
         const inventory = data.inventory;
+        const description = data.description;
         const price = data.price;
         const salePrice = data.salePrice;
 
@@ -184,6 +185,11 @@ class Variations{
                 <input type="number" placeholder="Sale Price"
                        name="sale-price" data-variation-sale-price value="${salePrice ?? ''}">
                 <div class="description" style="display:block;">You can leave it empty!</div>
+            </div>
+            
+            <div class="field vertical-layout">
+                <label for="">Description</label>
+                <textarea data-variation-description class="w100">${description ?? ''}</textarea>
             </div>
             
             <div class="field">

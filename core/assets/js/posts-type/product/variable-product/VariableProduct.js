@@ -57,9 +57,7 @@ export default class VariableProduct extends Product{
     generateDOMToObject(){
         const object = {
             inventory: 0,
-
             price: 0,
-            salePrice: 0,
 
             attributes: [],
             variations: []
@@ -68,7 +66,6 @@ export default class VariableProduct extends Product{
         // general
         object.inventory = parseInt(this.elements.general.querySelector('[data-product-inventory]').value) || 0;
         object.price = parseInt(this.elements.general.querySelector('[data-product-price]').value) || 0;
-        object.salePrice = parseInt(this.elements.general.querySelector('[data-product-sale-price]').value) || 0;
 
         // attributes
         this.elements.attributes.querySelectorAll('[data-product-attribute-item]').forEach(e => {
@@ -84,6 +81,7 @@ export default class VariableProduct extends Product{
                 salePrice: 0,
 
                 imagesId: [],
+                description: '',
 
                 attributes: [],
                 selectedAttributes: []
@@ -121,6 +119,9 @@ export default class VariableProduct extends Product{
             // salePrice
             variation.salePrice = parseFloat(wrapper.querySelector('[data-variation-sale-price]').valueAsNumber);
 
+            // description
+            variation.description = wrapper.querySelector('[data-variation-description]').value;
+
             // save to object
             object.variations.push(variation);
         });
@@ -150,6 +151,16 @@ export default class VariableProduct extends Product{
         });
 
         return object;
+    }
+
+    save(){
+        // re-assign object
+        this.object = this.generateDOMToObject();
+
+        // save to the dom
+        this.jsonElement.innerHTML = JSON.stringify(this.object);
+
+        return true;
     }
 
     handleWrapperClick(e){

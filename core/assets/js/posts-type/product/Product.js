@@ -8,20 +8,11 @@ export default class Product{
     }
 
     generateObjectToDOM(){
-
     }
 
     generateDOMToObject(){
-
     }
 
     save(){
-        // re-assign object
-        this.object = this.generateDOMToObject();
-
-        // save to the dom
-        this.jsonElement.innerHTML = JSON.stringify(this.object);
-
-        return true;
     }
 }
