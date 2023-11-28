@@ -17,7 +17,6 @@ import './pages/account';
 // components
 import './components/image-slider';
 import './components/accordion';
-import './components/header';
 import './components/home-banner';
 
 // scroll direction
