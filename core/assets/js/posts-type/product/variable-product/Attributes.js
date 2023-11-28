@@ -2,14 +2,14 @@ class Attributes{
     constructor(){
     }
 
-    validateAttribute(wrapper){
+    validateAttribute(wrapper, getData = false){
         const nameInput = wrapper.querySelector('input[data-attribute-name]');
         const valuesInput = wrapper.querySelector('input[data-attribute-values]');
 
         // name
         if(!nameInput.value.trim()){
             nameInput.closest('.field').classList.add('invalid');
-            return false;
+            return getData ? null : false;
         }else{
             nameInput.closest('.field').classList.remove('invalid');
         }
@@ -17,12 +17,12 @@ class Attributes{
         // values
         if(!valuesInput.value.trim()){
             valuesInput.closest('.field').classList.add('invalid');
-            return false;
+            return getData ? null : false;
         }else{
             valuesInput.closest('.field').classList.remove('invalid');
         }
 
-        return true;
+        return getData ? this.getPrettyData(nameInput, valuesInput) : true;
     }
 
     parseValuesData(value){
@@ -96,6 +96,14 @@ class Attributes{
         return div.firstElementChild;
     }
 
+    getPrettyData(nameInput, valuesInput){
+        return {
+            name: nameInput.value.trim(),
+            values: this.parseValuesData(valuesInput.value.trim()),
+            originalValue: valuesInput.value.trim()
+        };
+    }
+
     createNewAttribute(wrapper, wrapperToAppend){
         const isValidated = this.validateAttribute(wrapper);
         if(!isValidated) return;
@@ -103,11 +111,7 @@ class Attributes{
         const valuesInput = wrapper.querySelector('input[data-attribute-values]');
 
         // get the validated data
-        const validatedData = {
-            name: nameInput.value.trim(),
-            values: this.parseValuesData(valuesInput.value.trim()),
-            originalValue: valuesInput.value.trim()
-        };
+        const validatedData = this.getPrettyData(nameInput, valuesInput);
 
         // element
         const attributeElement = this.createDOM(validatedData);

@@ -99,13 +99,16 @@ export default class VariableProduct extends Product{
 
             // selected attributes
             const selectedAttributesEl = wrapper.querySelectorAll('[data-variation-attribute]');
-            selectedAttributesEl.forEach(e => {
+            selectedAttributesEl.forEach((e) => {
                 const name = e.getAttribute('data-variation-attribute');
-                const value = e.querySelector('select').value;
+
+                const select = e.querySelector('select');
+                const value = select.value;
+                const index = select.selectedIndex;
 
                 // append to the variation
                 variation.selectedAttributes.push({
-                    name, value
+                    name, value, index
                 });
             });
 
@@ -127,7 +130,10 @@ export default class VariableProduct extends Product{
 
     generateObjectToDOM(){
         const jsonString = this.jsonElement.innerHTML;
-        if(!jsonString) return;
+        if(!jsonString) return {
+            attributes: [],
+            variations: []
+        };
 
         const object = JSON.parse(jsonString);
 
@@ -175,7 +181,6 @@ export default class VariableProduct extends Product{
             // save
             this.save();
 
-
             // resize the tab
             this.resizeTab();
         }
@@ -189,11 +194,42 @@ export default class VariableProduct extends Product{
             const wrapper = target.closest('[data-product-attribute-item]');
 
             // validate
-            const isValidated = Attributes.validateAttribute(wrapper);
+            const isValidated = Attributes.validateAttribute(wrapper, true);
             if(!isValidated) return;
+
+            // save to the attribute
+            const objectInStr = JSON.stringify(isValidated);
+            wrapper.setAttribute('data-product-attribute-item', objectInStr);
 
             // call the save method
             this.save();
+
+            // clear the variation
+            this.elements.variations.innerHTML = '';
+
+            // change the variations
+            this.object.variations.forEach(v => {
+                v.attributes = this.object.attributes;
+                v.selectedAttributes = v.selectedAttributes.map(selected => {
+                    const attribute = this.object.attributes.find(a => a.name === selected.name);
+
+                    // get the value
+                    let value = attribute.values[selected.index];
+                    if(!value) value = attribute.values[0];
+
+                    // change the value
+                    selected.value = value.name;
+
+                    // change the name
+                    selected.name = attribute.name;
+
+                    return selected;
+                });
+
+                // create new dom
+                const el = Variations.createDOM(v);
+                this.elements.variations.appendChild(el);
+            });
 
             // remove
             this.removeLoading();
