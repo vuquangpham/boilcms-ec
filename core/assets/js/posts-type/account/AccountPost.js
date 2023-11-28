@@ -20,7 +20,8 @@ export default class AccountPost{
 
         // vars
         const urlObject = new URL(location.href);
-        this.FETCH_URL = urlObject.origin + '/boiler-admin/user';
+        const adminPath = urlObject.pathname.split('/')[1];
+        this.FETCH_URL = urlObject.origin + '/' + adminPath + '/user'
 
         // create popup
         Popup.create({
