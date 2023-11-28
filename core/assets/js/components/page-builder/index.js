@@ -23,7 +23,7 @@ export default class PageBuilder{
                 const eventTarget = self.event.target;
 
                 // not component detail popup
-                if(!eventTarget.closest('[data-popup="component-detail-popup"]')) return;
+                if(!eventTarget.closest('[data-popup="component-detail-popup"]')) return this.handleWrapperClick(self.event);
 
                 // open popup
                 this.componentDetailPopup.open();
