@@ -14,6 +14,7 @@ const DOMPurify = require('isomorphic-dompurify');
 
 // custom template
 const ProductsTemplate = require('./products-template');
+const {ADMIN_URL} = require("../../core/utils/config.utils");
 
 router.get('*', (request, response, next) => {
     const [type, pageURL] = getParamsOnRequest(request, ['', '']);
@@ -119,6 +120,7 @@ router.get('*', (request, response, next) => {
                 data: result,
                 title,
                 categoryItem,
+                adminPath: ADMIN_URL
             });
 
         })

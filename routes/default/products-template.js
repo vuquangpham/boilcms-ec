@@ -18,7 +18,6 @@ const getPreviewProduct = async(product) => {
         description,
         url,
         categoryImage,
-        nameSlug: stringToSlug(name)
     };
 
     // get price
@@ -92,6 +91,7 @@ const getProductDetail = async(product) => {
         description: product.description,
         url: product.url,
         categoryImage,
+        type,
     };
 
     // get price

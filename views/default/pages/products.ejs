@@ -29,11 +29,12 @@
     <div class="product-detail margin-bottom-default" data-product-id="<%= data.id; %>"
          data-available-variations="<%= JSON.stringify(data.availableVariations || []) %>">
 
-        <% data.products.forEach(product => { %>
+        <% data.products.forEach((product, index) => { %>
             <div class="product-detail__inner"
                  data-selected-attributes="<%= JSON.stringify(product.selectedAttributes ?? []); %>">
 
-                <div class="fl-grid ai-start">
+                <form action="/<%= adminPath %>/user?posts_type=user&method=post&action=edit" method="post"
+                      class="fl-grid ai-start">
 
                     <div class="product-detail__left">
 
@@ -131,13 +132,22 @@
                                     </button>
                                     <label>
                                         <input type="number" min="1" max="<%= product.inventory %>" value="1" step="1"
-                                               data-prev-val="1">
+                                               data-prev-val="1" name="quantity">
                                     </label>
                                     <button class="clear-button-style quantity-button increase" type="button">+</button>
                                 </div>
 
                                 <div class="product-detail__add-to-cart-btn">
                                     <button class="btn_primary h100 w100">Add to cart</button>
+                                    <input type="text" value="<%= data.type %>" readonly name="type"
+                                           class="hidden"
+                                           style="display:none;">
+                                    <input type="text" value="<%= index %>" readonly name="variation-index"
+                                           class="hidden" style="display:none;">
+                                    <input type="text" value="<%= data.id %>" readonly name="product-id" class="hidden"
+                                           style="display:none;">
+                                    <input type="text" value="<%= user._id %>" readonly name="id" class="hidden"
+                                           style="display:none;">
                                 </div>
                             </div>
 
@@ -186,7 +196,7 @@
                         </div>
 
                     </div>
-                </div>
+                </form>
 
             </div>
         <% }) %>
