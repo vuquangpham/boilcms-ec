@@ -27,6 +27,8 @@ class User extends Category{
         const quantity = request.body.quantity;
         const productType = request.body.type;
         const actionType = request.body.actionType || 'add'; // set or add
+
+        // has product id
         if(productId){
 
             return {
