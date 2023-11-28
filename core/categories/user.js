@@ -14,7 +14,7 @@ class User extends Category{
 
     /**
      * Validate input user
-     * */va;
+     * */
 
     validateInputData(inputData, action = 'add'){
         const request = inputData.request;
