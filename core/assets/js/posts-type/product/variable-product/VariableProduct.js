@@ -160,6 +160,12 @@ export default class VariableProduct extends Product{
         // save to the dom
         this.jsonElement.innerHTML = JSON.stringify(this.object);
 
+        // get total inventory
+        const totalInventory = this.object.variations.reduce((acc, cur) => {
+            return acc + cur.inventory;
+        }, 0);
+        this.elements.general.querySelector('[data-product-inventory]').value = totalInventory;
+
         return true;
     }
 
