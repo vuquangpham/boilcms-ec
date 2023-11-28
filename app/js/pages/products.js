@@ -20,11 +20,16 @@ class Products{
         // init slider and easy select
         this.initSliderAndES();
 
+        // simple product
+        const isSimpleProduct = this.availableVariations.length === 0;
+        if(isSimpleProduct) return;
+
         // set disabled status for the first select
         this.products.forEach(p => {
             const name = this.selectNamesOrder[0];
             const values = this.getAvailableDataBasedOnName(name).map(v => v.value);
             const select = p.select[0];
+
             this.addDisabledStatusToSelect(name, values, select);
         });
 
