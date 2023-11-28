@@ -2,7 +2,7 @@ import '../vendors/flickity';
 
 document.querySelectorAll('.image-slider').forEach(wrapper => {
     const slider = wrapper.querySelector('.image-slider__images');
-    const flkty = new Flickity(slider, {
+    const flkty = new FlickityResponsive(slider, {
         // options
         contain: true,
         pageDots: false,
