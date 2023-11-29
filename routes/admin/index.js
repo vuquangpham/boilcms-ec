@@ -52,6 +52,9 @@ router.all('*', (request, response, next) => {
         return next();
     }
 
+    // not have token
+    if(!response.locals.token) return response.redirect('/' + REGISTER_URL);
+
     // do not have permission
     if(!restrictTo(response, ...categoryItem.acceptedRoles)){
 
