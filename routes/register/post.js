@@ -2,7 +2,7 @@ const User = require('../../core/categories/user');
 
 // config
 const {sendAuthTokenAndCookies} = require("../../core/utils/token.utils");
-const {ADMIN_URL, REGISTER_URL} = require("../../core/utils/config.utils");
+const {ADMIN_URL, REGISTER_URL, ROLES} = require("../../core/utils/config.utils");
 const {splitUrl} = require("../../core/utils/helper.utils");
 
 const handlePostMethod = (request, response, next) => {
@@ -29,7 +29,7 @@ const handlePostMethod = (request, response, next) => {
             promise = User.resetPassword(request, resetUrlToken);
             break;
         }
-        case 'verify': {
+        case 'verify':{
             promise = User.verifyEmail(resetUrlToken);
             break;
         }
@@ -47,7 +47,7 @@ const handlePostMethod = (request, response, next) => {
                     sendAuthTokenAndCookies(result, response);
 
                     // redirect
-                    redirectURL = ADMIN_URL;
+                    redirectURL = result.role === ROLES.ADMIN.name ? ADMIN_URL : '/';
                     break;
                 }
 
@@ -74,7 +74,7 @@ const handlePostMethod = (request, response, next) => {
                     redirectURL = REGISTER_URL;
                     break;
                 }
-                case "verify": {
+                case "verify":{
                     // set notification
                     request.app.set('notification', {
                         type: 'success',
