@@ -2,6 +2,7 @@ const AccountType = require('../classes/utils/account-type');
 const Method = require('../classes/utils/method');
 const jwt = require("jsonwebtoken");
 const User = require('../categories/user');
+const CategoryController = require('../classes/category/category-controller');
 const {ADMIN_URL, REGISTER_URL, ROLES, ROLES_IN_ARRAY} = require("./config.utils");
 
 /**
@@ -23,6 +24,7 @@ const globalMiddleware = (request, response, next) => {
     response.locals.method = Method.getValidatedMethod(method);
     response.locals.getJSON = getJSON;
     response.locals.token = token;
+    response.locals.categories = CategoryController.instances;
 
     // roles
     response.locals.roles = ROLES;

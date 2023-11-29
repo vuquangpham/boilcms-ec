@@ -24,7 +24,8 @@ class Category{
             order: 0,
 
             // role can access this data
-            acceptedRoles: ["*"]
+            acceptedRoles: ["*"],
+            sendRequestWithoutLogin: false,
         };
         const validatedOptions = this.validateOptions({...defaultOptions, ...options});
         if(!validatedOptions) return null;
@@ -45,6 +46,7 @@ class Category{
 
         // roles
         this.acceptedRoles = validatedOptions.acceptedRoles;
+        this.sendRequestWithoutLogin = validatedOptions.sendRequestWithoutLogin;
     }
 
     /**

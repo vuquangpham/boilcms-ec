@@ -24,43 +24,55 @@ const {ADMIN_URL} = require("../../core/utils/config.utils");
  * Middleware for authenticate user
  * */
 router.all('*', (request, response, next) => {
+    // params, default point to the dashboard page
+    const [type] = getParamsOnRequest(request, ['default']);
+    const categoryItem = CategoryController.getCategoryItem(type);
+    const hasJSON = response.locals.getJSON;
 
-    // the token doesn't exist
-    if(!response.locals.token) return response.redirect(`/${REGISTER_URL}`);
+    // queries
+    const action = request.query.action;
+
+    // assign to response
+    response.locals.categoryItem = categoryItem;
+    response.locals.action = Action.getActionType(action);
+    response.locals.params = {type};
+
+    // category item doesn't exist
+    if(!categoryItem){
+
+        // error
+        if(hasJSON) return response.json(500);
+
+        // return to the default category
+        return response.redirect('/' + ADMIN_URL);
+    }
+
+    // category that support permission without login
+    if(categoryItem.sendRequestWithoutLogin){
+        return next();
+    }
 
     // do not have permission
-    if(!restrictTo(response, 'admin')){
+    if(!restrictTo(response, ...categoryItem.acceptedRoles)){
+
+        // find the category item that has permission
+        const categoryHasPermission = CategoryController.instances.find(c => restrictTo(response, ...c.acceptedRoles));
+        if(categoryHasPermission){
+            return response.redirect(categoryHasPermission.url);
+        }
+
+        // no category
         request.app.set('notification', {
             type: 'error',
             message: `You do not have permission to access the site. Please contact the administrator to get more detail!`
         });
 
+        // clear the token
         sendEmptyToken(response);
-
         return response.redirect(`/${REGISTER_URL}`);
     }
 
-    // call the next middleware
-    next();
-});
-
-/**
- * Middleware for registering variables
- * */
-router.all('*', (request, response, next) => {
-
-    // params, default point to the dashboard page
-    const [type] = getParamsOnRequest(request, ['default']);
-
-    // queries
-    const action = request.query.action;
-
-    // categories
-    response.locals.categories = CategoryController.instances;
-    response.locals.categoryItem = CategoryController.getCategoryItem(type);
-    response.locals.action = Action.getActionType(action);
-    response.locals.params = {type};
-
+    // call the next middleware with permission
     next();
 });
 
@@ -70,11 +82,6 @@ router.all('*', (request, response, next) => {
  * */
 router.all('*', upload.single('image'), (request, response, next) => {
     const method = response.locals.method;
-    const categoryItem = response.locals.categoryItem;
-
-    // validate the role or the category item to reach the category
-    if(!categoryItem || !restrictTo(response, ...categoryItem.acceptedRoles)) return response.redirect('/' + ADMIN_URL);
-
 
     switch(method.name){
         case 'get':{
