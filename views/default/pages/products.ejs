@@ -83,7 +83,7 @@
                         </div>
 
                         <!-- price -->
-                        <div class="product-detail__price">
+                        <div class="product-detail__price product-item__price">
 
                             <% if (product.salePrice) { %>
                                 <span class="price"><%= product.salePrice; %>$</span>
@@ -126,7 +126,7 @@
                         <div class="product-detail__add-to-cart">
 
                             <div class="product-detail__add-to-cart-inner d-flex">
-                                <div class="product-detail__quantity quantity">
+                                <div class="product-detail__quantity product-quantity quantity">
                                     <button class="clear-button-style quantity-button decrease" type="button" disabled>
                                         -
                                     </button>

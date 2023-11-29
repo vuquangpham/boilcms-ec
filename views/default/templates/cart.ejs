@@ -14,12 +14,111 @@
     <link rel="stylesheet" href="/themes/main-fe.css">
     <script src="/themes/main-fe.js" defer></script>
 </head>
-<body class="account">
+<body class="cart-page">
 
 <%- include('../partials/header.ejs'); %>
 
 <div class="container">
-    <h1>Cart</h1>
+    <div class="site-breadcrumbs margin-bottom-medium">
+        <a href="/">Home</a>
+        <span class="separator">/</span>
+        <span class="current">Cart</span>
+    </div>
+
+    <div class="site-title margin-bottom-medium">
+        <h1>Cart</h1>
+    </div>
+
+    <form method="get" action="/"
+          class="cart margin-bottom-default" data-custom-table>
+
+        <div data-column-wrapper="heading">
+            <div class="not-show-title" data-column="Select"></div>
+            <div data-column="Image">Image</div>
+            <div data-column="Name">Name</div>
+            <div data-column="Quantity">Quantity</div>
+            <div data-column="Price">Price</div>
+            <div data-column="Total Price">Total Price</div>
+        </div>
+
+        <% if (data.cart.length === 0) { %>
+            <h2>No items</h2>
+        <% } else { %>
+
+            <% data.cart.forEach(cartItem => { %>
+                <div data-column-wrapper="item" data-cart-wrapper>
+                    <div data-column="Select">
+                        <div class="-checkbox-radio">
+                            <input id="<%= cartItem.id %>" type="checkbox" value="<%= cartItem.id %>" name="variation">
+                            <label for="<%= cartItem.id %>">
+                                <span class="show-tablet-v"><span class="btn_primary">Select Product</span></span>
+                            </label>
+                        </div>
+                    </div>
+                    <div data-column="Image">
+                        <div class="img-wrapper-contain skeleton-bg">
+                            <img src="<%= cartItem.categoryImage.url.small %>" alt="<%= cartItem.categoryImage.name %>">
+                        </div>
+                    </div>
+                    <div data-column="Name">
+                        <div>
+                            <a style="margin-bottom:1rem;" class="d-block"
+                               href="<%= cartItem.url %>"><%= cartItem.name %></a>
+
+                            <div class="product-variation fl-grid">
+                                <% cartItem.selectedAttributes.forEach(s => { %>
+                                    <div class="variation">
+                                        <span class="tt-capitalize"><%= s.name %>: <span><%= s.value %></span></span>
+                                    </div>
+                                <% }) %>
+                            </div>
+                        </div>
+                    </div>
+                    <div data-column="Quantity">
+                        <div class="product-quantity quantity w100">
+                            <button class="clear-button-style quantity-button decrease" type="button">
+                                -
+                            </button>
+                            <label>
+                                <input type="number" min="0" max="<%= cartItem.variationQuantity %>"
+                                       value="<%= cartItem.quantity %>" step="1"
+                                       data-price="<%= cartItem.salePrice ?? cartItem.price %>"
+                                       data-prev-val="1" name="quantity">
+                            </label>
+                            <button class="clear-button-style quantity-button increase" type="button">+</button>
+                        </div>
+                    </div>
+                    <div data-column="Price">
+                        <div class="product-item__price">
+                            <% if (cartItem.salePrice) { %>
+                                <span class="price"><%= cartItem.salePrice; %>$</span>
+                                <span class="price price--with-stroke"><%= cartItem.price; %>$</span>
+                                <span class="sale-amount">-<%= parseInt(100 - (cartItem.salePrice * 100) / cartItem.price); %>%</span>
+                            <% }  else { %>
+                                <span class="price"><%= cartItem.price; %>$</span>
+                            <% } %>
+                        </div>
+                    </div>
+
+                    <div data-column="Total Price">
+                        <%
+                            const price = cartItem.salePrice ?? cartItem.price;
+                            const totalPrice = price * cartItem.quantity;
+                        %>
+                        <div class="product-item__price">
+                            <span class="price" data-cart-total-price><%= totalPrice %>$</span>
+                        </div>
+                    </div>
+
+                </div>
+            <% }) %>
+
+            <div class="ta-right" style="padding-top:2rem;">
+                <button class="btn_primary">Proceed to checkout</button>
+            </div>
+
+        <% } %>
+    </form>
 </div>
 
 <%- include('../partials/footer.ejs'); %>

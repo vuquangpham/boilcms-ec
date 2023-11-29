@@ -1,0 +1,57 @@
+form.cart {
+
+  @include responsive('tablet-v', true) {
+    [data-column="Select"] {
+      width: 40px;
+      min-width: 40px;
+    }
+
+    [data-column="Image"] {
+      width: 120px;
+      min-width: 120px;
+    }
+
+    [data-column="Name"] {
+      width: 100%;
+    }
+
+    [data-column="Quantity"] {
+      width: 150px;
+      min-width: 150px;
+    }
+
+    [data-column="Price"] {
+      width: 200px;
+      min-width: 200px;
+    }
+
+    [data-column="Total Price"] {
+      width: 140px;
+      min-width: 140px;
+    }
+  }
+  @include responsive('tablet-v') {
+    [data-column="Image"] {
+      width: 160px;
+    }
+
+    [data-column="Select"],
+    [data-column="Name"],
+    [data-column="Quantity"],
+    [data-column="Image"] {
+      &:before {
+        display: none;
+      }
+    }
+  }
+
+
+  .product-variation {
+    .variation:not(:last-child) {
+      &:after {
+        content: ',';
+        margin-right: 4px;
+      }
+    }
+  }
+}

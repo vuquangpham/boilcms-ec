@@ -14,7 +14,8 @@ const DOMPurify = require('isomorphic-dompurify');
 
 // custom template
 const ProductsTemplate = require('./products-template');
-const {ADMIN_URL} = require("../../core/utils/config.utils");
+const CartTemplate = require('./cart-template');
+const {ADMIN_URL, REGISTER_URL} = require("../../core/utils/config.utils");
 
 router.get('*', (request, response, next) => {
     const [type, pageURL] = getParamsOnRequest(request, ['', '']);
@@ -85,6 +86,12 @@ router.get('*', (request, response, next) => {
 
                 // products template
                 if(result.template === 'products') result.products = await ProductsTemplate.getAllData();
+
+                // cart page but not login
+                if(result.template === 'cart' && !response.locals.user) return response.redirect('/' + REGISTER_URL);
+
+                // cart page
+                if(result.template === 'cart') result.cart = await CartTemplate.getCartData(response.locals.user);
 
                 // render to frontend
                 return response.render('default/templates/' + result.template, {

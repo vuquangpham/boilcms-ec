@@ -3,9 +3,10 @@
  * */
 
 class ProductQuantity{
-    constructor(){
+    constructor(options){
+        this.options = options;
         this.quantities = document.querySelectorAll('.quantity');
-        this.timeout = null;
+        this.willUpdatePrice = document.body.classList.contains('cart-page');
         this.init();
     }
 
@@ -141,6 +142,24 @@ class ProductQuantity{
         if(!isIncrease && value === minValue){
             wrapper.querySelector('.quantity-button.decrease').setAttribute('disabled', '');
         }
+
+        // not update
+        if(!this.willUpdatePrice) return;
+
+        // update price
+        const cartWrapper = input.closest('[data-cart-wrapper]');
+        const valueAsInt = parseInt(value);
+        const price = parseInt(input.getAttribute('data-price'));
+
+        // update price value
+        const totalPriceEl = cartWrapper.querySelector('[data-cart-total-price]');
+        totalPriceEl.innerHTML = valueAsInt * price + '$';
+
+        // if value is 0 => remove from cart
+        if(valueAsInt > 0) return;
+
+        const tableWrapper = input.closest('[data-column-wrapper="item"]');
+        tableWrapper.remove();
     };
 }
 
