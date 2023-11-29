@@ -2,7 +2,7 @@ const Type = require("../classes/utils/type");
 const Category = require("../classes/category/category");
 const {generateSHA256Token, sendAuthTokenAndCookies} = require("../utils/token.utils");
 const {sendForgotPasswordEmail, validateEmail} = require("../utils/email.utils");
-const {getProtocolAndDomain} = require("../utils/helper.utils");
+const {getProtocolAndDomain, getProductViaVariation} = require("../utils/helper.utils");
 const {REGISTER_URL, RESET_PASSWORD_URL} = require("../utils/config.utils");
 const Variation = require("../database/product/variation.model");
 const ProductCategory = require('./product');
@@ -235,13 +235,7 @@ class User extends Category{
                     variation = user.cart[cartItemIndex];
 
                     // get the product variation
-                    const product = await ProductCategory.getDataById(productId);
-                    const isSimpleProduct = productType === 'simple';
-
-                    // get object
-                    const jsonText = isSimpleProduct ? product.simpleProductJSON : product.variableProductJSON;
-                    const productObject = JSON.parse(jsonText);
-                    const productVariation = isSimpleProduct ? productObject : productObject.variations[variationIndex];
+                    const [product, productVariation] = await getProductViaVariation(variation);
 
                     // not has variation, maybe deleted => remove the order
                     if(!productVariation){

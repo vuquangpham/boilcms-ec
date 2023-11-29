@@ -106,8 +106,8 @@ const splitUrl = (currentUrl, start, end, character = ' ') => {
 };
 
 const splitString = (currentString, character = ' ') => {
-    return currentString.split(character).map(value => value.trim())
-}
+    return currentString.split(character).map(value => value.trim());
+};
 
 /**
  * Validate and process the category input from the request
@@ -118,34 +118,34 @@ const splitString = (currentString, character = ' ') => {
  * @param Categories {Object} A schema model for categories
  * @return categories {object}
  * */
- const handleCategoryInput = async (request, response, categories, Categories) => {
+const handleCategoryInput = async(request, response, categories, Categories) => {
 
     // get postType
     let postType = response.locals.categoryItem.type;
 
     // get categories from select
-    let availableCategories = request.body.availableCategories
+    let availableCategories = request.body.availableCategories;
 
     // defined uncategorized object
-    let uncategorized = {prettyName: 'Uncategorized', type: postType}
+    let uncategorized = {prettyName: 'Uncategorized', type: postType};
 
     // save category
     // if category have select value
-    if (availableCategories) {
-        categories = await Categories.findOne({prettyName: availableCategories, type: postType})
+    if(availableCategories){
+        categories = await Categories.findOne({prettyName: availableCategories, type: postType});
     }
 
     // if select and input don't have any value
-    else if (!availableCategories && !request.body.categories) {
+    else if(!availableCategories && !request.body.categories){
         categories = await Categories.findOne(uncategorized);
-        if (!categories) {
-            categories = new Categories(uncategorized)
+        if(!categories){
+            categories = new Categories(uncategorized);
         }
         await categories.save();
     }
 
     // if category have input value
-    else {
+    else{
         categories = new Categories({
             type: postType,
             prettyName: request.body.categories.trim()
@@ -154,9 +154,27 @@ const splitString = (currentString, character = ' ') => {
         await categories.save();
     }
 
-    return categories
-}
+    return categories;
+};
 
+
+/**
+ * Get Product via Variation
+ * */
+const getProductViaVariation = async(variation) => {
+    const ProductCategory = require("../categories/product");
+
+    // get the product variation
+    const product = await ProductCategory.getDataById(variation.productId);
+    const isSimpleProduct = variation.productType === 'simple';
+
+    // get object
+    const jsonText = isSimpleProduct ? product.simpleProductJSON : product.variableProductJSON;
+    const productObject = JSON.parse(jsonText);
+    const productVariation = isSimpleProduct ? productObject : productObject.variations[variation.variationIndex];
+
+    return [product, productVariation];
+};
 
 module.exports = {
     stringToSlug,
@@ -173,5 +191,7 @@ module.exports = {
 
     modifyDate,
 
-    handleCategoryInput
+    handleCategoryInput,
+
+    getProductViaVariation
 };
