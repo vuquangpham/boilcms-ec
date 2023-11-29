@@ -40,7 +40,7 @@ const getCartData = async(user) => {
             const imageId = product.categoryImage;
             const image = await Media.getDataById(imageId);
 
-            const returnObject = {
+            return {
                 id: cartItem._id.toString(),
                 productId: productId,
 
@@ -55,8 +55,6 @@ const getCartData = async(user) => {
                 categoryImage: image,
                 selectedAttributes: isSimpleProduct ? [] : productVariation.selectedAttributes
             };
-
-            return returnObject;
         });
 
         return await Promise.all(cartPromises);
