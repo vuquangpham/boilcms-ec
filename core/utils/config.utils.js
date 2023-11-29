@@ -9,13 +9,13 @@ const VERIFY_EMAIL_URL = 'verify';
 // roles
 const ROLES = {
     ADMIN: {
-        name: 'Admin'
+        name: 'admin'
     },
     USER: {
-        name: 'User'
+        name: 'user'
     },
     EDITOR: {
-        name: 'Editor'
+        name: 'editor'
     }
 };
 const ROLES_IN_ARRAY = Object.keys(ROLES).map(r => r.toLowerCase());
