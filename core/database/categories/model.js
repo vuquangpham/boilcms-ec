@@ -17,7 +17,6 @@ const Categories = new mongoose.Schema({
 })
 
 Categories.pre('save', function (next) {
-    console.log('prettye', this.prettyName)
     this.name = stringToSlug(this.prettyName)
 
     next()

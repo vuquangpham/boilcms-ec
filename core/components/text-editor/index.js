@@ -19,6 +19,7 @@ class TextEditor extends Component{
     }
 
     render(data){
+        console.log('data text: ', data)
         // options
         const bottomSpacing = this.getOptions(data.options, 'spacing');
 

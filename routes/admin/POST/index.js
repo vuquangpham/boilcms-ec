@@ -85,6 +85,7 @@ const handlePostMethod = async(request, response, next) => {
                     URL = request.params.type;
                 }
             }
+            console.log('url: ', URL)
             response.redirect(URL);
         })
         .catch(err => {
