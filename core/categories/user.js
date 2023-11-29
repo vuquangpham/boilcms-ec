@@ -404,6 +404,7 @@ module.exports = new User({
     url: '/user',
     type: 'user',
     contentType: Type.types.USER,
+    order: 100,
     children: [
         {
             name: 'Admin',

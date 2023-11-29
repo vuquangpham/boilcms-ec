@@ -11,7 +11,7 @@ class Product extends Category{
     /**
      * Validate input product
      * */
-    async validateInputData(inputData, action = 'add') {
+    async validateInputData(inputData, action = 'add'){
         const request = inputData.request;
         const response = inputData.response;
 
@@ -30,7 +30,7 @@ class Product extends Category{
 
         // categories of page/post
         let categories = '';
-        categories = await handleCategoryInput(request, response, categories, Categories)
+        categories = await handleCategoryInput(request, response, categories, Categories);
 
         return {
             name,
@@ -49,13 +49,13 @@ class Product extends Category{
      * Get specific data based on id
      * @return {Promise}
      * */
-    getDataById(id) {
+    getDataById(id){
         return new Promise((resolve, reject) => {
             this.databaseModel.findById(id).populate('categories')
                 .then(async data => {
                     // if categories have been deleted, then category replace by default category
-                    if (data.categories === null) {
-                        data.categories = await Categories.findOne({prettyName: 'Uncategorized'})
+                    if(data.categories === null){
+                        data.categories = await Categories.findOne({prettyName: 'Uncategorized'});
                     }
                     resolve(data);
                 })
@@ -69,7 +69,7 @@ class Product extends Category{
      * Get all data from category
      * @return {Promise}
      * */
-    getAllData() {
+    getAllData(){
         return new Promise((resolve, reject) => {
             this.databaseModel.find().populate('categories')
                 .then(data => {
@@ -87,6 +87,7 @@ module.exports = new Product({
     url: '/products',
     type: 'products',
     contentType: Types.types.PRODUCTS,
+    order: 98,
     children: [
         {
             name: 'Add product',
