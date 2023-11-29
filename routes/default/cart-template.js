@@ -27,7 +27,6 @@ const getCartData = async(user) => {
 
             // not has variation, maybe deleted => remove the order
             if(!productVariation){
-                console.log('variation not exist');
                 // remove the cart item
                 user.cart.splice(index, 1);
 
@@ -57,13 +56,11 @@ const getCartData = async(user) => {
                 selectedAttributes: isSimpleProduct ? [] : productVariation.selectedAttributes
             };
 
-            console.log('return object', returnObject);
             return returnObject;
         });
 
         return await Promise.all(cartPromises);
     }catch(e){
-        console.log(e);
         return [];
     }
 };
