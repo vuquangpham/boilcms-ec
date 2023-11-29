@@ -9,8 +9,6 @@ const handleAddAction = async(request, response) => {
     const inputData = {request, response};
     const data = await categoryItem.validateInputData(inputData);
 
-    console.log(categoryItem);
-
     const promise = categoryItem.add(data, request);
     const extraData = {};
 
