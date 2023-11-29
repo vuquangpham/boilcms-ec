@@ -1,4 +1,4 @@
-const {ADMIN_URL} = require("../../utils/config.utils");
+const {ADMIN_URL, ROLES_IN_ARRAY} = require("../../utils/config.utils");
 const Type = require('../utils/type');
 const mongoose = require("mongoose");
 
@@ -66,7 +66,7 @@ class Category{
 
         // validate roles
         if(options.acceptedRoles.length === 1 && options.acceptedRoles[0] === "*"){
-            options.acceptedRoles = ['admin', 'user'];
+            options.acceptedRoles = ROLES_IN_ARRAY;
         }
 
         return options;

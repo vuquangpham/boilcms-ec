@@ -18,7 +18,7 @@ const ROLES = {
         name: 'Editor'
     }
 };
-const ROLES_IN_ARRAY = Object.keys(ROLES);
+const ROLES_IN_ARRAY = Object.keys(ROLES).map(r => r.toLowerCase());
 
 // directory
 const CORE_DIRECTORY = path.join(process.cwd(), 'core');

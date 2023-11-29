@@ -12,6 +12,8 @@ class Controller{
                 // add to instances
                 fileNames.forEach(file => this.instances.push(require(path.join(directory, file))));
                 this.instances.sort((a, b) => a.order - b.order);
+
+                console.log(this.instances);
             })
             .catch(err => {
                 console.error(err);
