@@ -13,6 +13,7 @@ import '@global/vendors/popup/Popup.min.css';
 import './pages/products';
 import './pages/product-detail';
 import './pages/account';
+import './pages/cart';
 
 // components
 import './components/image-slider';

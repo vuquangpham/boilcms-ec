@@ -11,6 +11,11 @@ button {
   cursor: pointer;
 }
 
+button:disabled {
+  pointer-events: none;
+  opacity: .5;
+}
+
 a {
   text-decoration: underline;
 }

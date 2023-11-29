@@ -29,7 +29,7 @@
         <h1>Cart</h1>
     </div>
 
-    <form method="get" action="/"
+    <form method="get" action="/<%= adminPath %>/orders?method=post&action=add"
           class="cart margin-bottom-default" data-custom-table>
 
         <div data-column-wrapper="heading">
@@ -114,7 +114,7 @@
             <% }) %>
 
             <div class="ta-right" style="padding-top:2rem;">
-                <button class="btn_primary">Proceed to checkout</button>
+                <button disabled class="submit-btn btn_primary">Proceed to checkout</button>
             </div>
 
         <% } %>
