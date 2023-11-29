@@ -146,7 +146,7 @@ class User extends Category{
 
                 // generate the random reset token and save reset token to data
                 const resetToken = user.createPasswordResetToken();
-                await user.save({validateBeforeSave: false});
+                await user.save();
 
                 const resetPasswordURL = getProtocolAndDomain(request) + `${REGISTER_URL}?type=${RESET_PASSWORD_URL}&token=${resetToken}`;
                 const expiredURL = getProtocolAndDomain(request) + `${REGISTER_URL}?type=forget-password`;

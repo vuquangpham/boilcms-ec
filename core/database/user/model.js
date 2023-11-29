@@ -7,42 +7,44 @@ const {modifyDate} = require("../../utils/helper.utils");
 const User = new mongoose.Schema({
     name: {
         type: String,
-        // required: true,
-        // validate: {
-        //     validator: value => value.length > 3,
-        //     message: 'Name must to be a minimum 3 character'
-        // }
+        required: true,
+        validate: {
+            validator: value => value.length > 3,
+            message: 'Name must to be a minimum 3 character'
+        }
     },
     email: {
         type: String,
-        // required: true,
+        required: true,
         unique: true,
-        // validate: [validator.isEmail]
+        validate: [validator.isEmail]
     },
 
     // password
     password: {
         type: String,
-        // required: true,
+        required: true,
         // Hide password from getting user
         select: false,
-        // validate: {
-        //     validator: value => {
-        //         const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W)[0-9a-zA-Z\W]{8,}$/;
-        //         return passwordRegex.test(value);
-        //     },
-        //     message: 'The password must be a minimum of 8 characters and include at least 1 lowercase letter, 1 uppercase letter, 1 digit, and 1 special character'
-        // }
+        validate: {
+            validator: value => {
+                const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W)[0-9a-zA-Z\W]{8,}$/;
+                return passwordRegex.test(value);
+            },
+            message: 'The password must be a minimum of 8 characters and include at least 1 lowercase letter, 1 uppercase letter, 1 digit, and 1 special character'
+        }
     },
     confirmPassword: {
         type: String,
-        // required: true,
-        // validate: {
-        //     // this is only work on create and save
-        //     validator: function(el){
-        //         return el === this.password;
-        //     },
-        // }
+        required: function (){
+            return this.isModified('password')
+        },
+        validate: {
+            // this is only work on create and save
+            validator: function(el){
+                return el === this.password;
+            },
+        }
     },
 
     // date time
