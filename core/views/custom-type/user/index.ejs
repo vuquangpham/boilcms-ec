@@ -102,10 +102,9 @@
                     <!-- role -->
                     <label for="role">Role</label>
                     <select data-select-role-value name="role" id="role">
-                        <option value="user">User
-                        </option>
-                        <option value="admin">Admin
-                        </option>
+                        <% rolesInArray.forEach(r => { %>
+                            <option value="<%= r.toLowerCase() %>"><%= r %></option>
+                        <% }) %>
                     </select>
                 </div>
 
@@ -169,10 +168,9 @@
                 <!-- role -->
                 <label for="role">Role</label>
                 <select data-easy-select data-user-register-role name="role" id="role">
-                    <option value="user">User
-                    </option>
-                    <option value="admin">Admin
-                    </option>
+                    <% rolesInArray.forEach(r => { %>
+                        <option value="<%= r.toLowerCase() %>"><%= r %></option>
+                    <% }) %>
                 </select>
             </div>
 

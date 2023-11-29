@@ -2,6 +2,7 @@ const AccountType = require('../classes/utils/account-type');
 const Method = require('../classes/utils/method');
 const jwt = require("jsonwebtoken");
 const User = require('../categories/user');
+const {ADMIN_URL, REGISTER_URL, ROLES, ROLES_IN_ARRAY} = require("./config.utils");
 
 /**
  * middleware for all routing
@@ -22,6 +23,14 @@ const globalMiddleware = (request, response, next) => {
     response.locals.method = Method.getValidatedMethod(method);
     response.locals.getJSON = getJSON;
     response.locals.token = token;
+
+    // roles
+    response.locals.roles = ROLES;
+    response.locals.rolesInArray = ROLES_IN_ARRAY;
+
+    // path
+    response.locals.adminPath = ADMIN_URL;
+    response.locals.registerPath = REGISTER_URL;
 
     // get account type
     response.locals.accountType = AccountType.getActionType(accountType);

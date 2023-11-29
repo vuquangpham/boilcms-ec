@@ -1,5 +1,5 @@
 const {readFileAsync} = require('../../utils/os.utils');
-const {CORE_DIRECTORY} = require('../../utils/config.utils');
+const {CORE_DIRECTORY, ROLES, ROLES_IN_ARRAY, ADMIN_URL, REGISTER_URL} = require('../../utils/config.utils');
 
 const path = require('path');
 const ejs = require('ejs');
@@ -39,9 +39,16 @@ class Content{
      * @return {Promise}
      * */
     getHTML(directory, data){
+        const returnedData = {
+            ...data,
+            roles: ROLES,
+            rolesInArray: ROLES_IN_ARRAY,
+            adminPath: ADMIN_URL,
+            registerPath: REGISTER_URL
+        };
         return new Promise((resolve, reject) => {
             readFileAsync(directory)
-                .then(file => resolve(ejs.render(file, data)))
+                .then(file => resolve(ejs.render(file, returnedData)))
                 .catch(err => reject(err));
         });
     }
