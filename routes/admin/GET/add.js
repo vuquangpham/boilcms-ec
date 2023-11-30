@@ -14,6 +14,15 @@ const handleAddAction = async(request, response) => {
     const promise = Promise.resolve();
     const extraData = {};
 
+    // order type
+    if(categoryItem.contentType === Type.types.ORDERS){
+        const data = categoryItem.validateInputData({request, response});
+        extraData.orderData = {
+            variations: data.variations,
+            quantities: data.quantities
+        };
+    }
+
     // posts type
     if(categoryItem.contentType === Type.types.POSTS){
         // load components information
@@ -30,9 +39,9 @@ const handleAddAction = async(request, response) => {
     }
 
     // products
-    if(categoryItem.type === 'products'){
+    if(categoryItem.contentType === Type.types.PRODUCTS){
         // load the categories
-        extraData.allCategories = await Categories.find({type: 'products'})
+        extraData.allCategories = await Categories.find({type: 'products'});
     }
 
     return [promise, extraData];

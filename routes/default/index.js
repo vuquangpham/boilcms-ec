@@ -17,6 +17,9 @@ const ProductsTemplate = require('./products-template');
 const CartTemplate = require('./cart-template');
 const {ADMIN_URL, REGISTER_URL} = require("../../core/utils/config.utils");
 
+// variation
+const Variation = require('../../core/database/product/variation.model');
+
 router.get('*', (request, response, next) => {
     const [type, pageURL] = getParamsOnRequest(request, ['', '']);
 
@@ -92,6 +95,26 @@ router.get('*', (request, response, next) => {
 
                 // cart page
                 if(result.template === 'cart') result.cart = await CartTemplate.getCartData(response.locals.user);
+
+                // order page
+                if(result.template === 'order'){
+                    try{
+                        const data = JSON.parse(request.query.data);
+
+                        // not has user
+                        if(!response.locals.user) throw new Error(`You have to login to create an order!`);
+
+                        const variationPromises = data.map(async vId => {
+                            return Variation.findById(vId);
+                        });
+
+                        // get variations
+                        const variations = await Promise.all(variationPromises);
+
+                    }catch(e){
+                        throw e;
+                    }
+                }
 
                 // render to frontend
                 return response.render('default/templates/' + result.template, {

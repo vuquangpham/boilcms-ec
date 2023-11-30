@@ -1,4 +1,5 @@
 const Content = require('../../../core/classes/utils/content');
+const Type = require('../../../core/classes/utils/type');
 
 const handleAddAction = require('./add');
 const handleGetAction = require('./get');
@@ -58,8 +59,12 @@ const handleGetMethod = async(request, response, next) => {
                 isSpecialType: categoryItem.isSpecialType,
                 ...extraData
             };
-
             if(hasJSON) return response.status(200).json(data);
+
+            // order with add action
+            if(categoryItem.contentType === Type.types.ORDERS && action.name === 'add'){
+                return response.redirect('/order?data=' + JSON.stringify(extraData.orderData.variations));
+            }
 
             const pageTitle = categoryItem.name[0].toUpperCase() + categoryItem.name.slice(1);
 
