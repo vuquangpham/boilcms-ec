@@ -14,6 +14,7 @@ import './pages/products';
 import './pages/product-detail';
 import './pages/account';
 import './pages/cart';
+import './pages/order';
 
 // components
 import './components/image-slider';

@@ -37,26 +37,29 @@
 
                 <div class="field vertical-layout third">
                     <label for="province">Province</label>
-                    <select name="province" id="province">
-                        <option value="ninh-thuan">Ninh Thuận</option>
+                    <select data-province-select name="province" id="province">
+                        <option value="ho-chi-minh">Ho Chi Minh</option>
                     </select>
-                    <div class="description">You have to input this field!</div>
                 </div>
 
                 <div class="field vertical-layout third">
                     <label for="district">District</label>
-                    <select name="district" id="district">
-                        <option value="phuoc-son">Ninh Phuoc</option>
+                    <select data-district-select name="district" id="district">
+                        <option value="thu-duc">Thu Duc</option>
                     </select>
-                    <div class="description">You have to input this field!</div>
                 </div>
 
                 <div class="field vertical-layout third">
                     <label for="ward">Wards</label>
-                    <select name="ward" id="ward">
-                        <option value="phuoc-son">Phước Sơn</option>
+                    <select data-ward-select name="ward" id="ward">
+                        <option value="long-thanh-my">Long Thanh My</option>
                     </select>
-                    <div class="description">You have to input this field!</div>
+                </div>
+
+                <div class="field vertical-layout">
+                    <label for="name">Specific Address</label>
+                    <input type="text" id="address" name="address">
+                    <div class="description">This field is optional</div>
                 </div>
 
                 <div class="field vertical-layout">
@@ -113,13 +116,13 @@
                 <div class="order__detail-product-item">
                     <div class="hidden">
                         <label>
-                            <input type="checkbox" value="<%= data.variationId ;%>" name="variations">
+                            <input type="checkbox" value="<%= data.variationId; %>" name="variations">
                         </label>
                     </div>
 
                     <div class="order__detail-product-item-inner fl-grid order-item">
                         <div class="order-item__image img-wrapper-contain">
-                            <img src="<%= data.categoryImage.url.small ;%>" alt="<%= data.categoryImage.name ;%>">
+                            <img src="<%= data.categoryImage.url.small; %>" alt="<%= data.categoryImage.name; %>">
                         </div>
 
                         <div class="order-item__content">

@@ -94,6 +94,12 @@
     }
   }
 
+  // easy select
+  select,
+  .easy-select {
+    width: 100%;
+  }
+
   @include responsive('tablet-h', true) {
     position: relative;
     // form
