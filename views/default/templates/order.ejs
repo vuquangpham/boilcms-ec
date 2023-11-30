@@ -24,7 +24,7 @@
         <h1>New Order</h1>
     </div>
 
-    <div class="order fl-grid ai-start margin-bottom-default">
+    <form class="order fl-grid ai-start margin-bottom-default">
         <div class="order__form">
 
             <div class="form-fields">
@@ -112,56 +112,54 @@
             </div>
 
             <div class="order__detail-products">
-                <% data.orderData.forEach(data => { console.log(data); %>
-                <div class="order__detail-product-item">
-                    <div class="hidden">
-                        <label>
-                            <input type="checkbox" value="<%= data.variationId; %>" name="variations">
-                        </label>
-                    </div>
-
-                    <div class="order__detail-product-item-inner fl-grid order-item">
-                        <div class="order-item__image img-wrapper-contain">
-                            <img src="<%= data.categoryImage.url.small; %>" alt="<%= data.categoryImage.name; %>">
+                <% data.orderData.forEach(data => { %>
+                    <div class="order__detail-product-item" data-product='<%= JSON.stringify(data) ;%>'>
+                        <div class="hidden">
+                            <label>
+                                <input type="checkbox" value="<%= data.variationId; %>" name="variations">
+                            </label>
                         </div>
 
-                        <div class="order-item__content">
-                            <div class="order-item__product-name boil-content">
-                                <h4><%= data.name; %></h4>
+                        <div class="order__detail-product-item-inner fl-grid order-item">
+                            <div class="order-item__image img-wrapper-contain">
+                                <img src="<%= data.categoryImage.url.small; %>" alt="<%= data.categoryImage.name; %>">
                             </div>
 
-                            <div class="order-item__attributes fl-grid product-variation">
-                                <% data.selectedAttributes.forEach(s => { %>
-                                    <div class="variation">
+                            <div class="order-item__content">
+                                <div class="order-item__product-name boil-content">
+                                    <h4><%= data.name; %></h4>
+                                </div>
+
+                                <div class="order-item__attributes fl-grid product-variation">
+                                    <% data.selectedAttributes.forEach(s => { %>
+                                        <div class="variation">
                                         <span class="key tt-capitalize"><%= s.name %>: <span
                                                     class="fw-bold value"><%= s.value %></span></span>
-                                    </div>
-                                <% }) %>
-                            </div>
-
-                            <div class="fl-center-v jc-space-between">
-                                <div class="order-item__price">
-                                    <% const price = data.salePrice ?? data.price; %>
-                                    <span><%= new Intl.NumberFormat('de-DE', {
-                                            style: 'currency',
-                                            currency: 'USD',
-                                            maximumFractionDigits: 0
-                                        }).format(price); %><span
-                                                class="separator">x</span><span
-                                                class="price-quantity"><%= data.quantity; %></span></span>
+                                        </div>
+                                    <% }) %>
                                 </div>
 
-                                <div class="order-item__total-price ta-right">
-                                    <span><%= new Intl.NumberFormat('de-DE', {
-                                            style: 'currency',
-                                            currency: 'USD',
-                                            maximumFractionDigits: 0
-                                        }).format(price * data.quantity); %></span>
+                                <div class="fl-center-v jc-space-between">
+                                    <div class="order-item__price">
+                                        <% const price = data.salePrice ?? data.price; %>
+                                        <span><%= new Intl.NumberFormat('vi-VN', {
+                                                style: 'currency',
+                                                currency: 'VND'
+                                            }).format(price); %><span
+                                                    class="separator">x</span><span
+                                                    class="price-quantity"><%= data.quantity; %></span></span>
+                                    </div>
+
+                                    <div class="order-item__total-price ta-right">
+                                        <span><%= new Intl.NumberFormat('vi-VN', {
+                                                style: 'currency',
+                                                currency: 'VND'
+                                            }).format(price * data.quantity); %></span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
                 <% }) %>
             </div>
 
@@ -169,14 +167,14 @@
 
                 <div class="order__shipping-fee fl-center-v jc-space-between txt_14px">
                     <div class="fw-bold">Delivery</div>
-                    <div data-deliver-fee>20 $</div>
+                    <div data-deliver-fee>Calculating...</div>
                 </div>
 
                 <div class="order__discount fl-center-v jc-space-between txt_14px">
                     <div class="fw-bold">Coupon</div>
                     <div class="w50">
                         <label>
-                            <input type="text" placeholder="Coupon Code" data-coupon-code name="coupon-code">
+                            <input type="text" placeholder="Coupon Code" data-coupon-code name="coupon-code" value="">
                         </label>
                     </div>
                 </div>
@@ -189,7 +187,7 @@
 
 
         </div>
-    </div>
+</div>
 
 </div>
 

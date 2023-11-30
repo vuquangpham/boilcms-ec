@@ -2,6 +2,7 @@ class Order{
     constructor(wrapper){
         this.wrapper = wrapper;
         this.API_TOKEN = 'ce41f36c-6e53-11ed-b190-ea4934f9883e';
+        this.SHOP_ID = '3495937';
 
         // vars
         this.GHN_DATA = {};
@@ -69,8 +70,41 @@ class Order{
             });
     }
 
+    updateShippingFee(value){
+        this.wrapper.querySelectorAll('[data-deliver-fee]').forEach(el => {
+            console.log(value);
+            el.innerHTML = new Intl.NumberFormat('vi-VN', {style: 'currency', currency: 'VND'}).format(value);
+        });
+    }
+
     handleWarpChange(){
+        const url = 'https://online-gateway.ghn.vn/shiip/public-api/v2/shipping-order/fee';
+
         // calculate shipping fee
+        const to_district_id = parseInt(this.easySelect.districtSelect.value);
+        const to_ward_code = this.easySelect.wardSelect.value;
+
+        // body data
+        const objectToGetShippingFee = {
+            ...this.productForShippingData,
+            to_district_id,
+            to_ward_code,
+        };
+
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json",
+                "token": this.API_TOKEN,
+                "shop_id": this.SHOP_ID
+            },
+            body: JSON.stringify(objectToGetShippingFee)
+        })
+            .then(res => res.json())
+            .then(result => {
+                const shippingFee = result.data.total;
+                this.updateShippingFee(shippingFee);
+            });
     }
 
     initES(){
@@ -121,7 +155,42 @@ class Order{
         this.easySelect.wardSelect = EasySelect.get('ward-select');
     }
 
+    getProducts(){
+        this.products = Array.from(this.wrapper.querySelectorAll('[data-product]')).map(el => {
+            return JSON.parse(el.getAttribute('data-product'));
+        });
+        const weightPerProduct = 60;
+
+        // from HO CHI MINH - THU DUC
+        const from_district_id = 3695;
+        const service_type_id = 2;
+        const length = 30;
+        const width = 30;
+        const height = 30;
+        const insurance_value = this.products.reduce((acc, cur) => {
+            const price = cur.salePrice ?? cur.price;
+            return acc + price * parseInt(cur.quantity);
+        }, 0);
+        const weight = weightPerProduct * this.products.reduce((acc, cur) => acc + parseInt(cur.quantity), 0);
+
+        return {
+            from_district_id,
+
+            service_type_id,
+            insurance_value,
+            coupon: null,
+
+            length,
+            width,
+            height,
+            weight
+        };
+    }
+
     init(){
+        // get products information
+        this.productForShippingData = this.getProducts();
+
         // init Easy Select
         this.initES();
     }
