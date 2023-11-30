@@ -15,10 +15,8 @@ const DOMPurify = require('isomorphic-dompurify');
 // custom template
 const ProductsTemplate = require('./products-template');
 const CartTemplate = require('./cart-template');
+const OrderTemplate = require('./order-template');
 const {ADMIN_URL, REGISTER_URL} = require("../../core/utils/config.utils");
-
-// variation
-const Variation = require('../../core/database/product/variation.model');
 
 router.get('*', (request, response, next) => {
     const [type, pageURL] = getParamsOnRequest(request, ['', '']);
@@ -104,13 +102,8 @@ router.get('*', (request, response, next) => {
                         // not has user
                         if(!response.locals.user) throw new Error(`You have to login to create an order!`);
 
-                        const variationPromises = data.map(async vId => {
-                            return Variation.findById(vId);
-                        });
-
-                        // get variations
-                        const variations = await Promise.all(variationPromises);
-
+                        result.orderData = await OrderTemplate.getOrderData(data);
+                        console.log(result.orderData);
                     }catch(e){
                         throw e;
                     }
