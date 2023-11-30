@@ -4,8 +4,12 @@
 
 class ProductQuantity{
     constructor(options){
-        this.options = options;
+        this.options = {
+            debounceTime: 300,
+            ...options
+        };
         this.quantities = document.querySelectorAll('.quantity');
+        this.timeout = null;
         this.willUpdatePrice = document.body.classList.contains('cart-page');
         this.init();
     }
@@ -122,7 +126,7 @@ class ProductQuantity{
         }
     };
 
-    updateCart(input, isIncrease){
+    updateCart(input, isIncrease, debounce){
         // check input quantity
         const value = input.value;
         const maxValue = input.getAttribute('max');
@@ -146,7 +150,20 @@ class ProductQuantity{
         // not update
         if(!this.willUpdatePrice) return;
 
+        if(debounce){
+            if(this.timeout){
+                clearTimeout(this.timeout);
+            }
+            this.timeout = setTimeout(() => {
+                this.updateCartItem();
+            }, this.options.debounceTime);
+            return;
+        }
+
         // update price
+        this.updateCartItem();
+
+        // test
         const cartWrapper = input.closest('[data-cart-wrapper]');
         const valueAsInt = parseInt(value);
         const price = parseInt(input.getAttribute('data-price'));
@@ -161,6 +178,10 @@ class ProductQuantity{
         const tableWrapper = input.closest('[data-column-wrapper="item"]');
         tableWrapper.remove();
     };
+
+    updateCartItem(){
+
+    }
 }
 
 export default new ProductQuantity();
