@@ -14,12 +14,135 @@
     <link rel="stylesheet" href="/themes/main-fe.css">
     <script src="/themes/main-fe.js" defer></script>
 </head>
-<body class="order">
+<body class="order-page">
 
 <%- include('../partials/header.ejs'); %>
 
 <div class="container">
-    <h1>Order</h1>
+
+    <div>
+        <h1>Order</h1>
+    </div>
+
+    <div class="order fl-grid margin-bottom-default">
+        <div class="order__form">
+
+            <div class="form-fields">
+
+                <div class="field vertical-layout">
+                    <label for="name">Full name</label>
+                    <input type="text" id="name" name="name">
+                    <div class="description">You have to input this field!</div>
+                </div>
+
+                <div class="field vertical-layout third">
+                    <label for="province">Province</label>
+                    <select name="province" id="province">
+                        <option value="ninh-thuan">Ninh Thuận</option>
+                    </select>
+                    <div class="description">You have to input this field!</div>
+                </div>
+
+                <div class="field vertical-layout third">
+                    <label for="district">District</label>
+                    <select name="district" id="district">
+                        <option value="phuoc-son">Ninh Phuoc</option>
+                    </select>
+                    <div class="description">You have to input this field!</div>
+                </div>
+
+                <div class="field vertical-layout third">
+                    <label for="ward">Wards</label>
+                    <select name="ward" id="ward">
+                        <option value="phuoc-son">Phước Sơn</option>
+                    </select>
+                    <div class="description">You have to input this field!</div>
+                </div>
+
+                <div class="field vertical-layout">
+                    <label for="description">Description</label>
+                    <textarea id="description" name="description"></textarea>
+                    <div class="description">This field is optional!</div>
+                </div>
+
+                <div class="field vertical-layout">
+                    <label for="payment">Payment method</label>
+                    <div class="-checkbox-radio">
+                        <input type="radio" name="payment" value="cod" id="cod" checked>
+                        <label for="cod">Cash on Delivering</label>
+                    </div>
+                    <div class="-checkbox-radio">
+                        <input type="radio" name="payment" value="momo" id="momo">
+                        <label for="momo">Momo</label>
+                    </div>
+                    <div class="-checkbox-radio">
+                        <input type="radio" name="payment" value="momo" id="zalopay">
+                        <label for="zalopay">Zalo Pay</label>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="order__products">
+
+            <div>
+                <h3>Your Order</h3>
+            </div>
+
+            <% data.orderData.forEach(data => { console.log(data) %>
+            <div>
+                <div class="hidden">
+                    <label>
+                        <input type="checkbox" value="<%= data.variationId %>" name="variations">
+                    </label>
+                </div>
+
+                <div class="fl-grid order-item">
+                    <div class="order-item__image img-wrapper-contain">
+                        <img src="<%= data.categoryImage.url.small %>" alt="<%= data.categoryImage.name %>">
+                    </div>
+
+                    <div class="order-item__content">
+                        <div class="order-item__product-name boil-content">
+                            <h4><%= data.name; %></h4>
+                        </div>
+
+                        <div class="order-item__attributes fl-grid product-variation">
+                            <% data.selectedAttributes.forEach(s => { %>
+                                <div class="variation txt_14px">
+                                        <span class="key tt-capitalize"><%= s.name %>: <span
+                                                    class="fw-bold value"><%= s.value %></span></span>
+                                </div>
+                            <% }) %>
+                        </div>
+
+                        <div class="order-item__price">
+                            <% const price = data.salePrice ?? data.price %>
+                            <span><%= new Intl.NumberFormat('de-DE', {
+                                    style: 'currency',
+                                    currency: 'USD',
+                                    maximumFractionDigits: 0
+                                }).format(price) %><span
+                                        class="separator">x</span><span><%= data.quantity %></span></span>
+                        </div>
+
+                        <div class="order-item__total-price">
+                            <span><%= new Intl.NumberFormat('de-DE', {
+                                    style: 'currency',
+                                    currency: 'USD',
+                                    maximumFractionDigits: 0
+                                }).format(price * data.quantity) %></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <% }) %>
+
+        </div>
+    </div>
+
 </div>
 
 <%- include('../partials/footer.ejs'); %>

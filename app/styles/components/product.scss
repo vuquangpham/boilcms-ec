@@ -143,3 +143,22 @@
     text-align: center;
   }
 }
+
+// variation
+.product-variation {
+
+  .variation {
+    // value of attribute
+    .value {
+      color: var(--color-secondary);
+    }
+
+    // not last child
+    &:not(:last-child) {
+      &:after {
+        content: ',';
+        margin-right: 4px;
+      }
+    }
+  }
+}

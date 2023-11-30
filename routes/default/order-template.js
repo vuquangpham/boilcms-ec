@@ -30,6 +30,7 @@ const getOrderData = async(data) => {
                 quantity: variation.quantity,
 
                 // product data
+                name: product.name,
                 price: productVariation.price,
                 salePrice: productVariation.salePrice,
                 selectedAttributes: productVariation.selectedAttributes,

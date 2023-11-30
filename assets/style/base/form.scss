@@ -103,6 +103,7 @@ textarea {
   background: var(--form-bg);
   padding: 1.5rem var(--form-field-padding-h);
   resize: vertical;
+  width: 100%;
   font-family: var(--form-font);
   transition: border-color .3s, background-color .3s, color .3s;
 

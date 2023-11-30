@@ -103,7 +103,6 @@ router.get('*', (request, response, next) => {
                         if(!response.locals.user) throw new Error(`You have to login to create an order!`);
 
                         result.orderData = await OrderTemplate.getOrderData(data);
-                        console.log(result.orderData);
                     }catch(e){
                         throw e;
                     }
