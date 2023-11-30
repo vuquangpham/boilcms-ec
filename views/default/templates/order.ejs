@@ -1,3 +1,7 @@
+<%
+const formatPrice = (price) => new Intl.NumberFormat('vi-VN', {style: 'currency', currency: 'VND'}).format(price);
+%>
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -142,19 +146,13 @@
                                 <div class="fl-center-v jc-space-between">
                                     <div class="order-item__price">
                                         <% const price = data.salePrice ?? data.price; %>
-                                        <span><%= new Intl.NumberFormat('vi-VN', {
-                                                style: 'currency',
-                                                currency: 'VND'
-                                            }).format(price); %><span
+                                        <span><%= formatPrice(price); %><span
                                                     class="separator">x</span><span
                                                     class="price-quantity"><%= data.quantity; %></span></span>
                                     </div>
 
                                     <div class="order-item__total-price ta-right">
-                                        <span><%= new Intl.NumberFormat('vi-VN', {
-                                                style: 'currency',
-                                                currency: 'VND'
-                                            }).format(price * data.quantity); %></span>
+                                        <span><%= formatPrice(price * data.quantity); %></span>
                                     </div>
                                 </div>
                             </div>

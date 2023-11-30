@@ -1,3 +1,7 @@
+<%
+const formatPrice = (price) => new Intl.NumberFormat('vi-VN', {style: 'currency', currency: 'VND'}).format(price);
+%>
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -91,11 +95,11 @@
                             <div class="product-item__price">
 
                                 <% if (product.salePrice) { %>
-                                    <span class="price"><%= product.salePrice; %>$</span>
-                                    <span class="price price--with-stroke"><%= product.price; %>$</span>
+                                    <span class="price"><%= formatPrice(product.salePrice); %></span>
+                                    <span class="price price--with-stroke"><%= formatPrice(product.price); %></span>
                                     <span class="sale-amount">-<%= parseInt(100 - (product.salePrice * 100) / product.price); %>%</span>
                                 <% }  else { %>
-                                    <span class="price"><%= product.price; %>$</span>
+                                    <span class="price"><%= formatPrice(product.price); %></span>
                                 <% } %>
                             </div>
 
