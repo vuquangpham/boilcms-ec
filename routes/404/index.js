@@ -1,7 +1,8 @@
-const errorHandler = (error, req, res) => {
+const errorHandler = (error, request, response, next) => {
     console.log(error);
+
     // Error handling middleware functionality
-    res.render('404', {
+    response.render('error', {
         title: '404 Not Found'
     });
 };
