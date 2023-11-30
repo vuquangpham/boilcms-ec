@@ -33,9 +33,15 @@ const formatPrice = (price) => new Intl.NumberFormat('vi-VN', {style: 'currency'
 
             <div class="form-fields">
 
-                <div class="field vertical-layout">
+                <div class="field half vertical-layout">
                     <label for="name">Full name</label>
                     <input type="text" id="name" name="name">
+                    <div class="description">You have to input this field!</div>
+                </div>
+
+                <div class="field half vertical-layout">
+                    <label for="phone-number">Phone number</label>
+                    <input type="text" id="phone-number" name="phone-number">
                     <div class="description">You have to input this field!</div>
                 </div>
 
