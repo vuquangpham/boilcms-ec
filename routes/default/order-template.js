@@ -33,7 +33,7 @@ const getOrderData = async(data) => {
                 name: product.name,
                 price: productVariation.price,
                 salePrice: productVariation.salePrice,
-                selectedAttributes: productVariation.selectedAttributes,
+                selectedAttributes: productVariation.selectedAttributes ?? [],
                 categoryImage: categoryImage
             };
         });

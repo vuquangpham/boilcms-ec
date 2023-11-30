@@ -1,0 +1,117 @@
+.order {
+  --order-width: 34rem;
+
+  // products
+  &__products {
+    width: var(--order-width);
+
+    background: #ffd8a8;
+    padding: 2rem 1.5rem;
+  }
+
+  // addiotion
+  &__detail-title,
+  &__detail-addition,
+  &__detail-products {
+    margin-bottom: 1.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 2px solid var(--color-primary);
+  }
+
+  // product item
+  &__detail-product-item {
+    background: #fff;
+    padding: 1.5rem;
+
+    // last child
+    &:not(:last-child) {
+      margin-bottom: 1rem;
+    }
+
+    // inner
+    &-inner {
+
+      // image
+      .order-item__image {
+        width: 30%;
+        aspect-ratio: 1;
+
+        background: #fff4e6;
+      }
+
+      // content
+      .order-item__content {
+        width: 70%;
+        padding-left: 1.5rem;
+
+        // name
+        .order-item__product-name {
+          --size-h4: 1.4rem;
+          margin-bottom: .2rem;
+        }
+
+        // attributes
+        .order-item__attributes {
+          font-size: 1.2rem;
+          margin-bottom: .2rem;
+        }
+
+        // price
+        .order-item__price {
+          font-size: 1.4rem;
+          font-weight: 600;
+
+          // separator
+          .separator {
+            margin: 0 .5rem;
+
+            font-size: 1.2rem;
+            opacity: .4;
+          }
+
+          // quantity
+          .quantity {
+            opacity: .4;
+          }
+        }
+
+        // total price
+        .order-item__total-price {
+          font-size: 1.4rem;
+          font-weight: 600;
+        }
+      }
+
+    }
+  }
+
+  // shippping fee
+  &__shipping-fee {
+    margin-bottom: .5rem;
+
+    [data-deliver-fee] {
+      font-weight: 600;
+    }
+  }
+
+  @include responsive('tablet-h', true) {
+    // form
+    &__form {
+      width: calc(100% - var(--order-width));
+      padding-right: var(--gap-container);
+    }
+  }
+
+  @include responsive('tablet-h') {
+    justify-content: flex-end;
+
+    // form
+    &__form {
+      margin-bottom: 2rem;
+    }
+  }
+
+  @include responsive('tablet-v') {
+    --order-width: 100%;
+  }
+}

@@ -20,11 +20,11 @@
 
 <div class="container">
 
-    <div>
-        <h1>Order</h1>
+    <div class="boil-content margin-bottom-default">
+        <h1>New Order</h1>
     </div>
 
-    <div class="order fl-grid margin-bottom-default">
+    <div class="order fl-grid ai-start margin-bottom-default">
         <div class="order__form">
 
             <div class="form-fields">
@@ -67,18 +67,35 @@
 
                 <div class="field vertical-layout">
                     <label for="payment">Payment method</label>
-                    <div class="-checkbox-radio">
-                        <input type="radio" name="payment" value="cod" id="cod" checked>
-                        <label for="cod">Cash on Delivering</label>
+
+                    <div>
+                        <div class="-checkbox-radio">
+                            <input type="radio" name="payment" value="cod" id="cod" checked>
+                            <label for="cod">Cash on Delivering</label>
+                        </div>
                     </div>
-                    <div class="-checkbox-radio">
-                        <input type="radio" name="payment" value="momo" id="momo">
-                        <label for="momo">Momo</label>
+
+                    <div>
+                        <div class="-checkbox-radio">
+                            <input type="radio" name="payment" value="momo" id="momo">
+                            <label for="momo">Momo</label>
+                        </div>
                     </div>
-                    <div class="-checkbox-radio">
-                        <input type="radio" name="payment" value="momo" id="zalopay">
-                        <label for="zalopay">Zalo Pay</label>
+
+                    <div>
+                        <div class="-checkbox-radio">
+                            <input type="radio" name="payment" value="momo" id="zalopay">
+                            <label for="zalopay">Zalo Pay</label>
+                        </div>
                     </div>
+
+                    <div>
+                        <div class="-checkbox-radio">
+                            <input type="radio" name="payment" value="momo" id="vnpay">
+                            <label for="vnpay">VN Pay</label>
+                        </div>
+                    </div>
+
                 </div>
 
             </div>
@@ -87,76 +104,86 @@
 
         <div class="order__products">
 
-            <div>
+            <div class="order__detail-title boil-content">
                 <h3>Your Order</h3>
             </div>
 
-            <% data.orderData.forEach(data => { console.log(data) %>
-            <div>
-                <div class="hidden">
-                    <label>
-                        <input type="checkbox" value="<%= data.variationId %>" name="variations">
-                    </label>
-                </div>
-
-                <div class="fl-grid order-item">
-                    <div class="order-item__image img-wrapper-contain">
-                        <img src="<%= data.categoryImage.url.small %>" alt="<%= data.categoryImage.name %>">
+            <div class="order__detail-products">
+                <% data.orderData.forEach(data => { console.log(data); %>
+                <div class="order__detail-product-item">
+                    <div class="hidden">
+                        <label>
+                            <input type="checkbox" value="<%= data.variationId ;%>" name="variations">
+                        </label>
                     </div>
 
-                    <div class="order-item__content">
-                        <div class="order-item__product-name boil-content">
-                            <h4><%= data.name; %></h4>
+                    <div class="order__detail-product-item-inner fl-grid order-item">
+                        <div class="order-item__image img-wrapper-contain">
+                            <img src="<%= data.categoryImage.url.small ;%>" alt="<%= data.categoryImage.name ;%>">
                         </div>
 
-                        <div class="order-item__attributes fl-grid product-variation">
-                            <% data.selectedAttributes.forEach(s => { %>
-                                <div class="variation txt_14px">
+                        <div class="order-item__content">
+                            <div class="order-item__product-name boil-content">
+                                <h4><%= data.name; %></h4>
+                            </div>
+
+                            <div class="order-item__attributes fl-grid product-variation">
+                                <% data.selectedAttributes.forEach(s => { %>
+                                    <div class="variation">
                                         <span class="key tt-capitalize"><%= s.name %>: <span
                                                     class="fw-bold value"><%= s.value %></span></span>
+                                    </div>
+                                <% }) %>
+                            </div>
+
+                            <div class="fl-center-v jc-space-between">
+                                <div class="order-item__price">
+                                    <% const price = data.salePrice ?? data.price; %>
+                                    <span><%= new Intl.NumberFormat('de-DE', {
+                                            style: 'currency',
+                                            currency: 'USD',
+                                            maximumFractionDigits: 0
+                                        }).format(price); %><span
+                                                class="separator">x</span><span
+                                                class="quantity"><%= data.quantity; %></span></span>
                                 </div>
-                            <% }) %>
-                        </div>
 
-                        <div class="order-item__price">
-                            <% const price = data.salePrice ?? data.price %>
-                            <span><%= new Intl.NumberFormat('de-DE', {
-                                    style: 'currency',
-                                    currency: 'USD',
-                                    maximumFractionDigits: 0
-                                }).format(price) %><span
-                                        class="separator">x</span><span><%= data.quantity %></span></span>
-                        </div>
-
-                        <div class="order-item__total-price">
-                            <span><%= new Intl.NumberFormat('de-DE', {
-                                    style: 'currency',
-                                    currency: 'USD',
-                                    maximumFractionDigits: 0
-                                }).format(price * data.quantity) %></span>
+                                <div class="order-item__total-price ta-right">
+                                    <span><%= new Intl.NumberFormat('de-DE', {
+                                            style: 'currency',
+                                            currency: 'USD',
+                                            maximumFractionDigits: 0
+                                        }).format(price * data.quantity); %></span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <% }) %>
-
-            <div class="order__shipping-fee fl-center-v jc-space-between">
-                <div>Delivery</div>
-                <div>20 $</div>
+                <% }) %>
             </div>
 
-            <div class="order__discount">
-                <div>Discount</div>
-                <div>
-                    <label>
-                        <input type="text" placeholder="Discount">
-                    </label>
+            <div class="order__detail-addition">
+
+                <div class="order__shipping-fee fl-center-v jc-space-between txt_14px">
+                    <div class="fw-bold">Delivery</div>
+                    <div data-deliver-fee>20 $</div>
                 </div>
+
+                <div class="order__discount fl-center-v jc-space-between txt_14px">
+                    <div class="fw-bold">Coupon</div>
+                    <div class="w50">
+                        <label>
+                            <input type="text" placeholder="Coupon Code" data-coupon-code name="coupon-code">
+                        </label>
+                    </div>
+                </div>
+
             </div>
 
-            <div class="order__total">
-
+            <div class="order__button">
+                <button class="btn_primary w100" data-order-button>Proceed to Order</button>
             </div>
+
 
         </div>
     </div>
