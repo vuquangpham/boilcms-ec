@@ -72,7 +72,6 @@ class Order{
 
     updateShippingFee(value){
         this.wrapper.querySelectorAll('[data-deliver-fee]').forEach(el => {
-            console.log(value);
             el.innerHTML = new Intl.NumberFormat('vi-VN', {style: 'currency', currency: 'VND'}).format(value);
         });
     }
