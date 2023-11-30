@@ -65,10 +65,11 @@
                             <a style="margin-bottom:1rem;" class="d-block"
                                href="<%= cartItem.url %>"><%= cartItem.name %></a>
 
-                            <div class="product-variation fl-grid">
+                            <div class="product-variation fl-grid txt_14px">
                                 <% cartItem.selectedAttributes.forEach(s => { %>
                                     <div class="variation">
-                                        <span class="tt-capitalize"><%= s.name %>: <span><%= s.value %></span></span>
+                                        <span class="tt-capitalize"><%= s.name %>: <span
+                                                    class="fw-bold value"><%= s.value %></span></span>
                                     </div>
                                 <% }) %>
                             </div>
