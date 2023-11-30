@@ -95,10 +95,17 @@
   }
 
   @include responsive('tablet-h', true) {
+    position: relative;
     // form
     &__form {
       width: calc(100% - var(--order-width));
       padding-right: var(--gap-container);
+    }
+
+    // products
+    &__products {
+      position: sticky;
+      top: 20px;
     }
   }
 
