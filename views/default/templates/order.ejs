@@ -171,7 +171,7 @@ const formatPrice = (price) => new Intl.NumberFormat('vi-VN', {style: 'currency'
 
                 <div class="order__shipping-fee fl-center-v jc-space-between txt_14px">
                     <div class="fw-bold">Delivery</div>
-                    <div data-deliver-fee>Calculating...</div>
+                    <div data-deliver-fee><%= formatPrice(0) %></div>
                 </div>
 
                 <div class="order__discount fl-center-v jc-space-between txt_14px">
@@ -183,6 +183,16 @@ const formatPrice = (price) => new Intl.NumberFormat('vi-VN', {style: 'currency'
                     </div>
                 </div>
 
+            </div>
+
+            <div class="order__detail-total fl-center-v jc-space-between txt_14px">
+                <% const totalPrice = data.orderData.reduce((acc, cur) => {
+                    const price = cur.salePrice ?? cur.price;
+                    return price * parseInt(cur.quantity) + acc;
+                }, 0)
+                %>
+                <div class="fw-bold">Total</div>
+                <div data-total-price="<%= totalPrice %>" style="font-weight: 600;"><%= formatPrice(totalPrice) %></div>
             </div>
 
             <div class="order__button">
