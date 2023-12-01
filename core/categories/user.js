@@ -297,7 +297,6 @@ class User extends Category{
 
                 // update
                 await Promise.all([variation.save(), user.save()]);
-                console.log('chay xuong day');
                 resolve(this.databaseModel.findById(userId));
 
             }catch(e){
