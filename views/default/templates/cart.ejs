@@ -50,7 +50,7 @@ const formatPrice = (price) => new Intl.NumberFormat('vi-VN', {style: 'currency'
         <% } else { %>
 
             <% data.cart.forEach(cartItem => { %>
-                <div data-column-wrapper="item" data-cart-wrapper>
+                <div data-column-wrapper="item" data-cart-wrapper data-cart-variation='<%= JSON.stringify(cartItem) %>'>
                     <div data-column="Select">
                         <div class="-checkbox-radio">
                             <input id="<%= cartItem.id %>" type="checkbox" value="<%= cartItem.id %>" name="variation">
@@ -123,6 +123,12 @@ const formatPrice = (price) => new Intl.NumberFormat('vi-VN', {style: 'currency'
             </div>
 
         <% } %>
+
+        <div class="hidden">
+            <label>
+                <input type="text" value="<%= user?._id ?? '' %>" data-user-id>
+            </label>
+        </div>
     </form>
 </div>
 

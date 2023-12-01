@@ -43,6 +43,7 @@ const getCartData = async(user) => {
             return {
                 id: cartItem._id.toString(),
                 productId: productId,
+                productType,
 
                 quantity: cartItem.quantity,
                 variationQuantity: productVariation.inventory,

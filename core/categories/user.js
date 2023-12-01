@@ -17,8 +17,11 @@ class User extends Category{
      * */
 
     validateInputData(inputData, action = 'add'){
+        console.log('validate');
         const request = inputData.request;
         const response = inputData.response;
+
+        console.log(request.body);
 
         // add product to cart
         const userId = request.body.id;
@@ -216,7 +219,6 @@ class User extends Category{
                 const userId = data.userId;
                 const productId = data.productId;
                 const variationIndex = parseInt(data.variationIndex);
-                const productType = data.productType;
                 const actionType = data.actionType;
                 const quantity = parseInt(data.quantity);
 
@@ -235,7 +237,7 @@ class User extends Category{
                     variation = user.cart[cartItemIndex];
 
                     // get the product variation
-                    const [product, productVariation] = await getProductViaVariation(variation);
+                    const [_, productVariation] = await getProductViaVariation(variation);
 
                     // not has variation, maybe deleted => remove the order
                     if(!productVariation){
@@ -262,9 +264,10 @@ class User extends Category{
                         case "set":{
                             // set quantity
                             variation.quantity = quantity;
-
                             // set min quantity
+
                             variation.quantity = Math.min(variation.quantity, productVariation.inventory);
+                            console.log('case set', variation.quantity);
                         }
                     }
 
@@ -277,6 +280,7 @@ class User extends Category{
 
                 // update
                 const result = await Promise.all([variation.save(), user.save()]);
+                console.log('result', result);
                 resolve();
 
             }catch(e){

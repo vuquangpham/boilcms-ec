@@ -11,6 +11,11 @@ class ProductQuantity{
         this.quantities = document.querySelectorAll('.quantity');
         this.timeout = null;
         this.willUpdatePrice = document.body.classList.contains('cart-page');
+
+        // user
+        this.userId = document.body.querySelector('[data-user-id]')?.value;
+
+        // init
         this.init();
     }
 
@@ -155,32 +160,59 @@ class ProductQuantity{
                 clearTimeout(this.timeout);
             }
             this.timeout = setTimeout(() => {
-                this.updateCartItem();
+                this.updateCartItem(input, value);
             }, this.options.debounceTime);
             return;
         }
 
         // update price
-        this.updateCartItem();
-
-        // test
-        const cartWrapper = input.closest('[data-cart-wrapper]');
-        const valueAsInt = parseInt(value);
-        const price = parseInt(input.getAttribute('data-price'));
-
-        // update price value
-        const totalPriceEl = cartWrapper.querySelector('[data-cart-total-price]');
-        totalPriceEl.innerHTML = valueAsInt * price + '$';
-
-        // if value is 0 => remove from cart
-        if(valueAsInt > 0) return;
-
-        const tableWrapper = input.closest('[data-column-wrapper="item"]');
-        tableWrapper.remove();
+        this.updateCartItem(input, value);
     };
 
-    updateCartItem(){
+    updateTotalPrice(wrapper, value){
+        wrapper.querySelector('[data-cart-total-price]').innerHTML = new Intl.NumberFormat('vi-VN', {
+            style: 'currency',
+            currency: 'VND'
+        }).format(value);
+    }
 
+    createLoading(){
+        this.loading = document.createElement('div');
+        this.loading.classList.add('loading');
+        document.body.appendChild(this.loading);
+    }
+
+    removeLoading(){
+        if(this.loading) this.loading.remove();
+    }
+
+    updateCartItem(input, quantity){
+        // update total price
+        const wrapper = input.closest('[data-cart-wrapper]');
+        const newValue = parseInt(quantity) * parseInt(input.getAttribute('data-price'));
+        this.updateTotalPrice(wrapper, newValue);
+
+        // send api to update the cart
+        const json = JSON.parse(wrapper.getAttribute('data-cart-variation'));
+        const formData = new FormData();
+        formData.append('id', this.userId);
+        formData.append('product-id', json.productId);
+        formData.append('variation-index', json.variationIndex);
+        formData.append('quantity', quantity);
+        formData.append('type', json.productType);
+        formData.append('actionType', 'set');
+
+        // fetch
+        const URL = location.origin + '/boiler-admin/user?posts_type=user&method=post&action=edit';
+        fetch(URL, {
+            method: 'post',
+            getJSON: true,
+            body: formData
+        })
+            .then(res => res.json())
+            .then(result => {
+                console.log(result);
+            });
     }
 }
 
