@@ -7,8 +7,52 @@ class Order{
         // vars
         this.GHN_DATA = {};
         this.easySelect = {};
+        this.elements = {
+            name: this.wrapper.querySelector('[data-form-name]'),
+            phoneNumber: this.wrapper.querySelector('[data-form-phone-number]'),
+            form: this.wrapper.querySelector('[data-order-form]')
+        };
 
+        // init
         this.init();
+
+        // register event listeners
+        this.elements.phoneNumber.addEventListener('input', (e) => {
+            if(!parseInt(e.data)) e.target.value = e.target.value.slice(0, -1);
+        });
+        this.elements.form.addEventListener('submit', this.handleSubmitForm.bind(this));
+    }
+
+    handleSubmitForm(e){
+        const validation = this.validateForm();
+
+        if(validation) return;
+        e.preventDefault();
+    }
+
+    validate(input, cb = v => v){
+        // validate name input
+        const value = input.value.trim();
+        const field = input.closest('.field');
+        if(!cb(value)){
+            field.classList.add('invalid');
+            return false;
+        }else{
+            field.classList.remove('invalid');
+        }
+
+        return true;
+    }
+
+    validateForm(){
+        // validate name input
+        const isNameValidated = this.validate(this.elements.name);
+
+        // validate phone number
+        const isPhoneNumberValidated = this.validate(this.elements.phoneNumber, value => value.length === 10);
+
+        return isNameValidated && isPhoneNumberValidated;
+
     }
 
     fetch(url, data = {}){

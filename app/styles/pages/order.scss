@@ -127,4 +127,19 @@
   @include responsive('tablet-v') {
     --order-width: 100%;
   }
+
+  // form field
+  .field {
+
+    // description
+    .description {
+      color: var(--color-error);
+      opacity: 1;
+    }
+
+    // invalid
+    &:not(.invalid) .description {
+      display: none;
+    }
+  }
 }

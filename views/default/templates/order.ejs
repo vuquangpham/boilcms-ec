@@ -28,21 +28,21 @@ const formatPrice = (price) => new Intl.NumberFormat('vi-VN', {style: 'currency'
         <h1>New Order</h1>
     </div>
 
-    <form class="order fl-grid ai-start margin-bottom-default">
+    <form data-order-form class="order fl-grid ai-start margin-bottom-default">
         <div class="order__form">
 
             <div class="form-fields">
 
                 <div class="field half vertical-layout">
                     <label for="name">Full name</label>
-                    <input type="text" id="name" name="name">
-                    <div class="description">You have to input this field!</div>
+                    <input type="text" id="name" name="name" data-form-name>
+                    <div class="description">You have to input the name here!</div>
                 </div>
 
                 <div class="field half vertical-layout">
                     <label for="phone-number">Phone number</label>
-                    <input type="text" id="phone-number" name="phone-number">
-                    <div class="description">You have to input this field!</div>
+                    <input type="text" id="phone-number" name="phone-number" data-form-phone-number>
+                    <div class="description">The phone number must be equal to 10 numbers</div>
                 </div>
 
                 <div class="field vertical-layout third">
@@ -123,7 +123,7 @@ const formatPrice = (price) => new Intl.NumberFormat('vi-VN', {style: 'currency'
 
             <div class="order__detail-products">
                 <% data.orderData.forEach(data => { %>
-                    <div class="order__detail-product-item" data-product='<%= JSON.stringify(data) ;%>'>
+                    <div class="order__detail-product-item" data-product='<%= JSON.stringify(data); %>'>
                         <div class="hidden">
                             <label>
                                 <input type="checkbox" value="<%= data.variationId; %>" name="variations">
