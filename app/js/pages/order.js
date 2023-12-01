@@ -57,7 +57,8 @@ class Order{
             .then(res => res.json())
             .then(result => {
                 this.loadDataToES(this.easySelect.districtSelect, result.data, 'DistrictID', 'DistrictName');
-            });
+            })
+            .catch(this.showErrorMessage);
     }
 
     handleDistrictDataChange(self){
@@ -67,13 +68,29 @@ class Order{
             .then(res => res.json())
             .then(result => {
                 this.loadDataToES(this.easySelect.wardSelect, result.data, 'WardCode', 'WardName');
-            });
+            })
+            .catch(this.showErrorMessage);
     }
 
     updateShippingFee(value){
         this.wrapper.querySelectorAll('[data-deliver-fee]').forEach(el => {
             el.innerHTML = new Intl.NumberFormat('vi-VN', {style: 'currency', currency: 'VND'}).format(value);
         });
+    }
+
+    showErrorMessage(){
+        const instance = Popup.create({
+            target: document.createElement('div'),
+            popupContent: '<div>The server is busy right now!! Please try again</div>',
+
+            onAfterClose: (self) => {
+                self.destroy();
+            }
+        });
+
+        setTimeout(() => {
+            instance.open();
+        }, 300);
     }
 
     handleWarpChange(){
@@ -90,7 +107,7 @@ class Order{
             to_ward_code,
         };
 
-        fetch(url, {
+        this.fetch(url, {
             method: 'POST',
             headers: {
                 "Content-Type": "application/json",
@@ -103,7 +120,8 @@ class Order{
             .then(result => {
                 const shippingFee = result.data.total;
                 this.updateShippingFee(shippingFee);
-            });
+            })
+            .catch(this.showErrorMessage);
     }
 
     initES(){
@@ -112,6 +130,7 @@ class Order{
         this.getProvinces()
             .then(res => res.json())
             .then(result => {
+                if(result.code === 404) throw new Error();
                 this.GHN_DATA.provinces = result.data;
             })
             .then(_ => {
@@ -129,7 +148,8 @@ class Order{
                     onChange: this.handleProvinceDataChange.bind(this),
                 });
                 this.easySelect.provinceSelect = EasySelect.get('province-select');
-            });
+            })
+            .catch(this.showErrorMessage);
 
         // district select
         const districtSelect = this.wrapper.querySelector('[data-district-select]');
