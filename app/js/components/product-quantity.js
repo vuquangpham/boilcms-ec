@@ -2,6 +2,8 @@
  * Handle increase/decrease button click
  * */
 
+import fetch from "@global/js/fetch";
+
 class ProductQuantity{
     constructor(options){
         this.options = {
@@ -202,16 +204,28 @@ class ProductQuantity{
         formData.append('type', json.productType);
         formData.append('actionType', 'set');
 
-        // fetch
-        const URL = location.origin + '/boiler-admin/user?posts_type=user&method=post&action=edit';
+        // fetch to update the cart in database
+        this.createLoading();
+        const URL = location.origin + '/boiler-admin/user';
         fetch(URL, {
             method: 'post',
+            action: 'edit',
+            posts_type: 'user',
             getJSON: true,
+        }, {
+            method: 'post',
             body: formData
         })
-            .then(res => res.json())
-            .then(result => {
-                console.log(result);
+            .finally(_ => {
+
+                // remove dom if quantity is 0
+                if(parseInt(quantity) === 0){
+                    const wrapper = input.closest('[data-cart-wrapper]');
+                    wrapper.remove();
+                }
+
+                // remove loading
+                this.removeLoading();
             });
     }
 }

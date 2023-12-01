@@ -17,11 +17,8 @@ class User extends Category{
      * */
 
     validateInputData(inputData, action = 'add'){
-        console.log('validate');
         const request = inputData.request;
         const response = inputData.response;
-
-        console.log(request.body);
 
         // add product to cart
         const userId = request.body.id;
@@ -245,7 +242,12 @@ class User extends Category{
                         user.cart.splice(cartItemIndex, 1);
 
                         // save the cart
-                        await user.save();
+                        const saveUserPromise = user.save();
+
+                        // remove the variation
+                        const removeVariationPromise = Variation.findByIdAndRemove(variation._id);
+
+                        await Promise.all([saveUserPromise, removeVariationPromise]);
 
                         // send error message
                         // todo @all
@@ -264,10 +266,25 @@ class User extends Category{
                         case "set":{
                             // set quantity
                             variation.quantity = quantity;
-                            // set min quantity
 
+                            // set min quantity
                             variation.quantity = Math.min(variation.quantity, productVariation.inventory);
-                            console.log('case set', variation.quantity);
+
+                            // check if quantity is 0 => remove cart item
+                            if(variation.quantity === 0){
+                                // remove the cart item
+                                user.cart.splice(cartItemIndex, 1);
+
+                                // update user cart
+                                const userPromise = user.save();
+
+                                // remove the variation
+                                const removeVariationPromise = Variation.findByIdAndRemove(variation._id);
+
+                                await Promise.all([removeVariationPromise, userPromise]);
+
+                                return resolve(this.databaseModel.findById(userId));
+                            }
                         }
                     }
 
@@ -279,9 +296,9 @@ class User extends Category{
                 }
 
                 // update
-                const result = await Promise.all([variation.save(), user.save()]);
-                console.log('result', result);
-                resolve();
+                await Promise.all([variation.save(), user.save()]);
+                console.log('chay xuong day');
+                resolve(this.databaseModel.findById(userId));
 
             }catch(e){
                 console.log(e);
