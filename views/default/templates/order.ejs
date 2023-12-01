@@ -192,7 +192,7 @@ const formatPrice = (price) => new Intl.NumberFormat('vi-VN', {style: 'currency'
                 }, 0)
                 %>
                 <div class="fw-bold">Total</div>
-                <div data-total-price="<%= totalPrice %>" style="font-weight: 600;"><%= formatPrice(totalPrice) %></div>
+                <div data-total-price style="font-weight: 600;"><%= formatPrice(totalPrice) %></div>
             </div>
 
             <div class="order__button">

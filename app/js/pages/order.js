@@ -117,8 +117,17 @@ class Order{
     }
 
     updateShippingFee(value){
+        // update shipping fee
         this.wrapper.querySelectorAll('[data-deliver-fee]').forEach(el => {
             el.innerHTML = new Intl.NumberFormat('vi-VN', {style: 'currency', currency: 'VND'}).format(value);
+        });
+
+        // update total price
+        this.wrapper.querySelectorAll('[data-total-price]').forEach(el => {
+            el.innerHTML = new Intl.NumberFormat('vi-VN', {
+                style: 'currency',
+                currency: 'VND'
+            }).format(value + this.productForShippingData.insurance_value);
         });
     }
 
