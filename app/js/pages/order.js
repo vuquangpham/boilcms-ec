@@ -18,7 +18,7 @@ class Order{
 
         // register event listeners
         this.elements.phoneNumber.addEventListener('input', (e) => {
-            if(!parseInt(e.data)) e.target.value = e.target.value.slice(0, -1);
+            if(isNaN(parseInt(e.data))) e.target.value = e.target.value.slice(0, -1);
         });
         this.elements.form.addEventListener('submit', this.handleSubmitForm.bind(this));
     }
