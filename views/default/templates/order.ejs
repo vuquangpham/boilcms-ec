@@ -66,6 +66,12 @@ const formatPrice = (price) => new Intl.NumberFormat('vi-VN', {style: 'currency'
                     </select>
                 </div>
 
+                <div class="hidden">
+                    <label>
+                        <input type="text" value="" name="pretty-address" data-pretty-address readonly>
+                    </label>
+                </div>
+
                 <div class="field vertical-layout">
                     <label for="name">Specific Address</label>
                     <input type="text" id="address" name="address">

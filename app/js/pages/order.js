@@ -10,7 +10,8 @@ class Order{
         this.elements = {
             name: this.wrapper.querySelector('[data-form-name]'),
             phoneNumber: this.wrapper.querySelector('[data-form-phone-number]'),
-            form: this.wrapper.querySelector('[data-order-form]')
+            form: this.wrapper.querySelector('[data-order-form]'),
+            prettyAddress: this.wrapper.querySelector('[data-pretty-address]')
         };
 
         // init
@@ -18,6 +19,7 @@ class Order{
 
         // register event listeners
         this.elements.phoneNumber.addEventListener('input', (e) => {
+            if(e.data === undefined) return;
             if(isNaN(parseInt(e.data))) e.target.value = e.target.value.slice(0, -1);
         });
         this.elements.form.addEventListener('submit', this.handleSubmitForm.bind(this));
@@ -25,8 +27,15 @@ class Order{
 
     handleSubmitForm(e){
         const validation = this.validateForm();
+        if(validation){
+            // create pretty address
+            const wardName = this.easySelect.wardSelect.selectTagData.find(d => d.value === this.easySelect.wardSelect.value).label;
+            const districtName = this.easySelect.districtSelect.selectTagData.find(d => d.value === this.easySelect.districtSelect.value).label;
+            const provinceName = this.easySelect.provinceSelect.selectTagData.find(d => d.value === this.easySelect.provinceSelect.value).label;
+            this.elements.prettyAddress.value = wardName + ', ' + districtName + ', ' + provinceName;
 
-        if(validation) return;
+            return;
+        }
         e.preventDefault();
     }
 
