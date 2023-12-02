@@ -62,6 +62,12 @@ const handlePostMethod = async(request, response, next) => {
                         break;
                     }
 
+                    // order type
+                    if(categoryItem.contentType === Type.types.ORDERS){
+                        URL = '/account';
+                        break;
+                    }
+
                     URL = categoryItem.url + '&' + new URLSearchParams({
                         action: 'edit',
                         method: 'get',

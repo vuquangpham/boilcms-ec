@@ -182,7 +182,7 @@ class Order extends Category{
                     couponCode: data.couponCode
                 });
 
-                instance.save().then(result => result(result)).catch(e => reject(e));
+                instance.save().then(result => resolve(result)).catch(e => reject(e));
 
             }catch(e){
                 console.log(e);
