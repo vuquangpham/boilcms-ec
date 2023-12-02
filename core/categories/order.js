@@ -11,6 +11,38 @@ class Order extends Category{
         super(config);
     }
 
+    calculateShippingFee(options){
+        const shippingObject = {
+            "service_type_id": 2,
+            "from_district_id": 3695, // Thu Duc
+            "coupon": null,
+            "length": 30,
+            "width": 30,
+            "height": 30,
+
+            // override
+            ...options
+        };
+
+        return new Promise((resolve, reject) => {
+            fetch(process.env.GHN_SHIPPING_URL, {
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json",
+                    "token": process.env.GHN_TOKEN,
+                    "shop_id": process.env.GHN_SHOP_ID
+                },
+                body: JSON.stringify(shippingObject)
+            })
+                .then(res => res.json())
+                .then(result => {
+                    if(result.code !== 200) throw new Error('Server is busy right now!');
+                    resolve(result);
+                })
+                .catch(e => reject(e));
+        });
+    }
+
     updateProductQuantity(product, variation, quantity){
         // update the quantity in product
         const productType = variation.productType;
@@ -32,11 +64,15 @@ class Order extends Category{
     }
 
     add(data){
-        console.log('add', data);
         const variations = data.variations;
         const quantities = data.quantities;
+
+        // vars
         let totalPrice = 0;
         let savedPrice = 0;
+
+        const weightPerProduct = 60; // gam
+        let totalWeight = 0;
 
         return new Promise(async(resolve, reject) => {
 
@@ -88,6 +124,9 @@ class Order extends Category{
                     savedPrice += hasSalePrice ? (parseFloat(price - salePrice) * validatedQuantity) : 0;
                     totalPrice += finalPrice * validatedQuantity;
 
+                    // calculate weigth
+                    totalWeight += weightPerProduct * validatedQuantity;
+
                     // update variation
                     const variationUpdatePromise = Variation.findOneAndUpdate({_id: id}, {quantity: validatedQuantity});
 
@@ -113,14 +152,37 @@ class Order extends Category{
                 // save user promise;
                 const savedUser = await user.save();
 
-                // calculating shipping fee
+                // calculate shipping fee
+                const shippingObject = {
+                    insurance_value: totalPrice,
+                    weight: totalWeight,
+                    "to_district_id": parseInt(data.districtId),
+                    "to_ward_code": data.wardCode,
+                };
+                const shippingFeeObj = await this.calculateShippingFee(shippingObject);
+                const shippingFee = shippingFeeObj.data.total;
 
-                return undefined;
                 // add to the order schema
                 const instance = new this.databaseModel({
                     user: user,
-                    variations: newVariations
+                    variations: newVariations,
+
+                    fullName: data.fullName,
+                    phoneNumber: data.phoneNumber,
+
+                    provinceId: data.provinceId,
+                    districtId: data.districtId,
+                    wardCode: data.wardCode,
+
+                    address: data.prettyAddress,
+                    description: data.description,
+                    shippingFee: shippingFee,
+
+                    paymentMethod: data.payment,
+                    couponCode: data.couponCode
                 });
+
+                instance.save().then(result => result(result)).catch(e => reject(e));
 
             }catch(e){
                 console.log(e);
