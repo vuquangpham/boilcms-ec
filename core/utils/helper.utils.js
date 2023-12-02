@@ -1,3 +1,5 @@
+const crypto = require('crypto')
+
 /**
  * Get params on the request object
  * @param req {Object}
@@ -176,6 +178,28 @@ const getProductViaVariation = async(variation) => {
     return [product, productVariation];
 };
 
+/**
+ * Generate order ID when create new order
+ * */
+const generateOrderID = (username) => {
+    if(username.length < 3) {
+        return 'NULL'
+    }
+    const randomString = crypto.randomBytes(2).toString('hex')
+
+    // Uppercase first character in letter, return 1 < character < 5
+    let modifyUserName = username.split(' ')
+        .map(s => s[0].toUpperCase()).join(' ')
+        .replace(/\s/g, '')
+        .slice(0, 4)
+
+    if(modifyUserName.length < 2){
+        modifyUserName = username.split('').map((s, index) => index < 2 ? s.toUpperCase() : '').join('')
+    }
+
+    return randomString + modifyUserName
+}
+
 module.exports = {
     stringToSlug,
 
@@ -188,6 +212,7 @@ module.exports = {
     capitalizeString,
     splitUrl,
     splitString,
+    generateOrderID,
 
     modifyDate,
 
