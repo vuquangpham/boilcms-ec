@@ -83,8 +83,12 @@ class Order extends Category{
 
             const user = await UserCategory.databaseModel.findById(data.user._id).populate('cart');
 
-            // generate order id from user name
-            const orderID = generateOrderID(data.user.name)
+            // generate order id from username, run again if orderID existed in database
+            let orderID, existingOrderID;
+            do{
+                orderID = generateOrderID(data.user.name);
+                existingOrderID = await this.databaseModel.findOne({orderID})
+            } while (existingOrderID)
 
             try{
                 const variationPromises = variations.map(async(id, index) => {
