@@ -12,11 +12,15 @@ export default class OrderPost{
         // handle click action
         this.wrapper.addEventListener('click', this.handleWrapperClick.bind(this));
 
-        // create popup
-        Popup.create({
-            target: this.wrapper.querySelector('[data-popup="data-order-edit"]'),
-
+        // create popup for each [data-order-edit] element
+        const editOrderElements = wrapper.querySelectorAll('[data-order-edit]');
+        editOrderElements.forEach(element => {
+            console.log(element)
+            Popup.create({
+                target: element,
+            });
         });
+
     }
 
     handleWrapperClick(e){
