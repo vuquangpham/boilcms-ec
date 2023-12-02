@@ -197,7 +197,7 @@ const generateOrderID = (username) => {
         modifyUserName = username.split('').map((s, index) => index < 2 ? s.toUpperCase() : '').join('')
     }
 
-    return randomString + modifyUserName
+    return modifyUserName + randomString
 }
 
 module.exports = {
