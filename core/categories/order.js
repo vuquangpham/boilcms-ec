@@ -3,25 +3,49 @@ const Type = require('../classes/utils/type');
 const Variation = require('../database/product/variation.model');
 const {getProductViaVariation} = require("../utils/helper.utils");
 
+// category
+const UserCategory = require('./user');
+
 class Order extends Category{
     constructor(config){
         super(config);
+    }
+
+    updateProductQuantity(product, variation, quantity){
+        // update the quantity in product
+        const productType = variation.productType;
+        const isSimpleProduct = productType === 'simple';
+
+        // get object
+        const jsonText = isSimpleProduct ? product.simpleProductJSON : product.variableProductJSON;
+        const productObject = JSON.parse(jsonText);
+
+        if(isSimpleProduct){
+            productObject.inventory -= quantity;
+            product.simpleProductJSON = JSON.stringify(productObject);
+        }else{
+            productObject.variations[variation.variationIndex].inventory -= quantity;
+            product.variableProductJSON = JSON.stringify(productObject);
+        }
+
+        return product;
     }
 
     add(data){
         console.log('add', data);
         const variations = data.variations;
         const quantities = data.quantities;
-        const user = data.user;
-
-        return undefined;
+        let totalPrice = 0;
+        let savedPrice = 0;
 
         return new Promise(async(resolve, reject) => {
 
             // user doesn't exist
-            if(!user){
+            if(!data.user){
                 return reject(new Error(`The user doesn't exist!`));
             }
+
+            const user = await UserCategory.databaseModel.findById(data.user._id).populate('cart');
 
             try{
                 const variationPromises = variations.map(async(id, index) => {
@@ -29,19 +53,24 @@ class Order extends Category{
                     // get product based on variation
                     const variation = await Variation.findById(id);
                     const quantity = quantities[index];
-                    const [_, productVariation] = await getProductViaVariation(variation);
+                    const [product, productVariation] = await getProductViaVariation(variation);
 
                     // cart in user
-                    const cart = user.cart;
-                    const variationIndex = user.cart.find(c => c.toString() === id);
+                    const variationIndex = user.cart.findIndex(c => c._id.toString() === id);
 
-                    // product variation doesn't exist
+                    // product variation doesn't exist => maybe deleted
                     if(!productVariation){
-                        // update cart
+                        // update cart, remove the variation in cart
                         cart.splice(variationIndex, 1);
 
+                        // remove cart in database
+                        const removeVariationPromise = variation.remove();
+
                         // save cart
-                        await user.save();
+                        const saveUserPromise = user.save();
+
+                        // waiting for saving in database
+                        await Promise.all([removeVariationPromise, saveUserPromise]);
 
                         // reject
                         throw new Error(`The product in cart item has been deleted!`);
@@ -51,24 +80,42 @@ class Order extends Category{
                     const availableQuantity = productVariation.inventory;
                     const validatedQuantity = Math.min(availableQuantity, quantity);
 
+                    // calculate price
+                    const price = productVariation.price;
+                    const salePrice = productVariation.salePrice;
+                    const hasSalePrice = !!salePrice;
+                    const finalPrice = hasSalePrice ? salePrice : price;
+                    savedPrice += hasSalePrice ? (parseFloat(price - salePrice) * validatedQuantity) : 0;
+                    totalPrice += finalPrice * validatedQuantity;
+
                     // update variation
                     const variationUpdatePromise = Variation.findOneAndUpdate({_id: id}, {quantity: validatedQuantity});
 
-                    // remove from the cart of user
-                    // cart.splice(variationIndex, 1);
+                    // update quantity in product
+                    const productAfterUpdatingInventory = this.updateProductQuantity(product, variation, quantity);
 
-                    // save cart
-                    const saveUserPromise = user.save();
+                    // remove from the cart of user
+                    user.cart.splice(variationIndex, 1);
+
+                    // save product
+                    const saveProductPromise = productAfterUpdatingInventory.save();
 
                     // update the new information
-                    await Promise.all([variationUpdatePromise, saveUserPromise]);
+                    await Promise.all([variationUpdatePromise, saveProductPromise]);
 
                     // return new variation after updated
                     return Variation.findById(id);
                 });
 
+                // save variations
                 const newVariations = await Promise.all(variationPromises);
 
+                // save user promise;
+                const savedUser = await user.save();
+
+                // calculating shipping fee
+
+                return undefined;
                 // add to the order schema
                 const instance = new this.databaseModel({
                     user: user,
