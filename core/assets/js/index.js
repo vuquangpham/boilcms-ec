@@ -16,6 +16,7 @@ import './posts-type/media';
 import './posts-type/user';
 import './posts-type/account';
 import './posts-type/product';
+import './posts-type/order';
 
 // init easy select
 EasySelect.init();
