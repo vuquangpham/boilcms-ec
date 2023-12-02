@@ -1,7 +1,7 @@
 const Category = require('../classes/category/category');
 const Type = require('../classes/utils/type');
 const Variation = require('../database/product/variation.model');
-const {getProductViaVariation} = require("../utils/helper.utils");
+const {getProductViaVariation, generateOrderID} = require("../utils/helper.utils");
 
 // category
 const UserCategory = require('./user');
@@ -82,6 +82,9 @@ class Order extends Category{
             }
 
             const user = await UserCategory.databaseModel.findById(data.user._id).populate('cart');
+
+            // generate order id from user name
+            const orderID = generateOrderID(data.user.name)
 
             try{
                 const variationPromises = variations.map(async(id, index) => {
@@ -165,6 +168,7 @@ class Order extends Category{
                 // add to the order schema
                 const instance = new this.databaseModel({
                     user: user,
+                    orderID: orderID,
                     variations: newVariations,
 
                     fullName: data.fullName,

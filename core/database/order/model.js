@@ -7,6 +7,9 @@ const Order = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'user'
     },
+    orderID: {
+        type: String,
+    },
 
     // variations
     variations: [{
