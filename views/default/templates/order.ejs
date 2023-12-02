@@ -28,7 +28,8 @@ const formatPrice = (price) => new Intl.NumberFormat('vi-VN', {style: 'currency'
         <h1>New Order</h1>
     </div>
 
-    <form data-order-form class="order fl-grid ai-start margin-bottom-default">
+    <form method="post" action="/<%= adminPath %>/orders?method=post&action=add" data-order-form
+          class="order fl-grid ai-start margin-bottom-default">
         <div class="order__form">
 
             <div class="form-fields">
@@ -132,7 +133,7 @@ const formatPrice = (price) => new Intl.NumberFormat('vi-VN', {style: 'currency'
                     <div class="order__detail-product-item" data-product='<%= JSON.stringify(data); %>'>
                         <div class="hidden">
                             <label>
-                                <input type="checkbox" value="<%= data.variationId; %>" name="variations">
+                                <input type="text" value="<%= data.variationId; %>" name="variations">
                             </label>
                         </div>
 
@@ -207,8 +208,7 @@ const formatPrice = (price) => new Intl.NumberFormat('vi-VN', {style: 'currency'
 
 
         </div>
-</div>
-
+    </form>
 </div>
 
 <%- include('../partials/footer.ejs'); %>

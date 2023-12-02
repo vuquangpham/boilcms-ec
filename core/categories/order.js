@@ -1,10 +1,7 @@
 const Category = require('../classes/category/category');
-const Variation = require('../database/product/variation.model');
 const Type = require('../classes/utils/type');
+const Variation = require('../database/product/variation.model');
 const {getProductViaVariation} = require("../utils/helper.utils");
-
-const UserCategory = require('../categories/user');
-const {response} = require("express");
 
 class Order extends Category{
     constructor(config){
@@ -16,6 +13,8 @@ class Order extends Category{
         const variations = data.variations;
         const quantities = data.quantities;
         const user = data.user;
+
+        return undefined;
 
         return new Promise(async(resolve, reject) => {
 
@@ -83,19 +82,48 @@ class Order extends Category{
         });
     }
 
-    validateInputData(inputData){
+    async validateInputData(inputData){
         const request = inputData.request;
         const response = inputData.response;
 
         // vars
-        const variations = typeof request.body.variation === 'string' ? [request.body.variation] : request.body.variation;
-        const quantities = typeof request.body.quantity === 'string' ? [request.body.quantity] : request.body.quantity.slice(0, variations.length);
+        const variations = typeof request.body.variations === 'string' ? [request.body.variations] : request.body.variations;
+        const fullName = request.body.name;
+        const phoneNumber = request.body.phoneNumber;
+        const provinceId = request.body.province;
+        const districtId = request.body.district;
+        const wardCode = request.body.ward;
+        const prettyAddress = request.body['pretty-address'];
+        const address = request.body.address;
+        const description = request.body.description;
+        const payment = request.body.payment;
+        const couponCode = request.body['coupon-code'];
         const user = response.locals.user;
+        let quantities = [];
 
+        try{
+            // get quantities
+            const variationPromises = variations.map(variationId => Variation.findById(variationId));
+            const result = await Promise.all(variationPromises);
+            quantities = result.map(r => r.quantity);
+
+        }catch(e){
+            console.log(e);
+        }
         return {
             variations,
             quantities,
-            user
+            user,
+            fullName,
+            phoneNumber,
+            provinceId,
+            districtId,
+            wardCode,
+            prettyAddress,
+            address,
+            description,
+            payment,
+            couponCode
         };
     }
 }
