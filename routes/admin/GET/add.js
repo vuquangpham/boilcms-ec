@@ -14,34 +14,38 @@ const handleAddAction = async(request, response) => {
     const promise = Promise.resolve();
     const extraData = {};
 
-    // order type
-    if(categoryItem.contentType === Type.types.ORDERS){
-        const data = categoryItem.validateInputData({request, response});
-        extraData.orderData = {
-            variations: data.variations,
-            quantities: data.quantities
-        };
-    }
-
     // posts type
     if(categoryItem.contentType === Type.types.POSTS){
         // load components information
         extraData.components = ComponentController.instances;
     }
 
-    // pages
-    if(categoryItem.type === 'pages'){
-        // load custom templates
-        extraData.templates = categoryItem.templates;
+    try{
+        // order type
+        if(categoryItem.contentType === Type.types.ORDERS){
+            const data = await categoryItem.validateInputData({request, response});
+            extraData.orderData = {
+                variations: data.variations,
+                quantities: data.quantities
+            };
+        }
 
-        // load the categories
-        extraData.allCategories = await Categories.find({type: 'pages'});
-    }
+        // pages
+        if(categoryItem.type === 'pages'){
+            // load custom templates
+            extraData.templates = categoryItem.templates;
 
-    // products
-    if(categoryItem.contentType === Type.types.PRODUCTS){
-        // load the categories
-        extraData.allCategories = await Categories.find({type: 'products'});
+            // load the categories
+            extraData.allCategories = await Categories.find({type: 'pages'});
+        }
+
+        // products
+        if(categoryItem.contentType === Type.types.PRODUCTS){
+            // load the categories
+            extraData.allCategories = await Categories.find({type: 'products'});
+        }
+    }catch(e){
+        console.log(e);
     }
 
     return [promise, extraData];

@@ -1,7 +1,7 @@
 document.querySelectorAll('.cart-page').forEach(wrapper => {
     // cart form
     const cartForm = wrapper.querySelector('form.cart');
-    const variationInputs = Array.from(cartForm.querySelectorAll('input[name="variation"]'));
+    const variationInputs = Array.from(cartForm.querySelectorAll('input[name="variations"]'));
     const submitButton = cartForm.querySelector('.submit-btn');
 
     variationInputs.forEach(input => {
