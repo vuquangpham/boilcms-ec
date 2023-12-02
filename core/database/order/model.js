@@ -14,6 +14,24 @@ const Order = new mongoose.Schema({
         ref: 'Variation'
     }],
 
+    fullName: {
+        type: String,
+    },
+    phoneNumber: {
+        type: String
+    },
+
+    provinceId: String,
+    districtId: String,
+    wardCode: String,
+
+    address: String,
+    description: String,
+    shippingFee: Number,
+
+    paymentMethod: String,
+    couponCode: String,
+
     // date time
     publish: {
         type: Date,
