@@ -165,6 +165,8 @@ class Order extends Category{
                 const shippingFeeObj = await this.calculateShippingFee(shippingObject);
                 const shippingFee = shippingFeeObj.data.total;
 
+                totalPrice = totalPrice + shippingFee;
+
                 // add to the order schema
                 const instance = new this.databaseModel({
                     user: user,
@@ -183,7 +185,10 @@ class Order extends Category{
                     shippingFee: shippingFee,
 
                     paymentMethod: data.payment,
-                    couponCode: data.couponCode
+                    couponCode: data.couponCode,
+
+                    savedPrice: savedPrice,
+                    totalPrice: totalPrice
                 });
 
                 instance.save().then(result => resolve(result)).catch(e => reject(e));
@@ -238,6 +243,22 @@ class Order extends Category{
             payment,
             couponCode
         };
+    }
+
+    /**
+     * Get all data from order
+     * @return {Promise}
+     * */
+    getAllData(){
+        return new Promise((resolve, reject) => {
+            this.databaseModel.find().populate('user')
+                .then(data => {
+                    resolve(data);
+                })
+                .catch(err => {
+                    reject(err);
+                });
+        });
     }
 }
 

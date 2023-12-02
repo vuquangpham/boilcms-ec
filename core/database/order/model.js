@@ -35,12 +35,19 @@ const Order = new mongoose.Schema({
     paymentMethod: String,
     couponCode: String,
 
+    totalPrice: Number,
+    savedPrice: Number,
+
     // date time
     publish: {
         type: Date,
         default: () => Date.now()
     },
     publishFormatted: String,
+    status: {
+        type: String,
+        default: 'Unconfirmed'
+    }
 });
 
 Order.pre('save', function(next){
