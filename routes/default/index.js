@@ -16,6 +16,8 @@ const DOMPurify = require('isomorphic-dompurify');
 const ProductsTemplate = require('./products-template');
 const CartTemplate = require('./cart-template');
 const OrderTemplate = require('./order-template');
+const AccountTemplate = require('./account-template');
+
 const {ADMIN_URL, REGISTER_URL} = require("../../core/utils/config.utils");
 
 router.get('*', (request, response, next) => {
@@ -84,6 +86,7 @@ router.get('*', (request, response, next) => {
             if(categoryItem.templates && categoryItem.isCustomTemplate(result.template)){
                 // account template and not has user logged in => redirect 404
                 if(result.template === 'account' && !response.locals.user) return Promise.reject('404 page ne');
+                if(result.template === 'account') result.accountData = await AccountTemplate.getAccountData(response.locals.user);
 
                 // products template
                 if(result.template === 'products') result.products = await ProductsTemplate.getAllData();
