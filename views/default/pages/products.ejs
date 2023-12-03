@@ -129,29 +129,41 @@ const formatPrice = (price) => new Intl.NumberFormat('vi-VN', {style: 'currency'
                         <!-- add-to-cart -->
                         <div class="product-detail__add-to-cart">
 
-                            <div class="product-detail__add-to-cart-inner d-flex">
-                                <div class="product-detail__quantity product-quantity quantity">
-                                    <button class="clear-button-style quantity-button decrease" type="button" disabled>
-                                        -
-                                    </button>
-                                    <label>
-                                        <input type="number" min="1" max="<%= product.inventory %>" value="1" step="1"
-                                               data-prev-val="1" name="quantity">
-                                    </label>
-                                    <button class="clear-button-style quantity-button increase" type="button">+</button>
-                                </div>
+                            <% const hasProductAvailable = product.inventory > 0; %>
 
-                                <div class="product-detail__add-to-cart-btn">
-                                    <button class="btn_primary h100 w100">Add to cart</button>
-                                    <input type="text" value="<%= data.type %>" readonly name="type"
-                                           class="hidden"
-                                           style="display:none;">
-                                    <input type="text" value="<%= index %>" readonly name="variation-index"
-                                           class="hidden" style="display:none;">
-                                    <input type="text" value="<%= data.id %>" readonly name="product-id" class="hidden"
-                                           style="display:none;">
+                            <% if (product.inventory > 0) { %>
+                                <div class="product-detail__add-to-cart-inner d-flex">
+                                    <div class="product-detail__quantity product-quantity quantity">
+                                        <button class="clear-button-style quantity-button decrease" type="button"
+                                                disabled>
+                                            -
+                                        </button>
+                                        <label>
+                                            <input type="number" min="1" max="<%= product.inventory %>" value="1"
+                                                   step="1"
+                                                   data-prev-val="1" name="quantity">
+                                        </label>
+                                        <button class="clear-button-style quantity-button increase" type="button">+
+                                        </button>
+                                    </div>
+
+                                    <div class="product-detail__add-to-cart-btn">
+                                        <button class="btn_primary h100 w100">Add to cart</button>
+                                        <input type="text" value="<%= data.type %>" readonly name="type"
+                                               class="hidden"
+                                               style="display:none;">
+                                        <input type="text" value="<%= index %>" readonly name="variation-index"
+                                               class="hidden" style="display:none;">
+                                        <input type="text" value="<%= data.id %>" readonly name="product-id"
+                                               class="hidden"
+                                               style="display:none;">
+                                    </div>
                                 </div>
-                            </div>
+                            <% } else { %>
+                                <div>
+                                    <h4 class="txt_color_error">Out of Stock!</h4>
+                                </div>
+                            <% } %>
 
                         </div>
 
