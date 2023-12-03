@@ -68,75 +68,77 @@
 
             </div>
         <% }); %>
+
+        <!-- pop up content-->
+        <form method="post" action="#" data-popup-content="data-order-edit" data-order-form
+              data-id="<%= data._id; %>">
+
+            <div class="form-fields">
+
+                <div class="field vertical-layout">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" data-username
+                           required placeholder="Username">
+                </div>
+
+                <div class="field vertical-layout">
+                    <label for="address">Address</label>
+                    <input type="text" id="address" name="address" data-address
+                           required placeholder="Address">
+                </div>
+
+                <div class="field vertical-layout">
+                    <label for="email">Email</label>
+                    <input type="text" id="email" name="email" data-email
+                           required placeholder="Email">
+                </div>
+
+                <div class="field vertical-layout">
+                    <label for="phone">Phone</label>
+                    <input type="text" id="phone" name="phone" data-phone required
+                           placeholder="Phone">
+                </div>
+
+                <div class="field vertical-layout">
+                    <label for="shipping-fee">Shipping fee</label>
+                    <input type="text" id="shipping-fee" name="shipping-fee" data-shipping-fee
+                           required placeholder="Shipping fee">
+                </div>
+
+                <div class="field third vertical-layout">
+                    <label for="payment-method">Paid</label>
+                    <select data-select-state-value name="payment-method" id="payment-method">
+                        <option value="cod">Cod
+                        </option>
+                        <option value="momo">Momo
+                        </option>
+                        <option value="zalopay">ZaloPay
+                        </option>
+                    </select>
+                </div>
+
+                <div class="field third vertical-layout">
+                    <label for="paid">Paid</label>
+                    <select data-select-state-value name="paid" id="paid">
+                        <option value="paid">Paid
+                        </option>
+                        <option value="unpaid">Unpaid
+                        </option>
+                    </select>
+                </div>
+
+                <div data-error-message class="fs-italic txt_14px txt_color_error hidden"></div>
+
+                <div class="footer">
+                    <button class="btn_primary" type="button" data-account-password-update-btn>Save</button>
+                    <button class="btn_transparent" type="button" data-account-close-btn
+                            data-popup-toggle>Cancel
+                    </button>
+                </div>
+
+            </div>
+        </form>
     </div>
 
-    <!-- pop up content-->
-    <form method="post" action="#" data-popup-content="data-order-edit" data-order-form
-          data-id="<%= data._id; %>">
 
-        <div class="form-fields">
-
-            <div class="field vertical-layout">
-                <label for="username">Username</label>
-                <input type="text" id="username" name="username" data-username
-                       required placeholder="Username">
-            </div>
-
-            <div class="field vertical-layout">
-                <label for="address">Address</label>
-                <input type="text" id="address" name="address" data-address
-                       required placeholder="Address">
-            </div>
-
-            <div class="field vertical-layout">
-                <label for="email">Email</label>
-                <input type="text" id="email" name="email" data-email
-                       required placeholder="Email">
-            </div>
-
-            <div class="field vertical-layout">
-                <label for="phone">Phone</label>
-                <input type="text" id="phone" name="phone" data-phone required
-                       placeholder="Phone">
-            </div>
-
-            <div class="field vertical-layout">
-                <label for="shipping-fee">Shipping fee</label>
-                <input type="text" id="shipping-fee" name="shipping-fee" data-shipping-fee
-                       required placeholder="Shipping fee">
-            </div>
-
-            <div class="field third vertical-layout">
-                <label for="payment-method">Paid</label>
-                <select data-select-state-value name="payment-method" id="payment-method">
-                    <option value="cod">Cod
-                    </option>
-                    <option value="momo">Momo
-                    </option>
-                    <option value="zalopay">ZaloPay
-                    </option>
-                </select>
-            </div>
-
-            <div class="field third vertical-layout">
-                <label for="paid">Paid</label>
-                <select data-select-state-value name="paid" id="paid">
-                    <option value="paid">Paid
-                    </option>
-                    <option value="unpaid">Unpaid
-                    </option>
-                </select>
-            </div>
-
-            <div data-error-message class="fs-italic txt_14px txt_color_error hidden"></div>
-
-            <div class="footer">
-                <button class="btn_primary" type="button" data-account-password-update-btn>Save</button>
-                <button class="btn_transparent" type="button" data-account-close-btn
-                        data-popup-toggle>Cancel
-                </button>
-            </div>
-
-        </div>
-    </form>
 </div>

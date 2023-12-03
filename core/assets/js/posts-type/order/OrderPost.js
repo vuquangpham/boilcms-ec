@@ -13,14 +13,16 @@ export default class OrderPost{
         this.wrapper.addEventListener('click', this.handleWrapperClick.bind(this));
 
         // create popup for each [data-order-edit] element
-        const editOrderElements = wrapper.querySelectorAll('[data-order-edit]');
-        editOrderElements.forEach(element => {
-            console.log(element)
-            Popup.create({
-                target: element,
-            });
-        });
+        this.editOrderPopup = Popup.create({
+            target: document.createElement('div'),
+            popupContent: this.wrapper.querySelector('[data-popup-content="data-order-edit"]')
 
+        })
+
+    }
+
+    showSingleOrder(){
+        this.editOrderPopup.open()
     }
 
     handleWrapperClick(e){
@@ -28,11 +30,12 @@ export default class OrderPost{
         };
         let target = null;
 
-        const singleMediaItemEL = e.target.closest('[data-order-edit]');
+        const singleOrderItemEL = e.target.closest('[data-order-edit]');
 
         // show single media item
-        if(singleMediaItemEL){
-            console.log('1233')
+        if(singleOrderItemEL){
+            functionHandling = this.showSingleOrder.bind(this);
+            target = singleOrderItemEL;
         }
 
         // call the function
