@@ -48,7 +48,11 @@ const deliverState = {
             </div>
 
             <div>
-                <button data-trigger="address">Đăng xuất</button>
+                <button data-trigger="password">Thay đổi mật khẩu</button>
+            </div>
+
+            <div>
+                <button>Đăng xuất</button>
             </div>
         </div>
 
@@ -70,10 +74,10 @@ const deliverState = {
                                     <div class="order-history__id boil-content fl-center-v jc-space-between margin-bottom-small">
                                         <div class="fl-center-v">
                                             <span style="margin-right:4px">Mã đơn hàng:</span>
-                                            <h3 class="heading-5"><%= order.orderID ;%></h3>
+                                            <h3 class="heading-5"><%= order.orderID; %></h3>
                                         </div>
                                         <div>
-                                            <h3 class="heading-5"><%= deliverState[order.status] ;%></h3>
+                                            <h3 class="heading-5"><%= deliverState[order.status]; %></h3>
                                         </div>
                                     </div>
 
@@ -226,11 +230,88 @@ const deliverState = {
             </div>
 
             <div data-receiver="information">
-                <div>Thôn tin tài khoản</div>
+                <div class="boil-content margin-bottom-small">
+                    <h2 class="heading-3">Thông tin tài khoản</h2>
+                </div>
+
+                <form method="post" action="/<%= adminPath %>/user?method=post&action=edit&id=<%= user._id; %>">
+
+                    <div class="form-fields">
+
+                        <div class="field half vertical-layout">
+                            <label for="username">Username</label>
+                            <input id="username" data-user-name name="name" value="<%= user.name; %>"
+                                   placeholder="Username"
+                                   required>
+                        </div>
+
+                        <div class="field half vertical-layout">
+                            <label for="email">Email</label>
+                            <input id="email" data-user-email name="email" value="<%= user.email; %>"
+                                   placeholder="Email" readonly>
+                        </div>
+
+                        <div class="field third vertical-layout">
+                            <!-- register at-->
+                            <label for="register-at">Đăng kí vào lúc</label>
+                            <input type="text" id="register-at" value="<%= user.registerAtFormatted %>" readonly>
+                        </div>
+
+                        <div class="field third vertical-layout">
+                            <label for="role">Vai trò</label>
+                            <input type="text" class="tt-capitalize" id="role" value="<%= user.role %>" readonly>
+                        </div>
+
+                        <div class="field third vertical-layout">
+                            <label for="state">Trạng thái tài khoản</label>
+                            <input type="text" class="tt-capitalize" id="state" value="<%= user.state %>" readonly>
+                        </div>
+
+                        <div class="footer">
+                            <button type="submit" class="btn_primary">Save</button>
+                        </div>
+
+                    </div>
+                </form>
             </div>
 
-            <div data-receiver="address">
-                <div>Địa chỉ</div>
+            <div data-receiver="password">
+                <div class="boil-content margin-bottom-small">
+                    <h2 class="heading-3">Thay đổi mật khẩu</h2>
+                </div>
+
+                <form method="post" action="#" data-popup-content="change-password-popup" data-account-form
+                      data-id="<%= data._id; %>">
+
+                    <div class="form-fields">
+
+                        <div class="field vertical-layout">
+                            <label for="current-password">Mật khẩu hiện tại</label>
+                            <input type="password" id="current-password" name="current-password" data-current-password
+                                   required placeholder="Current Password">
+                        </div>
+
+                        <div class="field vertical-layout">
+                            <label for="password">Mật khẩu mới</label>
+                            <input type="password" id="password" name="password" data-password required
+                                   placeholder="Password">
+                        </div>
+
+                        <div class="field vertical-layout">
+                            <label for="confirm-password">Xác nhận mật khẩu mới</label>
+                            <input type="password" id="confirm-password" name="confirm-password" data-confirm-password
+                                   required placeholder="Confirm Password">
+                        </div>
+
+                        <div data-error-message class="fs-italic txt_14px txt_color_error hidden"></div>
+
+                        <div class="footer">
+                            <button class="btn_primary" type="button" data-account-password-update-btn>Save</button>
+                        </div>
+
+                    </div>
+                </form>
+
             </div>
 
         </div>
