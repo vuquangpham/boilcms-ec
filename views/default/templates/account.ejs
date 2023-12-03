@@ -67,9 +67,14 @@ const deliverState = {
                             <% data.accountData.orders.forEach(order => { %>
                                 <div class="order-history__item">
 
-                                    <div class="order-history__id boil-content fl-center-v margin-bottom-small">
-                                        <span style="margin-right:4px">Mã đơn hàng:</span>
-                                        <h3 class="heading-5"><%= order.orderID %></h3>
+                                    <div class="order-history__id boil-content fl-center-v jc-space-between margin-bottom-small">
+                                        <div class="fl-center-v">
+                                            <span style="margin-right:4px">Mã đơn hàng:</span>
+                                            <h3 class="heading-5"><%= order.orderID ;%></h3>
+                                        </div>
+                                        <div>
+                                            <h3 class="heading-5"><%= deliverState[order.status] ;%></h3>
+                                        </div>
                                     </div>
 
                                     <div class="order-history__variations margin-bottom-small">
@@ -188,14 +193,14 @@ const deliverState = {
                                             <div class="field vertical-layout third">
                                                 <label for="payment-status">Trạng thái thanh toán</label>
                                                 <input type="text"
-                                                       value="<%= order.isPaid ? "Đã thanh toán" : "Chưa thanh toán" ;%>"
+                                                       value="<%= order.isPaid ? "Đã thanh toán" : "Chưa thanh toán"; %>"
                                                        id="payment-status" readonly>
                                             </div>
 
                                             <div class="field vertical-layout third">
                                                 <label for="deliver-status">Tình trạng đơn hàng</label>
                                                 <input type="text"
-                                                       value="<%= deliverState[order.status] ;%>"
+                                                       value="<%= deliverState[order.status]; %>"
                                                        id="deliver-status" readonly>
                                             </div>
 
