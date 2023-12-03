@@ -1,3 +1,7 @@
+<%
+const formatPrice = (price) => new Intl.NumberFormat('vi-VN', {style: 'currency', currency: 'VND'}).format(price);
+%>
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -19,29 +23,106 @@
 <%- include('../partials/header.ejs'); %>
 
 <div class="container">
-    <div data-tab class="fl-grid">
+    <div data-tab class="fl-grid margin-bottom-default">
         <div class="w30">
-            <div>
-                <button data-trigger="information">Thông tin tài khoản</button>
-            </div>
 
             <div>
                 <button data-trigger="history">Lịch sử đơn hàng</button>
             </div>
 
             <div>
-                <button data-trigger="address">Địa chỉ</button>
+                <button data-trigger="information">Thông tin tài khoản</button>
+            </div>
+
+            <div>
+                <button data-trigger="address">Đăng xuất</button>
             </div>
         </div>
 
         <div class="w70">
 
-            <div data-receiver="information">
-                <div>Thôn tin tài khoản</div>
+            <div data-receiver="history">
+                <div class="order-history">
+
+                    <div class="order-history__title boil-content margin-bottom-small">
+                        <h2 class="heading-3">Lịch sử đơn hàng</h2>
+                    </div>
+
+                    <% if (data.accountData.orders.length > 0) { %>
+
+                        <div class="order-history__orders">
+                            <% data.accountData.orders.forEach(order => { %>
+                                <div class="order-history__item">
+
+                                    <div class="order-history__variations">
+                                        <% order.variations.forEach(v => { %>
+
+                                            <div class="order-history__variation fl-grid">
+                                                <div class="order-history__image img-wrapper-contain skeleton-bg">
+                                                    <img src="<%= v.image.url.small %>"
+                                                         alt="<%= v.image.name %>">
+                                                </div>
+
+                                                <div class="order-history__product-content">
+
+                                                    <!-- product name -->
+                                                    <div class="order-history__product-name boil-content">
+                                                        <h4><%= v.productName %></h4>
+                                                    </div>
+
+                                                    <!-- attributes -->
+                                                    <% if (v.selectedAttributes.length) { %>
+                                                        <div class="order-history__attributes product-variation fl-grid txt_14px">
+                                                            <% v.selectedAttributes.forEach(s => { %>
+
+                                                                <div class="variation">
+                                                                    <span class="tt-capitalize"><%= s.name %>: <span
+                                                                                class="fw-bold value"><%= s.value %></span></span>
+                                                                </div>
+
+                                                            <% }) %>
+                                                        </div>
+                                                    <% } %>
+
+                                                    <!-- price -->
+                                                    <div class="order-history__price">
+                                                        <div class="product-item__price">
+                                                            <% if (v.salePrice) { %>
+                                                                <span class="price"><%= formatPrice(v.salePrice); %></span>
+                                                                <span class="price price--with-stroke"><%= formatPrice(v.price); %></span>
+                                                            <% }  else { %>
+                                                                <span class="price"><%= formatPrice(v.price); %></span>
+                                                            <% } %>
+                                                            <span class="separator txt_14px">x</span>
+                                                            <span><%= v.quantity %></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        <% }) %>
+                                    </div>
+
+                                </div>
+                            <% }) %>
+                        </div>
+
+                    <% } else { %>
+                        <!-- no orders -->
+                        <div class="order-history__no-order boil-content">
+                            <p>
+                                Bạn chưa mua đơn hàng nào của chúng tôi. Hãy trang bị cho mình 1 thiết bị mới <a
+                                        href="/products">tại đây</a>.
+                            </p>
+                        </div>
+
+                    <% } %>
+
+                </div>
             </div>
 
-            <div data-receiver="history">
-                <div>Đơn hàng</div>
+            <div data-receiver="information">
+                <div>Thôn tin tài khoản</div>
             </div>
 
             <div data-receiver="address">

@@ -25,18 +25,16 @@ const getAccountData = async(user) => {
                 };
             });
 
-            const variations = await Promise.all(variationPromises);
-            order.variations = variations;
-            console.log('variatiomns', variations);
+            order.variations = await Promise.all(variationPromises);
 
             return order;
         });
         const ordersData = await Promise.all(orderPromises);
 
         return {
-            orders: ordersData
+            orders: ordersData,
+            user
         };
-        // user information
 
     }catch(e){
         console.log(e);
