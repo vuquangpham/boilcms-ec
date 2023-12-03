@@ -1,5 +1,14 @@
 <%
 const formatPrice = (price) => new Intl.NumberFormat('vi-VN', {style: 'currency', currency: 'VND'}).format(price);
+
+const deliverState = {
+    unconfirmed: "Chưa xác thực",
+    confirmed: "Đã xác thực",
+    delivering: "Đang vận chuyển",
+    delivered: "Đã vận chuyển tới khu vực",
+    success: "Giao hàng thành công",
+    failed: "Đơn hàng bị hủy",
+};
 %>
 
 <html lang="en">
@@ -170,16 +179,24 @@ const formatPrice = (price) => new Intl.NumberFormat('vi-VN', {style: 'currency'
                                                        id="total" readonly>
                                             </div>
 
-                                            <div class="field vertical-layout half">
+                                            <div class="field vertical-layout third">
                                                 <label for="payment">Phương thức thanh toán</label>
                                                 <input type="text" value="<%= order.paymentMethod.toUpperCase() %>"
                                                        id="payment" readonly>
                                             </div>
 
-                                            <div class="field vertical-layout half">
+                                            <div class="field vertical-layout third">
                                                 <label for="payment-status">Trạng thái thanh toán</label>
-                                                <input type="text" value="Chưa thanh toán"
+                                                <input type="text"
+                                                       value="<%= order.isPaid ? "Đã thanh toán" : "Chưa thanh toán" ;%>"
                                                        id="payment-status" readonly>
+                                            </div>
+
+                                            <div class="field vertical-layout third">
+                                                <label for="deliver-status">Tình trạng đơn hàng</label>
+                                                <input type="text"
+                                                       value="<%= deliverState[order.status] ;%>"
+                                                       id="deliver-status" readonly>
                                             </div>
 
                                         </div>
