@@ -6,7 +6,7 @@ const getAccountData = async(user) => {
 
     try{
         // variations in order data
-        const orders = await Orders.databaseModel.find({user: user}).populate('variations');
+        const orders = await Orders.databaseModel.find({user: user});
 
         // get orders
         const orderPromises = orders.map(async(order, index) => {
