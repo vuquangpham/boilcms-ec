@@ -210,7 +210,7 @@ class Order extends Category{
         });
     }
 
-    async validateInputData(inputData){
+    async validateInputData(inputData, action = 'add'){
         const request = inputData.request;
         const response = inputData.response;
 
@@ -226,7 +226,7 @@ class Order extends Category{
         const description = request.body.description;
         const payment = request.body.payment;
         const couponCode = request.body['coupon-code'];
-        const user = response.locals.user;
+
         let quantities = [];
 
         try{
@@ -238,10 +238,9 @@ class Order extends Category{
         }catch(e){
             console.log(e);
         }
-        return {
+        const returnObj = {
             variations,
             quantities,
-            user,
             fullName,
             phoneNumber,
             provinceId,
@@ -253,6 +252,9 @@ class Order extends Category{
             payment,
             couponCode
         };
+
+        if(action === 'add') returnObj.user = response.locals.user;
+        return returnObj
     }
 
     /**
