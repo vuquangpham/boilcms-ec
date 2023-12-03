@@ -73,6 +73,11 @@
         <form method="post" action="#" data-popup-content="data-order-edit" data-order-form
               data-id="<%= data._id; %>">
 
+            <div data-custom-title>
+                <span>Order</span>
+                <span data-orderID>#</span>
+            </div>
+
             <div class="form-fields">
 
                 <div class="field vertical-layout">
@@ -107,7 +112,7 @@
 
                 <div class="field third vertical-layout">
                     <label for="payment-method">Paid</label>
-                    <select data-select-state-value name="payment-method" id="payment-method">
+                    <select data-select-payment-value name="payment-method" id="payment-method">
                         <option value="cod">Cod
                         </option>
                         <option value="momo">Momo
@@ -119,7 +124,7 @@
 
                 <div class="field third vertical-layout">
                     <label for="paid">Paid</label>
-                    <select data-select-state-value name="paid" id="paid">
+                    <select data-select-paid-value name="paid" id="paid">
                         <option value="paid">Paid
                         </option>
                         <option value="unpaid">Unpaid

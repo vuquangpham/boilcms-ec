@@ -44,6 +44,10 @@ const Order = new mongoose.Schema({
     status: {
         type: String,
         default: 'Unconfirmed'
+    },
+    isPaid: {
+        type: Boolean,
+        default: false
     }
 });
 

@@ -270,6 +270,17 @@ class Order extends Category{
                 });
         });
     }
+    getDataById(id){
+        return new Promise((resolve, reject) => {
+            this.databaseModel.findById(id).populate('user')
+                .then(data => {
+                    resolve(data);
+                })
+                .catch(async err => {
+                    reject(err);
+                });
+        });
+    }
 }
 
 module.exports = new Order({
