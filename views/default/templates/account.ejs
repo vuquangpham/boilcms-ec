@@ -23,6 +23,10 @@ const formatPrice = (price) => new Intl.NumberFormat('vi-VN', {style: 'currency'
 <%- include('../partials/header.ejs'); %>
 
 <div class="container">
+    <div class="site-title">
+        <h1>Quản lí tài khoản</h1>
+    </div>
+
     <div data-tab class="fl-grid margin-bottom-default">
         <div class="w30">
 
@@ -54,11 +58,16 @@ const formatPrice = (price) => new Intl.NumberFormat('vi-VN', {style: 'currency'
                             <% data.accountData.orders.forEach(order => { %>
                                 <div class="order-history__item">
 
-                                    <div class="order-history__variations">
+                                    <div class="order-history__id boil-content fl-center-v margin-bottom-small">
+                                        <span style="margin-right:4px">Mã đơn hàng:</span>
+                                        <h3 class="heading-5"><%= order.orderID %></h3>
+                                    </div>
+
+                                    <div class="order-history__variations margin-bottom-small">
                                         <% order.variations.forEach(v => { %>
 
                                             <div class="order-history__variation fl-grid">
-                                                <div class="order-history__image img-wrapper-contain skeleton-bg">
+                                                <div class="order-history__image ar-1 img-wrapper-contain skeleton-bg">
                                                     <img src="<%= v.image.url.small %>"
                                                          alt="<%= v.image.name %>">
                                                 </div>
@@ -67,7 +76,7 @@ const formatPrice = (price) => new Intl.NumberFormat('vi-VN', {style: 'currency'
 
                                                     <!-- product name -->
                                                     <div class="order-history__product-name boil-content">
-                                                        <h4><%= v.productName %></h4>
+                                                        <h4 class="heading-5"><%= v.productName %></h4>
                                                     </div>
 
                                                     <!-- attributes -->
@@ -86,21 +95,94 @@ const formatPrice = (price) => new Intl.NumberFormat('vi-VN', {style: 'currency'
 
                                                     <!-- price -->
                                                     <div class="order-history__price">
-                                                        <div class="product-item__price">
-                                                            <% if (v.salePrice) { %>
-                                                                <span class="price"><%= formatPrice(v.salePrice); %></span>
-                                                                <span class="price price--with-stroke"><%= formatPrice(v.price); %></span>
-                                                            <% }  else { %>
-                                                                <span class="price"><%= formatPrice(v.price); %></span>
-                                                            <% } %>
-                                                            <span class="separator txt_14px">x</span>
-                                                            <span><%= v.quantity %></span>
+                                                        <div class="product-item__price fl-center-v jc-space-between">
+
+                                                            <div>
+                                                                <% const price = v.salePrice || v.price; %>
+                                                                <% if (v.salePrice) { %>
+                                                                    <span class="price"><%= formatPrice(v.salePrice); %></span>
+                                                                    <span class="price price--with-stroke"><%= formatPrice(v.price); %></span>
+                                                                    <span class="sale-amount">-<%= parseInt(100 - (v.salePrice * 100) / v.price); %>%</span>
+                                                                <% }  else { %>
+                                                                    <span class="price"><%= formatPrice(v.price); %></span>
+                                                                <% } %>
+                                                            </div>
+
+                                                            <div>
+                                                                <span class="separator txt_14px">x</span>
+                                                                <span><%= v.quantity %></span>
+                                                            </div>
                                                         </div>
+
+                                                        <div class="product-item__total-price d-flex jc-end">
+                                                            <span style="font-weight: 600;"><%= formatPrice(price * v.quantity) %></span>
+                                                        </div>
+
                                                     </div>
                                                 </div>
                                             </div>
 
                                         <% }) %>
+                                    </div>
+
+                                    <!-- order information -->
+                                    <div class="order-history__information">
+                                        <div class="form-fields">
+
+                                            <div class="field half vertical-layout">
+                                                <label for="name">Họ và tên</label>
+                                                <input type="text" value="<%= order.fullName %>" id="name" readonly>
+                                            </div>
+
+                                            <div class="field half vertical-layout">
+                                                <label for="phone">Số điện thoại</label>
+                                                <input type="text" value="<%= order.phoneNumber %>" id="phone" readonly>
+                                            </div>
+
+                                            <div class="field vertical-layout">
+                                                <label for="address">Địa chỉ</label>
+                                                <input type="text" value="<%= order.address %>" id="address" readonly>
+                                            </div>
+
+                                            <div class="field vertical-layout">
+                                                <label for="description">Thông tin thêm</label>
+                                                <input type="text" value="<%= order.description %>" id="description"
+                                                       readonly>
+                                            </div>
+
+                                            <div class="field vertical-layout third">
+                                                <label for="total-price">Tổng giá trị đơn hàng</label>
+                                                <input type="text"
+                                                       value="<%= formatPrice(order.totalPrice - order.shippingFee) %>"
+                                                       id="total-price" readonly>
+                                                <div class="description">Chưa bao gồm phí vận chuyển</div>
+                                            </div>
+
+                                            <div class="field vertical-layout third">
+                                                <label for="shipping-fee">Phí vận chuyển</label>
+                                                <input type="text" value="<%= formatPrice(order.shippingFee) %>"
+                                                       id="shipping-fee" readonly>
+                                            </div>
+
+                                            <div class="field vertical-layout third">
+                                                <label for="total">Tổng tiền</label>
+                                                <input type="text" value="<%= formatPrice(order.totalPrice) %>"
+                                                       id="total" readonly>
+                                            </div>
+
+                                            <div class="field vertical-layout half">
+                                                <label for="payment">Phương thức thanh toán</label>
+                                                <input type="text" value="<%= order.paymentMethod.toUpperCase() %>"
+                                                       id="payment" readonly>
+                                            </div>
+
+                                            <div class="field vertical-layout half">
+                                                <label for="payment-status">Trạng thái thanh toán</label>
+                                                <input type="text" value="Chưa thanh toán"
+                                                       id="payment-status" readonly>
+                                            </div>
+
+                                        </div>
                                     </div>
 
                                 </div>
