@@ -217,7 +217,6 @@ class Order extends Category{
         const response = inputData.response;
 
         // vars
-        const variations = typeof request.body.variations === 'string' ? [request.body.variations] : request.body.variations;
         const fullName = request.body.name;
         const phoneNumber = request.body.phoneNumber;
         const provinceId = request.body.province;
@@ -226,23 +225,12 @@ class Order extends Category{
         const prettyAddress = request.body['pretty-address'];
         const address = request.body.address;
         const description = request.body.description;
-        const payment = request.body.payment;
+        const paymentMethod = request.body.payment;
         const couponCode = request.body['coupon-code'];
 
         let quantities = [];
 
-        try{
-            // get quantities
-            const variationPromises = variations.map(variationId => Variation.findById(variationId));
-            const result = await Promise.all(variationPromises);
-            quantities = result.map(r => r.quantity);
-
-        }catch(e){
-            console.log(e);
-        }
         const returnObj = {
-            variations,
-            quantities,
             fullName,
             phoneNumber,
             provinceId,
@@ -251,11 +239,33 @@ class Order extends Category{
             prettyAddress,
             address,
             description,
-            payment,
+            paymentMethod,
             couponCode
         };
 
-        if(action === 'add') returnObj.user = response.locals.user;
+        if(action === 'edit') {
+            returnObj.status = request.body.status;
+            returnObj.isPaid = request.body.isPaid;
+        }
+
+        if(action === 'add') {
+            const variations = typeof request.body.variations === 'string' ? [request.body.variations] : request.body.variations;
+
+            try{
+                // get quantities
+                const variationPromises = variations.map(variationId => Variation.findById(variationId));
+                const result = await Promise.all(variationPromises);
+                quantities = result.map(r => r.quantity);
+
+            }catch(e){
+                console.log(e);
+            }
+
+            returnObj.user = response.locals.user;
+            returnObj.variations = variations;
+            returnObj.quantities = quantities;
+        }
+
         return returnObj
     }
 

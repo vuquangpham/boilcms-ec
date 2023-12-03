@@ -27,7 +27,7 @@
                     #<%= order.orderID; %></div>
 
                 <div class="orders__item--customer" data-column="Customer" data-username-item>
-                    <time><%= order.user.name %></time>
+                    <div><%= order.fullName %></div>
                 </div>
 
                 <div class="orders__item--total "
@@ -82,22 +82,25 @@
 
                 <div class="field vertical-layout">
                     <label for="username">Username</label>
-                    <div data-username></div>
+                    <input type="text" id="username" name="username" data-username
+                           required placeholder="Username">
                 </div>
 
                 <div class="field vertical-layout">
                     <label for="address">Address</label>
-                    <div data-address></div>
+                    <input type="text" id="address" name="address" data-address
+                           required placeholder="Address">
+                </div>
+
+                <div class="field vertical-layout">
+                    <label for="phone">Phone</label>
+                    <input type="text" id="phone" name="phone" data-phone required
+                           placeholder="Phone">
                 </div>
 
                 <div class="field vertical-layout">
                     <label for="email">Email</label>
                     <div data-email></div>
-                </div>
-
-                <div class="field vertical-layout">
-                    <label for="phone">Phone</label>
-                    <div data-phone></div>
                 </div>
 
                 <div class="field vertical-layout">
@@ -111,8 +114,8 @@
                 </div>
 
                 <div class="field third vertical-layout">
-                    <label for="payment-method">Paid</label>
-                    <select data-select-payment-value name="payment-method" id="payment-method">
+                    <label for="payment-method">Payment</label>
+                    <select data-select-payment-value name="payment" id="payment-method">
                         <option value="cod">Cod
                         </option>
                         <option value="momo">Momo
@@ -160,7 +163,7 @@
                         <div class="products-list--product-quantity" data-column="Quantity">Quantity</div>
                     </div>
 
-                    <div class="products-list__item" data-column-wrapper="item" data-product-item>
+                    <div class="products-list__item" data-column-wrapper="item" data-products-item>
                         <div class="products-item--product-image" data-column="ProductImage" data-product-image-item>
                             <img alt="" src="">
                         </div>

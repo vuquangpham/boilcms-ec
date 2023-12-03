@@ -20,6 +20,7 @@ export default class OrderPost{
             // select input
             paymentSelectInput: wrapper.querySelector('[data-select-payment-value]'),
             paidSelectInput: wrapper.querySelector('[data-select-paid-value]'),
+            statusSelectInput: wrapper.querySelector('[data-select-status-value]'),
 
             // product list input
             productImageInput: wrapper.querySelector('[data-product-image-item] img'),
@@ -70,19 +71,21 @@ export default class OrderPost{
 
         // change the input of the form
         this.elements.orderID.textContent = data.orderID;
-        this.elements.usernameInput.textContent = data.fullName;
-        this.elements.addressInput.textContent = data.address;
+        this.elements.usernameInput.value = data.fullName;
+        this.elements.addressInput.value = data.address;
         this.elements.emailInput.textContent = data.user.email;
-        this.elements.phoneInput.textContent = data.phoneNumber;
+        this.elements.phoneInput.value = data.phoneNumber;
         this.elements.shippingFeeInput.textContent = data.shippingFee;
         this.elements.totalInput.textContent = data.totalPrice
         this.elements.paymentSelectInput.value = data.paymentMethod;
+        this.elements.statusSelectInput.value = data.status;
         this.elements.paidSelectInput.value = data.isPaid ? 'paid' : 'unpaid'
 
         data.variations.forEach(product => {
             this.elements.productImageInput.src = product.image.small
             this.elements.productNameInput.textContent = product.productName;
             this.elements.productQuantityInput.textContent = product.quantity;
+
         })
     };
 
@@ -122,8 +125,14 @@ export default class OrderPost{
 
         const formData = new FormData();
 
-        formData.append('paymentMethod', this.elements.paymentSelectInput.value);
-        formData.append('isPaid', this.elements.paidSelectInput.value);
+        formData.append('name', this.elements.usernameInput.value);
+        formData.append('address', this.elements.addressInput.value);
+        formData.append('phoneNumber', this.elements.phoneInput.value);
+
+        // select
+        formData.append('payment', this.elements.paymentSelectInput.value);
+        formData.append('status', this.elements.statusSelectInput.value);
+        formData.append('isPaid', this.elements.paidSelectInput.value === 'paid');
 
         fetch(this.FETCH_URL, {
             method: 'post',
@@ -144,7 +153,13 @@ export default class OrderPost{
                 }
 
                 // update the new user
-                // orderItemEl.querySelector('[data-select-status-value]').innerHTML = result.status;
+                orderItemEl.querySelector('[data-username-item]').innerHTML = result.fullName;
+                orderItemEl.querySelector('[data-payment-item]').innerHTML = result.paymentMethod;
+                orderItemEl.querySelector('[data-order-item-status] span').innerHTML = result.status;
+
+                // add class for any state
+                result.status === 'success' ? orderItemEl.querySelector('[data-order-item-status] span').className = 'badge badge--green' :
+                    orderItemEl.querySelector('[data-order-item-status] span').className = 'badge badge--red';
 
 
                 // close the popup
