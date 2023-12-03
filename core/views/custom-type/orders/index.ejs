@@ -1,3 +1,7 @@
+<%
+const formatPrice = (price) => new Intl.NumberFormat('vi-VN', {style: 'currency', currency: 'VND'}).format(price);
+%>
+
 <div data-custom-title>
     <span><%= title; %></span>
 </div>
@@ -23,7 +27,7 @@
 
             <div class="orders-list__item" data-column-wrapper="item" data-id="<%= order._id %>" data-order-item>
 
-                <div class="orders__item--orderId" data-column="OrderID" data-orderid-item>
+                <div class="orders__item--orderId fw-bold" data-column="OrderID" data-orderid-item>
                     #<%= order.orderID; %></div>
 
                 <div class="orders__item--customer" data-column="Customer" data-username-item>
@@ -31,10 +35,12 @@
                 </div>
 
                 <div class="orders__item--total "
-                     data-column="Total" data-order-item-total><%= order.totalPrice; %> đ</div>
+                     data-column="Total" data-order-item-total
+                     style="font-weight:600;"><%= formatPrice(order.totalPrice); %>
+                </div>
 
-                <div class="orders-list--payment-method"
-                     data-column="Payment Method" data-payment-item><%= order.paymentMethod%>
+                <div class="orders-list--payment-method tt-uppercase"
+                     data-column="Payment Method" data-payment-item><%= order.paymentMethod %>
                 </div>
 
                 <div class="orders-list--date"
@@ -139,7 +145,7 @@
                         </option>
                         <option value="confirmed">Confirmed
                         </option>
-                        <option value="delivery">On Delivery
+                        <option value="delivering">Delivering
                         </option>
                         <option value="delivered">Delivered
                         </option>
@@ -167,7 +173,8 @@
 
                         <div class="products-item--product-name" data-column="ProductName" data-product-name-item></div>
 
-                        <div class="products-item--product-quantity" data-column="Quantity" data-product-quantity-item></div>
+                        <div class="products-item--product-quantity" data-column="Quantity"
+                             data-product-quantity-item></div>
                     </div>
 
                 </div>
