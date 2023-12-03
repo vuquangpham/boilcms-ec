@@ -80,10 +80,16 @@
 
             <div class="form-fields">
 
-                <div class="field vertical-layout">
+                <div class="field vertical-layout half">
                     <label for="username">Username</label>
                     <input type="text" id="username" name="username" data-username
                            required placeholder="Username">
+                </div>
+
+                <div class="field vertical-layout half">
+                    <label for="phone">Phone</label>
+                    <input type="text" id="phone" name="phone" data-phone required
+                           placeholder="Phone">
                 </div>
 
                 <div class="field vertical-layout">
@@ -92,26 +98,17 @@
                            required placeholder="Address">
                 </div>
 
-                <div class="field vertical-layout">
-                    <label for="phone">Phone</label>
-                    <input type="text" id="phone" name="phone" data-phone required
-                           placeholder="Phone">
-                </div>
 
-                <div class="field vertical-layout">
-                    <label for="email">Email</label>
-                    <div data-email></div>
-                </div>
-
-                <div class="field vertical-layout">
+                <div class="field vertical-layout half">
                     <label for="shipping-fee">Shipping fee</label>
-                    <div data-shipping-fee></div>
+                    <input type="text" data-shipping-fee readonly id="shipping-fee">
                 </div>
 
-                <div class="field vertical-layout">
+                <div class="field vertical-layout half">
                     <label for="total">Total</label>
-                    <div data-total></div>
+                    <input type="text" data-total readonly id="total">
                 </div>
+
 
                 <div class="field third vertical-layout">
                     <label for="payment-method">Payment</label>

@@ -73,10 +73,10 @@ export default class OrderPost{
         this.elements.orderID.textContent = data.orderID;
         this.elements.usernameInput.value = data.fullName;
         this.elements.addressInput.value = data.address;
-        this.elements.emailInput.textContent = data.user.email;
+        // this.elements.emailInput.textContent = data.user.email;
         this.elements.phoneInput.value = data.phoneNumber;
-        this.elements.shippingFeeInput.textContent = data.shippingFee;
-        this.elements.totalInput.textContent = data.totalPrice
+        this.elements.shippingFeeInput.value = data.shippingFee;
+        this.elements.totalInput.value = data.totalPrice;
         this.elements.paymentSelectInput.value = data.paymentMethod;
         this.elements.statusSelectInput.value = data.status;
         this.elements.paidSelectInput.value = data.isPaid ? 'paid' : 'unpaid'
