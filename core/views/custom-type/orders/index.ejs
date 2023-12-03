@@ -23,10 +23,10 @@
 
             <div class="orders-list__item" data-column-wrapper="item" data-id="<%= order._id %>" data-order-item>
 
-                <div class="orders__item--orderId" data-column="OrderID" data-order-item-name>
+                <div class="orders__item--orderId" data-column="OrderID" data-orderid-item>
                     #<%= order.orderID; %></div>
 
-                <div class="orders__item--customer" data-column="Customer">
+                <div class="orders__item--customer" data-column="Customer" data-username-item>
                     <time><%= order.user.name %></time>
                 </div>
 
@@ -34,7 +34,7 @@
                      data-column="Total" data-order-item-total><%= order.totalPrice; %> đ</div>
 
                 <div class="orders-list--payment-method"
-                     data-column="Payment Method"><%= order.paymentMethod%>
+                     data-column="Payment Method" data-payment-item><%= order.paymentMethod%>
                 </div>
 
                 <div class="orders-list--date"
@@ -82,32 +82,32 @@
 
                 <div class="field vertical-layout">
                     <label for="username">Username</label>
-                    <input type="text" id="username" name="username" data-username
-                           required placeholder="Username">
+                    <div data-username></div>
                 </div>
 
                 <div class="field vertical-layout">
                     <label for="address">Address</label>
-                    <input type="text" id="address" name="address" data-address
-                           required placeholder="Address">
+                    <div data-address></div>
                 </div>
 
                 <div class="field vertical-layout">
                     <label for="email">Email</label>
-                    <input type="text" id="email" name="email" data-email
-                           required placeholder="Email">
+                    <div data-email></div>
                 </div>
 
                 <div class="field vertical-layout">
                     <label for="phone">Phone</label>
-                    <input type="text" id="phone" name="phone" data-phone required
-                           placeholder="Phone">
+                    <div data-phone></div>
                 </div>
 
                 <div class="field vertical-layout">
                     <label for="shipping-fee">Shipping fee</label>
-                    <input type="text" id="shipping-fee" name="shipping-fee" data-shipping-fee
-                           required placeholder="Shipping fee">
+                    <div data-shipping-fee></div>
+                </div>
+
+                <div class="field vertical-layout">
+                    <label for="total">Total</label>
+                    <div data-total></div>
                 </div>
 
                 <div class="field third vertical-layout">
@@ -132,11 +132,49 @@
                     </select>
                 </div>
 
+                <div class="field third vertical-layout">
+                    <label for="status">Status</label>
+                    <select data-select-status-value name="status" id="status">
+                        <option value="unconfirmed">Unconfirmed
+                        </option>
+                        <option value="Confirmed">Confirmed
+                        </option>
+                        <option value="delivery">On Delivery
+                        </option>
+                        <option value="delivered">Delivered
+                        </option>
+                        <option value="success">Success
+                        </option>
+                        <option value="failed">Failed
+                        </option>
+                    </select>
+                </div>
+
                 <div data-error-message class="fs-italic txt_14px txt_color_error hidden"></div>
 
+                <!-- product list -->
+                <div>
+                    <div class="products-list__heading" data-column-wrapper="heading">
+                        <div class="products-list--product-image" data-column="ProductImage">Product Image</div>
+                        <div class="products-list--product-name" data-column="ProductName">Product Name</div>
+                        <div class="products-list--product-quantity" data-column="Quantity">Quantity</div>
+                    </div>
+
+                    <div class="products-list__item" data-column-wrapper="item" data-product-item>
+                        <div class="products-item--product-image" data-column="ProductImage" data-product-image-item>
+                            <img alt="" src="">
+                        </div>
+
+                        <div class="products-item--product-name" data-column="ProductName" data-product-name-item></div>
+
+                        <div class="products-item--product-quantity" data-column="Quantity" data-product-quantity-item></div>
+                    </div>
+
+                </div>
+
                 <div class="footer">
-                    <button class="btn_primary" type="button" data-account-password-update-btn>Save</button>
-                    <button class="btn_transparent" type="button" data-account-close-btn
+                    <button class="btn_primary" type="button" data-order-update-btn>Save</button>
+                    <button class="btn_transparent" type="button" data-order-close-btn
                             data-popup-toggle>Cancel
                     </button>
                 </div>
