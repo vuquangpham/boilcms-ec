@@ -1,4 +1,6 @@
 const Category = require('../classes/category/category');
+const ProductCategory = require('../categories/product');
+const MediaCategory = require('../categories/media');
 const Type = require('../classes/utils/type');
 const Variation = require('../database/product/variation.model');
 const {getProductViaVariation, generateOrderID} = require("../utils/helper.utils");
@@ -275,7 +277,16 @@ class Order extends Category{
     getDataById(id){
         return new Promise((resolve, reject) => {
             this.databaseModel.findById(id).populate('user')
-                .then(data => {
+                .then(async data => {
+                    if(data.variations.length > 0){
+                        for (const variation of data.variations) {
+                            let variationProduct = await ProductCategory.getDataById(variation.productId)
+                            let variationMedia = await MediaCategory.getDataById(variationProduct.categoryImage)
+                            variation.productName = variationProduct.name;
+                            variation.image = variationMedia.url
+                        }
+                    }
+
                     resolve(data);
                 })
                 .catch(async err => {
