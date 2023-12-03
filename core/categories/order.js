@@ -87,8 +87,8 @@ class Order extends Category{
             let orderID, existingOrderID;
             do{
                 orderID = generateOrderID(data.user.name);
-                existingOrderID = await this.databaseModel.findOne({orderID})
-            } while (existingOrderID)
+                existingOrderID = await this.databaseModel.findOne({orderID});
+            }while(existingOrderID);
 
             try{
                 const variationPromises = variations.map(async(id, index) => {
@@ -107,7 +107,7 @@ class Order extends Category{
                         cart.splice(variationIndex, 1);
 
                         // remove cart in database
-                        const removeVariationPromise = variation.remove();
+                        const removeVariationPromise = Variation.findOneAndRemove({_id: variation._id});
 
                         // save cart
                         const saveUserPromise = user.save();
@@ -134,30 +134,35 @@ class Order extends Category{
                     // calculate weigth
                     totalWeight += weightPerProduct * validatedQuantity;
 
-                    // update variation
-                    const variationUpdatePromise = Variation.findOneAndUpdate({_id: id}, {quantity: validatedQuantity});
-
                     // update quantity in product
                     const productAfterUpdatingInventory = this.updateProductQuantity(product, variation, quantity);
 
                     // remove from the cart of user
                     user.cart.splice(variationIndex, 1);
 
+                    // remove variation
+                    const removeVariationPromise = Variation.findOneAndRemove({_id: variation._id});
+
                     // save product
                     const saveProductPromise = productAfterUpdatingInventory.save();
 
                     // update the new information
-                    await Promise.all([variationUpdatePromise, saveProductPromise]);
+                    await Promise.all([saveProductPromise, removeVariationPromise]);
 
-                    // return new variation after updated
-                    return Variation.findById(id);
+                    return {
+                        productId: variation.productId,
+                        quantity: validatedQuantity,
+                        price,
+                        salePrice,
+                        selectedAttributes: productVariation.selectedAttributes || []
+                    };
                 });
 
                 // save variations
                 const newVariations = await Promise.all(variationPromises);
 
                 // save user promise;
-                const savedUser = await user.save();
+                await user.save();
 
                 // calculate shipping fee
                 const shippingObject = {
@@ -169,6 +174,7 @@ class Order extends Category{
                 const shippingFeeObj = await this.calculateShippingFee(shippingObject);
                 const shippingFee = shippingFeeObj.data.total;
 
+                // calculate total price
                 totalPrice = totalPrice + shippingFee;
 
                 // add to the order schema

@@ -12,10 +12,7 @@ const Order = new mongoose.Schema({
     },
 
     // variations
-    variations: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Variation'
-    }],
+    variations: [],
 
     fullName: {
         type: String,
