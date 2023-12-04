@@ -21,7 +21,7 @@ class User extends Category{
         const response = inputData.response;
 
         // add product to cart
-        const userId = response.locals.user._id;
+
         const productId = request.body['product-id'];
         const variationIndex = request.body['variation-index'];
         const quantity = request.body.quantity;
@@ -30,6 +30,7 @@ class User extends Category{
 
         // has product id
         if(productId){
+            const userId = response.locals.user._id;
 
             return {
                 userId: userId,
