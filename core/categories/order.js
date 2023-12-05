@@ -196,7 +196,7 @@ class Order extends Category{
                     description: data.description,
                     shippingFee: shippingFee,
 
-                    paymentMethod: data.payment,
+                    paymentMethod: data.paymentMethod,
                     couponCode: data.couponCode,
 
                     savedPrice: savedPrice,
