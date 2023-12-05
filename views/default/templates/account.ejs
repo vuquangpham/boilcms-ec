@@ -27,7 +27,7 @@ const deliverState = {
     <link rel="stylesheet" href="/themes/main-fe.css">
     <script src="/themes/main-fe.js" defer></script>
 </head>
-<body class="account">
+<body class="account-page">
 
 <%- include('../partials/header.ejs'); %>
 
@@ -36,27 +36,27 @@ const deliverState = {
         <h1>Quản lí tài khoản</h1>
     </div>
 
-    <div data-tab class="fl-grid margin-bottom-default">
-        <div class="w30">
+    <div data-tab class="account fl-grid margin-bottom-default">
+        <div class="w30 account-triggers">
 
-            <div>
+            <div class="account-trigger-item">
                 <button data-trigger="history">Lịch sử đơn hàng</button>
             </div>
 
-            <div>
+            <div class="account-trigger-item">
                 <button data-trigger="information">Thông tin tài khoản</button>
             </div>
 
-            <div>
+            <div class="account-trigger-item">
                 <button data-trigger="password">Thay đổi mật khẩu</button>
             </div>
 
-            <div>
+            <div class="account-trigger-item">
                 <button>Đăng xuất</button>
             </div>
         </div>
 
-        <div class="w70">
+        <div class="w70 account-receivers">
 
             <div data-receiver="history">
                 <div class="order-history">

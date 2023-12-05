@@ -1,5 +1,9 @@
-body.account {
+body.account-page {
   --image-width: 100px;
+
+  --trigger-width: 300px;
+  --receiver-width: calc(100% - var(--trigger-width));
+
   background: var(--color-gray);
 
   // site title
@@ -7,6 +11,72 @@ body.account {
     padding-top: 2rem;
     margin-bottom: 3rem;
   }
+
+  // triggers
+  .account-triggers {
+    width: var(--trigger-width);
+    padding-right: var(--gap-container);
+
+    // button
+    button {
+      width: 100%;
+      background: #fff;
+      border: none;
+      min-height: 5rem;
+      padding: .5rem 2rem;
+
+      font-size: 1.6rem;
+      text-align: left;
+
+      // active
+      &.active {
+        background: var(--color-secondary);
+        color: #fff;
+      }
+
+      // hover
+      &:hover:not(.active) {
+        background: rgba(34, 113, 177, 0.1);
+      }
+    }
+
+    & .account-trigger-item:not(:last-child) {
+      margin-bottom: 1.5rem;
+    }
+  }
+
+  // receivers
+  .account-receivers {
+    width: var(--receiver-width);
+  }
+
+
+  @include responsive('tablet-h') {
+    --trigger-width: 100%;
+    --receiver-width: 100%;
+
+    // triggers
+    .account-triggers {
+      margin-bottom: 3rem;
+      padding-right: 0;
+
+      display: flex;
+      gap: 1rem;
+
+      overflow: auto;
+
+      // button
+      button {
+        min-height: 4rem;
+        padding: .5rem 1rem;
+
+        white-space: nowrap;
+        font-size: 1.4rem;
+      }
+    }
+
+  }
+
 
   // item
   .order-history__item {

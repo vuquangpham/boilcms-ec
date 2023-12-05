@@ -1,4 +1,4 @@
-document.querySelectorAll('body.account').forEach(wrapper => {
+document.querySelectorAll('body.account-page').forEach(wrapper => {
     console.log(wrapper);
     // init tab
     Accordion.create({
