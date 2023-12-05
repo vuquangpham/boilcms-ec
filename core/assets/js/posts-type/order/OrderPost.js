@@ -23,9 +23,7 @@ export default class OrderPost{
             statusSelectInput: wrapper.querySelector('[data-select-status-value]'),
 
             // product list input
-            productImageInput: wrapper.querySelector('[data-product-image-item] img'),
-            productNameInput: wrapper.querySelector('[data-product-name-item]'),
-            productQuantityInput: wrapper.querySelector('[data-product-quantity-item]'),
+            productList: wrapper.querySelector('[data-products-item]'),
         };
 
         // vars
@@ -73,7 +71,7 @@ export default class OrderPost{
         this.elements.orderID.textContent = data.orderID;
         this.elements.usernameInput.value = data.fullName;
         this.elements.addressInput.value = data.address;
-        // this.elements.emailInput.textContent = data.user.email;
+
         this.elements.phoneInput.value = data.phoneNumber;
         this.elements.shippingFeeInput.value = data.shippingFee;
         this.elements.totalInput.value = data.totalPrice;
@@ -81,10 +79,22 @@ export default class OrderPost{
         this.elements.statusSelectInput.value = data.status;
         this.elements.paidSelectInput.value = data.isPaid ? 'paid' : 'unpaid'
 
+        // clear existing products before adding new ones
+        this.elements.productList.innerHTML = '';
+
         data.variations.forEach(product => {
-            this.elements.productImageInput.src = product.image.small
-            this.elements.productNameInput.textContent = product.productName;
-            this.elements.productQuantityInput.textContent = product.quantity;
+            const content = document.createElement('div')
+            content.innerHTML = `
+                <div class="products-item--product-image" data-column="ProductImage" data-product-image-item>
+                    <img alt="" src="${product.image.small}">
+                        </div>
+
+                <div class="products-item--product-name" data-column="ProductName" data-product-name-item>${product.productName}</div>
+
+                <div class="products-item--product-quantity" data-column="Quantity"
+                     data-product-quantity-item>${product.quantity}</div>
+            `
+            this.elements.productList.appendChild(content)
 
         })
     };
