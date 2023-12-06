@@ -10,6 +10,7 @@ const {restrictTo} = require("../../core/utils/middleware.utils");
 const CategoryController = require('../../core/classes/category/category-controller');
 
 const Action = require('../../core/classes/utils/action');
+const Method = require('../../core/classes/utils/method');
 
 // handle actions
 const {getParamsOnRequest} = require("../../core/utils/helper.utils");
@@ -18,7 +19,7 @@ const handlePostMethod = require('./POST');
 
 // handle upload action
 const upload = require('../../core/utils/upload.utils');
-const {ADMIN_URL} = require("../../core/utils/config.utils");
+const {ADMIN_URL, ROLES} = require("../../core/utils/config.utils");
 
 /**
  * Middleware for authenticate user
@@ -28,6 +29,7 @@ router.all('*', (request, response, next) => {
     const [type] = getParamsOnRequest(request, ['default']);
     const categoryItem = CategoryController.getCategoryItem(type);
     const hasJSON = response.locals.getJSON;
+    const method = response.locals.method;
 
     // queries
     const action = request.query.action;
@@ -48,12 +50,15 @@ router.all('*', (request, response, next) => {
     }
 
     // category that support permission without login
-    if(categoryItem.sendRequestWithoutLogin){
-        return next();
-    }
+    if(categoryItem.sendRequestWithoutLogin && method === Method.methods.POST) return next();
 
     // not have token
     if(!response.locals.token) return response.redirect('/' + REGISTER_URL);
+
+    // check roles, role = user => redirect to admin
+    // todo @vupham fix here now
+    const user = response.locals.user;
+    if(user.role === ROLES.USER.name && method === Method.methods.GET) return response.redirect('/');
 
     // do not have permission
     if(!restrictTo(response, ...categoryItem.acceptedRoles)){

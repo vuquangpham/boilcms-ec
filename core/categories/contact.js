@@ -1,13 +1,13 @@
-const Category = require('../classes/category/category')
+const Category = require('../classes/category/category');
 const Type = require("../classes/utils/type");
 const {replyCustomerMessageViaEmail} = require("../utils/email.utils");
 
 class Contact extends Category{
-    constructor(config) {
+    constructor(config){
         super(config);
     }
 
-    validateInputData(inputData) {
+    validateInputData(inputData){
         const request = inputData.request;
         const response = inputData.response;
 
@@ -22,22 +22,22 @@ class Contact extends Category{
             email,
             content,
             reply
-        }
+        };
     }
 
-    update(id, data) {
+    update(id, data){
         return new Promise((resolve, reject) => {
             try{
                 this.databaseModel.findOneAndUpdate({_id: id}, data)
                     .then(_ => {
                         replyCustomerMessageViaEmail(data)
-                            .then(data => console.log(data))
-                    })
-                resolve(this.databaseModel.findById(id))
+                            .then(data => console.log(data));
+                    });
+                resolve(this.databaseModel.findById(id));
             }catch(error){
-                reject(error)
+                reject(error);
             }
-        })
+        });
     }
 }
 
@@ -45,6 +45,7 @@ module.exports = new Contact({
     name: 'Contact',
     url: '/contact',
     type: 'contact',
-    order: 1,
+    order: 1000,
     contentType: Type.types.CONTACT,
-})
+    sendRequestWithoutLogin: true,
+});
