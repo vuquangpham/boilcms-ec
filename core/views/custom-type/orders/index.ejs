@@ -162,16 +162,7 @@ const formatPrice = (price) => new Intl.NumberFormat('vi-VN', {style: 'currency'
                 <div data-error-message class="fs-italic txt_14px txt_color_error hidden"></div>
 
                 <!-- product list -->
-                <div>
-                    <div class="products-list__heading" data-column-wrapper="heading">
-                        <div class="products-list--product-name" data-column="ProductName">Product Name</div>
-                        <div class="products-list--product-image" data-column="ProductImage">Product Image</div>
-                        <div class="products-list--product-quantity" data-column="Quantity">Quantity</div>
-                    </div>
-
-                    <div class="products-list__item" data-column-wrapper="item" data-products-item></div>
-
-                </div>
+                <div data-products-item></div>
 
                 <div class="footer">
                     <button class="btn_primary" type="button" data-order-update-btn>Save</button>

@@ -293,7 +293,7 @@ class Order extends Category{
                             let variationProduct = await ProductCategory.getDataById(variation.productId)
                             let variationMedia = await MediaCategory.getDataById(variationProduct.categoryImage)
                             variation.productName = variationProduct.name;
-                            variation.image = variationMedia.url
+                            variation.image = variationMedia
                         }
                     }
 

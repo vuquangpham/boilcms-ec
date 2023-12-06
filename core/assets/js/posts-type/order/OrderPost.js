@@ -87,14 +87,55 @@ export default class OrderPost{
         data.variations.forEach(product => {
             const content = document.createElement('div')
             content.innerHTML = `
-                <div class="products-item--product-name" data-column="ProductName" data-product-name-item>${product.productName}</div>
-                
-                <div class="products-item--product-image" data-column="ProductImage" data-product-image-item>
-                    <img alt="" src="${product.image.small}">
+                <div class="order-history__variation fl-grid">
+                    <div class="order-history__image ar-1 img-wrapper-contain skeleton-bg">
+                        <img src="${product.image.url.small}"
+                             alt="${product.image.name}">
+                    </div>
+
+                    <div class="order-history__product-content">
+
+                        <!-- product name -->
+                        <div class="order-history__product-name boil-content">
+                            <h4 class="heading-5">${product.productName}</h4>
                         </div>
 
-                <div class="products-item--product-quantity" data-column="Quantity"
-                     data-product-quantity-item>${product.quantity}</div>
+                        <!-- attributes -->
+                        ${product.selectedAttributes.length
+                            ? `<div class="order-history__attributes product-variation fl-grid txt_14px">
+                                            ${product.selectedAttributes.map(attr => `
+                                                <div class="variation">
+                                                    <span class="tt-capitalize">${attr.name}: <span class="fw-bold value">${attr.value}</span></span>
+                                                </div>
+                                            `).join('')}
+                                       </div>`
+                            : ''
+                        }
+                        
+
+                        <!-- price -->
+                        <div class="order-history__price">
+                                <div class="product-item__price fl-center-v jc-space-between">
+                                    <div>
+                                        ${product.salePrice
+                                    ? `<span class="price">${product.salePrice}</span>
+                                                           <span class="price price--with-stroke">${product.price}đ</span>
+                                                           <span class="sale-amount">-${parseInt(100 - (product.salePrice * 100) / product.price)}%</span>`
+                                    : `<span class="price">${product.price}đ</span>` }
+                                    </div>
+        
+                                    <div>
+                                        <span class="separator txt_14px">x</span>
+                                        <span>${product.quantity}</span>
+                                    </div>
+                                </div>
+        
+                                <div class="product-item__total-price d-flex jc-end">
+                                    <span style="font-weight: 600;">${product.price * product.quantity}đ</span>
+                                </div>
+                            </div>
+                            </div>
+                </div>
             `
             this.elements.productList.appendChild(content)
 
