@@ -4,7 +4,7 @@ class Component{
         this.name = name;
         this.title = title;
         this.description = description;
-        this.params = params;
+        this.params = params || [];
         this.order = config.order ?? 0;
         this.options = options;
     }
