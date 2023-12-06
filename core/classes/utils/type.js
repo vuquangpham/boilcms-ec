@@ -4,6 +4,7 @@ const MediaType = require('../../database/media/model');
 const UserType = require('../../database/user/model');
 const ProductType = require('../../database/product/model');
 const OrderType = require('../../database/order/model');
+const ContactType = require('../../database/contact/model');
 
 class Type{
     constructor(){
@@ -31,6 +32,10 @@ class Type{
             ORDERS: {
                 name: 'orders',
                 model: OrderType
+            },
+            CONTACT: {
+                name: 'contact',
+                model: ContactType
             },
             ACCOUNT: {
                 name: 'account',

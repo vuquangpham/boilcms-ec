@@ -15,6 +15,7 @@ import './posts-type/posts';
 import './posts-type/media';
 import './posts-type/user';
 import './posts-type/account';
+import './posts-type/contact';
 import './posts-type/product';
 import './posts-type/order';
 
