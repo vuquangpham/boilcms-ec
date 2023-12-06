@@ -1,6 +1,10 @@
 // product
 .product-item {
-  background: #fff;
+  // inner
+  &__inner {
+    background: #fff;
+    height: 100%;
+  }
 
   // image
   &__image {

@@ -37,13 +37,13 @@ const formatPrice = (price) => new Intl.NumberFormat('vi-VN', {style: 'currency'
 
         categories.forEach(category => { %>
 
-            <a class="category__item <%= category.active ? 'active' : ''; %>"
-               href="<%= category.url; %>"><%= category.prettyName; %></a>
+            <button data-category="<%= category.name %>"
+                    class="clear-button-style category__item <%= category.active ? 'active' : ''; %>"><%= category.prettyName; %></button>
 
         <% }) %>
     </div>
 
-    <div class="product-list flex-grid-template margin-bottom-default">
+    <div class="product-list flex-grid-template">
         <% if (data.productsData.products.length === 0) { %>
             <h1>No products</h1>
         <% } else { %>
