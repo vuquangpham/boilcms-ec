@@ -19,7 +19,21 @@
 <%- include('./partials/header.ejs'); %>
 
 <div class="container">
-    <%- content; %>
+
+    <% if (title !== 'Home') { %>
+
+        <div class="site-breadcrumbs margin-bottom-medium">
+            <a href="/">Home</a>
+            <span class="separator">/</span>
+            <span class="current"><%= data.title %></span>
+        </div>
+
+    <% } %>
+
+    <div class="site-content">
+        <%- content; %>
+    </div>
+
 </div>
 
 <%- include('./partials/footer.ejs'); %>
