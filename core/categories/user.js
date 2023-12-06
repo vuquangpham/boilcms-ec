@@ -419,13 +419,5 @@ module.exports = new User({
     type: 'user',
     contentType: Type.types.USER,
     order: 100,
-    children: [
-        {
-            name: 'Admin',
-            url: '?filter=admin'
-        }, {
-            name: 'User',
-            url: '?filter=user'
-        }
-    ],
+    children: [],
 });
