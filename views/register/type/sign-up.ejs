@@ -1,35 +1,41 @@
-<form method="post" action="?type=<%= type %>&method=post">
+<form method="post" action="?type=<%= type %>&method=post" data-form-submit>
 
     <div class="form-fields">
 
         <!-- username -->
-        <div class="field">
+        <div class="field vertical-layout">
             <label for="name">Username:</label>
-            <input id="name" type="text" name="name" placeholder="Name">
+            <input id="name" type="text" name="name" placeholder="Name" data-name-input>
+            <div class="description error">The name input must have value</div>
         </div>
 
         <!-- email -->
-        <div class="field">
+        <div class="field vertical-layout">
             <label for="email">Email:</label>
-            <input id="email" type="email" name="email" placeholder="Email" required>
+            <input id="email" type="email" name="email" placeholder="Email" data-email-input>
+            <div class="description error">The email is invalid</div>
         </div>
 
         <!-- password -->
-        <div class="field">
+        <div class="field vertical-layout">
             <label for="password">Password:</label>
-            <input id="password" type="password" name="password" placeholder="Password" required>
+            <input id="password" type="password" name="password" placeholder="Password" data-password-input>
+            <div class="description error">The password must contain at least 8 characters</div>
         </div>
 
         <!-- Confirm password -->
-        <div class="field">
+        <div class="field vertical-layout">
             <label for="confirm-password">Confirm:</label>
-            <input id="confirm-password" type="password" name="confirmPassword" placeholder="Confirm" required>
+            <input id="confirm-password" type="password" name="confirmPassword" placeholder="Confirm"
+                   data-confirm-password-input>
+            <div class="description error">Don't match with the password</div>
         </div>
 
         <!-- consent -->
-        <div class="field -checkbox-radio">
-            <input id="consent" type="checkbox" name="consent" required>
+        <div class="field -checkbox-radio vertical-layout">
+            <input id="consent" type="checkbox" name="consent" data-consent-input>
             <label for="consent">I agree to the Privacy policy!</label>
+            <div class="description error">You have to agree with our privacy</div>
         </div>
 
         <!-- Submit -->

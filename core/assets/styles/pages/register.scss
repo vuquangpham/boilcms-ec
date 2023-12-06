@@ -58,4 +58,9 @@ body.register {
       }
     }
   }
+
+  // form
+  .field:not(.invalid) .description {
+    display: none;
+  }
 }

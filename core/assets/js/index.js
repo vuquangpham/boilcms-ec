@@ -19,5 +19,8 @@ import './posts-type/contact';
 import './posts-type/product';
 import './posts-type/order';
 
+// pages
+import './pages/register';
+
 // init easy select
 EasySelect.init();

@@ -1,17 +1,19 @@
-<form method="post" action="?type=sign-in&method=post">
+<form method="post" action="?type=sign-in&method=post" data-form-submit>
 
     <div class="form-fields">
 
         <!-- email -->
-        <div class="field">
+        <div class="field vertical-layout">
             <label for="email">Email:</label>
-            <input id="email" type="email" name="email" placeholder="Email" required>
+            <input id="email" type="email" name="email" placeholder="Email" data-email-input>
+            <div class="description error">The email is invalid</div>
         </div>
 
         <!-- password -->
-        <div class="field">
+        <div class="field vertical-layout">
             <label for="password">Password:</label>
-            <input id="password" type="password" name="password" placeholder="Password" required>
+            <input id="password" type="password" name="password" placeholder="Password" data-password-input>
+            <div class="description error">The password must contain at least 8 characters</div>
         </div>
 
         <!-- Forgot password -->
