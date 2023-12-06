@@ -43,7 +43,7 @@ const Order = new mongoose.Schema({
     publishFormatted: String,
     status: {
         type: String,
-        default: 'Unconfirmed'
+        default: 'unconfirmed'
     },
     isPaid: {
         type: Boolean,
