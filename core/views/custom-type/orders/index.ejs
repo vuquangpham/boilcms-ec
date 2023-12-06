@@ -104,6 +104,10 @@ const formatPrice = (price) => new Intl.NumberFormat('vi-VN', {style: 'currency'
                            required placeholder="Address">
                 </div>
 
+                <div class="field vertical-layout">
+                    <label for="description">Description</label>
+                    <textarea type="text" data-description readonly id="description"></textarea>
+                </div>
 
                 <div class="field vertical-layout half">
                     <label for="shipping-fee">Shipping fee</label>
@@ -114,12 +118,6 @@ const formatPrice = (price) => new Intl.NumberFormat('vi-VN', {style: 'currency'
                     <label for="total">Total</label>
                     <input type="text" data-total readonly id="total">
                 </div>
-
-                <div class="field vertical-layout">
-                    <label for="description">Description</label>
-                    <textarea type="text" data-description readonly id="description"></textarea>
-                </div>
-
 
                 <div class="field third vertical-layout">
                     <label for="payment-method">Payment</label>
