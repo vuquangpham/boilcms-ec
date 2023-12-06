@@ -5,12 +5,15 @@ const isActiveItem = (category) => {
 
 // custom type
 const accountType = categories.find(c => c.type === 'account');
+
+// categories fit with the permissions
+const validateCategories = categories.filter(c => c.acceptedRoles.some(r => r === user.role))
 %>
 
 <div class="category__panel ps-fixed" data-toggle="sidebar">
     <div class="category__panel-inner overflow-auto h100 d-flex fd-column jc-space-between">
         <ul class="category__menu category__menu--top list-style-none">
-            <% categories.forEach(category => {
+            <% validateCategories.forEach(category => {
                 if(category.notShowInCategory) return; %>
 
             <% const isActive = isActiveItem(category); %>
