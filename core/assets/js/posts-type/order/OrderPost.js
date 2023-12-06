@@ -87,11 +87,11 @@ export default class OrderPost{
         data.variations.forEach(product => {
             const content = document.createElement('div')
             content.innerHTML = `
+                <div class="products-item--product-name" data-column="ProductName" data-product-name-item>${product.productName}</div>
+                
                 <div class="products-item--product-image" data-column="ProductImage" data-product-image-item>
                     <img alt="" src="${product.image.small}">
                         </div>
-
-                <div class="products-item--product-name" data-column="ProductName" data-product-name-item>${product.productName}</div>
 
                 <div class="products-item--product-quantity" data-column="Quantity"
                      data-product-quantity-item>${product.quantity}</div>

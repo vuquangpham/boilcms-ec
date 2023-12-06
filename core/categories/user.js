@@ -5,7 +5,6 @@ const {sendForgotPasswordEmail, validateEmail} = require("../utils/email.utils")
 const {getProtocolAndDomain, getProductViaVariation} = require("../utils/helper.utils");
 const {REGISTER_URL, RESET_PASSWORD_URL} = require("../utils/config.utils");
 const Variation = require("../database/product/variation.model");
-const ProductCategory = require('./product');
 
 class User extends Category{
     constructor(config){
