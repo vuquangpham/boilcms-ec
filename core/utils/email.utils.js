@@ -85,6 +85,24 @@ const sendForgotPasswordEmail = (information) => {
     });
 };
 
+const replyCustomerMessageViaEmail = (information) => {
+    const userName = information.name;
+    const email = {
+        body: {
+            name: userName,
+            intro: `About your question: ${information.content}`,
+            outro: `${information.reply}`
+        }
+    };
+
+    const content = mailGenerator.generate(email);
+    return sendEmail({
+        to: information.email,
+        subject: '[BoilCMS] About your request',
+        html: content
+    });
+}
+
 
 /**
  * Send validate email address
@@ -145,4 +163,4 @@ const validateEmail = async (user, result, request) => {
         });
 }
 
-module.exports = {sendEmail, sendForgotPasswordEmail, sendEmailValidation, validateEmail};
+module.exports = {sendEmail, sendForgotPasswordEmail, sendEmailValidation, validateEmail, replyCustomerMessageViaEmail};
