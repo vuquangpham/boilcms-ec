@@ -19,7 +19,6 @@ document.querySelectorAll('body.register').forEach(wrapper => {
     const inputs = form.querySelectorAll('[data-password-input], [data-name-input], [data-email-input], [data-confirm-password-input], [data-consent-input]');
 
     form.addEventListener('submit', (e) => {
-        e.preventDefault();
 
         let hasError = false;
         inputs.forEach(input => {
