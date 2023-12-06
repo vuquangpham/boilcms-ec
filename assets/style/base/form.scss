@@ -336,6 +336,11 @@ select {
     align-items: center;
     gap: .4rem;
 
+    // easy select
+    .easy-select {
+      width: 100%;
+    }
+
     // vertical layout
     &.vertical-layout {
       flex-direction: column;

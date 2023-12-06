@@ -117,46 +117,59 @@ if(isEditPost){
             </div>
 
             <div class="posts-detail__col posts-detail__col--right">
-                <div class="posts-detail__dropdown fl-center-v">
-                    <label for="visibility">Visibility</label>
-                    <select data-easy-select name="visibility" id="visibility">
-                        <option <%= isSelectedValue('visibility', 'public'); %> value="public">Public
-                        </option>
-                        <option <%= isSelectedValue('visibility', 'private'); %> value="private">Private
-                        </option>
-                    </select>
-                </div>
-                <% if (typeof templates !== "undefined" && templates.length) { %>
-                    <div class="posts-detail__dropdown fl-center-v">
-                        <label for="template">Template</label>
-                        <select data-easy-select name="template" id="template">
-                            <%-
-                                templates.map(template => {
-                                    const isSelected = isSelectedValue('template', template.name);
-                                    return `
-<option value="${template.name}" ${isSelected || ''}>${template.prettyName}</option>`;
-                                }).join('');
-                            %>
+
+                <div class="form-fields">
+
+                    <div class="field vertical-layout">
+                        <label for="visibility">Visibility</label>
+                        <select data-easy-select name="visibility" id="visibility">
+                            <option <%= isSelectedValue('visibility', 'public'); %> value="public">Public
+                            </option>
+                            <option <%= isSelectedValue('visibility', 'private'); %> value="private">Private
+                            </option>
                         </select>
                     </div>
-                <% } %>
-                <div class="fl-center-v">
-                    <label for="categories">Categories</label>
-                    <input type="text" id="categories" name="categories" placeholder="Categories">
+
+                    <% if (typeof templates !== "undefined" && templates.length) { %>
+                        <div class="field vertical-layout">
+
+                            <label for="template">Template</label>
+                            <select data-easy-select name="template" id="template">
+                                <%-
+                                    templates.map(template => {
+                                        const isSelected = isSelectedValue('template', template.name);
+                                        return `
+<option value="${template.name}" ${isSelected || ''}>${template.prettyName}</option>`;
+                                    }).join('');
+                                %>
+                            </select>
+                        </div>
+                    <% } %>
+
+                    <% if(allCategories.length > 0) { %>
+                        <div class="field vertical-layout">
+                            <label for="category-dropdown">Categories</label>
+                            <select data-easy-select name="availableCategories" id="category-dropdown">
+                                <option value="" selected hidden="">Choose here</option>
+                                <% allCategories.forEach(category => { %>
+                                    <option <%= isSelectedValue('categories', category.prettyName, 'prettyName') %>><%= category.prettyName %></option>
+                                <% }) %>
+                            </select>
+                            <div class="description">Select the available categories, or create the new one below</div>
+                        </div>
+                    <% } %>
+
+                    <div class="field vertical-layout">
+                        <label for="categories">New category</label>
+                        <input type="text" id="categories" name="categories" placeholder="Create new category">
+                    </div>
+
+                    <div class="footer">
+                        <button type="submit" class="btn_primary">Publish</button>
+                    </div>
+
                 </div>
 
-                <% if(allCategories.length > 0) { %>
-                    <div class="posts-detail__dropdown fl-center-v">
-                        <label for="category-dropdown">Categories</label>
-                        <select data-easy-select name="availableCategories" id="category-dropdown">
-                            <option value="" selected hidden="">Choose here</option>
-                            <% allCategories.forEach(category => { %>
-                            <option <%= isSelectedValue('categories', category.prettyName , 'prettyName')%>><%=category.prettyName%></option>
-                            <% }) %>
-                        </select>
-                    </div>
-                <% }%>
-                <button type="submit" class="btn_primary">Publish</button>
             </div>
         </div>
 
