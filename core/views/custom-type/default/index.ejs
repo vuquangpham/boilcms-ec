@@ -1,1 +1,21 @@
-<h4>Hello Dashboard</h4>
+<%
+const successOrdersInYear = data.ordersInYear.filter(o => o.status === 'success')
+        .map(o => {
+            const date = new Date(o.publish);
+            const month = date.getMonth() + 1;
+
+            return {
+                month,
+                totalPrice: o.totalPrice
+            }
+        })
+%>
+
+<div data-area-chart='<%= JSON.stringify(successOrdersInYear) %>'>
+    <div class="margin-bottom-small">
+        <h2>Doanh thu trong năm <%= new Date().getFullYear() %></h2>
+    </div>
+    <div data-chart style="height:20rem;">
+        <canvas id="myAreaChart"></canvas>
+    </div>
+</div>

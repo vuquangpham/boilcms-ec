@@ -21,6 +21,7 @@ import './posts-type/order';
 
 // pages
 import './pages/register';
+import './pages/default';
 
 // init easy select
 EasySelect.init();
