@@ -86,10 +86,12 @@ router.get('*', (request, response, next) => {
             if(categoryItem.templates && categoryItem.isCustomTemplate(result.template)){
                 // account template and not has user logged in => redirect 404
                 if(result.template === 'account' && !response.locals.user) return Promise.reject('404 page ne');
+
+                // account page
                 if(result.template === 'account') result.accountData = await AccountTemplate.getAccountData(response.locals.user);
 
                 // products template
-                if(result.template === 'products') result.products = await ProductsTemplate.getAllData();
+                if(result.template === 'products') result.productsData = await ProductsTemplate.getAllData();
 
                 // cart page but not login
                 if(result.template === 'cart' && !response.locals.user) return response.redirect('/' + REGISTER_URL);

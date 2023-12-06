@@ -24,46 +24,33 @@ const formatPrice = (price) => new Intl.NumberFormat('vi-VN', {style: 'currency'
 
 <div class="container-large">
     <div class="site-title">
-        <h1>All Products</h1>
+        <h1>Products Overview</h1>
     </div>
 
     <div class="category margin-bottom-default">
         <%
-        const categories = [
-            {
-                name: 'All',
-                url: '/products',
-                active: true
-            },
-            {
-                name: 'Headphones',
-                url: '/products'
-            },
-            {
-                name: 'Earphones',
-                url: '/products'
-            },
-            {
-                name: 'Airpods',
-                url: '/products'
-            }
-        ]
+        const categories = [{
+            name: 'all',
+            prettyName: 'All',
+            active: true
+        }, ...data.productsData.categories.filter(c => c.name !== 'uncategorized')];
 
         categories.forEach(category => { %>
 
             <a class="category__item <%= category.active ? 'active' : ''; %>"
-               href="<%= category.url; %>"><%= category.name; %></a>
+               href="<%= category.url; %>"><%= category.prettyName; %></a>
 
         <% }) %>
     </div>
 
     <div class="product-list flex-grid-template margin-bottom-default">
-        <% if (data.products.length === 0) { %>
+        <% if (data.productsData.products.length === 0) { %>
             <h1>No products</h1>
         <% } else { %>
-            <% data.products.forEach(product => { %>
+            <% data.productsData.products.forEach(product => { %>
 
-                    <a href="/<%= data.url + '/' + product.url; %>" class="product-item d-block td-none">
+                <a href="/<%= data.url + '/' + product.url; %>" class="product-item d-block td-none"
+                   data-product-category="<%= product.categories %>">
 
                     <div class="product-item__inner fd-column d-flex">
                         <div class="product-item__image img-wrapper-cover skeleton-bg">

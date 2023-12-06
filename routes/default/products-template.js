@@ -1,11 +1,12 @@
 const ProductsCategory = require('../../core/categories/product');
 const Media = require('../../core/categories/media');
-const {stringToSlug} = require("../../core/utils/helper.utils");
+const Categories = require('../../core/database/categories/model');
 
 const getPreviewProduct = async(product) => {
     const name = product.name;
     const description = product.description;
     const url = product.url;
+    const categories = product.categories.name;
     const categoryImage = await Media.getDataById(product.categoryImage);
 
     // type
@@ -18,6 +19,7 @@ const getPreviewProduct = async(product) => {
         description,
         url,
         categoryImage,
+        categories
     };
 
     // get price
@@ -60,20 +62,26 @@ const getPreviewProduct = async(product) => {
     return returnObject;
 };
 
-const getAllData = () => {
-    return new Promise((resolve, reject) => {
+const getAllData = async() => {
 
-        ProductsCategory.getAllData()
-            .then(data => {
-                const result = data.map(getPreviewProduct);
-                resolve(Promise.all(result));
-            })
-            .catch(err => {
-                console.log(err);
-                resolve([]);
-            });
+    try{
+        const categories = Categories.find({
+            type: 'products'
+        });
 
-    });
+        const allProducts = await ProductsCategory.databaseModel.find().populate('categories');
+        const previewProducts = allProducts.map(getPreviewProduct);
+
+        return {
+            products: await Promise.all(previewProducts),
+            categories: await categories
+        };
+    }catch(e){
+        return {
+            products: [],
+            categories: []
+        };
+    }
 };
 
 const getProductDetail = async(product) => {
