@@ -50,7 +50,7 @@ const formatPrice = (price) => new Intl.NumberFormat('vi-VN', {style: 'currency'
             <% data.productsData.products.forEach(product => { %>
 
                 <a href="/<%= data.url + '/' + product.url; %>" class="product-item d-block td-none"
-                   data-product-category="<%= product.categories %>">
+                   data-product-category="<%= product.categories.name %>">
 
                     <div class="product-item__inner fd-column d-flex">
                         <div class="product-item__image img-wrapper-cover skeleton-bg">

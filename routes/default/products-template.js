@@ -6,7 +6,7 @@ const getPreviewProduct = async(product) => {
     const name = product.name;
     const description = product.description;
     const url = product.url;
-    const categories = product.categories.name;
+    const categories = product.categories;
     const categoryImage = await Media.getDataById(product.categoryImage);
 
     // type
@@ -65,16 +65,15 @@ const getPreviewProduct = async(product) => {
 const getAllData = async() => {
 
     try{
-        const categories = Categories.find({
-            type: 'products'
-        });
-
         const allProducts = await ProductsCategory.databaseModel.find().populate('categories');
         const previewProducts = allProducts.map(getPreviewProduct);
 
+        const products = await Promise.all(previewProducts);
+        const categories = [...new Set(products.map(p => p.categories))];
+
         return {
-            products: await Promise.all(previewProducts),
-            categories: await categories
+            products,
+            categories
         };
     }catch(e){
         return {
