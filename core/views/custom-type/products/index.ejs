@@ -9,8 +9,6 @@
         <div class="products-list__inner">
             <div class="products-list__heading" data-column-wrapper="heading">
                 <div class="products__list--name" data-column="Name">Name</div>
-                <div class="products__list--inventory" data-column="Inventory">Inventory</div>
-                <div class="products__list--price" data-column="Price">Price</div>
                 <div class="products__list--categories" data-column="Categories">Categories</div>
                 <div class="products-list--visibility" data-column="Visibility">Visibility</div>
                 <div class="products__list--published-time" data-column="Published Time">Published Time</div>
@@ -35,10 +33,6 @@
                         </div>
                     </div>
 
-                    <div class="products__item--inventory"
-                         data-column="Inventory"><%= product.inventory %></div>
-                    <div class="products__item--price"
-                         data-column="Price"><%= product.price %></div>
                     <div class="products__item--categories" data-column="Categories"><%= product.categories ? product.categories.prettyName : 'Uncategorized'%></div>
                     <div class="products__item--visibility" data-title="Visibility"
                          data-column="Visibility"><%= product.visibility === 'private' ? 'Private' : 'Published'; %></div>
