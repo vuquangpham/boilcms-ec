@@ -1,3 +1,5 @@
+import fetch from "../../../../../assets/js/fetch";
+
 export default class ContactPost{
     constructor(wrapper) {
         this.wrapper = wrapper
@@ -6,6 +8,10 @@ export default class ContactPost{
             // form
             popupForm: wrapper.querySelector('[data-order-form]'),
 
+            // input
+            nameInput: wrapper.querySelector('[data-name]'),
+            emailInput: wrapper.querySelector('[data-email]'),
+            contentInput: wrapper.querySelector('[data-content]')
         };
 
         // vars
@@ -22,24 +28,18 @@ export default class ContactPost{
 
             onPopupContentClick: (self) => {
                 const eventTarget = self.event.target;
-
-                let functionHandling = () => {
-                };
-                let target = null;
-
-                const saveContactBtnEl = eventTarget.closest('button[data-contact-update-btn]');
-
-                if(saveContactBtnEl) {
-                    functionHandling = this.handleSaveOrder.bind(this);
-                    target = saveContactBtnEl;
-
-                    // call the function
-                    functionHandling(target);
-                }
             }
 
         })
 
+    }
+
+    replaceContactForm(data){
+        this.elements.nameInput.value = data.name;
+        this.elements.emailInput.value = data.email;
+        this.elements.contentInput.textContent = data.content;
+        console.log(this.elements.nameInput)
+        console.log(data.name, data.email, data.content)
     }
 
     /**
@@ -51,6 +51,7 @@ export default class ContactPost{
 
         const formEl = target.closest('[data-contact-item]');
         const id = formEl.getAttribute('data-id');
+        console.log('id: ', id)
 
         // get detail media
         // method: get, action on page edit to get detail page
@@ -62,7 +63,8 @@ export default class ContactPost{
         })
             .then(res => res.json())
             .then(result => {
-                // this.replaceOrder(result.data)
+                console.log('result in js: ', result.data)
+                this.replaceContactForm(result.data)
             })
 
             // catch the error

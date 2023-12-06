@@ -1,4 +1,4 @@
-<div data-custom-title xmlns="http://www.w3.org/1999/html">
+<div data-custom-title>
     <span><%= title; %></span>
 </div>
 
@@ -23,13 +23,13 @@
                 <div class="contact__item--name fw-bold" data-column="Name" data-name-item>
                     <%= contact.name; %></div>
 
-                <div class="contact__item--email" data-column="Email" data-username-item>
+                <div class="contact__item--email" data-column="Email" data-email-item>
                     <div><%= contact.email %></div>
                 </div>
 
                 <div class="contact__item--content "
                      data-column="Content" data-content-item
-                     style="font-weight:600;">
+                     style="font-weight:600;"><%= contact.content%>
                 </div>
 
                 <div class="users__item--action fl-center-v" style="gap:.8rem" data-column="Action">
@@ -68,20 +68,20 @@
 
                 <div class="field vertical-layout half">
                     <label for="name">Name</label>
-                    <input type="text" id="name" name="name" data-name
+                    <input type="text" id="name" name="name" data-name readonly
                            required placeholder="Name">
                 </div>
 
                 <div class="field vertical-layout half">
                     <label for="email">Email</label>
-                    <input type="text" id="email" name="email" data-email required
+                    <input type="text" id="email" name="email" data-email readonly
                            placeholder="Email">
                 </div>
 
 
                 <div class="field vertical-layout">
-                    <label for="description">Description</label>
-                    <textarea type="text" data-description readonly id="description"></textarea>
+                    <label for="content">Content</label>
+                    <textarea type="text" data-content readonly id="content"></textarea>
                 </div>
 
                 <div class="footer">
