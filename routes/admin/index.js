@@ -11,6 +11,7 @@ const CategoryController = require('../../core/classes/category/category-control
 
 const Action = require('../../core/classes/utils/action');
 const Method = require('../../core/classes/utils/method');
+const Types = require('../../core/classes/utils/type');
 
 // handle actions
 const {getParamsOnRequest} = require("../../core/utils/helper.utils");
@@ -58,6 +59,11 @@ router.all('*', (request, response, next) => {
     // check roles, role = user => redirect to admin
     // todo @vupham fix here now
     const user = response.locals.user;
+
+    // order type, exception
+    if(user.role === ROLES.USER.name && method === Method.methods.GET && categoryItem.contentType === Types.types.ORDERS) return next();
+
+    // not order type
     if(user.role === ROLES.USER.name && method === Method.methods.GET) return response.redirect('/');
 
     // do not have permission
