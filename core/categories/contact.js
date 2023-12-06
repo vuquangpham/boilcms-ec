@@ -1,6 +1,7 @@
 const Category = require('../classes/category/category');
 const Type = require("../classes/utils/type");
 const {replyCustomerMessageViaEmail} = require("../utils/email.utils");
+const {ROLES} = require("../utils/config.utils");
 
 class Contact extends Category{
     constructor(config){
