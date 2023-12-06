@@ -16,6 +16,7 @@ export default class OrderPost{
             phoneInput: wrapper.querySelector('[data-phone]'),
             shippingFeeInput: wrapper.querySelector('[data-shipping-fee]'),
             totalInput: wrapper.querySelector('[data-total]'),
+            descriptionInput: wrapper.querySelector('[data-description]'),
 
             // select input
             paymentSelectInput: wrapper.querySelector('[data-select-payment-value]'),
@@ -75,6 +76,7 @@ export default class OrderPost{
         this.elements.phoneInput.value = data.phoneNumber;
         this.elements.shippingFeeInput.value = data.shippingFee;
         this.elements.totalInput.value = data.totalPrice;
+        this.elements.descriptionInput.value = data.description;
         this.elements.paymentSelectInput.value = data.paymentMethod;
         this.elements.statusSelectInput.value = data.status;
         this.elements.paidSelectInput.value = data.isPaid ? 'paid' : 'unpaid'
