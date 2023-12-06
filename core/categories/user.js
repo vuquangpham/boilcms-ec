@@ -196,6 +196,12 @@ class User extends Category{
                 user.resetPasswordToken = undefined;
                 user.resetPasswordTokenExpired = undefined;
 
+                // set notification
+                request.app.set('notification', {
+                    type: 'success',
+                    message: "Your password has been updated. Please login with the new password again!"
+                });
+
                 await user.save();
 
                 resolve();
