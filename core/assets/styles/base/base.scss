@@ -129,3 +129,30 @@
     font-weight: 700;
   }
 }
+
+// price
+.product-item__price {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .8rem;
+
+  // sale price
+  .price {
+    font-weight: 600;
+
+    // with stroke
+    &--with-stroke {
+      text-decoration: line-through;
+
+      font-weight: 400;
+      font-style: italic;
+      color: #adb5bd;
+    }
+  }
+
+  // sale amount
+  .sale-amount {
+    font-weight: 600;
+    color: red;
+  }
+}

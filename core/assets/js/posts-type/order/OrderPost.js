@@ -1,8 +1,10 @@
 import fetch from "../../../../../assets/js/fetch";
 
+const formatPrice = (price) => new Intl.NumberFormat('vi-VN', {style: 'currency', currency: 'VND'}).format(price);
+
 export default class OrderPost{
-    constructor(wrapper) {
-        this.wrapper = wrapper
+    constructor(wrapper){
+        this.wrapper = wrapper;
 
         this.elements = {
             // form
@@ -48,7 +50,7 @@ export default class OrderPost{
 
                 const saveOrderBtnEl = eventTarget.closest('button[data-order-update-btn]');
 
-                if(saveOrderBtnEl) {
+                if(saveOrderBtnEl){
                     functionHandling = this.handleSaveOrder.bind(this);
                     target = saveOrderBtnEl;
 
@@ -57,7 +59,7 @@ export default class OrderPost{
                 }
             }
 
-        })
+        });
 
     }
 
@@ -74,18 +76,21 @@ export default class OrderPost{
         this.elements.addressInput.value = data.address;
 
         this.elements.phoneInput.value = data.phoneNumber;
-        this.elements.shippingFeeInput.value = data.shippingFee;
-        this.elements.totalInput.value = data.totalPrice;
+
+        this.elements.shippingFeeInput.value = formatPrice(data.shippingFee);
+        this.elements.totalInput.value = formatPrice(data.totalPrice);
+
         this.elements.descriptionInput.value = data.description;
         this.elements.paymentSelectInput.value = data.paymentMethod;
         this.elements.statusSelectInput.value = data.status;
-        this.elements.paidSelectInput.value = data.isPaid ? 'paid' : 'unpaid'
+        this.elements.paidSelectInput.value = data.isPaid ? 'paid' : 'unpaid';
 
         // clear existing products before adding new ones
         this.elements.productList.innerHTML = '';
 
         data.variations.forEach(product => {
-            const content = document.createElement('div')
+            const content = document.createElement('div');
+            const price = product.salePrice ?? product.price;
             content.innerHTML = `
                 <div class="order-history__variation fl-grid">
                     <div class="order-history__image ar-1 img-wrapper-contain skeleton-bg">
@@ -102,15 +107,15 @@ export default class OrderPost{
 
                         <!-- attributes -->
                         ${product.selectedAttributes.length
-                            ? `<div class="order-history__attributes product-variation fl-grid txt_14px">
+                ? `<div class="order-history__attributes product-variation fl-grid txt_14px">
                                             ${product.selectedAttributes.map(attr => `
                                                 <div class="variation">
                                                     <span class="tt-capitalize">${attr.name}: <span class="fw-bold value">${attr.value}</span></span>
                                                 </div>
                                             `).join('')}
                                        </div>`
-                            : ''
-                        }
+                : ''
+            }
                         
 
                         <!-- price -->
@@ -118,10 +123,9 @@ export default class OrderPost{
                                 <div class="product-item__price fl-center-v jc-space-between">
                                     <div>
                                         ${product.salePrice
-                                    ? `<span class="price">${product.salePrice}</span>
-                                                           <span class="price price--with-stroke">${product.price}đ</span>
-                                                           <span class="sale-amount">-${parseInt(100 - (product.salePrice * 100) / product.price)}%</span>`
-                                    : `<span class="price">${product.price}đ</span>` }
+                ? `<span class="price">${formatPrice(product.salePrice)}</span>
+                                                           <span class="price price--with-stroke">${formatPrice(product.price)}</span>`
+                : `<span class="price">${formatPrice(product.price)}</span>`}
                                     </div>
         
                                     <div>
@@ -131,15 +135,15 @@ export default class OrderPost{
                                 </div>
         
                                 <div class="product-item__total-price d-flex jc-end">
-                                    <span style="font-weight: 600;">${product.price * product.quantity}đ</span>
+                                    <span style="font-weight: 600;">${formatPrice(price * product.quantity)}</span>
                                 </div>
                             </div>
                             </div>
                 </div>
-            `
-            this.elements.productList.appendChild(content)
+            `;
+            this.elements.productList.appendChild(content);
 
-        })
+        });
     };
 
     /**
@@ -147,7 +151,7 @@ export default class OrderPost{
      * */
     showSingleOrder(target){
         // open popup
-        this.editOrderPopup.open()
+        this.editOrderPopup.open();
 
         const formEl = target.closest('[data-order-item]');
         const id = formEl.getAttribute('data-id');
@@ -162,7 +166,7 @@ export default class OrderPost{
         })
             .then(res => res.json())
             .then(result => {
-                this.replaceOrder(result.data)
+                this.replaceOrder(result.data);
             })
 
             // catch the error

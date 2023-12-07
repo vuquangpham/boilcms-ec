@@ -86,6 +86,12 @@ const formatPrice = (price) => new Intl.NumberFormat('vi-VN', {style: 'currency'
 
             <div class="form-fields">
 
+                <!-- product list -->
+                <div class="field vertical-layout">
+                    <label>Products</label>
+                    <div data-products-item class="w100"></div>
+                </div>
+
                 <div class="field vertical-layout half">
                     <label for="username">Username</label>
                     <input type="text" id="username" name="username" data-username
@@ -158,11 +164,6 @@ const formatPrice = (price) => new Intl.NumberFormat('vi-VN', {style: 'currency'
                         </option>
                     </select>
                 </div>
-
-                <div data-error-message class="fs-italic txt_14px txt_color_error hidden"></div>
-
-                <!-- product list -->
-                <div data-products-item></div>
 
                 <div class="footer">
                     <button class="btn_primary" type="button" data-order-update-btn>Save</button>
