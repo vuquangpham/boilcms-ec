@@ -99,6 +99,10 @@ const formatPrice = (price) => new Intl.NumberFormat('vi-VN', {style: 'currency'
                         <div class="-checkbox-radio">
                             <input type="radio" name="payment" value="momo" id="momo">
                             <label for="momo">Momo</label>
+                            <div style="padding:1rem 1rem 1rem 1.5rem;">
+                                <p style="margin-bottom:1rem;">Quét mã QR Code bên dưới để tiến hành thanh toán</p>
+                                <img style="width:200px;" src="/themes/momo-qr.jpg" alt="Zalopay QR Code">
+                            </div>
                         </div>
                     </div>
 
@@ -106,13 +110,10 @@ const formatPrice = (price) => new Intl.NumberFormat('vi-VN', {style: 'currency'
                         <div class="-checkbox-radio">
                             <input type="radio" name="payment" value="momo" id="zalopay">
                             <label for="zalopay">Zalo Pay</label>
-                        </div>
-                    </div>
-
-                    <div>
-                        <div class="-checkbox-radio">
-                            <input type="radio" name="payment" value="momo" id="vnpay">
-                            <label for="vnpay">VN Pay</label>
+                            <div style="padding:1rem 1rem 1rem 1.5rem;">
+                                <p style="margin-bottom:1rem;">Quét mã QR Code bên dưới để tiến hành thanh toán</p>
+                                <img style="width:200px;" src="/themes/zalopay-qr.jpg" alt="Zalopay QR Code">
+                            </div>
                         </div>
                     </div>
 

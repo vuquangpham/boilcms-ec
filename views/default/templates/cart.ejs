@@ -46,7 +46,7 @@ const formatPrice = (price) => new Intl.NumberFormat('vi-VN', {style: 'currency'
         </div>
 
         <% if (data.cart.length === 0) { %>
-            <h2>No items</h2>
+            <h2 style="margin-top:2rem; font-size:1.8rem;">No items</h2>
         <% } else { %>
 
             <% data.cart.forEach(cartItem => { %>
