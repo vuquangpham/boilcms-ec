@@ -212,7 +212,10 @@ export default class VariableProduct extends Product{
 
             // validate
             const isValidated = Attributes.validateAttribute(wrapper, true);
-            if(!isValidated) return;
+            if(!isValidated){
+                this.removeLoading();
+                return;
+            }
 
             // save to the attribute
             const objectInStr = JSON.stringify(isValidated);
@@ -286,7 +289,10 @@ export default class VariableProduct extends Product{
 
             // validate
             const isValidated = Variations.validateVariation([], wrapper, false);
-            if(!isValidated) return;
+            if(!isValidated){
+                this.removeLoading();
+                return;
+            }
 
             // save
             this.save();
