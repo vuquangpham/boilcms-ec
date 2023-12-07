@@ -114,6 +114,11 @@ ul.menu {
         color: var(--color-secondary);
       }
     }
+
+    &.active a {
+      color: var(--color-secondary);
+      font-weight: 600;
+    }
   }
 }
 

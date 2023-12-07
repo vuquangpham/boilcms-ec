@@ -20,7 +20,6 @@ document.querySelectorAll('body.account-page').forEach(wrapper => {
     };
     const fetchURL = form.getAttribute('action');
 
-    console.log('form', form);
     // update password
     form.addEventListener('submit', (e) => {
         e.preventDefault();
@@ -50,7 +49,19 @@ document.querySelectorAll('body.account-page').forEach(wrapper => {
                     return;
                 }
 
-                elements.errorMessage.innerHTML = 'The password has been updated';
+                // success
+                const instance = Popup.create({
+                    target: document.createElement('div'),
+                    popupContent: 'The password has been updated',
+                    onAfterInit: (self) => {
+                        setTimeout(_ => {
+                            self.open();
+                        }, 100);
+                    },
+                    onAfterClose: (self) => {
+                        location.reload();
+                    }
+                });
             })
             .catch(err => {
                 console.log(err);

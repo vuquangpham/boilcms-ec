@@ -38,8 +38,11 @@ const menuItems = [
                 <div class="hidden-tablet-h">
                     <ul class="menu">
                         <% menuItems.forEach(item => { %>
-                            <% const hasChildrenMenu = item.menu.length > 0; %>
-                            <li class="menu-item <%= hasChildrenMenu ? 'has-children' : ''; %>">
+                            <%
+                                const hasChildrenMenu = item.menu.length > 0;
+                                const isActive = item.name === title;
+                            %>
+                            <li class="menu-item <%= isActive ? 'active' : '' %> <%= hasChildrenMenu ? 'has-children' : ''; %>">
                                 <a href="<%= item.url %>"><%= item.name %></a>
                                 <% if (hasChildrenMenu) { %>
                                     <ul class="menu">

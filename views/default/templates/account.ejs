@@ -280,8 +280,9 @@ const deliverState = {
                     <h2 class="heading-3">Thay đổi mật khẩu</h2>
                 </div>
 
-                <form method="post" action="#" data-popup-content="change-password-popup" data-account-form
-                      data-id="<%= data._id; %>">
+                <form method="post" data-form-update-password
+                      action="/<%= adminPath %>/user"
+                      data-id="<%= user._id; %>">
 
                     <div class="form-fields">
 
@@ -306,7 +307,7 @@ const deliverState = {
                         <div data-error-message class="fs-italic txt_14px txt_color_error hidden"></div>
 
                         <div class="footer">
-                            <button class="btn_primary" type="button" data-account-password-update-btn>Save</button>
+                            <button class="btn_primary">Save</button>
                         </div>
 
                     </div>
