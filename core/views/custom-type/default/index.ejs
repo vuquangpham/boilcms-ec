@@ -53,11 +53,13 @@ const numberOfUnsuccessfulOrdersThisYear = unsuccessfulOrdersInYear.filter(order
     </div>
 </div>
 
-<div data-area-chart='<%= JSON.stringify(successOrdersInYear) %>'>
-    <div class="margin-bottom-small boil-content">
-        <h2 class="heading-3">Revenue Chart in <%= currentYear %></h2>
-    </div>
-    <div data-chart style="height:20rem;">
-        <canvas id="myAreaChart"></canvas>
+<div class="chart-section">
+    <div data-area-chart='<%= JSON.stringify(successOrdersInYear) %>'>
+        <div class="margin-bottom-small boil-content">
+            <h2 class="heading-3">Revenue Chart in <%= currentYear %></h2>
+        </div>
+        <div data-chart style="height:20rem;">
+            <canvas id="myAreaChart"></canvas>
+        </div>
     </div>
 </div>
