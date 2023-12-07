@@ -112,3 +112,20 @@
     min-width: unset;
   }
 }
+
+.revenue__box {
+  background: #fff;
+  padding: 3rem 4rem;
+
+  // heading
+  p {
+    font-size: 2rem;
+    font-weight: 600;
+
+    color: var(--color-secondary);
+  }
+
+  span {
+    font-weight: 700;
+  }
+}

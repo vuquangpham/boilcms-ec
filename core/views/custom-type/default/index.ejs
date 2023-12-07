@@ -1,4 +1,6 @@
 <%
+const formatPrice = (price) => new Intl.NumberFormat('vi-VN', {style: 'currency', currency: 'VND'}).format(price);
+
 const successOrdersInYear = data.ordersInYear.filter(o => o.status === 'success')
         .map(o => {
             const date = new Date(o.publish);
@@ -28,35 +30,34 @@ const numberOfUnsuccessfulOrdersThisYear = unsuccessfulOrdersInYear.filter(order
     const orderYear = new Date(order.publish).getFullYear();
     return orderYear === currentYear;
 }).length;
-
 %>
 
+<div data-custom-title>
+    <span>Dashboard</span>
+</div>
+
+<div class="revenue margin-bottom-medium flex-grid-template">
+    <div class="revenue__box revenue__month">
+        <p class="tt-uppercase">Earnings (monthly)</p>
+        <span><%= formatPrice(revenueThisMonth) %></span>
+    </div>
+
+    <div class="revenue__box revenue__year">
+        <p class="tt-uppercase">Earnings (annual)</p>
+        <span><%= formatPrice(revenueThisYear) %></span>
+    </div>
+
+    <div class="revenue__box revenue__pending">
+        <p class="tt-uppercase">Pending requests</p>
+        <span><%= numberOfUnsuccessfulOrdersThisYear %></span>
+    </div>
+</div>
+
 <div data-area-chart='<%= JSON.stringify(successOrdersInYear) %>'>
-    <div class="margin-bottom-small">
-        <h2>Doanh thu trong năm <%= currentYear %></h2>
+    <div class="margin-bottom-small boil-content">
+        <h2 class="heading-3">Revenue Chart in <%= currentYear %></h2>
     </div>
     <div data-chart style="height:20rem;">
         <canvas id="myAreaChart"></canvas>
-    </div>
-
-    <div>
-        <h2>Chi tiết kinh doanh tháng <%= currentMonth %>, năm <%= currentYear %></h2>
-    </div>
-
-    <div>
-        <div>
-            <h3>Doanh thu (tháng <%= currentMonth %>)</h3>
-            <p><%= revenueThisMonth %></p>
-        </div>
-
-        <div>
-            <h3>Doanh thu (năm <%= currentYear %>)</h3>
-            <p><%= revenueThisYear %></p>
-        </div>
-
-        <div>
-            <h3>Số đơn hàng không thành công (năm <%= currentYear %>)</h3>
-            <p><%= numberOfUnsuccessfulOrdersThisYear  %></p>
-        </div>
     </div>
 </div>
