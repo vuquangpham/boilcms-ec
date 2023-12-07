@@ -13,7 +13,7 @@ class Contact extends Category{
         const response = inputData.response;
 
         // input
-        const name = request.body.name;
+        const name = request.body.username;
         const email = request.body.email;
         const content = request.body.content;
         const reply = request.body.reply;

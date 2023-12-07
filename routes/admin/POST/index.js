@@ -56,6 +56,16 @@ const handlePostMethod = async(request, response, next) => {
             switch(action.name){
                 case 'add' :{
 
+                    // contact type
+                    if(categoryItem.contentType === Type.types.CONTACT){
+                        URL = '/' + categoryItem.type;
+                        // set notification
+                        request.app.set('notification', {
+                            message: 'Chúng tôi đã nhận được phản hồi từ bạn. Vui lòng đợi.'
+                        });
+                        break;
+                    }
+
                     // media type
                     if(categoryItem.contentType === Type.types.MEDIA || categoryItem.contentType === Type.types.USER){
                         URL = categoryItem.url;

@@ -61,6 +61,12 @@ router.get('*', (request, response, next) => {
     const hasPageBuilderContent = categoryItem && promise && categoryItem.contentType === Type.types.POSTS;
     if(hasPageBuilderContent) promise.populate('content');
 
+    // error message
+    const notification = request.app.get('notification');
+
+    // clear the notification after showing
+    if(notification) request.app.set('notification', undefined);
+
     // solve promise
     promise
         .then(async(result) => {
@@ -132,6 +138,7 @@ router.get('*', (request, response, next) => {
                     data: result,
                     content: DOMPurify.sanitize(html),
                     title,
+                    notification,
                 });
             }
 

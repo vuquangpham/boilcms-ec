@@ -34,6 +34,34 @@
         <%- content; %>
     </div>
 
+        <%
+        // flag
+        const hasNotification = !!notification;
+        // has message
+        const notificationMessage = hasNotification && notification.message;
+        %>
+
+        <% if (hasNotification) { %>
+
+            <div data-popup-content="notification"><%= notificationMessage %></div>
+
+            <script defer>
+                window.addEventListener('load', () => {
+                    // create POPUP
+                    Popup.create({
+                        target: document.createElement('div'),
+                        popupContent: document.querySelector('[data-popup-content="notification"]'),
+                        onAfterInit: (self) => {
+                            setTimeout(() => {
+                                self.open();
+                            }, 50);
+                        },
+                        onAfterClose: (self) => self.destroy()
+                    });
+                });
+            </script>
+        <% } %>
+
 </div>
 
 <%- include('./partials/footer.ejs'); %>

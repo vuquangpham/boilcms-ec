@@ -1,5 +1,6 @@
 const ComponentController = require('../../classes/component/component-controller');
 const Component = require('../../classes/component/component');
+const {ADMIN_URL} = require("../../utils/config.utils");
 
 class Form extends Component{
     constructor(){
@@ -45,11 +46,11 @@ class Form extends Component{
 
     <div class="form__content boil-content ta-center margin-bottom-medium">${content}</div>
 
-    <form action="" class="form__form">
+    <form action="/${ADMIN_URL}/contact?method=post&action=add" method="post" class="form__form">
         <div class="form-fields">
             <div class="field vertical-layout half">
-                <label for="name">Name</label>
-                <input type="text" id="name" placeholder="Name" name="name">
+                <label for="user-name">Name</label>
+                <input type="text" id="user-name" placeholder="Name" name="username">
             </div>
             <div class="field vertical-layout half">
                 <label for="email">Email</label>
