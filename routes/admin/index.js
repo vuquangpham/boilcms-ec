@@ -56,8 +56,14 @@ router.all('*', (request, response, next) => {
     // not have token
     if(!response.locals.token) return response.redirect('/' + REGISTER_URL);
 
+    // have token but account admin have been deleted
+    if(response.locals.token && !response.locals.user) {
+        sendEmptyToken(response);
+        return response.redirect(`/${REGISTER_URL}`);
+    }
+
     // check roles, role = user => redirect to admin
-    // todo @vupham fix here now
+    // todo @vupham fix here now, @vupham you fix it too slow
     const user = response.locals.user;
 
     // order type, exception
