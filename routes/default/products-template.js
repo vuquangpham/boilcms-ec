@@ -42,6 +42,7 @@ const getPreviewProduct = async(product) => {
 
             // get the first variation that has inventory
             const variation = variations.find(v => v.inventory > 0);
+            if(!variation) return undefined;
 
             // vars
             const price = variation.price;
@@ -69,13 +70,15 @@ const getAllData = async() => {
         const previewProducts = allProducts.map(getPreviewProduct);
 
         const products = await Promise.all(previewProducts);
-        const categories = [...new Set(products.map(p => p.categories))];
+        const filteredProducts = products.filter(p => !!p);
+        const categories = [...new Set(filteredProducts.map(p => p.categories))];
 
         return {
-            products,
+            products: filteredProducts,
             categories
         };
     }catch(e){
+        console.log(e);
         return {
             products: [],
             categories: []
