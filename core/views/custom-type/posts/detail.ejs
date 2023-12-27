@@ -1,4 +1,7 @@
 <%
+// has all categories
+const hasCategories = typeof allCategories !== 'undefined';
+
 // boolean for checking edit or add new post
 const isEditPost = actionType === 'edit';
 
@@ -146,7 +149,7 @@ if(isEditPost){
                         </div>
                     <% } %>
 
-                    <% if(allCategories.length > 0) { %>
+                    <% if(hasCategories && allCategories.length > 0) { %>
                         <div class="field vertical-layout">
                             <label for="category-dropdown">Categories</label>
                             <select data-easy-select name="availableCategories" id="category-dropdown">
