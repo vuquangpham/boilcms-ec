@@ -1,5 +1,4 @@
 /node_modules
 /package-lock.json
 /.idea
-/public/themes/
 /**/.DS_STORE
