@@ -10,7 +10,8 @@
     "frontend:build": "cross-env DEV_MODE=false webpack --config ./configs/webpack.config.build.js",
     "frontend:development": "cross-env DEV_MODE=true webpack serve --config ./configs/webpack.config.dev.js",
     "start": "concurrently --kill-others \"npm run backend:development\" \"npm run frontend:development\"",
-    "build": "npm run frontend:build && npm run backend:build"
+    "build": "npm run frontend:build && npm run backend:build",
+    "build:vercel": "npm run backend:build"
   },
   "repository": {
     "type": "git",
