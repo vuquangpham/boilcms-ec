@@ -1,18 +1,18 @@
 /**
 * Mixin to responsive depend on each breakpoints
 */
-@mixin responsive($breakpoint, $min-width:false) {
+@mixin responsive($breakpoint, $min-width: false) {
   @if (type-of($min-width) == string) {
-    @media only screen and (max-width: map-get($breakpoints, $breakpoint)) and (min-width: map-get($breakpoints, $min-width) + 1px) {
-      @content
-    };
+    @media only screen and (max-width: map-get($breakpoints, $breakpoint)) and (min-width: calc(map-get($breakpoints, $min-width) + 1px)) {
+      @content;
+    }
   } @else if $min-width == true {
-    @media only screen and (min-width: map-get($breakpoints, $breakpoint) + 1px) {
-      @content
-    };
+    @media only screen and (min-width: calc( map-get($breakpoints, $breakpoint) + 1px)) {
+      @content;
+    }
   } @else if ($min-width== false) {
     @media only screen and (max-width: map-get($breakpoints, $breakpoint)) {
-      @content
-    };
+      @content;
+    }
   }
 }
